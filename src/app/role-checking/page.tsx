@@ -6,7 +6,7 @@ import React, { useEffect } from 'react';
 
 const CheckRole = () => {
   const router = useRouter();
-  const role = ROLES.ADMIN;
+  const role = ROLES.SUPER_ADMIN;
 
   useEffect(() => {
     if (role === ROLES.SUPER_ADMIN) {
