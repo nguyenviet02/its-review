@@ -1,10 +1,11 @@
 'use client';
 
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/react';
-import { Bars3Icon, MagnifyingGlassIcon, BellIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, MagnifyingGlassIcon, BellIcon, ChevronDownIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 
-import Avatar from '@/assets/icons/globe.svg';
+import AvatarDefault from '@/assets/icons/avatar-default.svg';
+import { useSession } from 'next-auth/react';
 
 const userNavigation = [
   { name: 'Thông tin cá nhân', href: '#' },
@@ -16,6 +17,8 @@ type HeaderProps = {
 };
 
 export default function Header({ setSidebarOpen }: HeaderProps) {
+  const { data } = useSession();
+  const user = data?.user;
   return (
     <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
       <button type="button" onClick={() => setSidebarOpen(true)} className="-m-2.5 p-2.5 text-gray-700 lg:hidden">
@@ -50,10 +53,10 @@ export default function Header({ setSidebarOpen }: HeaderProps) {
           <Menu as="div" className="relative">
             <MenuButton className="-m-1.5 flex items-center p-1.5">
               <span className="sr-only">Open user menu</span>
-              <Image alt="ITS Review" src={Avatar} className="rounded-full bg-gray-50" width={32} height={32} />
+              <Image alt="ITS Review" src={user?.image || AvatarDefault} className="rounded-full bg-gray-50" width={32} height={32} />
               <span className="hidden lg:flex lg:items-center">
                 <span aria-hidden="true" className="ml-4 text-sm/6 font-semibold text-gray-900">
-                  Tom Cook
+                  {user?.name}
                 </span>
                 <ChevronDownIcon aria-hidden="true" className="ml-2 size-5 text-gray-400" />
               </span>
