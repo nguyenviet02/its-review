@@ -1,16 +1,13 @@
 'use client';
 
 import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/react';
-import { Bars3Icon, MagnifyingGlassIcon, BellIcon, ChevronDownIcon, UserCircleIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, MagnifyingGlassIcon, BellIcon, ChevronDownIcon, ArrowLeftStartOnRectangleIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 
 import AvatarDefault from '@/assets/icons/avatar-default.svg';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 
-const userNavigation = [
-  { name: 'Thông tin cá nhân', href: '#' },
-  { name: 'Đăng xuất', href: '#' },
-];
+const userNavigation = [{ name: 'Thông tin cá nhân', href: '#' }];
 
 type HeaderProps = {
   setSidebarOpen: (open: boolean) => void;
@@ -72,6 +69,12 @@ export default function Header({ setSidebarOpen }: HeaderProps) {
                   </a>
                 </MenuItem>
               ))}
+              <MenuItem>
+                <button onClick={() => signOut({ callbackUrl: '/' })} className="w-full flex items-center px-3 py-1 gap-1 border-t border-gray-300">
+                  <ArrowLeftStartOnRectangleIcon aria-hidden="true" className="size-5 text-gray-900" />
+                  <span className="block text-sm/6 text-gray-900 data-[focus]:bg-gray-50 data-[focus]:outline-none text-left">Đăng xuất</span>
+                </button>
+              </MenuItem>
             </MenuItems>
           </Menu>
         </div>

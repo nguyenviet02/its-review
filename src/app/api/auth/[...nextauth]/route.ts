@@ -68,6 +68,7 @@ const handler = NextAuth({
 
       if (Date.now() < token.accessTokenExpires - 100000 || 0) {
         return token;
+        console.log('☠️ ~ jwt ~ token:', token);
       }
 
       return refreshAccessToken(token);
