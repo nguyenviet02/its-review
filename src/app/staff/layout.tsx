@@ -15,7 +15,7 @@ export default function SuperAdminLayout({
     <>
       <Sidebar role={ROLES.STAFF} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <div className="lg:pl-72 w-screen">
-        <main className="w-full overflow-x-hidden">
+        <main className="w-full">
           <Header setSidebarOpen={setSidebarOpen} />
           <div className="px-4 sm:px-6 lg:px-8">{children}</div>
         </main>
