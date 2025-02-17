@@ -1,9 +1,17 @@
-import NextAuth from 'next-auth';
+import NextAuth, { NextAuthOptions } from 'next-auth';
+import { JWT } from 'next-auth/jwt';
 import AzureADProvider from 'next-auth/providers/azure-ad';
 
-const env = process.env;
+import { env } from 'process';
 
-async function refreshAccessToken(token) {
+declare module 'next-auth' {
+  interface Session {
+    accessToken?: string;
+    error?: string;
+  }
+}
+
+async function refreshAccessToken(token: JWT) {
   try {
     const url = `https://login.microsoftonline.com/${env.NEXT_PUBLIC_AZURE_AD_TENANT_ID}/oauth2/v2.0/token`;
 
@@ -12,7 +20,7 @@ async function refreshAccessToken(token) {
       client_secret: process.env.NEXT_PUBLIC_AZURE_AD_CLIENT_SECRET || 'azure-ad-client-secret',
       scope: 'email openid profile User.Read offline_access',
       grant_type: 'refresh_token',
-      refresh_token: token.refreshToken,
+      refresh_token: token?.refreshToken as string,
     });
 
     const response = await fetch(url, {
@@ -35,6 +43,7 @@ async function refreshAccessToken(token) {
       refreshToken: refreshedTokens.refresh_token ?? token.refreshToken,
     };
   } catch (error) {
+    console.log('☠️ ~ refreshAccessToken ~ error:', error);
     return {
       ...token,
       error: 'RefreshAccessTokenError',
@@ -42,7 +51,7 @@ async function refreshAccessToken(token) {
   }
 }
 
-const handler = NextAuth({
+export const authConfig = {
   providers: [
     AzureADProvider({
       clientId: `${env.NEXT_PUBLIC_AZURE_AD_CLIENT_ID}`,
@@ -66,23 +75,28 @@ const handler = NextAuth({
         };
       }
 
-      if (Date.now() < token.accessTokenExpires - 100000 || 0) {
+      if (Date.now() < Number(token.accessTokenExpires) - 100000 || 0) {
         return token;
-        console.log('☠️ ~ jwt ~ token:', token);
       }
 
       return refreshAccessToken(token);
     },
 
     async session({ session, token }) {
+      let newSession = session;
       if (session) {
-        session.user = token.user;
-        session.error = token.error;
-        session.accessToken = token.accessToken;
+        newSession = {
+          ...session,
+          user: token.user || {},
+          accessToken: token.accessToken as string,
+          error: token.error as string,
+        };
       }
-      return session;
+      return newSession;
     },
   },
-});
+} satisfies NextAuthOptions;
+
+const handler = NextAuth(authConfig);
 
 export { handler as GET, handler as POST };
