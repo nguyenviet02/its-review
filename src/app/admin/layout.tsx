@@ -13,7 +13,7 @@ export default function SuperAdminLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
     <>
-      <Sidebar role={ROLES.ADMIN} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      <Sidebar role={ROLES.SUPER_ADMIN} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
       <div className="lg:pl-72 w-screen">
         <main className="w-full">
           <Header setSidebarOpen={setSidebarOpen} />
