@@ -1,6 +1,7 @@
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
-import AzureADProvider from 'next-auth/providers/azure-ad';
+
+import AzureADProvider, { AzureADProfile } from 'next-auth/providers/azure-ad';
 
 import { env } from 'process';
 
@@ -8,6 +9,22 @@ declare module 'next-auth' {
   interface Session {
     accessToken?: string;
     error?: string;
+    user?: {
+      name?: string | null;
+      email?: string | null;
+      image?: string | null;
+      role?: string;
+    };
+  }
+}
+
+declare module 'next-auth/jwt' {
+  interface JWT {
+    user?: {
+      name?: string | null;
+      email?: string | null;
+      role?: string;
+    };
   }
 }
 
@@ -61,6 +78,20 @@ export const authConfig = {
         params: { scope: 'openid email profile User.Read  offline_access' },
       },
       httpOptions: { timeout: 10000 },
+      async profile(profile: AzureADProfile) {
+        let roleData;
+        try {
+          const res = await fetch('https://catfact.ninja/fact');
+          roleData = await res.json();
+        } catch (error) {
+          console.log('error', error);
+        }
+        return {
+          ...profile,
+          role: roleData?.length > 0 ? 'admin' : 'user',
+          id: profile.sub,
+        };
+      },
     }),
   ],
   callbacks: {
@@ -83,16 +114,13 @@ export const authConfig = {
     },
 
     async session({ session, token }) {
-      let newSession = session;
-      if (session) {
-        newSession = {
-          ...session,
-          user: token.user || {},
-          accessToken: token.accessToken as string,
-          error: token.error as string,
-        };
+      if (session.user) {
+        session.user.role = token?.user?.role;
+        session.user.name = token?.user?.name;
+        session.user.email = token?.user?.email;
+        session.accessToken = token.accessToken as string;
       }
-      return newSession;
+      return session;
     },
   },
 } satisfies NextAuthOptions;
