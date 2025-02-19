@@ -1,7 +1,7 @@
 'use client';
 
 import { Dialog, DialogBackdrop, DialogPanel, TransitionChild } from '@headlessui/react';
-import { HomeIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import { HomeIcon, XMarkIcon, UserGroupIcon, DocumentTextIcon, CalendarDaysIcon, RectangleGroupIcon, IdentificationIcon } from '@heroicons/react/24/outline';
 import { ROLES } from '@/types';
 import { useMemo } from 'react';
 
@@ -15,11 +15,26 @@ export default function Sidebar({ role, sidebarOpen, setSidebarOpen }: SidebarPr
   const navigation = useMemo(() => {
     if (role === ROLES.SUPER_ADMIN) {
       return [
-        { name: 'Dashboard', href: '/super-admin/dashboard', icon: HomeIcon, current: true },
-        { name: 'Quản lý nhân sự', href: '/super-admin/users-management', icon: HomeIcon, current: false },
+        { name: 'Dashboard', href: '/admin', icon: HomeIcon, current: true },
+        { name: 'Quản lý nhân sự', href: '/admin/employees-management', icon: UserGroupIcon, current: false },
+        { name: 'Quản lý đơn từ', href: '/admin/documents-management', icon: DocumentTextIcon, current: false },
+        { name: 'Quản lý kỳ đánh giá', href: '/admin/assessment-period-management', icon: CalendarDaysIcon, current: false },
+        { name: 'Quản lý phòng ban', href: '/admin/departments-management', icon: RectangleGroupIcon, current: false },
+        { name: 'Quản lý Admin', href: '/admin/admin-management', icon: IdentificationIcon, current: false },
       ];
     }
-    return [{ name: 'Đơn từ', href: '#', icon: HomeIcon, current: true }];
+
+    if (role === ROLES.ADMIN) {
+      return [
+        { name: 'Dashboard', href: '/admin', icon: HomeIcon, current: true },
+        { name: 'Quản lý nhân sự', href: '/admin/users-management', icon: UserGroupIcon, current: false },
+        { name: 'Quản lý đơn từ', href: '/admin/documents-management', icon: DocumentTextIcon, current: false },
+        { name: 'Quản lý kỳ đánh giá', href: '/admin/assessment-period-management', icon: CalendarDaysIcon, current: false },
+        { name: 'Quản lý phòng ban', href: '/admin/departments-management', icon: RectangleGroupIcon, current: false },
+      ];
+    }
+
+    return [{ name: 'Đơn từ', href: '/', icon: DocumentTextIcon, current: true }];
   }, [role]);
   return (
     <>
