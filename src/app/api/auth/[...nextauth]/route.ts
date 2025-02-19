@@ -88,7 +88,7 @@ export const authConfig = {
         }
         return {
           ...profile,
-          role: roleData?.length > 0 ? 'admin' : 'user',
+          role: roleData?.length > 0 ? 'super-admin' : 'staff',
           id: profile.sub,
         };
       },

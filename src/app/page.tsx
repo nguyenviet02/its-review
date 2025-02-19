@@ -7,12 +7,13 @@ import { authConfig } from './api/auth/[...nextauth]/route';
 
 const CheckRole = async () => {
   const session = await getServerSession(authConfig);
+  console.log('☠️ ~ CheckRole ~ session:', session);
 
   if (!session) {
     redirect('/login');
   }
 
-  if (session?.user?.role === 'admin') {
+  if (session?.user?.role === 'admin' || session?.user?.role === 'super-admin') {
     redirect('/admin');
   }
 
