@@ -14,10 +14,10 @@ export default function SuperAdminLayout({
   return (
     <>
       <Sidebar role={ROLES.SUPER_ADMIN} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-      <div className="lg:pl-72 w-screen">
+      <div className="lg:pl-72 w-full">
         <main className="w-full">
           <Header setSidebarOpen={setSidebarOpen} />
-          <div className="px-4 sm:px-6 lg:px-8">{children}</div>
+          <div className="px-4 sm:px-6 lg:px-8 w-full">{children}</div>
         </main>
       </div>
     </>
