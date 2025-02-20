@@ -7,6 +7,7 @@ import { useMemo, useState } from "react";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import DialogSummaryInfo from "@/components/staff/DialogSummaryInfo";
 
 export default function SuperAdminLayout({
   children,
@@ -70,6 +71,7 @@ export default function SuperAdminLayout({
           </div>
         </main>
       </div>
+			<DialogSummaryInfo />
     </>
   );
 }

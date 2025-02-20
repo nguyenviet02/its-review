@@ -24,7 +24,7 @@ const Filter = () => {
       <FormControl size="small" className="w-40">
         <InputLabel id="period-select-label">Kỳ đánh giá</InputLabel>
         <Select
-          name="status"
+          name="period"
           labelId="period-select-label"
           id="period"
           label="Kỳ đánh giá"

@@ -10,6 +10,7 @@ import React from "react";
 import CurrentStatus from "@/components/data-grid/CurrentStatus";
 import { DocumentTextIcon } from "@heroicons/react/24/outline";
 import Filter from "@/components/staff/Filter";
+import { useStaffDialogSummaryInfoStore } from "@/lib/zustand/staffDialogSummaryInfoStore";
 
 const mockData: GridRowsProp = [
   {
@@ -86,76 +87,14 @@ const mockData: GridRowsProp = [
   },
 ];
 
-const columns: GridColDef[] = [
-  { field: "id", headerName: "ID Cá nhân", flex: 1 },
-  {
-    field: "name",
-    headerName: "Họ tên",
-    flex: 1,
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "department",
-    headerName: "Phòng ban",
-    flex: 1,
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "position",
-    headerName: "Vị trí",
-    flex: 1,
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "currentStatus",
-    headerName: "Bước duyệt",
-    flex: 1,
-    headerAlign: "center",
-    align: "center",
-    renderCell: (params: GridRenderCellParams) => {
-      return <CurrentStatus currentStatus={params.value} />;
-    },
-  },
-  {
-    field: "period",
-    headerName: "Kỳ đánh giá",
-    flex: 1,
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "deadline",
-    headerName: "Hạn điền đơn",
-    flex: 1,
-    headerAlign: "center",
-    align: "center",
-  },
-  {
-    field: "action",
-    headerName: "Thao tác",
-    headerAlign: "center",
-    align: "center",
-    renderCell: (params: GridRenderCellParams) => {
-      return (
-        <div className="flex items-center justify-center gap-4">
-          <button
-            onClick={() => {
-              console.log(params);
-            }}
-            className="btn btn-primary rounded border border-black p-1 hover:bg-slate-200"
-          >
-            <DocumentTextIcon className="size-6" />
-          </button>
-        </div>
-      );
-    },
-  },
-];
-
 const Staff = () => {
+  const handleOpenDialog = useStaffDialogSummaryInfoStore(
+    (store) => store.openDialog,
+  );
+  const setDialogData = useStaffDialogSummaryInfoStore(
+    (store) => store.setDialogData,
+  );
+
   const dataGridStyle = {
     "&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell": {
       py: "8px",
@@ -167,6 +106,82 @@ const Staff = () => {
       py: "22px",
     },
   };
+  const columns: GridColDef[] = [
+    { field: "id", headerName: "ID Cá nhân", flex: 1 },
+    {
+      field: "name",
+      headerName: "Họ tên",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "department",
+      headerName: "Phòng ban",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "position",
+      headerName: "Vị trí",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "currentStatus",
+      headerName: "Bước duyệt",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      renderCell: (params: GridRenderCellParams) => {
+        return <CurrentStatus currentStatus={params.value} />;
+      },
+    },
+    {
+      field: "period",
+      headerName: "Kỳ đánh giá",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "deadline",
+      headerName: "Hạn điền đơn",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "action",
+      headerName: "Thao tác",
+      headerAlign: "center",
+      align: "center",
+      renderCell: (params: GridRenderCellParams) => {
+        return (
+          <div className="flex items-center justify-center gap-4">
+            <button
+              onClick={() => {
+                setDialogData({
+                  id: params.row.id as string,
+                  name: params.row.name as string,
+                  department: params.row.department as string,
+                  position: params.row.position as string,
+                  firstReviewer: "Nguyễn Văn G",
+                  secondReviewer: "Nguyễn Văn H",
+                });
+                handleOpenDialog();
+              }}
+              className="btn btn-primary rounded border border-black p-1 hover:bg-slate-200"
+            >
+              <DocumentTextIcon className="size-6" />
+            </button>
+          </div>
+        );
+      },
+    },
+  ];
   return (
     <section className="flex w-full flex-col gap-8">
       <Filter />
