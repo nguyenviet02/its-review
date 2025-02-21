@@ -1,3 +1,4 @@
+import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
 import { useStaffDialogSummaryInfoStore } from "@/lib/zustand/staffDialogSummaryInfoStore";
 import { TSummaryInfoData } from "@/types";
 import { Button } from "@headlessui/react";
@@ -20,9 +21,12 @@ const DialogSummaryInfo = () => {
   const dialogState = useStaffDialogSummaryInfoStore(
     (store) => store.dialogState,
   );
-  console.log("☠️ ~ DialogSummaryInfo ~ dialogState:", dialogState);
   const handleClose = useStaffDialogSummaryInfoStore(
     (store) => store.closeDialog,
+  );
+
+  const handleOpenReviewForm = useReviewFormDialogStore(
+    (store) => store.openDialog,
   );
   const rows = [
     {
@@ -101,7 +105,7 @@ const DialogSummaryInfo = () => {
         }}
       >
         <Button
-          onClick={handleClose}
+          onClick={handleOpenReviewForm}
           className="rounded bg-black p-2 px-4 font-bold text-white"
         >
           Bắt đầu

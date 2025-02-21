@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import DialogSummaryInfo from "@/components/staff/DialogSummaryInfo";
+import DialogFormReview from "@/components/staff/DialogFormReview";
 
 export default function SuperAdminLayout({
   children,
@@ -72,6 +73,7 @@ export default function SuperAdminLayout({
         </main>
       </div>
 			<DialogSummaryInfo />
+			<DialogFormReview />
     </>
   );
 }
