@@ -1,17 +1,22 @@
 import { ScoreScale } from "@/types";
 import { Field, Select } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { memo } from "react";
+import { useFormContext } from "react-hook-form";
 
 type Props = {
+  name: string;
   scoreScale?: ScoreScale[];
 };
 
-export default function SelectField({ scoreScale }: Props) {
+function SelectField({ name, scoreScale }: Props) {
+  const methods = useFormContext();
   return (
     <div className="w-full rounded-md border border-gray-300">
       <Field>
         <div className="relative">
           <Select
+            {...methods.register(name)}
             defaultValue=""
             className="h-full w-full appearance-none bg-transparent px-4 py-2"
           >
@@ -35,3 +40,5 @@ export default function SelectField({ scoreScale }: Props) {
     </div>
   );
 }
+
+export default memo(SelectField);

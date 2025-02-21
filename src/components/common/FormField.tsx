@@ -4,16 +4,17 @@ import MultiInput from "./fields/MultiInput";
 import SelectField from "./fields/SelectField";
 
 type Props = {
+  name: string;
   type: FORM_FIELDS;
   scoreScale?: ScoreScale[];
 };
 
-const FormField = ({ type, scoreScale }: Props) => {
+const FormField = ({ name, type, scoreScale }: Props) => {
   if (type === FORM_FIELDS.MULTI_INPUT) {
-    return <MultiInput />;
+    return <MultiInput name={name} />;
   }
   if (type === FORM_FIELDS.SELECT) {
-    return <SelectField scoreScale={scoreScale} />;
+    return <SelectField name={name} scoreScale={scoreScale} />;
   }
   return <div>FormField</div>;
 };

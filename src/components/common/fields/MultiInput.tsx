@@ -1,43 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useFieldArray, useFormContext } from "react-hook-form";
 
-const MultiInput = () => {
-  const [data, setData] = React.useState([{ value: "" }]);
-  console.log("☠️ ~ MultiInput ~ data:", data);
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    index: number,
-  ) => {
-    const newData = data.map((item, i) => {
-      if (i === index) {
-        return { value: e.target.value };
-      }
-      return item;
-    });
-    setData(newData);
-  };
-  const addMore = () => {
-    setData([...data, { value: "" }]);
-  };
-  const remove = (index: number) => {
-    const newData = data.filter((_, i) => i !== index);
-    setData(newData);
-  };
+type Props = {
+  name: string;
+};
+
+const MultiInput = ({ name }: Props) => {
+  const methods = useFormContext();
+  const { fields, append, remove } = useFieldArray({
+    control: methods.control,
+    name: name, // unique name for your Field Array
+  });
+  useEffect(() => {
+    if (fields.length === 0 && fields.length < 1) {
+      append({ value: "" });
+    }
+  }, [append, fields.length]);
   return (
     <div className="flex flex-col gap-1">
-      {data.map((item, index) => {
+      {fields.map((field, index) => {
         return (
           <div
-            key={index}
+            key={field.id}
             className="flex gap-2 overflow-hidden rounded border border-gray-300 px-4 py-2"
           >
             <input
               className="flex-1 border-none outline-none"
               placeholder="Điền vào chỗ trống"
               type="text"
-              value={item.value}
-              onChange={(e) => handleChange(e, index)}
+              {...methods.register(`${name}.${index}.value`)}
             />
-            <button className="w-fit shrink-0" onClick={addMore}>
+            <button
+              className="w-fit shrink-0"
+              onClick={() => {
+                append({ value: "" });
+              }}
+            >
               Add
             </button>
             <button className="w-fit shrink-0" onClick={() => remove(index)}>

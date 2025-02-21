@@ -20,6 +20,7 @@ export interface ScoreScale {
 export interface Criterion {
   number: string;
   title: string;
+  name: string;
   type: FORM_FIELDS;
   scoreScale?: ScoreScale[];
 }
@@ -27,6 +28,7 @@ export interface Field {
   number: string;
   title: string;
   description?: string;
+  name?: string;
   type?: FORM_FIELDS;
   criterions?: Criterion[];
 }

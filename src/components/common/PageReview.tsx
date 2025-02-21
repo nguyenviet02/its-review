@@ -7,7 +7,6 @@ type Props = {
 };
 
 const PageReview = ({ fields }: Props) => {
-  console.log("☠️ ~ PageReview ~ fields:", fields);
   return (
     <div className="flex flex-col gap-4">
       {fields.map((field: Field) => {
@@ -21,7 +20,9 @@ const PageReview = ({ fields }: Props) => {
                 {field.description}
               </h3>
             )}
-            {field?.type && <FormField type={field.type} />}
+            {field?.type && (
+              <FormField name={field.name as string} type={field.type} />
+            )}
             {field?.criterions && (
               <div className="flex w-full flex-col gap-2">
                 {field.criterions.map((criterion: Criterion) => {
@@ -29,6 +30,7 @@ const PageReview = ({ fields }: Props) => {
                     <div key={criterion.number} className="flex flex-col gap-2">
                       <h3>{`${criterion.number}. ${criterion.title}`}</h3>
                       <FormField
+                        name={criterion.name}
                         type={criterion.type}
                         scoreScale={criterion.scoreScale}
                       />
