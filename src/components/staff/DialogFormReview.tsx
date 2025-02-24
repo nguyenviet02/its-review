@@ -93,6 +93,7 @@ const DialogFormReview = () => {
   const numberOfPageInForm = useMemo(() => selectedForm.length, [selectedForm]);
 
   const onSubmit = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (data: any) => {
       console.log("☠️ ~ onSubmit ~ data:", data);
       handleCloseReviewFormDialog();
