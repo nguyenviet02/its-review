@@ -20,20 +20,15 @@ const PageReview = ({ fields }: Props) => {
                 {field.description}
               </h3>
             )}
-            {field?.criterions && (
-              <div className="flex w-full flex-col gap-2">
-                {field.criterions.map((criterion: ICriterion) => {
-                  return (
-                    <div key={criterion.number} className="flex flex-col gap-2">
-                      {criterion.title !== "" ? (
-                        <h3>{`${criterion.number}. ${criterion.title}`}</h3>
-                      ) : null}
-                      <FormField criterion={criterion} />
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+            <div className="flex w-full flex-col gap-2">
+              {field.criterions.map((criterion: ICriterion) => {
+                return (
+                  <div key={criterion.number} className="flex flex-col gap-2">
+                    <FormField criterion={criterion} />
+                  </div>
+                );
+              })}
+            </div>
           </div>
         );
       })}

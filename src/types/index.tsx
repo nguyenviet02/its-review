@@ -36,7 +36,7 @@ export interface Field {
   number: string;
   title: string;
   description?: string;
-  criterions?: ICriterion[];
+  criterions: ICriterion[];
 }
 export interface IPage {
   id: string;
