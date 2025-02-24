@@ -1,4 +1,4 @@
-import { Criterion, Field } from "@/types";
+import { ICriterion, Field } from "@/types";
 import React from "react";
 import FormField from "./FormField";
 
@@ -20,20 +20,15 @@ const PageReview = ({ fields }: Props) => {
                 {field.description}
               </h3>
             )}
-            {field?.type && (
-              <FormField name={field.name as string} type={field.type} />
-            )}
             {field?.criterions && (
               <div className="flex w-full flex-col gap-2">
-                {field.criterions.map((criterion: Criterion) => {
+                {field.criterions.map((criterion: ICriterion) => {
                   return (
                     <div key={criterion.number} className="flex flex-col gap-2">
-                      <h3>{`${criterion.number}. ${criterion.title}`}</h3>
-                      <FormField
-                        name={criterion.name}
-                        type={criterion.type}
-                        scoreScale={criterion.scoreScale}
-                      />
+                      {criterion.title !== "" ? (
+                        <h3>{`${criterion.number}. ${criterion.title}`}</h3>
+                      ) : null}
+                      <FormField criterion={criterion} />
                     </div>
                   );
                 })}

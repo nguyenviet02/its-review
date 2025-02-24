@@ -25,7 +25,7 @@ export interface ScoreScale {
   score: number;
   description: string;
 }
-export interface Criterion {
+export interface ICriterion {
   number: string;
   title: string;
   name: string;
@@ -36,9 +36,7 @@ export interface Field {
   number: string;
   title: string;
   description?: string;
-  name?: string;
-  type?: FORM_FIELDS;
-  criterions?: Criterion[];
+  criterions?: ICriterion[];
 }
 export interface IPage {
   id: string;

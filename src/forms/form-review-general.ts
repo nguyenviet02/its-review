@@ -9,10 +9,16 @@ const formReviewGeneral: TFormReview = [
       {
         number: "1",
         title: "Công việc đã hoàn thành và thành tích đã đạt được",
-        name: "completed-works",
+        criterions: [
+          {
+            number: "1.1",
+            name: "completed-works",
+            title: "",
+            type: FORM_FIELDS.MULTI_INPUT,
+          },
+        ],
         description:
           "Cách điền: Nhân viên liệt kê các công việc chính và phụ theo thứ tự ưu tiên, ghi rõ các thành tích đạt được (Độ quan trọng, thời gian hoàn thành công việc,...)",
-        type: FORM_FIELDS.MULTI_INPUT,
       },
 
       // Tiêu chí 2
