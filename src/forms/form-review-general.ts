@@ -1,6 +1,6 @@
-import { FORM_FIELDS, TFormReviewGeneral } from "@/types";
+import { FORM_FIELDS, TFormReview } from "@/types";
 
-const formReviewGeneral: TFormReviewGeneral = [
+const formReviewGeneral: TFormReview = [
   // Page 1
   {
     id: "01",

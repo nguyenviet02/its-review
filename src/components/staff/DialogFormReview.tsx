@@ -1,6 +1,5 @@
-import formReviewGeneral from "@/forms/form-review-general";
 import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
-import { IPage } from "@/types";
+import { FORM_TYPES, IPage, TFormReview } from "@/types";
 import {
   Button,
   Tab,
@@ -17,17 +16,87 @@ import {
   DialogTitle,
   IconButton,
 } from "@mui/material";
-import React from "react";
+import React, { useMemo, useState } from "react";
 import PageReview from "../common/PageReview";
 import { FormProvider, useForm } from "react-hook-form";
+import formReviewGeneral from "@/forms/form-review-general";
+import formReviewBA from "@/forms/form-review-ba";
+import formReviewDev from "@/forms/form-review-dev";
+import formReviewTester from "@/forms/form-review-tester";
 
 const DialogFormReview = () => {
   const dialogState = useReviewFormDialogStore((store) => store.isOpen);
   const handleClose = useReviewFormDialogStore((store) => store.closeDialog);
+  const formType = useReviewFormDialogStore((store) => store.type);
 
-	//* TODO: Add default values for form fields
+  const [selectedTabIndex, setSelectedTabIndex] = useState(0);
+
+  //* TODO: Add default values for form fields
   const formMethods = useForm();
+  const selectedForm: TFormReview = useMemo(() => {
+    switch (formType) {
+      case FORM_TYPES.FOR_BA:
+        return formReviewBA;
+        break;
+      case FORM_TYPES.FOR_DEV:
+        return formReviewDev;
+        break;
+      case FORM_TYPES.FOR_TESTER:
+        return formReviewTester;
+        break;
+      default:
+        return formReviewGeneral;
+        break;
+    }
+  }, [formType]);
+
+  const numberOfPageInForm = useMemo(() => selectedForm.length, [selectedForm]);
+
   const onSubmit = (data) => console.log(data);
+  const renderButtonNextFooterDialog = useMemo(() => {
+    if (selectedTabIndex >= numberOfPageInForm - 1) {
+      return;
+    }
+    return (
+      <Button
+        onClick={() => {
+          setSelectedTabIndex(selectedTabIndex + 1);
+        }}
+        className="rounded border border-black bg-black p-2 px-4 font-bold text-white"
+      >
+        Tiếp theo
+      </Button>
+    );
+  }, [numberOfPageInForm, selectedTabIndex]);
+  const renderButtonPrevFooterDialog = useMemo(() => {
+    if (selectedTabIndex === 0 || selectedTabIndex >= numberOfPageInForm) {
+      return;
+    }
+    return (
+      <Button
+        onClick={() => {
+          setSelectedTabIndex(selectedTabIndex - 1);
+        }}
+        className="rounded border border-black bg-white p-2 px-4 font-bold text-black"
+      >
+        Quay lại
+      </Button>
+    );
+  }, [numberOfPageInForm, selectedTabIndex]);
+  const renderButtonSubmit = useMemo(() => {
+    if (selectedTabIndex < numberOfPageInForm - 1) {
+      return;
+    }
+    return (
+      <Button
+        onClick={formMethods.handleSubmit(onSubmit)}
+        className="rounded bg-black p-2 px-4 font-bold text-white"
+      >
+        Hoàn thành
+      </Button>
+    );
+  }, [formMethods, numberOfPageInForm, selectedTabIndex]);
+
   return (
     <Dialog
       open={dialogState}
@@ -43,8 +112,9 @@ const DialogFormReview = () => {
       <IconButton
         aria-label="close"
         onClick={() => {
-          formMethods.reset();
           handleClose();
+          formMethods.reset();
+          setSelectedTabIndex(0);
         }}
         sx={(theme) => ({
           position: "absolute",
@@ -58,9 +128,12 @@ const DialogFormReview = () => {
       <DialogContent className="relative" sx={{ paddingTop: 0 }}>
         <FormProvider {...formMethods}>
           <form onSubmit={formMethods.handleSubmit(onSubmit)}>
-            <TabGroup>
+            <TabGroup
+              selectedIndex={selectedTabIndex}
+              onChange={setSelectedTabIndex}
+            >
               <TabList className="sticky right-0 top-0 z-10 flex w-full gap-4 bg-white pb-4">
-                {formReviewGeneral.map((page: IPage) => {
+                {selectedForm.map((page: IPage) => {
                   return (
                     <Tab
                       key={page.id}
@@ -72,7 +145,7 @@ const DialogFormReview = () => {
                 })}
               </TabList>
               <TabPanels className="mt-3">
-                {formReviewGeneral.map((page: IPage) => {
+                {selectedForm.map((page: IPage) => {
                   return (
                     <TabPanel
                       key={page.id}
@@ -86,19 +159,16 @@ const DialogFormReview = () => {
             </TabGroup>
           </form>
         </FormProvider>
-      </DialogContent>``
+      </DialogContent>
       <DialogActions
         sx={{
           justifyContent: "center",
           padding: "1rem",
         }}
       >
-        <Button
-          onClick={formMethods.handleSubmit(onSubmit)}
-          className="rounded bg-black p-2 px-4 font-bold text-white"
-        >
-          Hoàn thành
-        </Button>
+        {renderButtonPrevFooterDialog}
+        {renderButtonNextFooterDialog}
+        {renderButtonSubmit}
       </DialogActions>
     </Dialog>
   );

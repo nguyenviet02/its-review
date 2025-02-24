@@ -13,6 +13,14 @@ export enum FORM_FIELDS {
   SCORE_INPUT = "score-input",
   TABLE = "table",
 }
+
+export enum FORM_TYPES {
+  GENERAL = "general",
+  FOR_BA = "for-ba",
+  FOR_DEV = "for-dev",
+  FOR_TESTER = "for-tester",
+}
+
 export interface ScoreScale {
   score: number;
   description: string;
@@ -37,7 +45,7 @@ export interface IPage {
   fields: Field[];
 }
 
-export type TFormReviewGeneral = IPage[];
+export type TFormReview = IPage[];
 
 export type TSummaryInfoData = {
   id: string;

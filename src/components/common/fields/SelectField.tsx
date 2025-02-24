@@ -33,7 +33,6 @@ function SelectField({ name, scoreScale }: Props) {
           </Select>
           <ChevronDownIcon
             className="group pointer-events-none absolute right-4 top-1/2 size-6 -translate-y-1/2 fill-black"
-            aria-hidden="true"
           />
         </div>
       </Field>
