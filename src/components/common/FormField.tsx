@@ -4,6 +4,7 @@ import MultiInput from "./fields/MultiInput";
 import SelectField from "./fields/SelectField";
 import ScoreInput from "./fields/ScoreInput";
 import TextArea from "./fields/TextArea";
+import TableInput from "./fields/TableInput";
 
 type Props = {
   criterion: ICriterion;
@@ -29,6 +30,14 @@ const FormField = ({ criterion }: Props) => {
       <>
         <h3>{`${criterion.number}. ${criterion.title}`}</h3>
         <TextArea name={criterion.name} />
+      </>
+    );
+  }
+  if (criterion.type === FORM_FIELDS.TABLE) {
+    return (
+      <>
+        <h3>{`${criterion.number}. ${criterion.title}`}</h3>
+        <TableInput name={criterion.name} />
       </>
     );
   }
