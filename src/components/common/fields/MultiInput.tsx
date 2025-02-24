@@ -1,3 +1,4 @@
+import { MinusCircleIcon } from "@heroicons/react/24/outline";
 import React, { useEffect } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
@@ -17,12 +18,12 @@ const MultiInput = ({ name }: Props) => {
     }
   }, [append, fields.length]);
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col items-center gap-1">
       {fields.map((field, index) => {
         return (
           <div
             key={field.id}
-            className="flex gap-2 overflow-hidden rounded border border-gray-300 px-4 py-2"
+            className="flex w-full gap-2 overflow-hidden rounded border border-gray-300 px-4 py-2"
           >
             <input
               className="flex-1 border-none outline-none"
@@ -30,20 +31,20 @@ const MultiInput = ({ name }: Props) => {
               type="text"
               {...formMethods.register(`${name}.${index}.value`)}
             />
-            <button
-              className="w-fit shrink-0"
-              onClick={() => {
-                append({ value: "" });
-              }}
-            >
-              Add
-            </button>
             <button className="w-fit shrink-0" onClick={() => remove(index)}>
-              Remove
+              <MinusCircleIcon className="size-6" />
             </button>
           </div>
         );
       })}
+      <button
+        className="w-fit shrink-0 rounded border border-black px-4 py-1"
+        onClick={() => {
+          append({ value: "" });
+        }}
+      >
+        Thêm mới
+      </button>
     </div>
   );
 };
