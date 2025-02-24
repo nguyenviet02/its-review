@@ -6,9 +6,9 @@ type Props = {
 };
 
 const MultiInput = ({ name }: Props) => {
-  const methods = useFormContext();
+  const formMethods = useFormContext();
   const { fields, append, remove } = useFieldArray({
-    control: methods.control,
+    control: formMethods.control,
     name: name, // unique name for your Field Array
   });
   useEffect(() => {
@@ -28,7 +28,7 @@ const MultiInput = ({ name }: Props) => {
               className="flex-1 border-none outline-none"
               placeholder="Điền vào chỗ trống"
               type="text"
-              {...methods.register(`${name}.${index}.value`)}
+              {...formMethods.register(`${name}.${index}.value`)}
             />
             <button
               className="w-fit shrink-0"

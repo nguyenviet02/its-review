@@ -10,13 +10,13 @@ type Props = {
 };
 
 function SelectField({ name, scoreScale }: Props) {
-  const methods = useFormContext();
+  const formMethods = useFormContext();
   return (
     <div className="w-full rounded-md border border-gray-300">
       <Field>
         <div className="relative">
           <Select
-            {...methods.register(name)}
+            {...formMethods.register(name)}
             defaultValue=""
             className="h-full w-full appearance-none bg-transparent px-4 py-2"
           >

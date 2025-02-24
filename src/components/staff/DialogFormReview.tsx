@@ -26,7 +26,7 @@ const DialogFormReview = () => {
   const handleClose = useReviewFormDialogStore((store) => store.closeDialog);
 
 	//* TODO: Add default values for form fields
-  const methods = useForm();
+  const formMethods = useForm();
   const onSubmit = (data) => console.log(data);
   return (
     <Dialog
@@ -43,7 +43,7 @@ const DialogFormReview = () => {
       <IconButton
         aria-label="close"
         onClick={() => {
-          methods.reset();
+          formMethods.reset();
           handleClose();
         }}
         sx={(theme) => ({
@@ -56,8 +56,8 @@ const DialogFormReview = () => {
         <XMarkIcon className="size-6 text-black" />
       </IconButton>
       <DialogContent className="relative" sx={{ paddingTop: 0 }}>
-        <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <FormProvider {...formMethods}>
+          <form onSubmit={formMethods.handleSubmit(onSubmit)}>
             <TabGroup>
               <TabList className="sticky right-0 top-0 z-10 flex w-full gap-4 bg-white pb-4">
                 {formReviewGeneral.map((page: IPage) => {
@@ -86,7 +86,7 @@ const DialogFormReview = () => {
             </TabGroup>
           </form>
         </FormProvider>
-      </DialogContent>
+      </DialogContent>``
       <DialogActions
         sx={{
           justifyContent: "center",
@@ -94,7 +94,7 @@ const DialogFormReview = () => {
         }}
       >
         <Button
-          onClick={methods.handleSubmit(onSubmit)}
+          onClick={formMethods.handleSubmit(onSubmit)}
           className="rounded bg-black p-2 px-4 font-bold text-white"
         >
           Hoàn thành
