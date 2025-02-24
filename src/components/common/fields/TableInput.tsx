@@ -10,7 +10,7 @@ import {
   GridRowModel,
 } from "@mui/x-data-grid";
 import { randomId } from "@mui/x-data-grid-generator";
-import React from "react";
+import React, { useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 
 type Props = {
@@ -52,15 +52,21 @@ function EditToolbar(props: GridSlotProps["toolbar"]) {
 
 const TableInput = ({ name }: Props) => {
   const formMethods = useFormContext();
+  const dataTable = formMethods.getValues(name);
 
-  const initialRows: GridRowsProp = [
-    {
-      id: randomId(),
-      goal: "",
-      suggestion: "",
-      estimatedTime: "",
-    },
-  ];
+  const initialRows: GridRowsProp = useMemo(() => {
+    if (dataTable) {
+      return dataTable;
+    }
+    return [
+      {
+        id: randomId(),
+        goal: "",
+        suggestion: "",
+        estimatedTime: "",
+      },
+    ];
+  }, [dataTable]);
 
   const [tableData, setTableData] = React.useState(initialRows);
 

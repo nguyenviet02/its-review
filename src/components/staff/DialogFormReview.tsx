@@ -24,6 +24,40 @@ import formReviewBA from "@/forms/form-review-ba";
 import formReviewDev from "@/forms/form-review-dev";
 import formReviewTester from "@/forms/form-review-tester";
 
+// const data = {
+//   "working-quality": "1",
+//   "working-progress": "2",
+//   "professional-skills": "3",
+//   initiative: "4",
+//   "teamwork-skills": "4",
+//   "communication-skills": "",
+//   "problem-solving-skills": "2",
+//   "time-management-skills": "2",
+//   discipline: "2",
+//   participation: "2",
+//   bonus: "1",
+//   effort: "1",
+//   "completed-works": [
+//     {
+//       value: "Công việc đã hoàn thành 1",
+//     },
+//     {
+//       value: "Công việc đã hoàn thành 3",
+//     },
+//   ],
+//   advantages: "5.1. Thuận lợi/Điểm mạnh\n",
+//   disadvantages: "5.2. Khó khăn/Điểm yếu\n",
+//   "other-suggestions": "Đề xuất\n",
+//   "career-plan": [
+//     {
+//       id: "6c627aa3-1818-5f24-9522-2c10258665cc",
+//       goal: "Mục tiêu phát triển",
+//       suggestion: "Đề xuất",
+//       estimatedTime: new Date("2025-02-05T17:00:00.000Z"),
+//     },
+//   ],
+// };
+
 const DialogFormReview = () => {
   const dialogState = useReviewFormDialogStore((store) => store.isOpen);
   const handleClose = useReviewFormDialogStore((store) => store.closeDialog);
