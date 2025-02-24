@@ -16,13 +16,14 @@ import {
   DialogTitle,
   IconButton,
 } from "@mui/material";
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import PageReview from "../common/PageReview";
 import { FormProvider, useForm } from "react-hook-form";
 import formReviewGeneral from "@/forms/form-review-general";
 import formReviewBA from "@/forms/form-review-ba";
 import formReviewDev from "@/forms/form-review-dev";
 import formReviewTester from "@/forms/form-review-tester";
+import { useDialogCongratulationStore } from "@/lib/zustand/dialogCongratulationStore";
 
 // const data = {
 //   "working-quality": "1",
@@ -60,7 +61,12 @@ import formReviewTester from "@/forms/form-review-tester";
 
 const DialogFormReview = () => {
   const dialogState = useReviewFormDialogStore((store) => store.isOpen);
-  const handleClose = useReviewFormDialogStore((store) => store.closeDialog);
+  const handleCloseReviewFormDialog = useReviewFormDialogStore(
+    (store) => store.closeDialog,
+  );
+  const dialogCongratulationState = useDialogCongratulationStore(
+    (store) => store,
+  );
   const formType = useReviewFormDialogStore((store) => store.type);
 
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
@@ -86,7 +92,20 @@ const DialogFormReview = () => {
 
   const numberOfPageInForm = useMemo(() => selectedForm.length, [selectedForm]);
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = useCallback(
+    (data: any) => {
+      console.log("☠️ ~ onSubmit ~ data:", data);
+      handleCloseReviewFormDialog();
+      formMethods.reset();
+      setSelectedTabIndex(0);
+      dialogCongratulationState.setTitle("Đánh giá nhân sự ngày 01/02/2025");
+      dialogCongratulationState.setContent(
+        "Cảm ơn bạn đã hoàn thành quá trình tự đánh giá nhân sự Chúc bạn sẽ đạt được kết quả tốt nhất",
+      );
+      dialogCongratulationState.openDialog();
+    },
+    [handleCloseReviewFormDialog, formMethods, dialogCongratulationState],
+  );
   const renderButtonNextFooterDialog = useMemo(() => {
     if (selectedTabIndex >= numberOfPageInForm - 1) {
       return;
@@ -129,7 +148,7 @@ const DialogFormReview = () => {
         Hoàn thành
       </Button>
     );
-  }, [formMethods, numberOfPageInForm, selectedTabIndex]);
+  }, [formMethods, numberOfPageInForm, onSubmit, selectedTabIndex]);
 
   return (
     <Dialog
@@ -146,7 +165,7 @@ const DialogFormReview = () => {
       <IconButton
         aria-label="close"
         onClick={() => {
-          handleClose();
+          handleCloseReviewFormDialog();
           formMethods.reset();
           setSelectedTabIndex(0);
         }}

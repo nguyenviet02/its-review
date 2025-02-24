@@ -21,7 +21,7 @@ const DialogSummaryInfo = () => {
   const dialogState = useStaffDialogSummaryInfoStore(
     (store) => store.dialogState,
   );
-  const handleClose = useStaffDialogSummaryInfoStore(
+  const handleCloseDialogSummaryInfo = useStaffDialogSummaryInfoStore(
     (store) => store.closeDialog,
   );
 
@@ -57,7 +57,7 @@ const DialogSummaryInfo = () => {
   return (
     <Dialog
       open={dialogState.isOpen}
-      onClose={handleClose}
+      onClose={handleCloseDialogSummaryInfo}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
       fullWidth
@@ -67,7 +67,7 @@ const DialogSummaryInfo = () => {
       </DialogTitle>
       <IconButton
         aria-label="close"
-        onClick={handleClose}
+        onClick={handleCloseDialogSummaryInfo}
         sx={(theme) => ({
           position: "absolute",
           right: 8,
@@ -105,7 +105,10 @@ const DialogSummaryInfo = () => {
         }}
       >
         <Button
-          onClick={handleOpenReviewForm}
+          onClick={() => {
+            handleOpenReviewForm();
+            handleCloseDialogSummaryInfo();
+          }}
           className="rounded bg-black p-2 px-4 font-bold text-white"
         >
           Bắt đầu

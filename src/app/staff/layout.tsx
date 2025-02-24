@@ -9,6 +9,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import DialogSummaryInfo from "@/components/staff/DialogSummaryInfo";
 import DialogFormReview from "@/components/staff/DialogFormReview";
+import DialogCongratulation from "@/components/staff/DialogCongratulation";
 
 export default function SuperAdminLayout({
   children,
@@ -66,14 +67,14 @@ export default function SuperAdminLayout({
 
             {/* Filter */}
 
-
             {/* Content */}
             <div className="w-full py-4">{children}</div>
           </div>
         </main>
       </div>
-			<DialogSummaryInfo />
-			<DialogFormReview />
+      <DialogSummaryInfo />
+      <DialogFormReview />
+      <DialogCongratulation />
     </>
   );
 }
