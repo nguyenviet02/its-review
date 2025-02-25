@@ -21,7 +21,7 @@ export enum FORM_TYPES {
   FOR_TESTER = "for-tester",
 }
 
-export interface ScoreScale {
+export interface IScoreScale {
   score: number;
   description: string;
 }
@@ -30,7 +30,7 @@ export interface ICriterion {
   title: string;
   name: string;
   type: FORM_FIELDS;
-  scoreScale?: ScoreScale[];
+  scoreScale?: IScoreScale[];
 }
 export interface Field {
   number: string;
@@ -57,3 +57,16 @@ export type TSummaryInfoState = {
   isOpen: boolean;
   data: TSummaryInfoData;
 };
+
+export enum STAFF_STATUS {
+  ACTIVE = "active",
+  INACTIVE = "inactive",
+}
+export interface IStaff {
+  staffId: string;
+  name: string;
+  department: string;
+  position: string;
+  email: string;
+  status: STAFF_STATUS;
+}
