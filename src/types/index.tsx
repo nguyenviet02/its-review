@@ -70,7 +70,7 @@ export interface IStaff {
   department: string;
   jobPosition: string;
   email: string;
-  organizationId: number;
+  organizationId?: number;
 }
 
 export interface IAssessmentMinifyData {

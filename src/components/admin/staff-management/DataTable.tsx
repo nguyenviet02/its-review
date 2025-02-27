@@ -7,7 +7,11 @@ import { EyeIcon } from "@heroicons/react/24/outline";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import React from "react";
 
-const DataTable = () => {
+type Props = {
+  listStaff: IStaff[];
+};
+
+const DataTable = ({ listStaff }: Props) => {
   const openDialogStaffInfo = useDialogStaffInfoStore(
     (store) => store.openDialog,
   );
@@ -17,33 +21,6 @@ const DataTable = () => {
     setStaffInfo(staffInfo);
     openDialogStaffInfo();
   };
-
-  const rows: IStaff[] = [
-    {
-      id: "ITS001",
-      username: "Nguyễn A",
-      department: "Team Design",
-      jobPosition: "Thiết kế đồ họa",
-      email: "NguyenA123@microsoft.com",
-      organizationId: 1,
-    },
-    {
-      id: "ITS002",
-      username: "Nguyễn A",
-      department: "Team Design",
-      jobPosition: "Thiết kế đồ họa",
-      email: "NguyenA123@microsoft.com",
-      organizationId: 1,
-    },
-    {
-      id: "ITS003",
-      username: "Nguyễn A",
-      department: "Team Design",
-      jobPosition: "Thiết kế đồ họa",
-      email: "NguyenA123@microsoft.com",
-      organizationId: 1,
-    },
-  ];
 
   const columns: GridColDef[] = [
     {
@@ -105,7 +82,7 @@ const DataTable = () => {
   return (
     <div className="size-full">
       <DataGrid
-        rows={rows}
+        rows={listStaff}
         columns={columns}
         getRowId={(row) => row.id}
         pageSizeOptions={[10, 15, 20, 25]}
