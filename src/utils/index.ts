@@ -1,5 +1,10 @@
 import { IStaff } from "@/types";
 
+// Make function format number smaller than 10 to 2 digits
+export const formatNumberToTwoDigits = (number: number) => {
+  return number < 10 ? `0${number}` : number;
+};
+
 export const formatDataImportListReviewer = (dataFromExcel: string[]) => {
   const data = dataFromExcel.map((item) => {
     const staffId = item[0];
@@ -26,4 +31,13 @@ export const formatDataImportListStaff = (dataFromExcel): IStaff[] => {
     };
   });
   return formattedData;
+};
+
+export const formatDate = (date: string) => {
+  const d = new Date(date);
+  const month = d.getMonth() + 1;
+  const day = d.getDate();
+  const year = d.getFullYear();
+
+  return `${formatNumberToTwoDigits(day)}/${formatNumberToTwoDigits(month)}/${year}`;
 };
