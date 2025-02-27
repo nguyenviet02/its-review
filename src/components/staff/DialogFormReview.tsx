@@ -95,7 +95,12 @@ const DialogFormReview = () => {
   const onSubmit = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (data: any) => {
-      console.log("☠️ ~ onSubmit ~ data:", data);
+      const dataToSubmit = {
+        ...data,
+        workPerformedAndAchievementsAchieved:
+          data.workPerformedAndAchievementsAchieved.map((item) => item.value),
+      };
+      console.log('☠️ ~ DialogFormReview ~ dataToSubmit:', dataToSubmit)
       handleCloseReviewFormDialog();
       formMethods.reset();
       setSelectedTabIndex(0);

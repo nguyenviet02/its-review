@@ -12,7 +12,7 @@ const formReviewGeneral: TFormReview = [
         criterions: [
           {
             number: "1.1",
-            name: "completed-works",
+            name: "workPerformedAndAchievementsAchieved",
             title: "",
             type: FORM_FIELDS.MULTI_INPUT,
           },
@@ -29,7 +29,7 @@ const formReviewGeneral: TFormReview = [
           {
             number: "2.1",
             title: "Chất lượng công việc",
-            name: "working-quality",
+            name: "performanceReview.generalAssessmentOfResult.qualityOfWork",
             type: FORM_FIELDS.SELECT,
             scoreScale: [
               {
@@ -60,7 +60,7 @@ const formReviewGeneral: TFormReview = [
           {
             number: "2.2",
             title: "Tiến độ thực hiện công việc được giao",
-            name: "working-progress",
+            name: "performanceReview.generalAssessmentOfResult.progressOfAssignedWork",
             type: FORM_FIELDS.SELECT,
             scoreScale: [
               {
@@ -91,7 +91,7 @@ const formReviewGeneral: TFormReview = [
           {
             number: "2.3",
             title: "Kiến thức, năng lực chuyên môn",
-            name: "professional-skills",
+            name: "performanceReview.generalAssessmentOfResult.knowledgeAndProfessionalCapacity",
             type: FORM_FIELDS.SELECT,
             scoreScale: [
               {
@@ -122,7 +122,7 @@ const formReviewGeneral: TFormReview = [
           {
             number: "2.4",
             title: "Tính chủ động, sáng kiến trong công việc",
-            name: "initiative",
+            name: "performanceReview.generalAssessmentOfResult.proactivityAndInitiativeAtWork",
             type: FORM_FIELDS.SELECT,
             scoreScale: [
               {
@@ -161,7 +161,7 @@ const formReviewGeneral: TFormReview = [
           {
             number: "3.1",
             title: "Kĩ năng làm việc nhóm",
-            name: "teamwork-skills",
+            name: "performanceReview.skillsAtWork.teamWorkingSkills",
             type: FORM_FIELDS.SELECT,
             scoreScale: [
               {
@@ -192,7 +192,7 @@ const formReviewGeneral: TFormReview = [
           {
             number: "3.2",
             title: "Kỹ năng giao tiếp và truyền đạt thông tin",
-            name: "communication-skills",
+            name: "performanceReview.skillsAtWork.communicationSkills",
             type: FORM_FIELDS.SELECT,
             scoreScale: [
               {
@@ -223,7 +223,7 @@ const formReviewGeneral: TFormReview = [
           {
             number: "3.3",
             title: "Kỹ năng giải quyết vấn đề",
-            name: "problem-solving-skills",
+            name: "performanceReview.skillsAtWork.problemSolvingSkills",
             type: FORM_FIELDS.SELECT,
             scoreScale: [
               {
@@ -254,7 +254,7 @@ const formReviewGeneral: TFormReview = [
           {
             number: "3.4",
             title: "Kỹ năng quản lý thời gian/Quản lý task",
-            name: "time-management-skills",
+            name: "performanceReview.skillsAtWork.timeManagementSkills",
             type: FORM_FIELDS.SELECT,
             scoreScale: [
               {
@@ -293,7 +293,7 @@ const formReviewGeneral: TFormReview = [
           {
             number: "4.1",
             title: "Tính kỷ luật, tuân thủ",
-            name: "discipline",
+            name: "performanceReview.attitudeAndConsciousness.discipline",
             type: FORM_FIELDS.SELECT,
             scoreScale: [
               {
@@ -325,7 +325,7 @@ const formReviewGeneral: TFormReview = [
             number: "4.2",
             title:
               "Sẵn sàng tham gia các công việc, dự án, các hoạt động chung của Công ty (ngoài công việc chuyên môn)",
-            name: "participation",
+            name: "performanceReview.attitudeAndConsciousness.generalActivities",
             type: FORM_FIELDS.SELECT,
             scoreScale: [
               {
@@ -366,14 +366,14 @@ const formReviewGeneral: TFormReview = [
             number: "5.1",
             title:
               "Khen thưởng nội bộ hoặc giải thưởng từ đơn vị chuyên môn/khách hàng.",
-            name: "bonus",
+            name: "additionReview.bonus",
             type: FORM_FIELDS.SCORE_INPUT,
           },
           {
             number: "5.2",
             title:
               "Nỗ lực đáng kể cho những nhiệm vụ rất khó khăn so với level hiện tại, mặc dù thành tích chưa rõ ràng.",
-            name: "effort",
+            name: "additionReview.effort",
             type: FORM_FIELDS.SCORE_INPUT,
           },
         ],
@@ -392,25 +392,25 @@ const formReviewGeneral: TFormReview = [
           {
             number: "5.1",
             title: "Thuận lợi/Điểm mạnh",
-            name: "advantages",
+            name: "opinionAndSuggestion.strongPoints",
             type: FORM_FIELDS.TEXTAREA,
           },
           {
             number: "5.2",
             title: "Khó khăn/Điểm yếu",
-            name: "disadvantages",
+            name: "opinionAndSuggestion.weakness",
             type: FORM_FIELDS.TEXTAREA,
           },
           {
             number: "5.3",
             title: "Kế hoạch cho sự phát triển nghề nghiệp của bản thân",
-            name: "career-plan",
+            name: "opinionAndSuggestion.plan",
             type: FORM_FIELDS.TABLE,
           },
           {
             number: "5.4",
             title: "Đề xuất khác (nếu có)",
-            name: "other-suggestions",
+            name: "opinionAndSuggestion.otherSuggestions",
             type: FORM_FIELDS.TEXTAREA,
           },
         ],
