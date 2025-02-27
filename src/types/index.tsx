@@ -21,6 +21,12 @@ export enum FORM_TYPES {
   FOR_TESTER = "for-tester",
 }
 
+export enum FORM_STATUS {
+  WAITING_FILL_FORM = "waitingFillForm",
+  WAITING_MANAGER = "waitingManager",
+  WAITING_BO = "waitingBO",
+}
+
 export interface IScoreScale {
   score: number;
   description: string;
@@ -58,15 +64,24 @@ export type TSummaryInfoState = {
   data: TSummaryInfoData;
 };
 
-export enum STAFF_STATUS {
-  ACTIVE = "active",
-  INACTIVE = "inactive",
-}
-export interface IStaff {
-  staffId: string;
-  name: string;
+export interface IStaffInputs {
+  id: string;
+  username: string;
   department: string;
-  position: string;
+  jobPosition: string;
   email: string;
-  status: STAFF_STATUS;
+}
+
+export interface IStaff extends IStaffInputs {
+  organizationId: number;
+}
+
+export interface IAssessmentMinifyData {
+  id: string;
+  username: string;
+  department: string;
+  jobPosition: string;
+  currentStatus: string;
+  period: string;
+  deadline: string;
 }

@@ -1,47 +1,60 @@
 "use client";
 
-import { IStaff, STAFF_STATUS } from "@/types";
+import { useDialogStaffInfoStore } from "@/lib/zustand/dialogStaffInfoStore";
+import { IStaff } from "@/types";
+import { Button } from "@headlessui/react";
+import { EyeIcon } from "@heroicons/react/24/outline";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import React from "react";
 
 const DataTable = () => {
+  const openDialogStaffInfo = useDialogStaffInfoStore(
+    (store) => store.openDialog,
+  );
+  const setStaffInfo = useDialogStaffInfoStore((store) => store.setStaffInfo);
+
+  const handleOpenDialogStaffInfo = (staffInfo: IStaff) => {
+    setStaffInfo(staffInfo);
+    openDialogStaffInfo();
+  };
+
   const rows: IStaff[] = [
     {
-      staffId: "ITS001",
-      name: "Nguyễn A",
+      id: "ITS001",
+      username: "Nguyễn A",
       department: "Team Design",
-      position: "Thiết kế đồ họa",
+      jobPosition: "Thiết kế đồ họa",
       email: "NguyenA123@microsoft.com",
-      status: STAFF_STATUS.ACTIVE,
+      organizationId: 1,
     },
     {
-      staffId: "ITS002",
-      name: "Nguyễn A",
+      id: "ITS002",
+      username: "Nguyễn A",
       department: "Team Design",
-      position: "Thiết kế đồ họa",
+      jobPosition: "Thiết kế đồ họa",
       email: "NguyenA123@microsoft.com",
-      status: STAFF_STATUS.ACTIVE,
+      organizationId: 1,
     },
     {
-      staffId: "ITS003",
-      name: "Nguyễn A",
+      id: "ITS003",
+      username: "Nguyễn A",
       department: "Team Design",
-      position: "Thiết kế đồ họa",
+      jobPosition: "Thiết kế đồ họa",
       email: "NguyenA123@microsoft.com",
-      status: STAFF_STATUS.ACTIVE,
+      organizationId: 1,
     },
   ];
 
   const columns: GridColDef[] = [
     {
-      field: "staffId",
+      field: "id",
       headerName: "ID cá nhân",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
-      field: "name",
+      field: "username",
       headerName: "Họ tên",
       flex: 1,
       headerAlign: "center",
@@ -55,7 +68,7 @@ const DataTable = () => {
       align: "center",
     },
     {
-      field: "position",
+      field: "jobPosition",
       headerName: "Vị trí",
       flex: 1,
       headerAlign: "center",
@@ -64,14 +77,7 @@ const DataTable = () => {
     {
       field: "email",
       headerName: "Email",
-      flex: 1,
-      headerAlign: "center",
-      align: "center",
-    },
-    {
-      field: "status",
-      headerName: "Trạng thái",
-      flex: 1,
+      flex: 1.5,
       headerAlign: "center",
       align: "center",
     },
@@ -81,15 +87,30 @@ const DataTable = () => {
       flex: 1,
       headerAlign: "center",
       align: "center",
+      renderCell(params) {
+        return (
+          <div className="flex size-full items-center justify-center">
+            <Button
+              className="flex items-center justify-center rounded border border-gray-500 p-1"
+              onClick={() => {
+                handleOpenDialogStaffInfo(params.row);
+              }}
+            >
+              <EyeIcon className="h-6 w-6 text-black" />
+            </Button>
+          </div>
+        );
+      },
     },
   ];
   return (
-    <div>
+    <div className="size-full">
       <DataGrid
         rows={rows}
         columns={columns}
-        getRowId={(row) => row.staffId}
+        getRowId={(row) => row.id}
         pageSizeOptions={[10, 15, 20, 25]}
+        disableRowSelectionOnClick
       />
     </div>
   );

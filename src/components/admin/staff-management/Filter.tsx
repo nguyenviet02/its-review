@@ -23,10 +23,6 @@ const Filter = () => {
       </div>
 
       <Button className="rounded border border-black p-2">Tìm kiếm</Button>
-
-      <Button className="rounded border border-black p-2">
-        Thêm mới nhân sự
-      </Button>
     </div>
   );
 };
