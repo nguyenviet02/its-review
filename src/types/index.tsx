@@ -64,15 +64,12 @@ export type TSummaryInfoState = {
   data: TSummaryInfoData;
 };
 
-export interface IStaffInputs {
+export interface IStaff {
   id: string;
   username: string;
   department: string;
   jobPosition: string;
   email: string;
-}
-
-export interface IStaff extends IStaffInputs {
   organizationId: number;
 }
 

@@ -3,7 +3,7 @@
 import DataReviewTable from "@/components/common/DataReviewTable";
 import ErrorMessage from "@/components/common/ErrorMessage";
 import { useDialogStaffInfoStore } from "@/lib/zustand/dialogStaffInfoStore";
-import { FORM_STATUS, IAssessmentMinifyData, IStaffInputs } from "@/types";
+import { FORM_STATUS, IAssessmentMinifyData, IStaff } from "@/types";
 import {
   Field,
   Label,
@@ -57,12 +57,12 @@ const DialogStaffInfo = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IStaffInputs>({
+  } = useForm<IStaff>({
     defaultValues: staffInfo,
     values: staffInfo,
   });
-  const handleSubmitChangeStaffInfo: SubmitHandler<IStaffInputs> = (
-    data: IStaffInputs,
+  const handleSubmitChangeStaffInfo: SubmitHandler<IStaff> = (
+    data: IStaff,
   ) => {
     console.log(data);
   };
