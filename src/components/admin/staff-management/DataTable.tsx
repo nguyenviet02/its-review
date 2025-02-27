@@ -49,7 +49,6 @@ const DataTable = () => {
     {
       field: "id",
       headerName: "ID cá nhân",
-      flex: 1,
       headerAlign: "center",
       align: "center",
     },

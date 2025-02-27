@@ -17,6 +17,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { ROLES } from "@/types";
 import { useMemo } from "react";
+import { usePathname } from "next/navigation";
 
 type SidebarProps = {
   role: ROLES;
@@ -29,39 +30,46 @@ export default function Sidebar({
   sidebarOpen,
   setSidebarOpen,
 }: SidebarProps) {
+  const pathName = usePathname();
+
   const navigation = useMemo(() => {
     if (role === ROLES.SUPER_ADMIN) {
       return [
-        { name: "Dashboard", href: "/admin", icon: HomeIcon, current: true },
+        {
+          name: "Dashboard",
+          href: "/admin",
+          icon: HomeIcon,
+          current: pathName === "/admin",
+        },
         {
           name: "Quản lý nhân sự",
           href: "/admin/staff-management",
           icon: UserGroupIcon,
-          current: false,
+          current: pathName?.includes("/admin/staff-management"),
         },
         {
           name: "Quản lý đơn từ",
           href: "/admin/documents-management",
           icon: DocumentTextIcon,
-          current: false,
+          current: pathName?.includes("/admin/documents-management"),
         },
         {
           name: "Quản lý kỳ đánh giá",
           href: "/admin/assessment-period-management",
           icon: CalendarDaysIcon,
-          current: false,
+          current: pathName?.includes("/admin/assessment-period-management"),
         },
         {
           name: "Quản lý phòng ban",
           href: "/admin/departments-management",
           icon: RectangleGroupIcon,
-          current: false,
+          current: pathName?.includes("/admin/departments-management"),
         },
         {
           name: "Quản lý Admin",
           href: "/admin/admin-management",
           icon: IdentificationIcon,
-          current: false,
+          current: pathName?.includes("/admin/admin-management"),
         },
       ];
     }
@@ -73,25 +81,25 @@ export default function Sidebar({
           name: "Quản lý nhân sự",
           href: "/admin/users-management",
           icon: UserGroupIcon,
-          current: false,
+          // current: pathName?.includes("/admin/users-management"),
         },
         {
           name: "Quản lý đơn từ",
           href: "/admin/documents-management",
           icon: DocumentTextIcon,
-          current: false,
+          current: pathName?.includes("/admin/documents-management"),
         },
         {
           name: "Quản lý kỳ đánh giá",
           href: "/admin/assessment-period-management",
           icon: CalendarDaysIcon,
-          current: false,
+          current: pathName?.includes("/admin/assessment-period-management"),
         },
         {
           name: "Quản lý phòng ban",
           href: "/admin/departments-management",
           icon: RectangleGroupIcon,
-          current: false,
+          current: pathName?.includes("/admin/departments-management"),
         },
       ];
     }
@@ -99,7 +107,7 @@ export default function Sidebar({
     return [
       { name: "Đơn từ", href: "/", icon: DocumentTextIcon, current: true },
     ];
-  }, [role]);
+  }, [pathName, role]);
   return (
     <>
       <Dialog
