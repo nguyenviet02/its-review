@@ -5,6 +5,8 @@ import * as msal from "@azure/msal-node";
 import AzureADProvider, { AzureADProfile } from "next-auth/providers/azure-ad";
 
 import { env } from "process";
+import { meQuery } from "@/apis/auth";
+import axiosInstance from "@/lib/axios/axiosInstance";
 
 const clientId = env.NEXT_PUBLIC_AZURE_AD_CLIENT_ID;
 const clientSecret = env.NEXT_PUBLIC_AZURE_AD_CLIENT_SECRET;
@@ -126,20 +128,6 @@ export const authConfig = {
         },
       },
       httpOptions: { timeout: 10000 },
-      async profile(profile: AzureADProfile) {
-        let roleData;
-        try {
-          const res = await fetch("https://catfact.ninja/fact");
-          roleData = await res.json();
-        } catch (error) {
-          console.log("error", error);
-        }
-        return {
-          ...profile,
-          role: roleData?.length > 0 ? "super-admin" : "staff",
-          id: profile.sub,
-        };
-      },
     }),
   ],
   callbacks: {
