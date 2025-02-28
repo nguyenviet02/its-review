@@ -6,6 +6,7 @@ import { authConfig } from '../api/auth/[...nextauth]/route';
 
 const Admin = async () => {
   const session = await getServerSession(authConfig);
+  console.log('☠️ ~ Admin ~ session:', session)
 
   return (
     <div>

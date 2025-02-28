@@ -1,11 +1,16 @@
-import NextAuth, { NextAuthOptions } from 'next-auth';
-import { JWT } from 'next-auth/jwt';
+import NextAuth, { NextAuthOptions } from "next-auth";
+import { JWT } from "next-auth/jwt";
+import * as msal from "@azure/msal-node";
 
-import AzureADProvider, { AzureADProfile } from 'next-auth/providers/azure-ad';
+import AzureADProvider, { AzureADProfile } from "next-auth/providers/azure-ad";
 
-import { env } from 'process';
+import { env } from "process";
 
-declare module 'next-auth' {
+const clientId = env.NEXT_PUBLIC_AZURE_AD_CLIENT_ID;
+const clientSecret = env.NEXT_PUBLIC_AZURE_AD_CLIENT_SECRET;
+const tenantId = env.NEXT_PUBLIC_AZURE_AD_TENANT_ID;
+
+declare module "next-auth" {
   interface Session {
     accessToken?: string;
     error?: string;
@@ -18,7 +23,7 @@ declare module 'next-auth' {
   }
 }
 
-declare module 'next-auth/jwt' {
+declare module "next-auth/jwt" {
   interface JWT {
     user?: {
       name?: string | null;
@@ -28,29 +33,70 @@ declare module 'next-auth/jwt' {
   }
 }
 
+const authority = `https://login.microsoftonline.com/${tenantId}`;
+
+const msalConfig = {
+  auth: {
+    clientId: clientId || "",
+    authority,
+    clientSecret: clientSecret || "",
+    knownAuthorities: [authority],
+    redirectUri: "/",
+  },
+  cache: {
+    // Optional
+    cacheLocation: "localStorage", // Configures cache location. "sessionStorage" is more secure, but "localStorage" gives you SSO between tabs.
+    storeAuthStateInCookie: false, // Set this to "true" if you are having issues on IE11 or Edge
+  },
+  system: {
+    loggerOptions: {
+      // loggerCallback(loglevel: number, message: string, containsPii: boolean) {
+      //   console.log(message);
+      // },
+      allowPlatformBroker: false,
+      piiLoggingEnabled: false,
+      logLevel: msal.LogLevel.Verbose,
+    },
+  },
+};
+
+const cca = new msal.ConfidentialClientApplication(msalConfig);
+
+const generateApiAccessToken = async (refreshToken) =>
+  await cca
+    .acquireTokenByRefreshToken({
+      scopes: [`api://9aab055b-cfde-451f-9ddd-eb18a95778f7/Todolist.ReadWrite`],
+      refreshToken,
+    })
+    .catch((err) => console.log(err));
+
 async function refreshAccessToken(token: JWT) {
   try {
-    const url = `https://login.microsoftonline.com/${env.NEXT_PUBLIC_AZURE_AD_TENANT_ID}/oauth2/v2.0/token`;
+    const url = `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/token`;
 
     const body = new URLSearchParams({
-      client_id: process.env.NEXT_PUBLIC_AZURE_AD_CLIENT_ID || 'azure-ad-client-id',
-      client_secret: process.env.NEXT_PUBLIC_AZURE_AD_CLIENT_SECRET || 'azure-ad-client-secret',
-      scope: 'email openid profile User.Read offline_access',
-      grant_type: 'refresh_token',
+      client_id: clientId || "azure-ad-client-id",
+      client_secret: clientSecret || "azure-ad-client-secret",
+      grant_type: "refresh_token",
       refresh_token: token?.refreshToken as string,
     });
 
     const response = await fetch(url, {
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      method: 'POST',
+      method: "POST",
       body,
     });
 
     const refreshedTokens = await response.json();
     if (!response.ok) {
       throw refreshedTokens;
+    }
+
+    const refreshToken = refreshedTokens?.refresh_token as string;
+    if (refreshToken) {
+      token.apiTokenDetails = await generateApiAccessToken(refreshToken);
     }
 
     return {
@@ -60,10 +106,9 @@ async function refreshAccessToken(token: JWT) {
       refreshToken: refreshedTokens.refresh_token ?? token.refreshToken,
     };
   } catch (error) {
-    console.log('☠️ ~ refreshAccessToken ~ error:', error);
     return {
       ...token,
-      error: 'RefreshAccessTokenError',
+      error: "RefreshAccessTokenError",
     };
   }
 }
@@ -71,24 +116,27 @@ async function refreshAccessToken(token: JWT) {
 export const authConfig = {
   providers: [
     AzureADProvider({
-      clientId: `${env.NEXT_PUBLIC_AZURE_AD_CLIENT_ID}`,
-      clientSecret: `${env.NEXT_PUBLIC_AZURE_AD_CLIENT_SECRET}`,
-      tenantId: `${env.NEXT_PUBLIC_AZURE_AD_TENANT_ID}`,
+      clientId: `${clientId}`,
+      clientSecret: `${clientSecret}`,
+      tenantId: `${tenantId}`,
       authorization: {
-        params: { scope: 'openid email profile User.Read  offline_access' },
+        params: {
+          scope:
+            "api://9aab055b-cfde-451f-9ddd-eb18a95778f7/Todolist.ReadWrite openid email profile User.Read  offline_access",
+        },
       },
       httpOptions: { timeout: 10000 },
       async profile(profile: AzureADProfile) {
         let roleData;
         try {
-          const res = await fetch('https://catfact.ninja/fact');
+          const res = await fetch("https://catfact.ninja/fact");
           roleData = await res.json();
         } catch (error) {
-          console.log('error', error);
+          console.log("error", error);
         }
         return {
           ...profile,
-          role: roleData?.length > 0 ? 'super-admin' : 'staff',
+          role: roleData?.length > 0 ? "super-admin" : "staff",
           id: profile.sub,
         };
       },
@@ -96,21 +144,22 @@ export const authConfig = {
   ],
   callbacks: {
     async jwt({ token, user, account }) {
-      // Persist the id_token, expires_at &refresh_token to the token right after signin
-      if (account && user) {
-        return {
-          accessToken: account.id_token,
-          accessTokenExpires: account?.expires_at ? account.expires_at * 1000 : 0,
-          refreshToken: account.refresh_token,
-          user,
-        };
+      // Persist the access_token, expires_at & refresh_token to the token right after signin
+      if (account && account.access_token && account.expires_at && user) {
+        token.accessToken = account.access_token;
+        token.refreshToken = account.refresh_token;
+        token.accessTokenExpires = account.expires_at * 1000;
+        token.user = user;
       }
 
-      if (Date.now() < Number(token.accessTokenExpires) - 100000 || 0) {
+      if (Date.now() < token.accessTokenExpires) {
+        token.apiTokenDetails = await generateApiAccessToken(
+          token.refreshToken,
+        );
         return token;
       }
 
-      return refreshAccessToken(token);
+      return refreshAccessToken(token) ?? {};
     },
 
     async session({ session, token }) {
@@ -118,7 +167,7 @@ export const authConfig = {
         session.user.role = token?.user?.role;
         session.user.name = token?.user?.name;
         session.user.email = token?.user?.email;
-        session.accessToken = token.accessToken as string;
+        session.accessToken = token?.accessToken as string;
       }
       return session;
     },

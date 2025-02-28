@@ -51,7 +51,6 @@ const DialogStaffInfo = () => {
   const dialogState = useDialogStaffInfoStore((store) => store.isOpen);
   const handleClose = useDialogStaffInfoStore((store) => store.closeDialog);
   const staffInfo = useDialogStaffInfoStore((store) => store.staffInfo);
-  console.log("☠️ ~ DialogStaffInfo ~ staffInfo:", staffInfo);
 
   const {
     register,
