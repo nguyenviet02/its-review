@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import SessionProviderWrapper from "@/providers/sessionProvider";
+import SessionProviderWrapper from "@/providers/SessionProvider";
 import DialogStaffInfo from "@/components/admin/staff-management/DialogStaffInfo";
+import QueryClientProviderWrapper from "@/providers/QueryClientProvider";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
@@ -21,8 +22,10 @@ export default async function RootLayout({
   return (
     <html lang="en" className="h-full bg-white">
       <body className={`${montserrat.variable} h-full text-text-dark`}>
-        <SessionProviderWrapper>{children}</SessionProviderWrapper>
-        <DialogStaffInfo />
+        <QueryClientProviderWrapper>
+          <SessionProviderWrapper>{children}</SessionProviderWrapper>
+          <DialogStaffInfo />
+        </QueryClientProviderWrapper>
       </body>
     </html>
   );

@@ -18,6 +18,7 @@ import {
 import { ROLES } from "@/types";
 import { useMemo } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 type SidebarProps = {
   role: ROLES;
@@ -146,7 +147,7 @@ export default function Sidebar({
                     <ul role="list" className="-mx-2 space-y-1">
                       {navigation.map((item) => (
                         <li key={item.name}>
-                          <a
+                          <Link
                             href={item.href}
                             className={`${
                               item.current
@@ -159,7 +160,7 @@ export default function Sidebar({
                               className={`${item.current ? "text-indigo-600" : "text-gray-400 group-hover:text-indigo-600"} size-6 shrink-0`}
                             />
                             {item.name}
-                          </a>
+                          </Link>
                         </li>
                       ))}
                     </ul>
