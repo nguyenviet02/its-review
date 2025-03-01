@@ -1,4 +1,4 @@
-"use client";
+"use server";
 
 import ButtonImportStaffsFromExcel from "@/components/admin/staff-management/ButtonImportStaffsFromExcel";
 import DataTable from "@/components/admin/staff-management/DataTable";
