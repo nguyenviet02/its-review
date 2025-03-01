@@ -1,3 +1,5 @@
+import { Dayjs } from "dayjs";
+
 export enum ROLES {
   SUPER_ADMIN = "super-admin",
   ADMIN = "admin",
@@ -81,4 +83,11 @@ export interface IAssessmentMinifyData {
   currentStatus: string;
   period: string;
   deadline: string;
+}
+
+export interface IAssessmentPeriod {
+  organizationId: number;
+  title: string;
+  start: Date | null;
+  end: Date | null;
 }

@@ -10,4 +10,12 @@
   .button-secondary {
     @apply border border-black p-2 font-bold;
   }
+
+  .label-form {
+    @apply text-xl font-medium;
+  }
+
+  .input-form {
+    @apply rounded border border-black px-2 py-3;
+  }
 }
