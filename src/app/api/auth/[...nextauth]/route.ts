@@ -31,10 +31,23 @@ declare module "next-auth" {
 declare module "next-auth/jwt" {
   interface JWT {
     user?: {
-      name?: string | null;
-      email?: string | null;
-      roles?: string[];
+      id: string;
+      username: string;
+      email: string;
+      organizationId: number;
+      department: string;
+      jobPosition: string;
+      roles: string[];
+      createdAt: string;
+      updatedAt: string;
     };
+    accessToken?: string;
+    refreshToken?: string;
+    accessTokenExpires?: number;
+    apiTokenDetails?: {
+      accessToken?: string;
+    };
+    error?: string;
   }
 }
 
@@ -84,7 +97,7 @@ async function refreshAccessToken(token: JWT) {
       client_secret: clientSecret || "azure-ad-client-secret",
       grant_type: "refresh_token",
       scope:
-        "api://9aab055b-cfde-451f-9ddd-eb18a95778f7/Todolist.ReadWrite openid email profile User.Read  offline_access",
+        "api://9aab055b-cfde-451f-9ddd-eb18a95778f7/Todolist.ReadWrite openid email profile User.Read offline_access",
       refresh_token: token?.refreshToken as string,
     });
 
@@ -103,7 +116,8 @@ async function refreshAccessToken(token: JWT) {
 
     const refreshToken = refreshedTokens?.refresh_token as string;
     if (refreshToken) {
-      token.apiTokenDetails = await generateApiAccessToken(refreshToken);
+      const apiToken = await generateApiAccessToken(refreshToken);
+      token.apiTokenDetails = apiToken || { accessToken: undefined };
     }
 
     return {
@@ -158,9 +172,10 @@ export const authConfig = {
       }
 
       if (Date.now() < token.accessTokenExpires) {
-        token.apiTokenDetails = await generateApiAccessToken(
+        const apiToken = await generateApiAccessToken(
           token.refreshToken,
         );
+        token.apiTokenDetails = apiToken || { accessToken: undefined };
         return token;
       }
 
@@ -170,7 +185,7 @@ export const authConfig = {
     async session({ session, token }) {
       if (session.user) {
         session.user = token?.user;
-        session.accessToken = token?.accessToken as string;
+        session.accessToken = token?.apiTokenDetails?.accessToken as string;
       }
       return session;
     },
