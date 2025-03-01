@@ -15,10 +15,15 @@ declare module "next-auth" {
     accessToken?: string;
     error?: string;
     user?: {
-      name?: string | null;
-      email?: string | null;
-      image?: string | null;
-      roles?: string[];
+      id: string;
+      username: string;
+      email: string;
+      organizationId: string;
+      department: string;
+      jobPosition: string;
+      roles: string[];
+      createdAt: string;
+      updatedAt: string;
     };
   }
 }
@@ -135,7 +140,6 @@ export const authConfig = {
         token.accessToken = account.access_token;
         token.refreshToken = account.refresh_token;
         token.accessTokenExpires = account.expires_at * 1000;
-        token.user = user;
 
         const res = await fetch(
           `${env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/users/me`,
@@ -147,8 +151,8 @@ export const authConfig = {
             },
           },
         );
-        const data = await res.json();
-        token.user.roles = data?.roles;
+        const userData = await res.json();
+        token.user = userData;
       }
 
       if (Date.now() < token.accessTokenExpires) {
@@ -163,9 +167,7 @@ export const authConfig = {
 
     async session({ session, token }) {
       if (session.user) {
-        session.user.roles = token?.user?.roles;
-        session.user.name = token?.user?.name;
-        session.user.email = token?.user?.email;
+        session.user = token?.user;
         session.accessToken = token?.accessToken as string;
       }
       return session;
