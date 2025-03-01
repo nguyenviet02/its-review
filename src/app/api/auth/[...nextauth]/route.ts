@@ -18,7 +18,7 @@ declare module "next-auth" {
       id: string;
       username: string;
       email: string;
-      organizationId: string;
+      organizationId: number;
       department: string;
       jobPosition: string;
       roles: string[];
