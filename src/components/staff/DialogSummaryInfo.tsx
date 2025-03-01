@@ -109,7 +109,7 @@ const DialogSummaryInfo = () => {
             handleOpenReviewForm();
             handleCloseDialogSummaryInfo();
           }}
-          className="rounded bg-black p-2 px-4 font-bold text-white"
+          className="button-primary"
         >
           Bắt đầu
         </Button>

@@ -115,7 +115,7 @@ const DialogFormReview = () => {
     return (
       <Button
         onClick={formMethods.handleSubmit(onSubmit)}
-        className="rounded bg-black p-2 px-4 font-bold text-white"
+        className="button-primary"
       >
         Hoàn thành
       </Button>

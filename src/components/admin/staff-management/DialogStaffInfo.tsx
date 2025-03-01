@@ -175,7 +175,7 @@ const DialogStaffInfo = () => {
       >
         <Button
           onClick={handleClose}
-          className="rounded bg-black p-2 px-4 font-bold text-white"
+          className="button-primary"
         >
           Xuất thông tin nhân sự
         </Button>
