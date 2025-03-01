@@ -29,8 +29,8 @@ const DataTable = () => {
   // Query get list user
   const listUserQuery = useQuery({
     queryKey: ["users-listUser", paginationModel],
-    queryFn: () =>
-      getListUser(paginationModel.pageSize, paginationModel.page, "ASC"),
+    queryFn: () => getListUser(paginationModel.pageSize, paginationModel.page),
+    refetchOnWindowFocus: false,
   });
   const listUser = listUserQuery?.data?.data?.data;
 

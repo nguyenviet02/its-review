@@ -27,7 +27,7 @@ export const formatDataImportListStaff = (dataFromExcel): IStaff[] => {
       department: data["Phòng ban"],
       jobPosition: data["Vị trí"],
       email: data["Email"],
-      organizationId: 1,
+      organizationId: data["organizationId"] || 1,
     };
   });
   return formattedData;
