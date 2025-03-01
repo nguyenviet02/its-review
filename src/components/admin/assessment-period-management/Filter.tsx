@@ -4,6 +4,7 @@ import React from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { Button, Select } from "@headlessui/react";
 import { useCreateAssessmentPeriodDialogStore } from "@/lib/zustand/dialogCreateAssessmentPeriodStore";
+import ButtonImportDataAssessment from "./ButtonImportDataAssessment";
 
 const Filter = () => {
   const handleOpenCreateAssessmentPeriodDialog =
@@ -11,7 +12,7 @@ const Filter = () => {
 
   return (
     <div className="flex h-10 flex-1 justify-between gap-2">
-      <div className="flex items-center gap-2">
+      <div className="flex flex-1 items-center gap-2">
         {/* Search Input */}
         <div className="flex h-full w-full max-w-[300px] items-center gap-2 rounded border border-gray-700 p-1">
           <MagnifyingGlassIcon
@@ -38,12 +39,15 @@ const Filter = () => {
           <option value="inactive">Ngừng hoạt động</option>
         </Select>
       </div>
-      <Button
-        onClick={handleOpenCreateAssessmentPeriodDialog}
-        className="button-primary"
-      >
-        Tạo mới kỳ đánh giá
-      </Button>
+      <div className="flex items-center gap-2">
+        <Button
+          onClick={handleOpenCreateAssessmentPeriodDialog}
+          className="button-primary"
+        >
+          Tạo mới kỳ đánh giá
+        </Button>
+        <ButtonImportDataAssessment />
+      </div>
     </div>
   );
 };

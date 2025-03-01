@@ -91,3 +91,8 @@ export interface IAssessmentPeriod {
   start: Date | null;
   end: Date | null;
 }
+
+export interface IAssessmentPeriodImportData {
+  employeeId: string;
+  reviewerNames: string[];
+}

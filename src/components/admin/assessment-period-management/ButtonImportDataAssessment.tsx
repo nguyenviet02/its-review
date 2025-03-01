@@ -3,8 +3,20 @@
 import React from "react";
 import * as XLSX from "xlsx";
 import { formatDataImportListReviewer } from "@/utils";
+import { useMutation } from "@tanstack/react-query";
+import { importAssessmentPeriodData } from "@/apis/assessment";
+import { IAssessmentPeriodImportData } from "@/types";
 
-const ButtonImportExcel = () => {
+const ButtonImportDataAssessment = () => {
+  const importAssessmentPeriodDataMutation = useMutation({
+    mutationFn: ({
+      id,
+      data,
+    }: {
+      id: number;
+      data: IAssessmentPeriodImportData;
+    }) => importAssessmentPeriodData(id, data),
+  });
   async function handleFileAsync(e: React.ChangeEvent<HTMLInputElement>) {
     /* get first file */
     const file = e.target.files?.[0];
@@ -16,10 +28,11 @@ const ButtonImportExcel = () => {
       /* DO SOMETHING WITH workbook HERE */
       const firstWorkSheet = workbook.Sheets[workbook.SheetNames[0]];
       const dataJson = XLSX.utils.sheet_to_json(firstWorkSheet, { header: 1 });
-      console.log(
-        "☠️ ~ handleFileAsync ~ dataJson:",
-        formatDataImportListReviewer(dataJson.slice(1) as string[]),
-      );
+      const dataFormatted = formatDataImportListReviewer(dataJson);
+      importAssessmentPeriodDataMutation.mutate({
+        id: 37,
+        data: dataFormatted,
+      });
     };
 
     // Read file
@@ -32,7 +45,7 @@ const ButtonImportExcel = () => {
       htmlFor="import-excel"
       className="flex h-full cursor-pointer items-center justify-center rounded border border-black p-2"
     >
-      Nhập từ Excel
+      Nhập dữ liệu kỳ đánh giá
       <input
         type="file"
         className="h-0 w-0 opacity-0"
@@ -43,4 +56,4 @@ const ButtonImportExcel = () => {
   );
 };
 
-export default ButtonImportExcel;
+export default ButtonImportDataAssessment;

@@ -5,18 +5,17 @@ export const formatNumberToTwoDigits = (number: number) => {
   return number < 10 ? `0${number}` : number;
 };
 
-export const formatDataImportListReviewer = (dataFromExcel: string[]) => {
+export const formatDataImportListReviewer = (dataFromExcel) => {
   const data = dataFromExcel.map((item) => {
-    const staffId = item[0];
+    const employeeId = item[0];
     const startIndexOfReviewer = 6;
     const reviewers = item.slice(startIndexOfReviewer);
     return {
-      staffId,
-      reviewerNames: reviewers,
+      employeeId,
+      reviewerNames: reviewers as unknown as string[],
     };
   });
-  console.log("☠️ ~ formatDataImportListReviewer ~ data:", data);
-  return data;
+  return data?.slice(1) || [];
 };
 
 export const formatDataImportListStaff = (dataFromExcel): IStaff[] => {
