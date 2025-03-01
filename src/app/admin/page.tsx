@@ -3,7 +3,6 @@
 import { getServerSession } from "next-auth";
 import React from "react";
 import { authConfig } from "../api/auth/[...nextauth]/route";
-import { meQuery } from "@/apis/auth";
 
 const Admin = async () => {
   const session = await getServerSession(authConfig);

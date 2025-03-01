@@ -5,11 +5,7 @@ import { formatDataImportListStaff } from "@/utils";
 import React from "react";
 import * as XLSX from "xlsx";
 
-type Props = {
-  setListStaff: React.Dispatch<React.SetStateAction<IStaff[]>>;
-};
-
-const ButtonImportStaffsFromExcel = ({ setListStaff }: Props) => {
+const ButtonImportStaffsFromExcel = () => {
   async function handleFileAsync(e: React.ChangeEvent<HTMLInputElement>) {
     /* get first file */
     const file = e.target.files?.[0];
@@ -25,7 +21,6 @@ const ButtonImportStaffsFromExcel = ({ setListStaff }: Props) => {
         "☠️ ~ handleFileAsync ~ dataJson:",
         formatDataImportListStaff(dataJson),
       );
-      setListStaff(formatDataImportListStaff(dataJson));
     };
 
     // Read file
