@@ -4,25 +4,24 @@ import { getServerSession } from "next-auth";
 import React from "react";
 import { redirect } from "next/navigation";
 import { authConfig } from "./api/auth/[...nextauth]/route";
+import { ROLES } from "@/types";
 
 const CheckRole = async () => {
   const session = await getServerSession(authConfig);
-  console.log("☠️ ~ CheckRole ~ session:", session);
+  console.log('☠️ ~ CheckRole ~ session:', session)
 
   if (!session) {
     redirect("/login");
   }
 
   if (
-    session?.user?.role === "admin" ||
-    session?.user?.role === "super-admin"
+    session?.user?.roles?.includes(ROLES.ADMIN) ||
+    session?.user?.roles?.includes(ROLES.SUPER_ADMIN)
   ) {
     redirect("/admin");
   }
 
-  if (session?.user?.role === "staff") {
-    redirect("/staff");
-  }
+  redirect("/staff");
 
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-[#1e1b1b] text-white">

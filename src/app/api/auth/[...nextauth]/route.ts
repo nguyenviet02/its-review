@@ -5,8 +5,6 @@ import * as msal from "@azure/msal-node";
 import AzureADProvider, { AzureADProfile } from "next-auth/providers/azure-ad";
 
 import { env } from "process";
-import { meQuery } from "@/apis/auth";
-import axiosInstance from "@/lib/axios/axiosInstance";
 
 const clientId = env.NEXT_PUBLIC_AZURE_AD_CLIENT_ID;
 const clientSecret = env.NEXT_PUBLIC_AZURE_AD_CLIENT_SECRET;
@@ -20,7 +18,7 @@ declare module "next-auth" {
       name?: string | null;
       email?: string | null;
       image?: string | null;
-      role?: string;
+      roles?: string[];
     };
   }
 }
@@ -30,7 +28,7 @@ declare module "next-auth/jwt" {
     user?: {
       name?: string | null;
       email?: string | null;
-      role?: string;
+      roles?: string[];
     };
   }
 }
@@ -138,6 +136,19 @@ export const authConfig = {
         token.refreshToken = account.refresh_token;
         token.accessTokenExpires = account.expires_at * 1000;
         token.user = user;
+
+        const res = await fetch(
+          `${env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/users/me`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token.accessToken}`,
+            },
+          },
+        );
+        const data = await res.json();
+        token.user.roles = data?.roles;
       }
 
       if (Date.now() < token.accessTokenExpires) {
@@ -152,7 +163,7 @@ export const authConfig = {
 
     async session({ session, token }) {
       if (session.user) {
-        session.user.role = token?.user?.role;
+        session.user.roles = token?.user?.roles;
         session.user.name = token?.user?.name;
         session.user.email = token?.user?.email;
         session.accessToken = token?.accessToken as string;
