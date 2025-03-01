@@ -83,6 +83,8 @@ async function refreshAccessToken(token: JWT) {
       client_id: clientId || "azure-ad-client-id",
       client_secret: clientSecret || "azure-ad-client-secret",
       grant_type: "refresh_token",
+      scope:
+        "api://9aab055b-cfde-451f-9ddd-eb18a95778f7/Todolist.ReadWrite openid email profile User.Read  offline_access",
       refresh_token: token?.refreshToken as string,
     });
 
