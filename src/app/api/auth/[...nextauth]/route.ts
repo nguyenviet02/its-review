@@ -171,7 +171,7 @@ export const authConfig = {
         token.user = userData;
       }
 
-      if (Date.now() < token.accessTokenExpires) {
+      if (Date.now() < Number(token.accessTokenExpires)) {
         const apiToken = await generateApiAccessToken(
           token.refreshToken,
         );

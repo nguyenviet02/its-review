@@ -1,3 +1,4 @@
+import DataTable from "@/components/admin/assessment-period-management/DataTable";
 import Filter from "@/components/admin/assessment-period-management/Filter";
 import React from "react";
 
@@ -10,6 +11,7 @@ const AssessmentPeriodManagement = (props: Props) => {
       <div className="flex items-center justify-between gap-2">
         <Filter />
       </div>
+			<DataTable />
     </div>
   );
 };
