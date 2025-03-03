@@ -20,6 +20,7 @@ export enum FORM_TYPES {
   GENERAL = "general",
   FOR_BA = "for-ba",
   FOR_DEV = "for-dev",
+  FOR_DEV_MANAGER = "for-dev-manager",
   FOR_TESTER = "for-tester",
 }
 
@@ -38,20 +39,17 @@ export interface ICriterion {
   title: string;
   name: string;
   type: FORM_FIELDS;
+  description?: string;
   scoreScale?: IScoreScale[];
 }
-export interface Field {
+export interface IField {
   number: string;
   title: string;
   description?: string;
   criterions: ICriterion[];
 }
-export interface IPage {
-  id: string;
-  fields: Field[];
-}
 
-export type TFormReview = IPage[];
+export type TFormReview = IField[];
 
 export type TSummaryInfoData = {
   id: string;

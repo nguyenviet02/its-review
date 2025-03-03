@@ -1,5 +1,5 @@
 import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
-import { FORM_TYPES, IPage, TFormReview } from "@/types";
+import { FORM_TYPES, TFormReview } from "@/types";
 import {
   Button,
   Tab,
@@ -9,14 +9,8 @@ import {
   TabPanels,
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import {
-  DialogContent,
-  DialogActions,
-  Dialog,
-  DialogTitle,
-  IconButton,
-} from "@mui/material";
-import React, { useCallback, useMemo, useState } from "react";
+import { DialogContent, Dialog, DialogTitle, IconButton } from "@mui/material";
+import React, { useMemo, useState } from "react";
 import PageReview from "../common/PageReview";
 import { FormProvider, useForm } from "react-hook-form";
 import formReviewGeneral from "@/forms/form-review-general";
@@ -29,9 +23,6 @@ const DialogFormReview = () => {
   const dialogState = useReviewFormDialogStore((store) => store.isOpen);
   const handleCloseReviewFormDialog = useReviewFormDialogStore(
     (store) => store.closeDialog,
-  );
-  const dialogCongratulationState = useDialogCongratulationStore(
-    (store) => store,
   );
   const formType = useReviewFormDialogStore((store) => store.type);
 
@@ -56,72 +47,6 @@ const DialogFormReview = () => {
     }
   }, [formType]);
 
-  const numberOfPageInForm = useMemo(() => selectedForm.length, [selectedForm]);
-
-  const onSubmit = useCallback(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (data: any) => {
-      const dataToSubmit = {
-        ...data,
-        workPerformedAndAchievementsAchieved:
-          data.workPerformedAndAchievementsAchieved.map((item) => item.value),
-      };
-      console.log('☠️ ~ DialogFormReview ~ dataToSubmit:', dataToSubmit)
-      handleCloseReviewFormDialog();
-      formMethods.reset();
-      setSelectedTabIndex(0);
-      dialogCongratulationState.setTitle("Đánh giá nhân sự ngày 01/02/2025");
-      dialogCongratulationState.setContent(
-        "Cảm ơn bạn đã hoàn thành quá trình tự đánh giá nhân sự Chúc bạn sẽ đạt được kết quả tốt nhất",
-      );
-      dialogCongratulationState.openDialog();
-    },
-    [handleCloseReviewFormDialog, formMethods, dialogCongratulationState],
-  );
-  const renderButtonNextFooterDialog = useMemo(() => {
-    if (selectedTabIndex >= numberOfPageInForm - 1) {
-      return;
-    }
-    return (
-      <Button
-        onClick={() => {
-          setSelectedTabIndex(selectedTabIndex + 1);
-        }}
-        className="rounded border border-black bg-black p-2 px-4 font-bold text-white"
-      >
-        Tiếp theo
-      </Button>
-    );
-  }, [numberOfPageInForm, selectedTabIndex]);
-  const renderButtonPrevFooterDialog = useMemo(() => {
-    if (selectedTabIndex === 0 || selectedTabIndex >= numberOfPageInForm) {
-      return;
-    }
-    return (
-      <Button
-        onClick={() => {
-          setSelectedTabIndex(selectedTabIndex - 1);
-        }}
-        className="rounded border border-black bg-white p-2 px-4 font-bold text-black"
-      >
-        Quay lại
-      </Button>
-    );
-  }, [numberOfPageInForm, selectedTabIndex]);
-  const renderButtonSubmit = useMemo(() => {
-    if (selectedTabIndex < numberOfPageInForm - 1) {
-      return;
-    }
-    return (
-      <Button
-        onClick={formMethods.handleSubmit(onSubmit)}
-        className="button-primary"
-      >
-        Hoàn thành
-      </Button>
-    );
-  }, [formMethods, numberOfPageInForm, onSubmit, selectedTabIndex]);
-
   return (
     <Dialog
       open={dialogState}
@@ -130,6 +55,11 @@ const DialogFormReview = () => {
       aria-describedby="alert-dialog-description"
       fullWidth
       maxWidth="md"
+      sx={{
+        "& .MuiDialogContent-root": {
+          paddingBottom: 0,
+        },
+      }}
     >
       <DialogTitle id="alert-dialog-title" className="text-3xl font-bold">
         Bảng tự đánh giá nhân sự ngày 01/02/2025
@@ -151,50 +81,50 @@ const DialogFormReview = () => {
         <XMarkIcon className="size-6 text-black" />
       </IconButton>
       <DialogContent className="relative" sx={{ paddingTop: 0 }}>
-        <FormProvider {...formMethods}>
-          <form onSubmit={formMethods.handleSubmit(onSubmit)}>
-            <TabGroup
-              selectedIndex={selectedTabIndex}
-              onChange={setSelectedTabIndex}
-            >
-              <TabList className="sticky right-0 top-0 z-10 flex w-full gap-4 bg-white pb-4">
-                {selectedForm.map((page: IPage) => {
+        <TabGroup
+          selectedIndex={selectedTabIndex}
+          onChange={setSelectedTabIndex}
+        >
+          <TabList className="sticky right-0 top-0 z-10 flex w-full gap-4 bg-white pb-4">
+            <Tab className="rounded-full border border-transparent px-3 py-1 text-sm/6 font-semibold text-black hover:border-gray-200 focus:outline-none data-[hover]:bg-white/5 data-[selected]:bg-black data-[selected]:text-white">
+              Tự đánh giá
+            </Tab>
+            {formType === FORM_TYPES.FOR_DEV_MANAGER && (
+              <>
+                {[1, 2].map((page, index) => {
                   return (
                     <Tab
-                      key={page.id}
+                      key={index}
                       className="rounded-full border border-transparent px-3 py-1 text-sm/6 font-semibold text-black hover:border-gray-200 focus:outline-none data-[hover]:bg-white/5 data-[selected]:bg-black data-[selected]:text-white"
                     >
-                      Page {page.id}
+                      Page {index + 1}
                     </Tab>
                   );
                 })}
-              </TabList>
-              <TabPanels className="mt-3">
-                {selectedForm.map((page: IPage) => {
+              </>
+            )}
+          </TabList>
+          <TabPanels className="mt-3">
+            <TabPanel className="rounded-xl bg-white/5 p-3 pb-0">
+              <PageReview fields={selectedForm} />
+            </TabPanel>
+            {formType === FORM_TYPES.FOR_DEV_MANAGER && (
+              <>
+                {[1, 2].map((page, index) => {
                   return (
                     <TabPanel
-                      key={page.id}
-                      className="rounded-xl bg-white/5 p-3"
+                      key={index}
+                      className="rounded-xl bg-white/5 p-3 pb-0"
                     >
-                      <PageReview fields={page.fields} />
+                      <PageReview fields={selectedForm} />
                     </TabPanel>
                   );
                 })}
-              </TabPanels>
-            </TabGroup>
-          </form>
-        </FormProvider>
+              </>
+            )}
+          </TabPanels>
+        </TabGroup>
       </DialogContent>
-      <DialogActions
-        sx={{
-          justifyContent: "center",
-          padding: "1rem",
-        }}
-      >
-        {renderButtonPrevFooterDialog}
-        {renderButtonNextFooterDialog}
-        {renderButtonSubmit}
-      </DialogActions>
     </Dialog>
   );
 };

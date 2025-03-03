@@ -1,6 +1,6 @@
 import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
 import { useStaffDialogSummaryInfoStore } from "@/lib/zustand/staffDialogSummaryInfoStore";
-import { TSummaryInfoData } from "@/types";
+import { FORM_TYPES, TSummaryInfoData } from "@/types";
 import { Button } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
@@ -28,6 +28,11 @@ const DialogSummaryInfo = () => {
   const handleOpenReviewForm = useReviewFormDialogStore(
     (store) => store.openDialog,
   );
+
+  const setTypeOfReviewForm = useReviewFormDialogStore(
+    (store) => store.setType,
+  );
+
   const rows = [
     {
       title: "ID cá nhân:",
@@ -54,6 +59,15 @@ const DialogSummaryInfo = () => {
       field: "secondReviewer",
     },
   ];
+
+  const handleStartReviewForm = () => {
+    const jobPosition = dialogState.data.jobPosition;
+    if (jobPosition !== "") {
+      setTypeOfReviewForm(FORM_TYPES.FOR_DEV);
+    }
+    handleOpenReviewForm();
+    handleCloseDialogSummaryInfo();
+  };
   return (
     <Dialog
       open={dialogState.isOpen}
@@ -104,13 +118,7 @@ const DialogSummaryInfo = () => {
           padding: "1rem",
         }}
       >
-        <Button
-          onClick={() => {
-            handleOpenReviewForm();
-            handleCloseDialogSummaryInfo();
-          }}
-          className="button-primary"
-        >
+        <Button onClick={handleStartReviewForm} className="button-primary">
           Bắt đầu
         </Button>
       </DialogActions>
