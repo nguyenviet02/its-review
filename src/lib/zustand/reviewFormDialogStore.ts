@@ -12,7 +12,7 @@ interface IStaffDialogReviewFormStore {
 export const useReviewFormDialogStore = create<IStaffDialogReviewFormStore>(
   (set) => ({
     isOpen: false,
-    type: FORM_TYPES.GENERAL,
+    type: FORM_TYPES.UNSET,
     openDialog: () => set({ isOpen: true }),
     closeDialog: () => set({ isOpen: false }),
     setType: (type: FORM_TYPES) => set({ type }),

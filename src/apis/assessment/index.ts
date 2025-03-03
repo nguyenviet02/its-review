@@ -91,3 +91,25 @@ export const getListStaffAssignedToMe = async (
   );
   return data;
 };
+
+export const getDataFormReview = async (
+  assessmentPeriodId: number,
+  userId: string,
+) => {
+  const { data } = await axiosInstance.get(
+    `/api/v1/annual-reviews/${assessmentPeriodId}/users/${userId}/reviews`,
+  );
+  return data;
+};
+
+export const submitDataFormReview = async (
+  assessmentPeriodId: number,
+  userId: string,
+  data,
+) => {
+  const res = await axiosInstance.post(
+    `/api/v1/annual-reviews/${assessmentPeriodId}/users/${userId}/reviews`,
+    data,
+  );
+  return res;
+};

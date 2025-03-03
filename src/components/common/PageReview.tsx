@@ -36,13 +36,17 @@ const PageReview = ({ fields }: Props) => {
             (item: { value: string }) => item.value,
           );
       }
-      console.log("☠️ ~ DialogFormReview ~ dataToSubmit:", dataToSubmit);
-      resetForm();
-      dialogCongratulationState.setTitle("Đánh giá nhân sự ngày 01/02/2025");
-      dialogCongratulationState.setContent(
-        "Cảm ơn bạn đã hoàn thành quá trình tự đánh giá nhân sự Chúc bạn sẽ đạt được kết quả tốt nhất",
-      );
-      dialogCongratulationState.openDialog();
+			const payload = {
+				review: dataToSubmit,
+				"__type": ""
+			}
+      console.log("☠️ ~ DialogFormReview ~ dataToSubmit:", payload);
+      // resetForm();
+      // dialogCongratulationState.setTitle("Đánh giá nhân sự ngày 01/02/2025");
+      // dialogCongratulationState.setContent(
+      //   "Cảm ơn bạn đã hoàn thành quá trình tự đánh giá nhân sự Chúc bạn sẽ đạt được kết quả tốt nhất",
+      // );
+      // dialogCongratulationState.openDialog();
     },
     [handleCloseReviewFormDialog, formMethods, dialogCongratulationState],
   );
@@ -87,7 +91,11 @@ const PageReview = ({ fields }: Props) => {
           })}
         </div>
         <div className="sticky bottom-0 left-0 mt-4 flex w-full justify-center bg-white p-4">
-          <Button type="submit" className="button-primary">
+          <Button
+            onClick={formMethods.handleSubmit(onSubmit)}
+            type="submit"
+            className="button-primary"
+          >
             Hoàn thành
           </Button>
         </div>

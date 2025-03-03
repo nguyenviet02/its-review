@@ -16,11 +16,16 @@ export enum FORM_FIELDS {
   TABLE = "table",
 }
 
+export enum JOB_POSITIONS {
+  DEV = "Developer",
+}
+
 export enum FORM_TYPES {
+  UNSET = "unset",
   GENERAL = "general",
   FOR_BA = "for-ba",
-  FOR_DEV = "for-dev",
-  FOR_DEV_MANAGER = "for-dev-manager",
+  FOR_DEV_V1 = "self_review_dev_v1",
+  FOR_DEV_MANAGER_V1 = "manager_review_dev_v1",
   FOR_TESTER = "for-tester",
 }
 
@@ -58,6 +63,8 @@ export type TSummaryInfoData = {
   jobPosition: string;
   firstReviewer: string;
   secondReviewer?: string;
+  assessmentPeriodId: number | null;
+	__type: string;
 };
 export type TSummaryInfoState = {
   isOpen: boolean;

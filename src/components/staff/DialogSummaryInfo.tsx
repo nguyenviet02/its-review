@@ -62,8 +62,8 @@ const DialogSummaryInfo = () => {
 
   const handleStartReviewForm = () => {
     const jobPosition = dialogState.data.jobPosition;
-    if (jobPosition !== "") {
-      setTypeOfReviewForm(FORM_TYPES.FOR_DEV);
+    if (jobPosition === "Developer") {
+      setTypeOfReviewForm(FORM_TYPES.FOR_DEV_V1);
     }
     handleOpenReviewForm();
     handleCloseDialogSummaryInfo();

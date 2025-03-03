@@ -17,6 +17,8 @@ export const staffDialogSummaryInfoDefaultState: TSummaryInfoState = {
     jobPosition: "",
     firstReviewer: "",
     secondReviewer: "",
+    assessmentPeriodId: null,
+    __type: "",
   },
 };
 
@@ -31,7 +33,7 @@ export const useStaffDialogSummaryInfoStore =
     closeDialog: () =>
       set((store) => ({
         ...store,
-        dialogState: { ...store.dialogState, isOpen: false },
+        dialogState: staffDialogSummaryInfoDefaultState,
       })),
     setDialogData: (data: TSummaryInfoData) =>
       set((store) => ({

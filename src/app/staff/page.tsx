@@ -110,6 +110,7 @@ const Staff = () => {
                   jobPosition: session?.data?.user?.jobPosition as string,
                   firstReviewer: "",
                   secondReviewer: "",
+                  assessmentPeriodId: params.row.id,
                 });
                 handleOpenDialog();
               }}

@@ -17,10 +17,16 @@ import formReviewGeneral from "@/forms/form-review-general";
 import formReviewBA from "@/forms/form-review-ba";
 import formReviewDev from "@/forms/form-review-dev";
 import formReviewTester from "@/forms/form-review-tester";
-import { useDialogCongratulationStore } from "@/lib/zustand/dialogCongratulationStore";
+import { useStaffDialogSummaryInfoStore } from "@/lib/zustand/staffDialogSummaryInfoStore";
+import { useQuery } from "@tanstack/react-query";
+import { getDataFormReview } from "@/apis/assessment";
 
 const DialogFormReview = () => {
   const dialogState = useReviewFormDialogStore((store) => store.isOpen);
+  const summaryInfoStore = useStaffDialogSummaryInfoStore(
+    (store) => store.dialogState,
+  );
+  console.log("☠️ ~ DialogFormReview ~ summaryInfoStore:", summaryInfoStore);
   const handleCloseReviewFormDialog = useReviewFormDialogStore(
     (store) => store.closeDialog,
   );
@@ -35,7 +41,7 @@ const DialogFormReview = () => {
       case FORM_TYPES.FOR_BA:
         return formReviewBA;
         break;
-      case FORM_TYPES.FOR_DEV:
+      case FORM_TYPES.FOR_DEV_V1:
         return formReviewDev;
         break;
       case FORM_TYPES.FOR_TESTER:
@@ -46,6 +52,22 @@ const DialogFormReview = () => {
         break;
     }
   }, [formType]);
+
+  const getDataFormReviewQuery = useQuery({
+    queryKey: [
+      "getDataFormReview",
+      summaryInfoStore.data.id,
+      summaryInfoStore.data.assessmentPeriodId,
+    ],
+    queryFn: async () =>
+      getDataFormReview(
+        summaryInfoStore.data.assessmentPeriodId as number,
+        summaryInfoStore.data.id,
+      ),
+    refetchOnWindowFocus: false,
+    enabled:
+      !!summaryInfoStore.data.id && !!summaryInfoStore.data.assessmentPeriodId,
+  });
 
   return (
     <Dialog
@@ -62,7 +84,7 @@ const DialogFormReview = () => {
       }}
     >
       <DialogTitle id="alert-dialog-title" className="text-3xl font-bold">
-        Bảng tự đánh giá nhân sự ngày 01/02/2025
+        Bảng đánh giá nhân sự
       </DialogTitle>
       <IconButton
         aria-label="close"
@@ -89,7 +111,7 @@ const DialogFormReview = () => {
             <Tab className="rounded-full border border-transparent px-3 py-1 text-sm/6 font-semibold text-black hover:border-gray-200 focus:outline-none data-[hover]:bg-white/5 data-[selected]:bg-black data-[selected]:text-white">
               Tự đánh giá
             </Tab>
-            {formType === FORM_TYPES.FOR_DEV_MANAGER && (
+            {formType === FORM_TYPES.FOR_DEV_MANAGER_V1 && (
               <>
                 {[1, 2].map((page, index) => {
                   return (
@@ -108,7 +130,7 @@ const DialogFormReview = () => {
             <TabPanel className="rounded-xl bg-white/5 p-3 pb-0">
               <PageReview fields={selectedForm} />
             </TabPanel>
-            {formType === FORM_TYPES.FOR_DEV_MANAGER && (
+            {formType === FORM_TYPES.FOR_DEV_MANAGER_V1 && (
               <>
                 {[1, 2].map((page, index) => {
                   return (

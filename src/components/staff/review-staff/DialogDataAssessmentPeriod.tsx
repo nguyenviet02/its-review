@@ -75,6 +75,7 @@ const DialogDataAssessmentPeriod = () => {
       department: params.row.department,
       jobPosition: params.row.jobPosition,
       firstReviewer: params.row.firstReviewer,
+      assessmentPeriodId: assessmentPeriodId,
       secondReviewer: params.row.secondReviewer,
     });
     openDialogSummaryInfo();
