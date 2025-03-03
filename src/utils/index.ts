@@ -42,14 +42,16 @@ export const formatDate = (date: string) => {
 };
 
 export const getFormType = (jobPosition: string, isManager: boolean) => {
-	let formType = FORM_TYPES.UNSET;
-	if (isManager) {
-		if (jobPosition === JOB_POSITIONS.DEV) {
-			formType = FORM_TYPES.FOR_DEV_MANAGER_V1;
-		}
-	}
-	if (jobPosition === JOB_POSITIONS.DEV) {
-		formType = FORM_TYPES.FOR_DEV_V1;
-	}
-	return formType;
-}
+  let formType = FORM_TYPES.UNSET;
+  if (isManager) {
+    if (jobPosition === JOB_POSITIONS.DEV) {
+      formType = FORM_TYPES.FOR_DEV_MANAGER_V1;
+    }
+  }
+  if (!isManager) {
+    if (jobPosition === JOB_POSITIONS.DEV) {
+      formType = FORM_TYPES.FOR_DEV_V1;
+    }
+  }
+  return formType;
+};
