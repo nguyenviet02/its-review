@@ -7,15 +7,27 @@ import { useForm, FormProvider } from "react-hook-form";
 import { useDialogCongratulationStore } from "@/lib/zustand/dialogCongratulationStore";
 import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
 import { Button } from "@headlessui/react";
+import { useMutation } from "@tanstack/react-query";
+import { submitDataFormReview } from "@/apis/assessment";
 
 type Props = {
+	defaultValues?: any;
   fields: IField[];
 };
 
-const PageReview = ({ fields }: Props) => {
-  const formMethods = useForm();
+const PageReview = ({defaultValues, fields }: Props) => {
+  const formMethods = useForm({
+		defaultValues,
+	});
   const handleCloseReviewFormDialog = useReviewFormDialogStore(
     (store) => store.closeDialog,
+  );
+  const formType = useReviewFormDialogStore((store) => store.type);
+  const assessmentPeriodId = useReviewFormDialogStore(
+    (store) => store.assessmentPeriodId,
+  );
+  const userId = useReviewFormDialogStore(
+    (store) => store.userId,
   );
   const dialogCongratulationState = useDialogCongratulationStore(
     (store) => store,
@@ -24,6 +36,25 @@ const PageReview = ({ fields }: Props) => {
     handleCloseReviewFormDialog();
     formMethods.reset();
   }, [formMethods, handleCloseReviewFormDialog]);
+  const submitDataFormReviewMutation = useMutation({
+    mutationFn: ({
+      assessmentPeriodId,
+      userId,
+      data,
+    }: {
+      assessmentPeriodId: number;
+      userId: string;
+      data: any;
+    }) => submitDataFormReview(assessmentPeriodId, userId, data),
+    onSuccess: () => {
+      resetForm();
+      dialogCongratulationState.setTitle("Đánh giá nhân sự ngày 01/02/2025");
+      dialogCongratulationState.setContent(
+        "Cảm ơn bạn đã hoàn thành quá trình tự đánh giá nhân sự Chúc bạn sẽ đạt được kết quả tốt nhất",
+      );
+      dialogCongratulationState.openDialog();
+    },
+  });
   const onSubmit = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (data: any) => {
@@ -36,17 +67,17 @@ const PageReview = ({ fields }: Props) => {
             (item: { value: string }) => item.value,
           );
       }
-			const payload = {
-				review: dataToSubmit,
-				"__type": ""
-			}
-      console.log("☠️ ~ DialogFormReview ~ dataToSubmit:", payload);
-      // resetForm();
-      // dialogCongratulationState.setTitle("Đánh giá nhân sự ngày 01/02/2025");
-      // dialogCongratulationState.setContent(
-      //   "Cảm ơn bạn đã hoàn thành quá trình tự đánh giá nhân sự Chúc bạn sẽ đạt được kết quả tốt nhất",
-      // );
-      // dialogCongratulationState.openDialog();
+      const payload = {
+        review: {
+					...dataToSubmit,
+					__type: formType,
+				},
+      };
+      submitDataFormReviewMutation.mutate({
+        assessmentPeriodId: assessmentPeriodId as number,
+        userId: userId as string,
+        data: payload,
+      });
     },
     [handleCloseReviewFormDialog, formMethods, dialogCongratulationState],
   );

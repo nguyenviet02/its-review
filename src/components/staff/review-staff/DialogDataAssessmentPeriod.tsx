@@ -1,6 +1,9 @@
 import { getListStaffAssignedToMe } from "@/apis/assessment";
+import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
 import { useDataAssessmentPeriodDialogStore } from "@/lib/zustand/staff/dialogDataAssessmentPeriodStore";
 import { useStaffDialogSummaryInfoStore } from "@/lib/zustand/staffDialogSummaryInfoStore";
+import { JOB_POSITIONS } from "@/types";
+import { getFormType } from "@/utils";
 import { DocumentTextIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import {
   Dialog,
@@ -68,16 +71,28 @@ const DialogDataAssessmentPeriod = () => {
     (store) => store.setDialogData,
   );
 
+  const setAssessmentPeriodId = useReviewFormDialogStore(
+    (store) => store.setAssessmentPeriodId,
+  );
+  const setFormType = useReviewFormDialogStore((store) => store.setFormType);
+
   const handleOpenSummaryDialog = (params: GridRenderCellParams) => {
+    const isManager = true;
+		const newJobPosition = JOB_POSITIONS.DEV
+    const formType = getFormType(
+      newJobPosition,
+      isManager,
+    );
     setSummaryInfoData({
       id: params.row.id,
       username: params.row.username,
       department: params.row.department,
       jobPosition: params.row.jobPosition,
       firstReviewer: params.row.firstReviewer,
-      assessmentPeriodId: assessmentPeriodId,
       secondReviewer: params.row.secondReviewer,
     });
+		setAssessmentPeriodId(assessmentPeriodId as number);
+		setFormType(formType);
     openDialogSummaryInfo();
   };
 

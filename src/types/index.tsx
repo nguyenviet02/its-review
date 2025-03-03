@@ -63,8 +63,6 @@ export type TSummaryInfoData = {
   jobPosition: string;
   firstReviewer: string;
   secondReviewer?: string;
-  assessmentPeriodId: number | null;
-	__type: string;
 };
 export type TSummaryInfoState = {
   isOpen: boolean;

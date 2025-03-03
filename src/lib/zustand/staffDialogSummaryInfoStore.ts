@@ -17,8 +17,6 @@ export const staffDialogSummaryInfoDefaultState: TSummaryInfoState = {
     jobPosition: "",
     firstReviewer: "",
     secondReviewer: "",
-    assessmentPeriodId: null,
-    __type: "",
   },
 };
 

@@ -1,4 +1,4 @@
-import { IStaff } from "@/types";
+import { FORM_TYPES, IStaff, JOB_POSITIONS } from "@/types";
 
 // Make function format number smaller than 10 to 2 digits
 export const formatNumberToTwoDigits = (number: number) => {
@@ -40,3 +40,16 @@ export const formatDate = (date: string) => {
 
   return `${formatNumberToTwoDigits(day)}/${formatNumberToTwoDigits(month)}/${year}`;
 };
+
+export const getFormType = (jobPosition: string, isManager: boolean) => {
+	let formType = FORM_TYPES.UNSET;
+	if (isManager) {
+		if (jobPosition === JOB_POSITIONS.DEV) {
+			formType = FORM_TYPES.FOR_DEV_MANAGER_V1;
+		}
+	}
+	if (jobPosition === JOB_POSITIONS.DEV) {
+		formType = FORM_TYPES.FOR_DEV_V1;
+	}
+	return formType;
+}

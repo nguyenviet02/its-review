@@ -6,12 +6,13 @@ import { DocumentTextIcon } from "@heroicons/react/24/outline";
 import { useStaffDialogSummaryInfoStore } from "@/lib/zustand/staffDialogSummaryInfoStore";
 import { useQuery } from "@tanstack/react-query";
 import { getMyListAssessmentPeriod } from "@/apis/assessment";
-import { formatDate } from "@/utils";
+import { formatDate, getFormType } from "@/utils";
 import { useSession } from "next-auth/react";
+import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
+import { JOB_POSITIONS } from "@/types";
 
 const Staff = () => {
   const session = useSession();
-  console.log("☠️ ~ Staff ~ session:", session);
 
   const handleOpenDialog = useStaffDialogSummaryInfoStore(
     (store) => store.openDialog,
@@ -19,6 +20,10 @@ const Staff = () => {
   const setDialogData = useStaffDialogSummaryInfoStore(
     (store) => store.setDialogData,
   );
+	const setAssessmentPeriodId = useReviewFormDialogStore(
+		(store) => store.setAssessmentPeriodId,
+	);
+	const setFormType = useReviewFormDialogStore((store) => store.setFormType);
 
   // Pagination DataGrid
   const [paginationModel, setPaginationModel] = React.useState({
@@ -99,6 +104,8 @@ const Staff = () => {
       headerAlign: "center",
       align: "center",
       renderCell: (params: GridRenderCellParams) => {
+				const isManager = false
+				const formType = getFormType(session?.data?.user?.jobPosition as JOB_POSITIONS, isManager)
         return (
           <div className="flex items-center justify-center gap-4">
             <button
@@ -110,8 +117,9 @@ const Staff = () => {
                   jobPosition: session?.data?.user?.jobPosition as string,
                   firstReviewer: "",
                   secondReviewer: "",
-                  assessmentPeriodId: params.row.id,
                 });
+								setFormType(formType);
+								setAssessmentPeriodId(params.row.id);
                 handleOpenDialog();
               }}
               className="btn btn-primary rounded border border-black p-1 hover:bg-slate-200"

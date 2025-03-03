@@ -12,7 +12,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { DialogContent, Dialog, DialogTitle, IconButton } from "@mui/material";
 import React, { useMemo, useState } from "react";
 import PageReview from "../common/PageReview";
-import { FormProvider, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import formReviewGeneral from "@/forms/form-review-general";
 import formReviewBA from "@/forms/form-review-ba";
 import formReviewDev from "@/forms/form-review-dev";
@@ -20,15 +20,23 @@ import formReviewTester from "@/forms/form-review-tester";
 import { useStaffDialogSummaryInfoStore } from "@/lib/zustand/staffDialogSummaryInfoStore";
 import { useQuery } from "@tanstack/react-query";
 import { getDataFormReview } from "@/apis/assessment";
+import Loading from "../common/Loading";
 
 const DialogFormReview = () => {
-  const dialogState = useReviewFormDialogStore((store) => store.isOpen);
+  const isOpenReviewFormDialog = useReviewFormDialogStore(
+    (store) => store.isOpen,
+  );
   const summaryInfoStore = useStaffDialogSummaryInfoStore(
     (store) => store.dialogState,
   );
-  console.log("☠️ ~ DialogFormReview ~ summaryInfoStore:", summaryInfoStore);
   const handleCloseReviewFormDialog = useReviewFormDialogStore(
     (store) => store.closeDialog,
+  );
+	const userId = useReviewFormDialogStore(
+		(store) => store.userId,
+	);
+  const assessmentPeriodId = useReviewFormDialogStore(
+    (store) => store.assessmentPeriodId,
   );
   const formType = useReviewFormDialogStore((store) => store.type);
 
@@ -56,22 +64,19 @@ const DialogFormReview = () => {
   const getDataFormReviewQuery = useQuery({
     queryKey: [
       "getDataFormReview",
-      summaryInfoStore.data.id,
-      summaryInfoStore.data.assessmentPeriodId,
+      userId,
+      assessmentPeriodId,
     ],
     queryFn: async () =>
-      getDataFormReview(
-        summaryInfoStore.data.assessmentPeriodId as number,
-        summaryInfoStore.data.id,
-      ),
+      getDataFormReview(assessmentPeriodId as number, userId as string),
     refetchOnWindowFocus: false,
-    enabled:
-      !!summaryInfoStore.data.id && !!summaryInfoStore.data.assessmentPeriodId,
+    enabled: !!userId && !!assessmentPeriodId,
   });
+  console.log('☠️ ~ DialogFormReview ~ getDataFormReviewQuery:', getDataFormReviewQuery)
 
   return (
     <Dialog
-      open={dialogState}
+      open={isOpenReviewFormDialog}
       onClose={() => null}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
@@ -103,49 +108,51 @@ const DialogFormReview = () => {
         <XMarkIcon className="size-6 text-black" />
       </IconButton>
       <DialogContent className="relative" sx={{ paddingTop: 0 }}>
-        <TabGroup
-          selectedIndex={selectedTabIndex}
-          onChange={setSelectedTabIndex}
-        >
-          <TabList className="sticky right-0 top-0 z-10 flex w-full gap-4 bg-white pb-4">
-            <Tab className="rounded-full border border-transparent px-3 py-1 text-sm/6 font-semibold text-black hover:border-gray-200 focus:outline-none data-[hover]:bg-white/5 data-[selected]:bg-black data-[selected]:text-white">
-              Tự đánh giá
-            </Tab>
-            {formType === FORM_TYPES.FOR_DEV_MANAGER_V1 && (
-              <>
-                {[1, 2].map((page, index) => {
-                  return (
-                    <Tab
-                      key={index}
-                      className="rounded-full border border-transparent px-3 py-1 text-sm/6 font-semibold text-black hover:border-gray-200 focus:outline-none data-[hover]:bg-white/5 data-[selected]:bg-black data-[selected]:text-white"
-                    >
-                      Page {index + 1}
-                    </Tab>
-                  );
-                })}
-              </>
-            )}
-          </TabList>
-          <TabPanels className="mt-3">
-            <TabPanel className="rounded-xl bg-white/5 p-3 pb-0">
-              <PageReview fields={selectedForm} />
-            </TabPanel>
-            {formType === FORM_TYPES.FOR_DEV_MANAGER_V1 && (
-              <>
-                {[1, 2].map((page, index) => {
-                  return (
-                    <TabPanel
-                      key={index}
-                      className="rounded-xl bg-white/5 p-3 pb-0"
-                    >
-                      <PageReview fields={selectedForm} />
-                    </TabPanel>
-                  );
-                })}
-              </>
-            )}
-          </TabPanels>
-        </TabGroup>
+        <Loading isLoading={getDataFormReviewQuery.isLoading}>
+          <TabGroup
+            selectedIndex={selectedTabIndex}
+            onChange={setSelectedTabIndex}
+          >
+            <TabList className="sticky right-0 top-0 z-10 flex w-full gap-4 bg-white pb-4">
+              <Tab className="rounded-full border border-transparent px-3 py-1 text-sm/6 font-semibold text-black hover:border-gray-200 focus:outline-none data-[hover]:bg-white/5 data-[selected]:bg-black data-[selected]:text-white">
+                Tự đánh giá
+              </Tab>
+              {formType === FORM_TYPES.FOR_DEV_MANAGER_V1 && (
+                <>
+                  {[1, 2].map((page, index) => {
+                    return (
+                      <Tab
+                        key={index}
+                        className="rounded-full border border-transparent px-3 py-1 text-sm/6 font-semibold text-black hover:border-gray-200 focus:outline-none data-[hover]:bg-white/5 data-[selected]:bg-black data-[selected]:text-white"
+                      >
+                        Page {index + 1}
+                      </Tab>
+                    );
+                  })}
+                </>
+              )}
+            </TabList>
+            <TabPanels className="mt-3">
+              <TabPanel className="rounded-xl bg-white/5 p-3 pb-0">
+                <PageReview defaultValues={getDataFormReviewQuery?.data?.selfReview} fields={selectedForm} />
+              </TabPanel>
+              {formType === FORM_TYPES.FOR_DEV_MANAGER_V1 && (
+                <>
+                  {[1, 2].map((page, index) => {
+                    return (
+                      <TabPanel
+                        key={index}
+                        className="rounded-xl bg-white/5 p-3 pb-0"
+                      >
+                        <PageReview fields={selectedForm} />
+                      </TabPanel>
+                    );
+                  })}
+                </>
+              )}
+            </TabPanels>
+          </TabGroup>
+        </Loading>
       </DialogContent>
     </Dialog>
   );

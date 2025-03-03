@@ -1,6 +1,6 @@
 import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
 import { useStaffDialogSummaryInfoStore } from "@/lib/zustand/staffDialogSummaryInfoStore";
-import { FORM_TYPES, TSummaryInfoData } from "@/types";
+import { TSummaryInfoData } from "@/types";
 import { Button } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
@@ -25,12 +25,9 @@ const DialogSummaryInfo = () => {
     (store) => store.closeDialog,
   );
 
+	const setUserId = useReviewFormDialogStore((store) => store.setUserId);
   const handleOpenReviewForm = useReviewFormDialogStore(
     (store) => store.openDialog,
-  );
-
-  const setTypeOfReviewForm = useReviewFormDialogStore(
-    (store) => store.setType,
   );
 
   const rows = [
@@ -61,10 +58,7 @@ const DialogSummaryInfo = () => {
   ];
 
   const handleStartReviewForm = () => {
-    const jobPosition = dialogState.data.jobPosition;
-    if (jobPosition === "Developer") {
-      setTypeOfReviewForm(FORM_TYPES.FOR_DEV_V1);
-    }
+		setUserId(dialogState.data.id);
     handleOpenReviewForm();
     handleCloseDialogSummaryInfo();
   };
