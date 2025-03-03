@@ -36,3 +36,22 @@ export const getListAssessmentPeriod = async (
   });
   return res;
 };
+
+export const getListStaffOfAssessmentPeriod = async (
+  id: number,
+  limit: number,
+  page: number,
+  order: string = "ASC",
+) => {
+  const { data } = await axiosInstance.get(
+    `/api/v1/organizations/annual-reviews/${id}/employees`,
+    {
+      params: {
+        limit: limit,
+        page: page + 1, // DataGrid page start from 0
+        order: order,
+      },
+    },
+  );
+  return data;
+};

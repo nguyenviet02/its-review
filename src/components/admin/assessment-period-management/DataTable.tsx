@@ -13,6 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import ButtonImportDataAssessment from "./ButtonImportDataAssessment";
 import { EyeIcon } from "@heroicons/react/24/outline";
+import { useDataAssessmentPeriodDialogStore } from "@/lib/zustand/dialogDataAssessmentPeriodStore";
 
 const DataTable = () => {
   // Pagination DataGrid
@@ -49,6 +50,24 @@ const DataTable = () => {
     console.log(row);
     return <div>Detail</div>;
   }, []);
+
+  const openDialogDataAssessmentPeriod = useDataAssessmentPeriodDialogStore(
+    (store) => store.openDialog,
+  );
+
+  const setAssessmentPeriodId = useDataAssessmentPeriodDialogStore(
+    (store) => store.setAssessmentPeriodId,
+  );
+
+  const setAsessmentPeriodName = useDataAssessmentPeriodDialogStore(
+    (store) => store.setAssessmentPeriodName,
+  );
+
+  const handleOpenDialogShowData = (id: number, name: string) => [
+    openDialogDataAssessmentPeriod(),
+    setAssessmentPeriodId(id),
+    setAsessmentPeriodName(name),
+  ];
 
   // Define columns
   const columns: GridColDef[] = [
@@ -90,7 +109,12 @@ const DataTable = () => {
       renderCell: (params) => {
         return (
           <div className="flex h-full items-center justify-center gap-2">
-            <button className="rounded border border-black p-2 text-black">
+            <button
+              onClick={() =>
+                handleOpenDialogShowData(params.row.id, params.row.title)
+              }
+              className="rounded border border-black p-2 text-black"
+            >
               <EyeIcon className="h-5 w-5" />
             </button>
             <ButtonImportDataAssessment assessmentPeriodId={params.row.id} />
