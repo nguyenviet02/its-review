@@ -6,8 +6,17 @@ import { formatDataImportListReviewer } from "@/utils";
 import { useMutation } from "@tanstack/react-query";
 import { importAssessmentPeriodData } from "@/apis/assessment";
 import { IAssessmentPeriodImportData } from "@/types";
+import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
 
-const ButtonImportDataAssessment = () => {
+type Props = {
+  assessmentPeriodId: number;
+};
+
+const ButtonImportDataAssessment = ({ assessmentPeriodId }: Props) => {
+  console.log(
+    "☠️ ~ ButtonImportDataAssessment ~ assessmentPeriodId:",
+    assessmentPeriodId,
+  );
   const importAssessmentPeriodDataMutation = useMutation({
     mutationFn: ({
       id,
@@ -30,7 +39,7 @@ const ButtonImportDataAssessment = () => {
       const dataJson = XLSX.utils.sheet_to_json(firstWorkSheet, { header: 1 });
       const dataFormatted = formatDataImportListReviewer(dataJson);
       importAssessmentPeriodDataMutation.mutate({
-        id: 37,
+        id: assessmentPeriodId,
         data: dataFormatted,
       });
     };
@@ -43,9 +52,9 @@ const ButtonImportDataAssessment = () => {
   return (
     <label
       htmlFor="import-excel"
-      className="flex h-full cursor-pointer items-center justify-center rounded border border-black p-2"
+      className="flex cursor-pointer items-center justify-center rounded border border-black p-2"
     >
-      Nhập dữ liệu kỳ đánh giá
+      <DocumentArrowDownIcon className="h-5 w-5" />
       <input
         type="file"
         className="h-0 w-0 opacity-0"

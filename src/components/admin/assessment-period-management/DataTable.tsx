@@ -2,12 +2,19 @@
 
 import { getListAssessmentPeriod } from "@/apis/assessment";
 import { formatDate } from "@/utils";
-import { DataGrid, GridColDef, GridRowParams, useGridApiContext, useGridSelector } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridColDef,
+  GridRowParams,
+  useGridApiContext,
+  useGridSelector,
+} from "@mui/x-data-grid";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import ButtonImportDataAssessment from "./ButtonImportDataAssessment";
+import { EyeIcon } from "@heroicons/react/24/outline";
 
 const DataTable = () => {
-
   // Pagination DataGrid
   const [paginationModel, setPaginationModel] = React.useState({
     pageSize: 10,
@@ -17,7 +24,8 @@ const DataTable = () => {
   // Query get list user
   const listAssessmentPeriodQuery = useQuery({
     queryKey: ["organization-listAssessmentPeriod", paginationModel],
-    queryFn: () => getListAssessmentPeriod(paginationModel.pageSize, paginationModel.page),
+    queryFn: () =>
+      getListAssessmentPeriod(paginationModel.pageSize, paginationModel.page),
     refetchOnWindowFocus: false,
   });
   const listUser = listAssessmentPeriodQuery?.data?.data?.data;
@@ -27,19 +35,20 @@ const DataTable = () => {
     listAssessmentPeriodQuery?.data?.data?.pagination?.totalRecords || 0,
   );
   const rowCount = React.useMemo(() => {
-    if (listAssessmentPeriodQuery?.data?.data?.pagination?.totalRecords !== undefined) {
-      rowCountRef.current = listAssessmentPeriodQuery?.data?.data?.pagination?.totalRecords;
+    if (
+      listAssessmentPeriodQuery?.data?.data?.pagination?.totalRecords !==
+      undefined
+    ) {
+      rowCountRef.current =
+        listAssessmentPeriodQuery?.data?.data?.pagination?.totalRecords;
     }
     return rowCountRef.current;
   }, [listAssessmentPeriodQuery?.data?.data?.pagination?.totalRecords]);
 
-	const getDetailPanelContent = React.useCallback(
-    ({ row }: GridRowParams) => {
-			console.log(row);
-			return <div>Detail</div>;
-		},
-    [],
-  );
+  const getDetailPanelContent = React.useCallback(({ row }: GridRowParams) => {
+    console.log(row);
+    return <div>Detail</div>;
+  }, []);
 
   // Define columns
   const columns: GridColDef[] = [
@@ -59,7 +68,7 @@ const DataTable = () => {
     {
       field: "start",
       headerName: "Thời gian bắt đầu",
-			valueGetter: (value) => formatDate(value),
+      valueGetter: (value) => formatDate(value),
       flex: 1,
       headerAlign: "center",
       align: "center",
@@ -67,10 +76,27 @@ const DataTable = () => {
     {
       field: "end",
       headerName: "Thời gian kết thúc",
-			valueGetter: (value) => formatDate(value),
+      valueGetter: (value) => formatDate(value),
       flex: 1,
       headerAlign: "center",
       align: "center",
+    },
+    {
+      field: "",
+      headerName: "Thao tác",
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+      renderCell: (params) => {
+        return (
+          <div className="flex h-full items-center justify-center gap-2">
+            <button className="rounded border border-black p-2 text-black">
+              <EyeIcon className="h-5 w-5" />
+            </button>
+            <ButtonImportDataAssessment assessmentPeriodId={params.row.id} />
+          </div>
+        );
+      },
     },
   ];
 
@@ -81,7 +107,7 @@ const DataTable = () => {
         columns={columns}
         getRowId={(row) => row.id}
         loading={listAssessmentPeriodQuery?.isLoading}
-				getDetailPanelContent={getDetailPanelContent}
+        getDetailPanelContent={getDetailPanelContent}
         slotProps={{
           loadingOverlay: {
             variant: "skeleton",
