@@ -55,3 +55,39 @@ export const getListStaffOfAssessmentPeriod = async (
   );
   return data;
 };
+
+export const getMyListAssessmentPeriod = async (
+  iAssignedToReview: boolean,
+  limit: number,
+  page: number,
+  order: string = "ASC",
+) => {
+  const { data } = await axiosInstance.get(`/api/v1/annual-reviews`, {
+    params: {
+      iAssignedToReview: iAssignedToReview,
+      limit: limit,
+      page: page + 1, // DataGrid page start from 0
+      order: order,
+    },
+  });
+  return data;
+};
+
+export const getListStaffAssignedToMe = async (
+  id: number,
+  limit: number,
+  page: number,
+  order: string = "ASC",
+) => {
+  const { data } = await axiosInstance.get(
+    `/api/v1/annual-reviews/${id}/reviewers/employees`,
+    {
+      params: {
+        limit: limit,
+        page: page + 1, // DataGrid page start from 0
+        order: order,
+      },
+    },
+  );
+  return data;
+};

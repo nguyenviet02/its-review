@@ -10,6 +10,7 @@ import Link from "next/link";
 import DialogSummaryInfo from "@/components/staff/DialogSummaryInfo";
 import DialogFormReview from "@/components/staff/DialogFormReview";
 import DialogCongratulation from "@/components/staff/DialogCongratulation";
+import DialogDataAssessmentPeriod from "@/components/staff/review-staff/DialogDataAssessmentPeriod";
 
 export default function SuperAdminLayout({
   children,
@@ -22,15 +23,11 @@ export default function SuperAdminLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const navigationBaseRole = useMemo(() => {
-    if (session.data?.user?.role !== ROLES.STAFF) {
-      return [
-        { name: "Tự đánh giá", href: "/staff" },
-        { name: "Đánh giá nhân sự", href: "/staff/review-staff" },
-      ];
-    }
-
-    return [{ name: "Tự đánh giá", href: "/staff" }];
-  }, [session.data?.user?.role]);
+    return [
+      { name: "Tự đánh giá", href: "/staff" },
+      { name: "Đánh giá nhân sự", href: "/staff/review-staff" },
+    ];
+  }, []);
 
   const isCurrent = (href: string) => {
     return href === pathname;
@@ -46,7 +43,7 @@ export default function SuperAdminLayout({
         <main className="w-full">
           <Header setSidebarOpen={setSidebarOpen} />
           <div className="flex w-full flex-col gap-4 px-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold">Danh sách các đơn</h1>
+            <h1 className="text-3xl font-bold">Danh sách các kỳ đánh giá</h1>
 
             {/* Navigation */}
             <div className="flex gap-2">
@@ -75,6 +72,7 @@ export default function SuperAdminLayout({
       <DialogSummaryInfo />
       <DialogFormReview />
       <DialogCongratulation />
+			<DialogDataAssessmentPeriod />
     </>
   );
 }

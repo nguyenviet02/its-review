@@ -1,99 +1,56 @@
 "use client";
 
-import {
-  DataGrid,
-  GridColDef,
-  GridRenderCellParams,
-  GridRowsProp,
-} from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import React from "react";
-import CurrentStatus from "@/components/data-grid/CurrentStatus";
 import { DocumentTextIcon } from "@heroicons/react/24/outline";
-import Filter from "@/components/staff/Filter";
 import { useStaffDialogSummaryInfoStore } from "@/lib/zustand/staffDialogSummaryInfoStore";
-
-const mockData: GridRowsProp = [
-  {
-    id: 1,
-    period: "03-2025",
-    data: [
-      {
-        id: "ITS0001",
-        name: "Nguyễn Văn A",
-        department: "Team Design",
-        position: "Designer",
-        currentStatus: "waitingFillForm",
-        period: "03-2025",
-        deadline: "12/03/2025",
-      },
-    ],
-  },
-  {
-    id: 2,
-    period: "03-2025",
-    data: [
-      {
-        id: "ITS0002",
-        name: "Nguyễn Văn B",
-        department: "Team Design",
-        position: "Designer",
-        currentStatus: "waitingManager",
-        period: "03-2025",
-        deadline: "12/03/2025",
-      },
-      {
-        id: "ITS0003",
-        name: "Nguyễn Văn C",
-        department: "Team Design",
-        position: "Designer",
-        currentStatus: "waitingBO",
-        period: "03-2025",
-        deadline: "12/03/2025",
-      },
-    ],
-  },
-  {
-    id: 3,
-    period: "03-2025",
-    data: [
-      {
-        id: "ITS0004",
-        name: "Nguyễn Văn D",
-        department: "Team Design",
-        position: "Designer",
-        currentStatus: "waitingFillForm",
-        period: "03-2025",
-        deadline: "12/03/2025",
-      },
-      {
-        id: "ITS0005",
-        name: "Nguyễn Văn E",
-        department: "Team Design",
-        position: "Designer",
-        currentStatus: "waitingFillForm",
-        period: "03-2025",
-        deadline: "12/03/2025",
-      },
-      {
-        id: "ITS0006",
-        name: "Nguyễn Văn F",
-        department: "Team Design",
-        position: "Designer",
-        currentStatus: "waitingFillForm",
-        period: "03-2025",
-        deadline: "12/03/2025",
-      },
-    ],
-  },
-];
+import { useQuery } from "@tanstack/react-query";
+import { getMyListAssessmentPeriod } from "@/apis/assessment";
+import { formatDate } from "@/utils";
+import { useSession } from "next-auth/react";
 
 const Staff = () => {
+  const session = useSession();
+  console.log("☠️ ~ Staff ~ session:", session);
+
   const handleOpenDialog = useStaffDialogSummaryInfoStore(
     (store) => store.openDialog,
   );
   const setDialogData = useStaffDialogSummaryInfoStore(
     (store) => store.setDialogData,
   );
+
+  // Pagination DataGrid
+  const [paginationModel, setPaginationModel] = React.useState({
+    pageSize: 10,
+    page: 0,
+  });
+
+  const myListAssessmentPeriodQuery = useQuery({
+    queryKey: ["myListAssessmentPeriod"],
+    queryFn: () =>
+      getMyListAssessmentPeriod(
+        false,
+        paginationModel.pageSize,
+        paginationModel.page,
+      ),
+    refetchOnWindowFocus: false,
+  });
+  const listAssessmentPeriod = myListAssessmentPeriodQuery?.data?.data;
+
+  // Row count for DataGrid pagination
+  const rowCountRef = React.useRef(
+    myListAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0,
+  );
+  const rowCount = React.useMemo(() => {
+    if (
+      myListAssessmentPeriodQuery?.data?.pagination?.totalRecords !== undefined
+    ) {
+      rowCountRef.current =
+        myListAssessmentPeriodQuery?.data?.pagination?.totalRecords;
+    }
+    return rowCountRef.current;
+  }, [myListAssessmentPeriodQuery?.data?.pagination?.totalRecords]);
 
   const dataGridStyle = {
     "&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell": {
@@ -107,48 +64,31 @@ const Staff = () => {
     },
   };
   const columns: GridColDef[] = [
-    { field: "id", headerName: "ID Cá nhân", flex: 1 },
     {
-      field: "name",
-      headerName: "Họ tên",
+      field: "id",
+      headerName: "ID",
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "title",
+      headerName: "Tên kỳ đánh giá",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
-      field: "department",
-      headerName: "Phòng ban",
+      field: "start",
+      headerName: "Thời gian bắt đầu",
+      valueGetter: (value) => formatDate(value),
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
-      field: "position",
-      headerName: "Vị trí",
-      flex: 1,
-      headerAlign: "center",
-      align: "center",
-    },
-    {
-      field: "currentStatus",
-      headerName: "Bước duyệt",
-      flex: 1,
-      headerAlign: "center",
-      align: "center",
-      renderCell: (params: GridRenderCellParams) => {
-        return <CurrentStatus currentStatus={params.value} />;
-      },
-    },
-    {
-      field: "period",
-      headerName: "Kỳ đánh giá",
-      flex: 1,
-      headerAlign: "center",
-      align: "center",
-    },
-    {
-      field: "deadline",
-      headerName: "Hạn điền đơn",
+      field: "end",
+      headerName: "Thời gian kết thúc",
+      valueGetter: (value) => formatDate(value),
       flex: 1,
       headerAlign: "center",
       align: "center",
@@ -164,12 +104,12 @@ const Staff = () => {
             <button
               onClick={() => {
                 setDialogData({
-                  id: params.row.id as string,
-                  name: params.row.name as string,
-                  department: params.row.department as string,
-                  position: params.row.position as string,
-                  firstReviewer: "Nguyễn Văn G",
-                  secondReviewer: "Nguyễn Văn H",
+                  id: session?.data?.user?.id || "",
+                  username: session?.data?.user?.username as string,
+                  department: session?.data?.user?.department as string,
+                  jobPosition: session?.data?.user?.jobPosition as string,
+                  firstReviewer: "",
+                  secondReviewer: "",
                 });
                 handleOpenDialog();
               }}
@@ -184,29 +124,28 @@ const Staff = () => {
   ];
   return (
     <section className="flex w-full flex-col gap-8">
-      <Filter />
-      {mockData?.map((item) => {
-        return (
-          <div key={item.id} className="flex w-full flex-col gap-2">
-            <h1 className="text-xl">Kỳ đánh giá {item.period}</h1>
-            <DataGrid
-              sx={dataGridStyle}
-              loading={false}
-              rows={item.data}
-              columns={columns}
-              getRowHeight={() => "auto"}
-              disableRowSelectionOnClick
-              pageSizeOptions={[5, 10, 25]}
-              slotProps={{
-                loadingOverlay: {
-                  variant: "skeleton",
-                  noRowsVariant: "skeleton",
-                },
-              }}
-            />
-          </div>
-        );
-      })}
+      {/* <Filter /> */}
+      <div className="flex w-full flex-col gap-2">
+        <DataGrid
+          sx={dataGridStyle}
+          loading={myListAssessmentPeriodQuery.isLoading}
+          rows={listAssessmentPeriod}
+          columns={columns}
+          getRowHeight={() => "auto"}
+          disableRowSelectionOnClick
+          slotProps={{
+            loadingOverlay: {
+              variant: "skeleton",
+              noRowsVariant: "skeleton",
+            },
+          }}
+          paginationMode="server"
+          rowCount={rowCount}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
+          pageSizeOptions={[10, 15, 20, 25]}
+        />
+      </div>
     </section>
   );
 };

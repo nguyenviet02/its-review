@@ -55,9 +55,9 @@ export type TFormReview = IPage[];
 
 export type TSummaryInfoData = {
   id: string;
-  name: string;
+  username: string;
   department: string;
-  position: string;
+  jobPosition: string;
   firstReviewer: string;
   secondReviewer?: string;
 };

@@ -12,9 +12,9 @@ export const staffDialogSummaryInfoDefaultState: TSummaryInfoState = {
   isOpen: false,
   data: {
     id: "",
-    name: "",
+    username: "",
     department: "",
-    position: "",
+    jobPosition: "",
     firstReviewer: "",
     secondReviewer: "",
   },

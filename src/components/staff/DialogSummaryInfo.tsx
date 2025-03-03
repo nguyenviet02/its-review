@@ -35,7 +35,7 @@ const DialogSummaryInfo = () => {
     },
     {
       title: "Họ tên:",
-      field: "name",
+      field: "username",
     },
     {
       title: "Phòng ban:",
@@ -43,7 +43,7 @@ const DialogSummaryInfo = () => {
     },
     {
       title: "Vị trí:",
-      field: "position",
+      field: "jobPosition",
     },
     {
       title: "Người đánh giá 1:",
