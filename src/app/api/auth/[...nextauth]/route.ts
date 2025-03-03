@@ -157,24 +157,27 @@ export const authConfig = {
         token.refreshToken = account.refresh_token;
         token.accessTokenExpires = account.expires_at * 1000;
 
-        const res = await fetch(
-          `${env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/users/me`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token.accessToken}`,
+        let userData = null;
+        try {
+          const res = await fetch(
+            `${env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/users/me`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token.accessToken}`,
+              },
             },
-          },
-        );
-        const userData = await res.json();
-        token.user = userData;
+          );
+          userData = await res.json();
+          token.user = userData;
+        } catch (error) {
+					console.log(error);
+				}
       }
 
       if (Date.now() < Number(token.accessTokenExpires)) {
-        const apiToken = await generateApiAccessToken(
-          token.refreshToken,
-        );
+        const apiToken = await generateApiAccessToken(token.refreshToken);
         token.apiTokenDetails = apiToken || { accessToken: undefined };
         return token;
       }
