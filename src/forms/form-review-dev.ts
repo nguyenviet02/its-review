@@ -513,6 +513,35 @@ For FE:
       },
     ],
   },
+
+  // Tiêu chí 5
+  {
+    number: "5",
+    title: "Bổ sung khác",
+    isForManager: true,
+    description: `Nhận xét, đánh giá thêm của Quản lý`,
+    criterions: [
+      {
+        number: "5.1",
+        name: "bonus",
+        title: "Bổ sung",
+        type: FORM_FIELDS.MULTI_INPUT_SCORE,
+      },
+    ],
+  },
+  {
+    number: "6",
+    title: "Nhận xét, đánh giá thêm của Quản lý",
+    isForManager: true,
+    criterions: [
+      {
+        number: "6.1",
+        title: "Nhận xét, đánh giá thêm của Quản lý",
+        name: "comment",
+        type: FORM_FIELDS.TEXTAREA,
+      },
+    ],
+  },
 ];
 
 export default formReviewDev;

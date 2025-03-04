@@ -1,5 +1,5 @@
 import { ICriterion, IField } from "@/types";
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import FormField from "./FormField";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import CustomTooltip from "./CustomToolTip";
@@ -7,9 +7,10 @@ import { useForm, FormProvider } from "react-hook-form";
 import { useDialogCongratulationStore } from "@/lib/zustand/dialogCongratulationStore";
 import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
 import { Button } from "@headlessui/react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { submitDataFormReview } from "@/apis/assessment";
 import { useSession } from "next-auth/react";
+import { toast } from "react-toastify";
 
 type Props = {
   defaultValues?: any;
@@ -18,9 +19,24 @@ type Props = {
 };
 
 const PageReview = ({ managerId, defaultValues, fields }: Props) => {
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
   const session = useSession();
+  const queryClient = useQueryClient();
+  const defaultValuesFormatted = useMemo(() => {
+    if (!defaultValues?.bonus) return defaultValues;
+    const dataBonus = Object.entries(defaultValues.bonus).map(
+      ([title, score]) => ({
+        title,
+        score,
+      }),
+    );
+    return {
+      ...defaultValues,
+      bonus: dataBonus,
+    };
+  }, [defaultValues]);
   const formMethods = useForm({
-    defaultValues,
+    defaultValues: defaultValuesFormatted,
   });
   const handleCloseReviewFormDialog = useReviewFormDialogStore(
     (store) => store.closeDialog,
@@ -34,9 +50,11 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
     (store) => store,
   );
   const resetForm = useCallback(() => {
+    setIsSubmitting(false);
     handleCloseReviewFormDialog();
     formMethods.reset();
   }, [formMethods, handleCloseReviewFormDialog]);
+
   const submitDataFormReviewMutation = useMutation({
     mutationFn: ({
       assessmentPeriodId,
@@ -47,18 +65,31 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
       userId: string;
       data: any;
     }) => submitDataFormReview(assessmentPeriodId, userId, data),
-    onSuccess: () => {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ["getDataFormReview"],
+        refetchType: "active",
+      });
+      toast.dismiss();
+      toast.success("Gửi dữ liệu thành công");
       resetForm();
-      dialogCongratulationState.setTitle("Đánh giá nhân sự ngày 01/02/2025");
+      dialogCongratulationState.setTitle("Đánh giá nhân sự ngày");
       dialogCongratulationState.setContent(
-        "Cảm ơn bạn đã hoàn thành quá trình tự đánh giá nhân sự Chúc bạn sẽ đạt được kết quả tốt nhất",
+        "Cảm ơn bạn đã hoàn thành quá trình đánh giá nhân sự.",
       );
       dialogCongratulationState.openDialog();
+    },
+    onError: async (error) => {
+      toast.dismiss();
+      toast.error(`Error: ${error}`);
+      setIsSubmitting(false);
     },
   });
   const onSubmit = useCallback(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (data: any) => {
+      setIsSubmitting(true);
+      toast.loading("Đang gửi dữ liệu đánh giá, vui lòng đợi");
       const dataToSubmit = {
         ...data,
       };
@@ -67,6 +98,14 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
           data.workPerformedAndAchievementsAchieved.map(
             (item: { value: string }) => item.value,
           );
+      }
+      if (data?.bonus?.length > 0) {
+        const dataBonus = data?.bonus?.map(
+          (item: { title: string; score: number }) => ({
+            [item.title]: item.score,
+          }),
+        );
+        dataToSubmit.bonus = Object.assign({}, ...dataBonus);
       }
       const payload = {
         review: {
@@ -82,11 +121,17 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
     },
     [handleCloseReviewFormDialog, formMethods, dialogCongratulationState],
   );
+
+  const listFields = useMemo(() => {
+    if (!!managerId) return fields;
+    return fields.filter((field) => !!field?.isForManager === false);
+  }, [fields, managerId]);
+
   return (
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)} className="relative">
         <div className="flex flex-col gap-4">
-          {fields.map((field: IField) => {
+          {listFields.map((field: IField) => {
             return (
               <div key={field.number}>
                 <h2 className="mb-1 flex items-center gap-2 text-xl font-bold">
@@ -127,8 +172,9 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
           <div className="sticky bottom-0 left-0 mt-4 flex w-full justify-center bg-white p-4">
             <Button
               onClick={formMethods.handleSubmit(onSubmit)}
+              disabled={isSubmitting}
               type="submit"
-              className="button-primary"
+              className="button-primary disabled:cursor-not-allowed disabled:opacity-50"
             >
               Hoàn thành
             </Button>

@@ -79,11 +79,11 @@ const DialogFormReview = () => {
   });
 
   const getListReviewerQuery = useQuery({
-    queryKey: ["getListReviewerOfStaff", userId, assessmentPeriodId, isManager],
+    queryKey: ["getListReviewerOfStaff", userId, assessmentPeriodId],
     queryFn: async () =>
       getListReviewerOfStaff(assessmentPeriodId as number, userId as string),
     refetchOnWindowFocus: false,
-    enabled: !!userId && !!assessmentPeriodId && isManager,
+    enabled: !!userId && !!assessmentPeriodId,
   });
   const listReviewer = getListReviewerQuery?.data?.data;
 

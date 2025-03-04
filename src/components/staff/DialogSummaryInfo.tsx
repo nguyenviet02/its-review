@@ -1,3 +1,4 @@
+import { getListReviewerOfStaff } from "@/apis/assessment";
 import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
 import { useStaffDialogSummaryInfoStore } from "@/lib/zustand/staffDialogSummaryInfoStore";
 import { TSummaryInfoData } from "@/types";
@@ -15,7 +16,9 @@ import {
   TableContainer,
   TableRow,
 } from "@mui/material";
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import Loading from "../common/Loading";
 
 const DialogSummaryInfo = () => {
   const dialogState = useStaffDialogSummaryInfoStore(
@@ -25,9 +28,13 @@ const DialogSummaryInfo = () => {
     (store) => store.closeDialog,
   );
 
-	const setUserId = useReviewFormDialogStore((store) => store.setUserId);
+  const setUserId = useReviewFormDialogStore((store) => store.setUserId);
   const handleOpenReviewForm = useReviewFormDialogStore(
     (store) => store.openDialog,
+  );
+
+  const assessmentPeriodId = useReviewFormDialogStore(
+    (store) => store.assessmentPeriodId,
   );
 
   const rows = [
@@ -47,21 +54,30 @@ const DialogSummaryInfo = () => {
       title: "Vị trí:",
       field: "jobPosition",
     },
-    {
-      title: "Người đánh giá 1:",
-      field: "firstReviewer",
-    },
-    {
-      title: "Người đánh giá 2:",
-      field: "secondReviewer",
-    },
   ];
 
   const handleStartReviewForm = () => {
-		setUserId(dialogState.data.id);
+    setUserId(dialogState.data.id);
     handleOpenReviewForm();
     handleCloseDialogSummaryInfo();
   };
+
+  const getListReviewerQuery = useQuery({
+    queryKey: [
+      "getListReviewerOfStaff",
+      dialogState.data.id,
+      assessmentPeriodId,
+    ],
+    queryFn: async () =>
+      getListReviewerOfStaff(
+        assessmentPeriodId as number,
+        dialogState.data.id as string,
+      ),
+    refetchOnWindowFocus: false,
+    enabled: !!dialogState.data.id && !!assessmentPeriodId,
+  });
+  const listReviewer = getListReviewerQuery?.data?.data;
+
   return (
     <Dialog
       open={dialogState.isOpen}
@@ -71,7 +87,7 @@ const DialogSummaryInfo = () => {
       fullWidth
     >
       <DialogTitle id="alert-dialog-title" className="text-3xl font-bold">
-        Bảng tự đánh giá nhân sự ngày 01/02/2025
+        Bảng tự đánh giá nhân sự
       </DialogTitle>
       <IconButton
         aria-label="close"
@@ -86,25 +102,38 @@ const DialogSummaryInfo = () => {
         <XMarkIcon className="size-6 text-black" />
       </IconButton>
       <DialogContent>
-        <TableContainer>
-          <Table aria-label="simple table">
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow
-                  key={row.field}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell component="th" scope="row">
-                    <span className="font-semibold">{row.title}</span>
-                  </TableCell>
-                  <TableCell>
-                    {dialogState.data[row.field as keyof TSummaryInfoData]}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <Loading isLoading={getListReviewerQuery.isLoading}>
+          <TableContainer>
+            <Table aria-label="simple table">
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow
+                    key={row.field}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      <span className="font-semibold">{row.title}</span>
+                    </TableCell>
+                    <TableCell>
+                      {dialogState.data[row.field as keyof TSummaryInfoData]}
+                    </TableCell>
+                  </TableRow>
+                ))}
+                {listReviewer?.map((reviewer, index) => (
+                  <TableRow
+                    key={reviewer.id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      <span className="font-semibold">{`Người đánh giá ${index + 1}:`}</span>
+                    </TableCell>
+                    <TableCell>{`${reviewer.username}`}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Loading>
       </DialogContent>
       <DialogActions
         sx={{

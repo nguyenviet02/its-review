@@ -7,6 +7,7 @@ import TextArea from "./fields/TextArea";
 import TableInput from "./fields/TableInput";
 import CustomTooltip from "./CustomToolTip";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
+import MultiInputScore from "./fields/MultiInputScore";
 
 type Props = {
   criterion: ICriterion;
@@ -15,6 +16,9 @@ type Props = {
 const FormField = ({ criterion }: Props) => {
   if (criterion.type === FORM_FIELDS.MULTI_INPUT) {
     return <MultiInput name={criterion.name} />;
+  }
+  if (criterion.type === FORM_FIELDS.MULTI_INPUT_SCORE) {
+    return <MultiInputScore name={criterion.name} />;
   }
   if (criterion.type === FORM_FIELDS.SELECT) {
     return (

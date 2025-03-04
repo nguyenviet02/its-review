@@ -10,6 +10,7 @@ export enum ROLES {
 export enum FORM_FIELDS {
   INPUT = "input",
   MULTI_INPUT = "multi-input",
+  MULTI_INPUT_SCORE = "multi-input-score",
   TEXTAREA = "textarea",
   SELECT = "select",
   SCORE_INPUT = "score-input",
@@ -17,7 +18,7 @@ export enum FORM_FIELDS {
 }
 
 export enum JOB_POSITIONS {
-	UNSET = "Unset",
+  UNSET = "Unset",
   DEV = "Developer",
 }
 
@@ -53,6 +54,7 @@ export interface IField {
   title: string;
   description?: string;
   criterions: ICriterion[];
+  isForManager?: boolean;
 }
 
 export type TFormReview = IField[];

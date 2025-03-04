@@ -1,0 +1,61 @@
+import { MinusCircleIcon } from "@heroicons/react/24/outline";
+import React, { useEffect } from "react";
+import { useFieldArray, useFormContext } from "react-hook-form";
+
+type Props = {
+  name: string;
+};
+
+const MultiInputScore = ({ name }: Props) => {
+  const formMethods = useFormContext();
+  const { fields, append, remove } = useFieldArray({
+    control: formMethods.control,
+    name: name, // unique name for your Field Array
+  });
+  useEffect(() => {
+    if (fields.length === 0 && fields.length < 1) {
+      append({ title: "", score: 0 });
+    }
+  }, [append, fields.length]);
+  return (
+    <div className="flex flex-col items-center gap-1">
+      {fields.map((field, index) => {
+        return (
+          <div
+            key={field.id}
+            className="flex w-full gap-2 overflow-hidden rounded border border-gray-300 px-4 py-2"
+          >
+            <input
+              className="flex-1 border-none outline-none"
+              placeholder="Nhận xét, đánh giá"
+              type="text"
+              {...formMethods.register(`${name}.${index}.title`)}
+            />
+            <input
+              type="number"
+              placeholder="Điểm"
+              className="w-16 rounded border border-gray-400 outline-none px-1"
+              {...formMethods.register(`${name}.${index}.score`, {
+                valueAsNumber: true,
+                min: 0,
+              })}
+            />
+            <button className="w-fit shrink-0" onClick={() => remove(index)}>
+              <MinusCircleIcon className="size-6" />
+            </button>
+          </div>
+        );
+      })}
+      <button
+        className="w-fit shrink-0 rounded border border-black px-4 py-1"
+        onClick={() => {
+          append({ title: "", score: 0 });
+        }}
+      >
+        Thêm
+      </button>
+    </div>
+  );
+};
+
+export default MultiInputScore;
