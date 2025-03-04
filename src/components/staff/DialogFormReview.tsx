@@ -32,12 +32,13 @@ const DialogFormReview = () => {
   const handleCloseReviewFormDialog = useReviewFormDialogStore(
     (store) => store.closeDialog,
   );
-	const userId = useReviewFormDialogStore(
-		(store) => store.userId,
-	);
+
+  const userId = useReviewFormDialogStore((store) => store.userId);
   const assessmentPeriodId = useReviewFormDialogStore(
     (store) => store.assessmentPeriodId,
   );
+  const isManager = useReviewFormDialogStore((store) => store.isManager);
+  console.log("☠️ ~ DialogFormReview ~ isManager:", isManager);
   const formType = useReviewFormDialogStore((store) => store.type);
 
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
@@ -62,17 +63,12 @@ const DialogFormReview = () => {
   }, [formType]);
 
   const getDataFormReviewQuery = useQuery({
-    queryKey: [
-      "getDataFormReview",
-      userId,
-      assessmentPeriodId,
-    ],
+    queryKey: ["getDataFormReview", userId, assessmentPeriodId],
     queryFn: async () =>
       getDataFormReview(assessmentPeriodId as number, userId as string),
     refetchOnWindowFocus: false,
     enabled: !!userId && !!assessmentPeriodId,
   });
-  console.log('☠️ ~ DialogFormReview ~ getDataFormReviewQuery:', getDataFormReviewQuery)
 
   return (
     <Dialog
@@ -134,7 +130,10 @@ const DialogFormReview = () => {
             </TabList>
             <TabPanels className="mt-3">
               <TabPanel className="rounded-xl bg-white/5 p-3 pb-0">
-                <PageReview defaultValues={getDataFormReviewQuery?.data?.selfReview} fields={selectedForm} />
+                <PageReview
+                  defaultValues={getDataFormReviewQuery?.data?.selfReview}
+                  fields={selectedForm}
+                />
               </TabPanel>
               {formType === FORM_TYPES.FOR_DEV_MANAGER_V1 && (
                 <>

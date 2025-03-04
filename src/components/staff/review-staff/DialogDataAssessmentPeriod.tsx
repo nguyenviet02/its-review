@@ -75,14 +75,12 @@ const DialogDataAssessmentPeriod = () => {
     (store) => store.setAssessmentPeriodId,
   );
   const setFormType = useReviewFormDialogStore((store) => store.setFormType);
+  const setIsManager = useReviewFormDialogStore((store) => store.setIsManager);
 
   const handleOpenSummaryDialog = (params: GridRenderCellParams) => {
     const isManager = true;
-		const newJobPosition = JOB_POSITIONS.DEV
-    const formType = getFormType(
-      newJobPosition,
-      isManager,
-    );
+    const newJobPosition = JOB_POSITIONS.DEV;
+    const formType = getFormType(newJobPosition, isManager);
     setSummaryInfoData({
       id: params.row.id,
       username: params.row.username,
@@ -91,8 +89,9 @@ const DialogDataAssessmentPeriod = () => {
       firstReviewer: params.row.firstReviewer,
       secondReviewer: params.row.secondReviewer,
     });
-		setAssessmentPeriodId(assessmentPeriodId as number);
-		setFormType(formType);
+    setIsManager(isManager);
+    setAssessmentPeriodId(assessmentPeriodId as number);
+    setFormType(formType);
     openDialogSummaryInfo();
   };
 

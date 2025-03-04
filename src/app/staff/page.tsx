@@ -14,16 +14,17 @@ import { JOB_POSITIONS } from "@/types";
 const Staff = () => {
   const session = useSession();
 
-  const handleOpenDialog = useStaffDialogSummaryInfoStore(
+  const handleOpenSummaryInfoDialog = useStaffDialogSummaryInfoStore(
     (store) => store.openDialog,
   );
   const setDialogData = useStaffDialogSummaryInfoStore(
     (store) => store.setDialogData,
   );
-	const setAssessmentPeriodId = useReviewFormDialogStore(
-		(store) => store.setAssessmentPeriodId,
-	);
-	const setFormType = useReviewFormDialogStore((store) => store.setFormType);
+  const setAssessmentPeriodId = useReviewFormDialogStore(
+    (store) => store.setAssessmentPeriodId,
+  );
+  const setIsManager = useReviewFormDialogStore((store) => store.setIsManager);
+  const setFormType = useReviewFormDialogStore((store) => store.setFormType);
 
   // Pagination DataGrid
   const [paginationModel, setPaginationModel] = React.useState({
@@ -104,8 +105,11 @@ const Staff = () => {
       headerAlign: "center",
       align: "center",
       renderCell: (params: GridRenderCellParams) => {
-				const isManager = false
-				const formType = getFormType(session?.data?.user?.jobPosition as JOB_POSITIONS, isManager)
+        const isManager = false;
+        const formType = getFormType(
+          session?.data?.user?.jobPosition as JOB_POSITIONS,
+          isManager,
+        );
         return (
           <div className="flex items-center justify-center gap-4">
             <button
@@ -118,9 +122,10 @@ const Staff = () => {
                   firstReviewer: "",
                   secondReviewer: "",
                 });
-								setFormType(formType);
-								setAssessmentPeriodId(params.row.id);
-                handleOpenDialog();
+                setFormType(formType);
+                setAssessmentPeriodId(params.row.id);
+                setIsManager(isManager);
+                handleOpenSummaryInfoDialog();
               }}
               className="btn btn-primary rounded border border-black p-1 hover:bg-slate-200"
             >

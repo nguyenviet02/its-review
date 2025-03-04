@@ -92,6 +92,16 @@ export const getListStaffAssignedToMe = async (
   return data;
 };
 
+export const getListReviewerOfStaff = async (
+  assessmentPeriodId: number,
+  userId: string,
+) => {
+  const { data } = await axiosInstance.get(
+    `/api/v1/annual-reviews/${assessmentPeriodId}/employees/${userId}/reviewers`,
+  );
+  return data;
+};
+
 export const getDataFormReview = async (
   assessmentPeriodId: number,
   userId: string,
