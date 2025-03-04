@@ -17,6 +17,7 @@ export enum FORM_FIELDS {
 }
 
 export enum JOB_POSITIONS {
+	UNSET = "Unset",
   DEV = "Developer",
 }
 
@@ -60,7 +61,7 @@ export type TSummaryInfoData = {
   id: string;
   username: string;
   department: string;
-  jobPosition: string;
+  jobPosition: JOB_POSITIONS;
   firstReviewer: string;
   secondReviewer?: string;
 };
@@ -73,7 +74,7 @@ export interface IStaff {
   id: string;
   username: string;
   department: string;
-  jobPosition: string;
+  jobPosition: JOB_POSITIONS;
   email: string;
   organizationId?: number;
 }
@@ -82,7 +83,7 @@ export interface IAssessmentMinifyData {
   id: string;
   username: string;
   department: string;
-  jobPosition: string;
+  jobPosition: JOB_POSITIONS;
   currentStatus: string;
   period: string;
   deadline: string;

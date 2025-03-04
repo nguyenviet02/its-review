@@ -118,7 +118,7 @@ const Staff = () => {
                   id: session?.data?.user?.id || "",
                   username: session?.data?.user?.username as string,
                   department: session?.data?.user?.department as string,
-                  jobPosition: session?.data?.user?.jobPosition as string,
+                  jobPosition: session?.data?.user?.jobPosition as JOB_POSITIONS,
                   firstReviewer: "",
                   secondReviewer: "",
                 });

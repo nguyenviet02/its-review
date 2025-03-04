@@ -41,7 +41,7 @@ export const formatDate = (date: string) => {
   return `${formatNumberToTwoDigits(day)}/${formatNumberToTwoDigits(month)}/${year}`;
 };
 
-export const getFormType = (jobPosition: string, isManager: boolean) => {
+export const getFormType = (jobPosition: JOB_POSITIONS, isManager: boolean) => {
   let formType = FORM_TYPES.UNSET;
   if (isManager) {
     if (jobPosition === JOB_POSITIONS.DEV) {

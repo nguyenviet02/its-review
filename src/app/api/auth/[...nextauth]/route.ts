@@ -5,6 +5,7 @@ import * as msal from "@azure/msal-node";
 import AzureADProvider, { AzureADProfile } from "next-auth/providers/azure-ad";
 
 import { env } from "process";
+import { JOB_POSITIONS } from "@/types";
 
 const clientId = env.NEXT_PUBLIC_AZURE_AD_CLIENT_ID;
 const clientSecret = env.NEXT_PUBLIC_AZURE_AD_CLIENT_SECRET;
@@ -20,7 +21,7 @@ declare module "next-auth" {
       email: string;
       organizationId: number;
       department: string;
-      jobPosition: string;
+      jobPosition: JOB_POSITIONS;
       roles: string[];
       createdAt: string;
       updatedAt: string;
@@ -36,7 +37,7 @@ declare module "next-auth/jwt" {
       email: string;
       organizationId: number;
       department: string;
-      jobPosition: string;
+      jobPosition: JOB_POSITIONS;
       roles: string[];
       createdAt: string;
       updatedAt: string;

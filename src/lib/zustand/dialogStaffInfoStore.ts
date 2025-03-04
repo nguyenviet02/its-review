@@ -1,4 +1,4 @@
-import { IStaff } from "@/types";
+import { IStaff, JOB_POSITIONS } from "@/types";
 import { create } from "zustand";
 
 interface IDialogStaffInfoStore {
@@ -14,7 +14,7 @@ const dialogDefaultData: IStaff = {
   id: "",
   username: "",
   department: "",
-  jobPosition: "",
+  jobPosition: JOB_POSITIONS.UNSET,
   email: "",
   organizationId: 1,
 };
