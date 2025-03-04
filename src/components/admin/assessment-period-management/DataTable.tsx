@@ -130,7 +130,7 @@ const DataTable = () => {
         rows={listUser}
         columns={columns}
         getRowId={(row) => row.id}
-        loading={listAssessmentPeriodQuery?.isLoading}
+        loading={listAssessmentPeriodQuery?.isLoading || listAssessmentPeriodQuery?.isFetching}
         getDetailPanelContent={getDetailPanelContent}
         slotProps={{
           loadingOverlay: {

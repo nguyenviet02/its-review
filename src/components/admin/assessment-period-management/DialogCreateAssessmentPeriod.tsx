@@ -14,13 +14,14 @@ import React from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createAssessmentPeriod } from "@/apis/assessment";
 import { toast } from "react-toastify";
 
 type Props = {};
 
 const DialogCreateAssessmentPeriod = (props: Props) => {
+  const queryClient = useQueryClient();
   const dialogState = useCreateAssessmentPeriodDialogStore(
     (store) => store.isOpen,
   );
@@ -33,6 +34,10 @@ const DialogCreateAssessmentPeriod = (props: Props) => {
     onSuccess: async () => {
       toast.dismiss();
       toast.success("Tạo mới kỳ đánh giá thành công");
+      queryClient.invalidateQueries({
+        queryKey: ["organization-listAssessmentPeriod"],
+        refetchType: "active",
+      });
       handleClose();
     },
     onError: (error) => {
@@ -122,7 +127,7 @@ const DialogCreateAssessmentPeriod = (props: Props) => {
             <ErrorMessage errorMessage={errors.start?.message} />
           </Field>
           <Field className="flex flex-col gap-1">
-            <Label className="label-form">Thời gian bắt đầu</Label>
+            <Label className="label-form">Thời gian kết thúc</Label>
             <Controller
               control={control}
               name="end"

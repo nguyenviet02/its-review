@@ -173,8 +173,8 @@ export const authConfig = {
           userData = await res.json();
           token.user = userData;
         } catch (error) {
-					console.log(error);
-				}
+          console.log(error);
+        }
       }
 
       if (Date.now() < Number(token.accessTokenExpires)) {
