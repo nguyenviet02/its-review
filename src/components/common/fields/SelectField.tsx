@@ -7,11 +7,12 @@ import ErrorMessage from "../ErrorMessage";
 import { get } from "lodash";
 
 type Props = {
+  disabled?: boolean;
   name: string;
   scoreScale?: IScoreScale[];
 };
 
-function SelectField({ name, scoreScale }: Props) {
+function SelectField({ disabled, name, scoreScale }: Props) {
   const formMethods = useFormContext();
   const errorMessage = (get(formMethods.formState.errors, name) as FieldError)
     ?.message;
@@ -25,8 +26,9 @@ function SelectField({ name, scoreScale }: Props) {
               required: "Trường này không được để trống",
               validate: (value) => value !== "",
             })}
+            disabled={disabled}
             defaultValue=""
-            className="h-full w-full appearance-none bg-transparent px-4 py-2"
+            className="h-full w-full appearance-none bg-transparent px-4 py-2 disabled:cursor-not-allowed"
           >
             <option value={""} disabled>
               Chọn điểm

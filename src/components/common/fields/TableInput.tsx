@@ -14,6 +14,7 @@ import React, { useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 
 type Props = {
+  disabled?: boolean;
   name: string;
 };
 
@@ -50,7 +51,7 @@ function EditToolbar(props: GridSlotProps["toolbar"]) {
   );
 }
 
-const TableInput = ({ name }: Props) => {
+const TableInput = ({ disabled, name }: Props) => {
   const formMethods = useFormContext();
   const dataTable = formMethods.getValues(name);
 
@@ -129,6 +130,7 @@ const TableInput = ({ name }: Props) => {
         disableColumnMenu
         disableDensitySelector
         disableColumnResize
+				isCellEditable={() => !disabled}
         hideFooter
         slots={{ toolbar: EditToolbar }}
         slotProps={{

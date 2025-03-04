@@ -10,15 +10,16 @@ import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import MultiInputScore from "./fields/MultiInputScore";
 
 type Props = {
+  disabled?: boolean;
   criterion: ICriterion;
 };
 
-const FormField = ({ criterion }: Props) => {
+const FormField = ({ disabled, criterion }: Props) => {
   if (criterion.type === FORM_FIELDS.MULTI_INPUT) {
-    return <MultiInput name={criterion.name} />;
+    return <MultiInput disabled={disabled} name={criterion.name} />;
   }
   if (criterion.type === FORM_FIELDS.MULTI_INPUT_SCORE) {
-    return <MultiInputScore name={criterion.name} />;
+    return <MultiInputScore disabled={disabled} name={criterion.name} />;
   }
   if (criterion.type === FORM_FIELDS.SELECT) {
     return (
@@ -40,18 +41,22 @@ const FormField = ({ criterion }: Props) => {
             </CustomTooltip>
           )}
         </h3>
-        <SelectField name={criterion.name} scoreScale={criterion.scoreScale} />
+        <SelectField
+          disabled={disabled}
+          name={criterion.name}
+          scoreScale={criterion.scoreScale}
+        />
       </>
     );
   }
   if (criterion.type === FORM_FIELDS.SCORE_INPUT) {
-    return <ScoreInput name={criterion.name} title={criterion.title} />;
+    return <ScoreInput disabled={disabled} name={criterion.name} title={criterion.title} />;
   }
   if (criterion.type === FORM_FIELDS.TEXTAREA) {
     return (
       <>
         <h3 className="font-semibold">{`${criterion.number}. ${criterion.title}`}</h3>
-        <TextArea name={criterion.name} />
+        <TextArea disabled={disabled} name={criterion.name} />
       </>
     );
   }
@@ -59,7 +64,7 @@ const FormField = ({ criterion }: Props) => {
     return (
       <>
         <h3 className="font-semibold">{`${criterion.number}. ${criterion.title}`}</h3>
-        <TableInput name={criterion.name} />
+        <TableInput disabled={disabled} name={criterion.name} />
       </>
     );
   }

@@ -6,7 +6,7 @@ import CustomTooltip from "./CustomToolTip";
 import { useForm, FormProvider } from "react-hook-form";
 import { useDialogCongratulationStore } from "@/lib/zustand/dialogCongratulationStore";
 import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
-import { Button } from "@headlessui/react";
+import { Button, Field } from "@headlessui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { submitDataFormReview } from "@/apis/assessment";
 import { useSession } from "next-auth/react";
@@ -127,6 +127,13 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
     return fields.filter((field) => !!field?.isForManager === false);
   }, [fields, managerId]);
 
+  const isAllowEditAndSubmit = useMemo(() => {
+    return (
+      session?.data?.user?.id === userId ||
+      managerId === session?.data?.user?.id
+    );
+  }, [managerId, session?.data?.user?.id, userId]);
+
   return (
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)} className="relative">
@@ -158,7 +165,10 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
                         key={criterion.number}
                         className="flex flex-col gap-2"
                       >
-                        <FormField criterion={criterion} />
+                        <FormField
+                          disabled={!isAllowEditAndSubmit}
+                          criterion={criterion}
+                        />
                       </div>
                     );
                   })}
@@ -167,8 +177,7 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
             );
           })}
         </div>
-        {(session?.data?.user?.id === userId ||
-          managerId === session?.data?.user?.id) && (
+        {isAllowEditAndSubmit && (
           <div className="sticky bottom-0 left-0 mt-4 flex w-full justify-center bg-white p-4">
             <Button
               onClick={formMethods.handleSubmit(onSubmit)}
