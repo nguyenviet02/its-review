@@ -29,6 +29,7 @@ const DialogSummaryInfo = () => {
   );
 
   const setUserId = useReviewFormDialogStore((store) => store.setUserId);
+  const isManager = useReviewFormDialogStore((store) => store.isManager);
   const handleOpenReviewForm = useReviewFormDialogStore(
     (store) => store.openDialog,
   );
@@ -74,7 +75,7 @@ const DialogSummaryInfo = () => {
         dialogState.data.id as string,
       ),
     refetchOnWindowFocus: false,
-    enabled: !!dialogState.data.id && !!assessmentPeriodId,
+    enabled: !!dialogState.data.id && !!assessmentPeriodId && isManager,
   });
   const listReviewer = getListReviewerQuery?.data?.data;
 

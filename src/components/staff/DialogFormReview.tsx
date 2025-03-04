@@ -83,9 +83,20 @@ const DialogFormReview = () => {
     queryFn: async () =>
       getListReviewerOfStaff(assessmentPeriodId as number, userId as string),
     refetchOnWindowFocus: false,
-    enabled: !!userId && !!assessmentPeriodId,
+    enabled: !!userId && !!assessmentPeriodId && isManager,
   });
   const listReviewer = getListReviewerQuery?.data?.data;
+
+  const renderTotalPoint = (point: number, maxPoint: number) => {
+    if (!point || !maxPoint) return null;
+    return (
+      <div className="sticky bottom-0 left-0 z-30 flex h-10 w-full items-center justify-center bg-white py-4 text-2xl font-bold">
+        <span>
+          Tổng điểm: {point}/{maxPoint}
+        </span>
+      </div>
+    );
+  };
 
   return (
     <Dialog
@@ -145,33 +156,37 @@ const DialogFormReview = () => {
                 );
               })}
             </TabList>
-            <TabPanels className="mt-3">
-              <TabPanel className="rounded-xl bg-white/5 p-3 pb-0">
+            <TabPanels className="relative mt-3">
+              <TabPanel className="relative rounded-xl bg-white/5 p-3 pb-6">
                 <PageReview
                   defaultValues={getDataFormReviewQuery?.data?.selfReview}
                   fields={selectedForm}
                 />
+                {renderTotalPoint(
+                  getDataFormReviewQuery?.data?.selfReview?.point,
+                  getDataFormReviewQuery?.data?.selfReview?.maxPoint,
+                )}
               </TabPanel>
               {listReviewer?.map((reviewer) => {
                 const defaultValues =
                   getDataFormReviewQuery?.data?.managerReviews?.find(
                     (data) => data?.managerId === reviewer?.id,
                   );
-                console.log(
-                  "☠️ ~ {listReviewer?.map ~ defaultValues:",
-                  defaultValues,
-                );
 
                 return (
                   <TabPanel
                     key={reviewer?.id}
-                    className="rounded-xl bg-white/5 p-3 pb-0"
+                    className="rounded-xl bg-white/5 p-3 pb-4"
                   >
                     <PageReview
                       defaultValues={defaultValues || {}}
                       managerId={reviewer?.id}
                       fields={selectedForm}
                     />
+                    {renderTotalPoint(
+                      defaultValues?.point,
+                      defaultValues?.maxPoint,
+                    )}
                   </TabPanel>
                 );
               })}
