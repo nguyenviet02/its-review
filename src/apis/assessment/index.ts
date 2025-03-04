@@ -104,21 +104,21 @@ export const getListReviewerOfStaff = async (
 
 export const getDataFormReview = async (
   assessmentPeriodId: number,
-  userId: string,
+  employeeId: string,
 ) => {
   const { data } = await axiosInstance.get(
-    `/api/v1/annual-reviews/${assessmentPeriodId}/users/${userId}/reviews`,
+    `/api/v1/annual-reviews/${assessmentPeriodId}/employees/${employeeId}/reviews`,
   );
   return data;
 };
 
 export const submitDataFormReview = async (
   assessmentPeriodId: number,
-  userId: string,
+  employeeId: string,
   data,
 ) => {
   const res = await axiosInstance.post(
-    `/api/v1/annual-reviews/${assessmentPeriodId}/users/${userId}/reviews`,
+    `/api/v1/annual-reviews/${assessmentPeriodId}/employees/${employeeId}/reviews`,
     data,
   );
   return res;

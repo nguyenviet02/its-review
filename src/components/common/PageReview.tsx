@@ -9,16 +9,19 @@ import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
 import { Button } from "@headlessui/react";
 import { useMutation } from "@tanstack/react-query";
 import { submitDataFormReview } from "@/apis/assessment";
+import { useSession } from "next-auth/react";
 
 type Props = {
-	defaultValues?: any;
+  defaultValues?: any;
+  managerId?: string;
   fields: IField[];
 };
 
-const PageReview = ({defaultValues, fields }: Props) => {
+const PageReview = ({ managerId, defaultValues, fields }: Props) => {
+  const session = useSession();
   const formMethods = useForm({
-		defaultValues,
-	});
+    defaultValues,
+  });
   const handleCloseReviewFormDialog = useReviewFormDialogStore(
     (store) => store.closeDialog,
   );
@@ -26,9 +29,7 @@ const PageReview = ({defaultValues, fields }: Props) => {
   const assessmentPeriodId = useReviewFormDialogStore(
     (store) => store.assessmentPeriodId,
   );
-  const userId = useReviewFormDialogStore(
-    (store) => store.userId,
-  );
+  const userId = useReviewFormDialogStore((store) => store.userId);
   const dialogCongratulationState = useDialogCongratulationStore(
     (store) => store,
   );
@@ -69,9 +70,9 @@ const PageReview = ({defaultValues, fields }: Props) => {
       }
       const payload = {
         review: {
-					...dataToSubmit,
-					__type: formType,
-				},
+          ...dataToSubmit,
+          __type: formType,
+        },
       };
       submitDataFormReviewMutation.mutate({
         assessmentPeriodId: assessmentPeriodId as number,
@@ -121,15 +122,18 @@ const PageReview = ({defaultValues, fields }: Props) => {
             );
           })}
         </div>
-        <div className="sticky bottom-0 left-0 mt-4 flex w-full justify-center bg-white p-4">
-          <Button
-            onClick={formMethods.handleSubmit(onSubmit)}
-            type="submit"
-            className="button-primary"
-          >
-            Hoàn thành
-          </Button>
-        </div>
+        {(session?.data?.user?.id === userId ||
+          managerId === session?.data?.user?.id) && (
+          <div className="sticky bottom-0 left-0 mt-4 flex w-full justify-center bg-white p-4">
+            <Button
+              onClick={formMethods.handleSubmit(onSubmit)}
+              type="submit"
+              className="button-primary"
+            >
+              Hoàn thành
+            </Button>
+          </div>
+        )}
       </form>
     </FormProvider>
   );
