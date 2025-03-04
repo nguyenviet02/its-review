@@ -13,10 +13,6 @@ type Props = {
 };
 
 const ButtonImportDataAssessment = ({ assessmentPeriodId }: Props) => {
-  console.log(
-    "☠️ ~ ButtonImportDataAssessment ~ assessmentPeriodId:",
-    assessmentPeriodId,
-  );
   const importAssessmentPeriodDataMutation = useMutation({
     mutationFn: ({
       id,
@@ -51,14 +47,14 @@ const ButtonImportDataAssessment = ({ assessmentPeriodId }: Props) => {
   }
   return (
     <label
-      htmlFor="import-excel"
+      htmlFor={`import-excel-${assessmentPeriodId}`}
       className="flex cursor-pointer items-center justify-center rounded border border-black p-2"
     >
       <DocumentArrowDownIcon className="h-5 w-5" />
       <input
         type="file"
         className="h-0 w-0 opacity-0"
-        id="import-excel"
+        id={`import-excel-${assessmentPeriodId}`}
         onChange={handleFileAsync}
       />
     </label>

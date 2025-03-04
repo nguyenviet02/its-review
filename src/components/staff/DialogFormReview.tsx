@@ -90,7 +90,7 @@ const DialogFormReview = () => {
   const renderTotalPoint = (point: number, maxPoint: number) => {
     if (!point || !maxPoint) return null;
     return (
-      <div className="sticky bottom-0 left-0 z-30 flex h-10 w-full items-center justify-center bg-white py-4 text-2xl font-bold">
+      <div className="flex h-10 w-full items-center justify-center bg-white py-4 text-2xl font-bold">
         <span>
           Tổng điểm: {point}/{maxPoint}
         </span>
@@ -105,7 +105,7 @@ const DialogFormReview = () => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
       fullWidth
-      maxWidth="md"
+      maxWidth="xl"
       sx={{
         "& .MuiDialogContent-root": {
           paddingBottom: 0,
@@ -158,14 +158,14 @@ const DialogFormReview = () => {
             </TabList>
             <TabPanels className="relative mt-3">
               <TabPanel className="relative rounded-xl bg-white/5 p-3 pb-6">
-                <PageReview
-                  defaultValues={getDataFormReviewQuery?.data?.selfReview}
-                  fields={selectedForm}
-                />
                 {renderTotalPoint(
                   getDataFormReviewQuery?.data?.selfReview?.point,
                   getDataFormReviewQuery?.data?.selfReview?.maxPoint,
                 )}
+                <PageReview
+                  defaultValues={getDataFormReviewQuery?.data?.selfReview}
+                  fields={selectedForm}
+                />
               </TabPanel>
               {listReviewer?.map((reviewer) => {
                 const defaultValues =
@@ -178,15 +178,15 @@ const DialogFormReview = () => {
                     key={reviewer?.id}
                     className="rounded-xl bg-white/5 p-3 pb-4"
                   >
+                    {renderTotalPoint(
+                      defaultValues?.point,
+                      defaultValues?.maxPoint,
+                    )}
                     <PageReview
                       defaultValues={defaultValues || {}}
                       managerId={reviewer?.id}
                       fields={selectedForm}
                     />
-                    {renderTotalPoint(
-                      defaultValues?.point,
-                      defaultValues?.maxPoint,
-                    )}
                   </TabPanel>
                 );
               })}

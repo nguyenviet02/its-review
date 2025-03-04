@@ -29,7 +29,7 @@ const DataTable = () => {
       getListAssessmentPeriod(paginationModel.pageSize, paginationModel.page),
     refetchOnWindowFocus: false,
   });
-  const listUser = listAssessmentPeriodQuery?.data?.data?.data;
+  const listAssessmentPeriod = listAssessmentPeriodQuery?.data?.data?.data;
 
   // Row count for DataGrid pagination
   const rowCountRef = React.useRef(
@@ -127,10 +127,13 @@ const DataTable = () => {
   return (
     <div className="size-full">
       <DataGrid
-        rows={listUser}
+        rows={listAssessmentPeriod}
         columns={columns}
         getRowId={(row) => row.id}
-        loading={listAssessmentPeriodQuery?.isLoading || listAssessmentPeriodQuery?.isFetching}
+        loading={
+          listAssessmentPeriodQuery?.isLoading ||
+          listAssessmentPeriodQuery?.isFetching
+        }
         getDetailPanelContent={getDetailPanelContent}
         slotProps={{
           loadingOverlay: {
