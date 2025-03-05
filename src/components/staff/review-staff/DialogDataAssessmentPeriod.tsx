@@ -71,6 +71,7 @@ const DialogDataAssessmentPeriod = () => {
     (store) => store.setDialogData,
   );
 
+  const setUserId = useReviewFormDialogStore((store) => store.setUserId);
   const setAssessmentPeriodId = useReviewFormDialogStore(
     (store) => store.setAssessmentPeriodId,
   );
@@ -89,6 +90,7 @@ const DialogDataAssessmentPeriod = () => {
       firstReviewer: params.row.firstReviewer,
       secondReviewer: params.row.secondReviewer,
     });
+    setUserId(params.row.id);
     setIsManager(isManager);
     setAssessmentPeriodId(assessmentPeriodId as number);
     setFormType(formType);

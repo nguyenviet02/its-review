@@ -20,6 +20,7 @@ const Staff = () => {
   const setDialogData = useStaffDialogSummaryInfoStore(
     (store) => store.setDialogData,
   );
+  const setUserId = useReviewFormDialogStore((store) => store.setUserId);
   const setAssessmentPeriodId = useReviewFormDialogStore(
     (store) => store.setAssessmentPeriodId,
   );
@@ -123,6 +124,7 @@ const Staff = () => {
                   firstReviewer: "",
                   secondReviewer: "",
                 });
+								setUserId(session?.data?.user?.id || "");
                 setFormType(formType);
                 setAssessmentPeriodId(params.row.id);
                 setIsManager(isManager);

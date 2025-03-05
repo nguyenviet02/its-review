@@ -28,7 +28,7 @@ const DialogSummaryInfo = () => {
     (store) => store.closeDialog,
   );
 
-  const setUserId = useReviewFormDialogStore((store) => store.setUserId);
+  const userId = useReviewFormDialogStore((store) => store.userId);
   const isManager = useReviewFormDialogStore((store) => store.isManager);
   const handleOpenReviewForm = useReviewFormDialogStore(
     (store) => store.openDialog,
@@ -58,24 +58,16 @@ const DialogSummaryInfo = () => {
   ];
 
   const handleStartReviewForm = () => {
-    setUserId(dialogState.data.id);
     handleOpenReviewForm();
     handleCloseDialogSummaryInfo();
   };
 
   const getListReviewerQuery = useQuery({
-    queryKey: [
-      "getListReviewerOfStaff",
-      dialogState.data.id,
-      assessmentPeriodId,
-    ],
+    queryKey: ["getListReviewerOfStaff", userId, assessmentPeriodId],
     queryFn: async () =>
-      getListReviewerOfStaff(
-        assessmentPeriodId as number,
-        dialogState.data.id as string,
-      ),
+      getListReviewerOfStaff(assessmentPeriodId as number, userId as string),
     refetchOnWindowFocus: false,
-    enabled: !!dialogState.data.id && !!assessmentPeriodId && isManager,
+    enabled: !!userId && !!assessmentPeriodId && isManager,
   });
   const listReviewer = getListReviewerQuery?.data?.data;
 
