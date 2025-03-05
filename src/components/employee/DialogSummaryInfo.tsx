@@ -40,19 +40,19 @@ const DialogSummaryInfo = () => {
 
   const rows = [
     {
-      title: "ID cá nhân:",
+      title: "Employee ID:",
       field: "id",
     },
     {
-      title: "Họ tên:",
+      title: "Full Name:",
       field: "username",
     },
     {
-      title: "Phòng ban:",
+      title: "Department:",
       field: "department",
     },
     {
-      title: "Vị trí:",
+      title: "Job Position:",
       field: "jobPosition",
     },
   ];
@@ -80,7 +80,7 @@ const DialogSummaryInfo = () => {
       fullWidth
     >
       <DialogTitle id="alert-dialog-title" className="text-3xl font-bold">
-        Bảng tự đánh giá nhân sự
+        Summary Info
       </DialogTitle>
       <IconButton
         aria-label="close"
@@ -118,7 +118,7 @@ const DialogSummaryInfo = () => {
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      <span className="font-semibold">{`Người đánh giá ${index + 1}:`}</span>
+                      <span className="font-semibold">{`Reviewer ${index + 1}:`}</span>
                     </TableCell>
                     <TableCell>{`${reviewer.username}`}</TableCell>
                   </TableRow>
@@ -135,7 +135,7 @@ const DialogSummaryInfo = () => {
         }}
       >
         <Button onClick={handleStartReviewForm} className="button-primary">
-          Bắt đầu
+          Start
         </Button>
       </DialogActions>
     </Dialog>

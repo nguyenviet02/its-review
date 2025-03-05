@@ -51,7 +51,7 @@ const ButtonImportEmployeesFromExcel = () => {
           Đang nhập, vui lòng đợi...
         </div>
       ) : (
-        <span>Nhập từ Excel</span>
+        <span>Import from Excel</span>
       )}
 
       <input

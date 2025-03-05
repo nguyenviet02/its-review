@@ -81,14 +81,14 @@ const DataTable = () => {
     },
     {
       field: "title",
-      headerName: "Tên kỳ đánh giá",
+      headerName: "Title",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
       field: "start",
-      headerName: "Thời gian bắt đầu",
+      headerName: "Start time",
       valueGetter: (value) => formatDate(value),
       flex: 1,
       headerAlign: "center",
@@ -96,7 +96,7 @@ const DataTable = () => {
     },
     {
       field: "end",
-      headerName: "Thời gian kết thúc",
+      headerName: "End time",
       valueGetter: (value) => formatDate(value),
       flex: 1,
       headerAlign: "center",
@@ -104,7 +104,7 @@ const DataTable = () => {
     },
     {
       field: "",
-      headerName: "Thao tác",
+      headerName: "Actions",
       headerAlign: "center",
       align: "center",
       flex: 1,

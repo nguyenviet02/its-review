@@ -33,7 +33,10 @@ const DialogDataAssessmentPeriod = () => {
   });
 
   const listEmployeeOfAssessmentPeriodQuery = useQuery({
-    queryKey: ["organization-listEmployeeOfAssessmentPeriod", assessmentPeriodId],
+    queryKey: [
+      "organization-listEmployeeOfAssessmentPeriod",
+      assessmentPeriodId,
+    ],
     queryFn: () =>
       getListEmployeeOfAssessmentPeriod(
         assessmentPeriodId as number,
@@ -64,27 +67,27 @@ const DialogDataAssessmentPeriod = () => {
   const columns: GridColDef[] = [
     {
       field: "id",
-      headerName: "ID cá nhân",
+      headerName: "Employee ID",
       headerAlign: "center",
       align: "center",
     },
     {
       field: "username",
-      headerName: "Họ tên",
+      headerName: "Full Name",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
       field: "department",
-      headerName: "Phòng ban",
+      headerName: "Department",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
       field: "jobPosition",
-      headerName: "Vị trí",
+      headerName: "Job Position",
       flex: 1,
       headerAlign: "center",
       align: "center",
@@ -108,7 +111,7 @@ const DialogDataAssessmentPeriod = () => {
       maxWidth="lg"
     >
       <DialogTitle id="alert-dialog-title" className="text-3xl font-bold">
-        Danh sách nhân sự {assessmentPeriodName}
+        List of Employees {assessmentPeriodName}
       </DialogTitle>
       <IconButton
         aria-label="close"

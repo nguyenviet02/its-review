@@ -79,14 +79,14 @@ const Employee = () => {
     },
     {
       field: "title",
-      headerName: "Tên kỳ đánh giá",
+      headerName: "Title",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
       field: "start",
-      headerName: "Thời gian bắt đầu",
+      headerName: "Start Time",
       valueGetter: (value) => formatDate(value),
       flex: 1,
       headerAlign: "center",
@@ -94,7 +94,7 @@ const Employee = () => {
     },
     {
       field: "end",
-      headerName: "Thời gian kết thúc",
+      headerName: "End Time",
       valueGetter: (value) => formatDate(value),
       flex: 1,
       headerAlign: "center",
@@ -102,7 +102,7 @@ const Employee = () => {
     },
     {
       field: "action",
-      headerName: "Thao tác",
+      headerName: "Actions",
       headerAlign: "center",
       align: "center",
       renderCell: (params: GridRenderCellParams) => {
@@ -124,7 +124,7 @@ const Employee = () => {
                   firstReviewer: "",
                   secondReviewer: "",
                 });
-								setUserId(session?.data?.user?.id || "");
+                setUserId(session?.data?.user?.id || "");
                 setFormType(formType);
                 setAssessmentPeriodId(params.row.id);
                 setIsManager(isManager);

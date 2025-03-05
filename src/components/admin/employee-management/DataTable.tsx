@@ -14,7 +14,9 @@ const DataTable = () => {
   const openDialogEmployeeInfo = useDialogEmployeeInfoStore(
     (store) => store.openDialog,
   );
-  const setEmployeeInfo = useDialogEmployeeInfoStore((store) => store.setEmployeeInfo);
+  const setEmployeeInfo = useDialogEmployeeInfoStore(
+    (store) => store.setEmployeeInfo,
+  );
   const handleOpenDialogEmployeeInfo = (employeeInfo: IEmployee) => {
     setEmployeeInfo(employeeInfo);
     openDialogEmployeeInfo();
@@ -49,27 +51,27 @@ const DataTable = () => {
   const columns: GridColDef[] = [
     {
       field: "id",
-      headerName: "ID cá nhân",
+      headerName: "Employee ID",
       headerAlign: "center",
       align: "center",
     },
     {
       field: "username",
-      headerName: "Họ tên",
+      headerName: "Full Name",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
       field: "department",
-      headerName: "Phòng ban",
+      headerName: "Department",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
       field: "jobPosition",
-      headerName: "Vị trí",
+      headerName: "Job Position",
       flex: 1,
       headerAlign: "center",
       align: "center",
@@ -83,7 +85,7 @@ const DataTable = () => {
     },
     {
       field: "action",
-      headerName: "Thao tác",
+      headerName: "Actions",
       flex: 1,
       headerAlign: "center",
       align: "center",

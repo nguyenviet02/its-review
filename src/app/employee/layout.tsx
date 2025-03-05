@@ -24,8 +24,8 @@ export default function SuperAdminLayout({
 
   const navigationBaseRole = useMemo(() => {
     return [
-      { name: "Tự đánh giá", href: "/employee" },
-      { name: "Đánh giá nhân sự", href: "/employee/review-employee" },
+      { name: "Self Assessment", href: "/employee" },
+      { name: "Employee Assessment", href: "/employee/review-employee" },
     ];
   }, []);
 
@@ -43,7 +43,7 @@ export default function SuperAdminLayout({
         <main className="w-full">
           <Header setSidebarOpen={setSidebarOpen} />
           <div className="flex w-full flex-col gap-4 px-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold">Danh sách các kỳ đánh giá</h1>
+            <h1 className="text-3xl font-bold">List of Assessment Period</h1>
 
             {/* Navigation */}
             <div className="flex gap-2">
@@ -72,7 +72,7 @@ export default function SuperAdminLayout({
       <DialogSummaryInfo />
       <DialogFormReview />
       <DialogCongratulation />
-			<DialogDataAssessmentPeriod />
+      <DialogDataAssessmentPeriod />
     </>
   );
 }

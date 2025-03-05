@@ -4,7 +4,7 @@ import { Button } from "@headlessui/react";
 
 const Filter = () => {
   return (
-    <div className="flex flex-1 h-10 gap-2">
+    <div className="flex h-10 flex-1 gap-2">
       {/* Search Input */}
       <div className="flex h-full w-full max-w-[300px] items-center gap-2 rounded border border-gray-700 p-1">
         <MagnifyingGlassIcon
@@ -20,7 +20,7 @@ const Filter = () => {
         />
       </div>
 
-      <Button className="rounded border border-black p-2">Tìm kiếm</Button>
+      <Button className="rounded border border-black p-2">Search</Button>
     </div>
   );
 };

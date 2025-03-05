@@ -19,7 +19,10 @@ import formReviewDev from "@/forms/form-review-dev";
 import formReviewTester from "@/forms/form-review-tester";
 import { useEmployeeDialogSummaryInfoStore } from "@/lib/zustand/employeeDialogSummaryInfoStore";
 import { useQuery } from "@tanstack/react-query";
-import { getDataFormReview, getListReviewerOfEmployee } from "@/apis/assessment";
+import {
+  getDataFormReview,
+  getListReviewerOfEmployee,
+} from "@/apis/assessment";
 import Loading from "../common/Loading";
 
 const DialogFormReview = () => {
@@ -92,7 +95,7 @@ const DialogFormReview = () => {
     return (
       <div className="flex h-10 w-full items-center justify-center bg-white py-4 text-2xl font-bold">
         <span>
-          Tổng điểm: {point}/{maxPoint}
+          Total Point: {point}/{maxPoint}
         </span>
       </div>
     );
@@ -113,7 +116,7 @@ const DialogFormReview = () => {
       }}
     >
       <DialogTitle id="alert-dialog-title" className="text-3xl font-bold">
-        Bảng đánh giá nhân sự
+        Assessment Form
       </DialogTitle>
       <IconButton
         aria-label="close"
@@ -143,7 +146,7 @@ const DialogFormReview = () => {
           >
             <TabList className="sticky right-0 top-0 z-10 flex w-full gap-4 bg-white pb-4">
               <Tab className="rounded-full border border-transparent px-3 py-1 text-sm/6 font-semibold text-black hover:border-gray-200 focus:outline-none data-[hover]:bg-white/5 data-[selected]:bg-black data-[selected]:text-white">
-                Tự đánh giá
+                Self Review
               </Tab>
               {listReviewer?.map((reviewer) => {
                 return (

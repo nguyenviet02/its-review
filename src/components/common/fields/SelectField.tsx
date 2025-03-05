@@ -23,7 +23,7 @@ function SelectField({ disabled, name, scoreScale }: Props) {
           <Select
             {...formMethods.register(name, {
               valueAsNumber: true,
-              required: "Trường này không được để trống",
+              required: "This field is required",
               validate: (value) => value !== "",
             })}
             disabled={disabled}

@@ -10,31 +10,31 @@ type Props = {
 
 const DataReviewTable = ({ data }: Props) => {
   const columns: GridColDef[] = [
-    { field: "id", headerName: "ID Cá nhân" },
+    { field: "id", headerName: "Employee ID" },
     {
       field: "username",
-      headerName: "Họ tên",
+      headerName: "Full Name",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
       field: "department",
-      headerName: "Phòng ban",
+      headerName: "Department",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
       field: "jobPosition",
-      headerName: "Vị trí",
+      headerName: "Job Position",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
       field: "currentStatus",
-      headerName: "Bước duyệt",
+      headerName: "Status",
       flex: 1,
       headerAlign: "center",
       align: "center",
@@ -44,29 +44,27 @@ const DataReviewTable = ({ data }: Props) => {
     },
     {
       field: "period",
-      headerName: "Kỳ đánh giá",
+      headerName: "Assessment Period",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
       field: "deadline",
-      headerName: "Hạn điền đơn",
+      headerName: "Deadline",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
       field: "action",
-      headerName: "Thao tác",
+      headerName: "Actions",
       headerAlign: "center",
       align: "center",
       renderCell: (params: GridRenderCellParams) => {
         return (
           <div className="flex items-center justify-center gap-4">
-            <button
-              className="btn btn-primary rounded border border-black p-1 hover:bg-slate-200"
-            >
+            <button className="btn btn-primary rounded border border-black p-1 hover:bg-slate-200">
               <DocumentTextIcon className="size-6" />
             </button>
           </div>

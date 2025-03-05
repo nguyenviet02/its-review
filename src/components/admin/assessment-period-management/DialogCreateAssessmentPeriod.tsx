@@ -33,7 +33,7 @@ const DialogCreateAssessmentPeriod = (props: Props) => {
     mutationFn: createAssessmentPeriod,
     onSuccess: async () => {
       toast.dismiss();
-      toast.success("Tạo mới kỳ đánh giá thành công");
+      toast.success("Create new assessment period successfully");
       queryClient.invalidateQueries({
         queryKey: ["organization-listAssessmentPeriod"],
         refetchType: "active",
@@ -42,7 +42,7 @@ const DialogCreateAssessmentPeriod = (props: Props) => {
     },
     onError: (error) => {
       toast.dismiss();
-      toast.error("Tạo mới kỳ đánh giá thất bại");
+      toast.error("Create new assessment period failed");
     },
   });
 
@@ -60,7 +60,7 @@ const DialogCreateAssessmentPeriod = (props: Props) => {
   });
 
   const onSubmit: SubmitHandler<IAssessmentPeriod> = (data) => {
-    toast.loading("Đang tạo mới kỳ đánh giá");
+    toast.loading("Creating new assessment period...");
     const payload = {
       ...data,
       start: dayjs(data.start).toDate(),
@@ -80,7 +80,7 @@ const DialogCreateAssessmentPeriod = (props: Props) => {
       maxWidth="sm"
     >
       <DialogTitle id="alert-dialog-title" className="text-3xl font-bold">
-        Tạo mới kỳ đánh giá
+        Create New Assessment Period
       </DialogTitle>
       <IconButton
         aria-label="close"
@@ -97,17 +97,17 @@ const DialogCreateAssessmentPeriod = (props: Props) => {
       <DialogContent className="flex flex-col gap-6">
         <form>
           <Field className="flex flex-col gap-1">
-            <Label className="label-form">Tên kỳ đánh giá</Label>
+            <Label className="label-form">Title</Label>
             <Input
               className="input-form"
               {...register("title", {
-                required: "Trường này không được để trống",
+                required: "This field is required",
               })}
             />
             <ErrorMessage errorMessage={errors.title?.message} />
           </Field>
           <Field className="flex flex-col gap-1">
-            <Label className="label-form">Thời gian bắt đầu</Label>
+            <Label className="label-form">Start Time</Label>
             <Controller
               control={control}
               name="start"
@@ -127,7 +127,7 @@ const DialogCreateAssessmentPeriod = (props: Props) => {
             <ErrorMessage errorMessage={errors.start?.message} />
           </Field>
           <Field className="flex flex-col gap-1">
-            <Label className="label-form">Thời gian kết thúc</Label>
+            <Label className="label-form">End Time</Label>
             <Controller
               control={control}
               name="end"
@@ -154,9 +154,7 @@ const DialogCreateAssessmentPeriod = (props: Props) => {
         }}
       >
         <Button onClick={handleSubmit(onSubmit)} className="button-primary">
-          {createAssessmentPeriodMutation.isPending
-            ? "Đang tạo mới kỳ đánh giá"
-            : "Tạo mới kỳ đánh giá"}
+          {createAssessmentPeriodMutation.isPending ? "Creating..." : "Create"}
         </Button>
       </DialogActions>
     </Dialog>

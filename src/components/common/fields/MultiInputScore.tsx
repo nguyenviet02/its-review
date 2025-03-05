@@ -29,14 +29,14 @@ const MultiInputScore = ({ disabled, name }: Props) => {
             <input
               disabled={disabled}
               className="flex-1 border-none outline-none disabled:cursor-not-allowed"
-              placeholder="Nhận xét, đánh giá"
+              placeholder="Your assessment here"
               type="text"
               {...formMethods.register(`${name}.${index}.title`)}
             />
             <input
               disabled={disabled}
               type="number"
-              placeholder="Điểm"
+              placeholder="Score"
               className="w-16 rounded border border-gray-400 px-1 outline-none disabled:cursor-not-allowed"
               {...formMethods.register(`${name}.${index}.score`, {
                 valueAsNumber: true,

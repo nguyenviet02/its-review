@@ -6,10 +6,7 @@ import { formatDataImportListReviewer } from "@/utils";
 import { useMutation } from "@tanstack/react-query";
 import { importAssessmentPeriodData } from "@/apis/assessment";
 import { IAssessmentPeriodImportData } from "@/types";
-import {
-  ArrowUpOnSquareIcon,
-  ArrowUpTrayIcon,
-} from "@heroicons/react/24/outline";
+import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 
 type Props = {
   assessmentPeriodId: number;

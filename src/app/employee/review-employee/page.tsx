@@ -78,14 +78,14 @@ const ReviewEmployee = () => {
     },
     {
       field: "title",
-      headerName: "Tên kỳ đánh giá",
+      headerName: "Title",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
       field: "start",
-      headerName: "Thời gian bắt đầu",
+      headerName: "Start Time",
       valueGetter: (value) => formatDate(value),
       flex: 1,
       headerAlign: "center",
@@ -93,7 +93,7 @@ const ReviewEmployee = () => {
     },
     {
       field: "end",
-      headerName: "Thời gian kết thúc",
+      headerName: "End Time",
       valueGetter: (value) => formatDate(value),
       flex: 1,
       headerAlign: "center",
@@ -101,7 +101,7 @@ const ReviewEmployee = () => {
     },
     {
       field: "action",
-      headerName: "Thao tác",
+      headerName: "Actions",
       headerAlign: "center",
       align: "center",
       minWidth: 200,
@@ -114,7 +114,7 @@ const ReviewEmployee = () => {
               }
               className="btn btn-primary rounded border border-black p-1 py-2 hover:bg-slate-200"
             >
-              Xem danh sách
+              View Detail
             </button>
           </div>
         );
