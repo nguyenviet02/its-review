@@ -3,7 +3,7 @@ import { Dayjs } from "dayjs";
 export enum ROLES {
   SUPER_ADMIN = "super-admin",
   ADMIN = "admin",
-  STAFF = "staff",
+  STAFF = "employee",
   MANAGEMENT = "management",
 }
 
@@ -72,7 +72,7 @@ export type TSummaryInfoState = {
   data: TSummaryInfoData;
 };
 
-export interface IStaff {
+export interface IEmployee {
   id: string;
   username: string;
   department: string;

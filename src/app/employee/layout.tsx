@@ -7,10 +7,10 @@ import { useMemo, useState } from "react";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import DialogSummaryInfo from "@/components/staff/DialogSummaryInfo";
-import DialogFormReview from "@/components/staff/DialogFormReview";
-import DialogCongratulation from "@/components/staff/DialogCongratulation";
-import DialogDataAssessmentPeriod from "@/components/staff/review-staff/DialogDataAssessmentPeriod";
+import DialogSummaryInfo from "@/components/employee/DialogSummaryInfo";
+import DialogFormReview from "@/components/employee/DialogFormReview";
+import DialogCongratulation from "@/components/employee/DialogCongratulation";
+import DialogDataAssessmentPeriod from "@/components/employee/review-employee/DialogDataAssessmentPeriod";
 
 export default function SuperAdminLayout({
   children,
@@ -24,8 +24,8 @@ export default function SuperAdminLayout({
 
   const navigationBaseRole = useMemo(() => {
     return [
-      { name: "Tự đánh giá", href: "/staff" },
-      { name: "Đánh giá nhân sự", href: "/staff/review-staff" },
+      { name: "Tự đánh giá", href: "/employee" },
+      { name: "Đánh giá nhân sự", href: "/employee/review-employee" },
     ];
   }, []);
 

@@ -1,6 +1,6 @@
-import { getListReviewerOfStaff } from "@/apis/assessment";
+import { getListReviewerOfEmployee } from "@/apis/assessment";
 import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
-import { useStaffDialogSummaryInfoStore } from "@/lib/zustand/staffDialogSummaryInfoStore";
+import { useEmployeeDialogSummaryInfoStore } from "@/lib/zustand/employeeDialogSummaryInfoStore";
 import { TSummaryInfoData } from "@/types";
 import { Button } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -21,10 +21,10 @@ import React from "react";
 import Loading from "../common/Loading";
 
 const DialogSummaryInfo = () => {
-  const dialogState = useStaffDialogSummaryInfoStore(
+  const dialogState = useEmployeeDialogSummaryInfoStore(
     (store) => store.dialogState,
   );
-  const handleCloseDialogSummaryInfo = useStaffDialogSummaryInfoStore(
+  const handleCloseDialogSummaryInfo = useEmployeeDialogSummaryInfoStore(
     (store) => store.closeDialog,
   );
 
@@ -63,9 +63,9 @@ const DialogSummaryInfo = () => {
   };
 
   const getListReviewerQuery = useQuery({
-    queryKey: ["getListReviewerOfStaff", userId, assessmentPeriodId],
+    queryKey: ["getListReviewerOfEmployee", userId, assessmentPeriodId],
     queryFn: async () =>
-      getListReviewerOfStaff(assessmentPeriodId as number, userId as string),
+      getListReviewerOfEmployee(assessmentPeriodId as number, userId as string),
     refetchOnWindowFocus: false,
     enabled: !!userId && !!assessmentPeriodId && isManager,
   });

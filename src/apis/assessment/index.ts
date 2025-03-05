@@ -37,7 +37,7 @@ export const getListAssessmentPeriod = async (
   return res;
 };
 
-export const getListStaffOfAssessmentPeriod = async (
+export const getListEmployeeOfAssessmentPeriod = async (
   id: number,
   limit: number,
   page: number,
@@ -73,7 +73,7 @@ export const getMyListAssessmentPeriod = async (
   return data;
 };
 
-export const getListStaffAssignedToMe = async (
+export const getListEmployeeAssignedToMe = async (
   id: number,
   limit: number,
   page: number,
@@ -92,7 +92,7 @@ export const getListStaffAssignedToMe = async (
   return data;
 };
 
-export const getListReviewerOfStaff = async (
+export const getListReviewerOfEmployee = async (
   assessmentPeriodId: number,
   userId: string,
 ) => {

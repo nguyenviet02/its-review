@@ -2,8 +2,8 @@
 
 import DataReviewTable from "@/components/common/DataReviewTable";
 import ErrorMessage from "@/components/common/ErrorMessage";
-import { useDialogStaffInfoStore } from "@/lib/zustand/dialogStaffInfoStore";
-import { FORM_STATUS, IAssessmentMinifyData, IStaff, JOB_POSITIONS } from "@/types";
+import { useDialogEmployeeInfoStore } from "@/lib/zustand/dialogEmployeeInfoStore";
+import { FORM_STATUS, IAssessmentMinifyData, IEmployee, JOB_POSITIONS } from "@/types";
 import {
   Field,
   Label,
@@ -47,21 +47,21 @@ const data: IAssessmentMinifyData[] = [
   },
 ];
 
-const DialogStaffInfo = () => {
-  const dialogState = useDialogStaffInfoStore((store) => store.isOpen);
-  const handleClose = useDialogStaffInfoStore((store) => store.closeDialog);
-  const staffInfo = useDialogStaffInfoStore((store) => store.staffInfo);
+const DialogEmployeeInfo = () => {
+  const dialogState = useDialogEmployeeInfoStore((store) => store.isOpen);
+  const handleClose = useDialogEmployeeInfoStore((store) => store.closeDialog);
+  const employeeInfo = useDialogEmployeeInfoStore((store) => store.employeeInfo);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IStaff>({
-    defaultValues: staffInfo,
-    values: staffInfo,
+  } = useForm<IEmployee>({
+    defaultValues: employeeInfo,
+    values: employeeInfo,
   });
-  const handleSubmitChangeStaffInfo: SubmitHandler<IStaff> = (
-    data: IStaff,
+  const handleSubmitChangeEmployeeInfo: SubmitHandler<IEmployee> = (
+    data: IEmployee,
   ) => {
     console.log(data);
   };
@@ -93,7 +93,7 @@ const DialogStaffInfo = () => {
       <DialogContent className="flex flex-col gap-6">
         <form
           className="flex flex-col gap-4"
-          onSubmit={handleSubmit(handleSubmitChangeStaffInfo)}
+          onSubmit={handleSubmit(handleSubmitChangeEmployeeInfo)}
         >
           <Field disabled className="flex flex-col gap-1">
             <Label className="text-xl font-bold">ID Cá nhân:</Label>
@@ -184,4 +184,4 @@ const DialogStaffInfo = () => {
   );
 };
 
-export default DialogStaffInfo;
+export default DialogEmployeeInfo;

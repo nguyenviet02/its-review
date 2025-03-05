@@ -1,4 +1,4 @@
-import { FORM_TYPES, IStaff, JOB_POSITIONS } from "@/types";
+import { FORM_TYPES, IEmployee, JOB_POSITIONS } from "@/types";
 
 // Make function format number smaller than 10 to 2 digits
 export const formatNumberToTwoDigits = (number: number) => {
@@ -18,7 +18,7 @@ export const formatDataImportListReviewer = (dataFromExcel) => {
   return data?.slice(1) || [];
 };
 
-export const formatDataImportListStaff = (dataFromExcel): IStaff[] => {
+export const formatDataImportListEmployee = (dataFromExcel): IEmployee[] => {
   const formattedData = dataFromExcel.map((data) => {
     return {
       id: data["ID Cá nhân"],

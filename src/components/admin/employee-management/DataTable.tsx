@@ -1,8 +1,8 @@
 "use client";
 
 import { getListUser } from "@/apis/users";
-import { useDialogStaffInfoStore } from "@/lib/zustand/dialogStaffInfoStore";
-import { IStaff } from "@/types";
+import { useDialogEmployeeInfoStore } from "@/lib/zustand/dialogEmployeeInfoStore";
+import { IEmployee } from "@/types";
 import { Button } from "@headlessui/react";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -11,13 +11,13 @@ import React from "react";
 
 const DataTable = () => {
   // Dialog State from Zustand
-  const openDialogStaffInfo = useDialogStaffInfoStore(
+  const openDialogEmployeeInfo = useDialogEmployeeInfoStore(
     (store) => store.openDialog,
   );
-  const setStaffInfo = useDialogStaffInfoStore((store) => store.setStaffInfo);
-  const handleOpenDialogStaffInfo = (staffInfo: IStaff) => {
-    setStaffInfo(staffInfo);
-    openDialogStaffInfo();
+  const setEmployeeInfo = useDialogEmployeeInfoStore((store) => store.setEmployeeInfo);
+  const handleOpenDialogEmployeeInfo = (employeeInfo: IEmployee) => {
+    setEmployeeInfo(employeeInfo);
+    openDialogEmployeeInfo();
   };
 
   // Pagination DataGrid
@@ -93,7 +93,7 @@ const DataTable = () => {
             <Button
               className="flex items-center justify-center rounded border border-gray-500 p-1"
               onClick={() => {
-                handleOpenDialogStaffInfo(params.row);
+                handleOpenDialogEmployeeInfo(params.row);
               }}
             >
               <EyeIcon className="h-6 w-6 text-black" />

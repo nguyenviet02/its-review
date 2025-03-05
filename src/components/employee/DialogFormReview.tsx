@@ -17,16 +17,16 @@ import formReviewGeneral from "@/forms/form-review-general";
 import formReviewBA from "@/forms/form-review-ba";
 import formReviewDev from "@/forms/form-review-dev";
 import formReviewTester from "@/forms/form-review-tester";
-import { useStaffDialogSummaryInfoStore } from "@/lib/zustand/staffDialogSummaryInfoStore";
+import { useEmployeeDialogSummaryInfoStore } from "@/lib/zustand/employeeDialogSummaryInfoStore";
 import { useQuery } from "@tanstack/react-query";
-import { getDataFormReview, getListReviewerOfStaff } from "@/apis/assessment";
+import { getDataFormReview, getListReviewerOfEmployee } from "@/apis/assessment";
 import Loading from "../common/Loading";
 
 const DialogFormReview = () => {
   const isOpenReviewFormDialog = useReviewFormDialogStore(
     (store) => store.isOpen,
   );
-  const summaryInfoStore = useStaffDialogSummaryInfoStore(
+  const summaryInfoStore = useEmployeeDialogSummaryInfoStore(
     (store) => store.dialogState,
   );
   const handleCloseReviewFormDialog = useReviewFormDialogStore(
@@ -79,9 +79,9 @@ const DialogFormReview = () => {
   });
 
   const getListReviewerQuery = useQuery({
-    queryKey: ["getListReviewerOfStaff", userId, assessmentPeriodId],
+    queryKey: ["getListReviewerOfEmployee", userId, assessmentPeriodId],
     queryFn: async () =>
-      getListReviewerOfStaff(assessmentPeriodId as number, userId as string),
+      getListReviewerOfEmployee(assessmentPeriodId as number, userId as string),
     refetchOnWindowFocus: false,
     enabled: !!userId && !!assessmentPeriodId && isManager,
   });

@@ -2,31 +2,24 @@
 
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import React from "react";
-import { DocumentTextIcon } from "@heroicons/react/24/outline";
-import { useStaffDialogSummaryInfoStore } from "@/lib/zustand/staffDialogSummaryInfoStore";
 import { useQuery } from "@tanstack/react-query";
 import { getMyListAssessmentPeriod } from "@/apis/assessment";
-import { formatDate, getFormType } from "@/utils";
-import { useSession } from "next-auth/react";
-import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
-import { JOB_POSITIONS } from "@/types";
+import { formatDate } from "@/utils";
+import { useDataAssessmentPeriodDialogStore } from "@/lib/zustand/employee/dialogDataAssessmentPeriodStore";
 
-const Staff = () => {
-  const session = useSession();
+const dataGridStyle = {
+  "&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell": {
+    py: "8px",
+  },
+  "&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell": {
+    py: "15px",
+  },
+  "&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell": {
+    py: "22px",
+  },
+};
 
-  const handleOpenSummaryInfoDialog = useStaffDialogSummaryInfoStore(
-    (store) => store.openDialog,
-  );
-  const setDialogData = useStaffDialogSummaryInfoStore(
-    (store) => store.setDialogData,
-  );
-  const setUserId = useReviewFormDialogStore((store) => store.setUserId);
-  const setAssessmentPeriodId = useReviewFormDialogStore(
-    (store) => store.setAssessmentPeriodId,
-  );
-  const setIsManager = useReviewFormDialogStore((store) => store.setIsManager);
-  const setFormType = useReviewFormDialogStore((store) => store.setFormType);
-
+const ReviewEmployee = () => {
   // Pagination DataGrid
   const [paginationModel, setPaginationModel] = React.useState({
     pageSize: 10,
@@ -37,14 +30,13 @@ const Staff = () => {
     queryKey: ["myListAssessmentPeriod"],
     queryFn: () =>
       getMyListAssessmentPeriod(
-        false,
+        true,
         paginationModel.pageSize,
         paginationModel.page,
       ),
     refetchOnWindowFocus: false,
   });
   const listAssessmentPeriod = myListAssessmentPeriodQuery?.data?.data;
-
   // Row count for DataGrid pagination
   const rowCountRef = React.useRef(
     myListAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0,
@@ -59,17 +51,24 @@ const Staff = () => {
     return rowCountRef.current;
   }, [myListAssessmentPeriodQuery?.data?.pagination?.totalRecords]);
 
-  const dataGridStyle = {
-    "&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell": {
-      py: "8px",
-    },
-    "&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell": {
-      py: "15px",
-    },
-    "&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell": {
-      py: "22px",
-    },
-  };
+  const openDialogDataAssessmentPeriod = useDataAssessmentPeriodDialogStore(
+    (store) => store.openDialog,
+  );
+
+  const setAssessmentPeriodId = useDataAssessmentPeriodDialogStore(
+    (store) => store.setAssessmentPeriodId,
+  );
+
+  const setAsessmentPeriodName = useDataAssessmentPeriodDialogStore(
+    (store) => store.setAssessmentPeriodName,
+  );
+
+  const handleOpenDialogShowData = (id: number, name: string) => [
+    openDialogDataAssessmentPeriod(),
+    setAssessmentPeriodId(id),
+    setAsessmentPeriodName(name),
+  ];
+
   const columns: GridColDef[] = [
     {
       field: "id",
@@ -105,34 +104,17 @@ const Staff = () => {
       headerName: "Thao tác",
       headerAlign: "center",
       align: "center",
+      minWidth: 200,
       renderCell: (params: GridRenderCellParams) => {
-        const isManager = false;
-        const formType = getFormType(
-          session?.data?.user?.jobPosition as JOB_POSITIONS,
-          isManager,
-        );
         return (
           <div className="flex items-center justify-center gap-4">
             <button
-              onClick={() => {
-                setDialogData({
-                  id: session?.data?.user?.id || "",
-                  username: session?.data?.user?.username as string,
-                  department: session?.data?.user?.department as string,
-                  jobPosition: session?.data?.user
-                    ?.jobPosition as JOB_POSITIONS,
-                  firstReviewer: "",
-                  secondReviewer: "",
-                });
-								setUserId(session?.data?.user?.id || "");
-                setFormType(formType);
-                setAssessmentPeriodId(params.row.id);
-                setIsManager(isManager);
-                handleOpenSummaryInfoDialog();
-              }}
-              className="btn btn-primary rounded border border-black p-1 hover:bg-slate-200"
+              onClick={() =>
+                handleOpenDialogShowData(params.row.id, params.row.title)
+              }
+              className="btn btn-primary rounded border border-black p-1 py-2 hover:bg-slate-200"
             >
-              <DocumentTextIcon className="size-6" />
+              Xem danh sách
             </button>
           </div>
         );
@@ -150,21 +132,17 @@ const Staff = () => {
           columns={columns}
           getRowHeight={() => "auto"}
           disableRowSelectionOnClick
+          pageSizeOptions={[5, 10, 25]}
           slotProps={{
             loadingOverlay: {
               variant: "skeleton",
               noRowsVariant: "skeleton",
             },
           }}
-          paginationMode="server"
-          rowCount={rowCount}
-          paginationModel={paginationModel}
-          onPaginationModelChange={setPaginationModel}
-          pageSizeOptions={[10, 15, 20, 25]}
         />
       </div>
     </section>
   );
 };
 
-export default Staff;
+export default ReviewEmployee;

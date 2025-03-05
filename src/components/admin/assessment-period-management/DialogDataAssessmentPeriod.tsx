@@ -1,4 +1,4 @@
-import { getListStaffOfAssessmentPeriod } from "@/apis/assessment";
+import { getListEmployeeOfAssessmentPeriod } from "@/apis/assessment";
 import { useDataAssessmentPeriodDialogStore } from "@/lib/zustand/dialogDataAssessmentPeriodStore";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
@@ -32,10 +32,10 @@ const DialogDataAssessmentPeriod = () => {
     page: 0,
   });
 
-  const listStaffOfAssessmentPeriodQuery = useQuery({
-    queryKey: ["organization-listStaffOfAssessmentPeriod", assessmentPeriodId],
+  const listEmployeeOfAssessmentPeriodQuery = useQuery({
+    queryKey: ["organization-listEmployeeOfAssessmentPeriod", assessmentPeriodId],
     queryFn: () =>
-      getListStaffOfAssessmentPeriod(
+      getListEmployeeOfAssessmentPeriod(
         assessmentPeriodId as number,
         paginationModel.pageSize,
         paginationModel.page,
@@ -43,22 +43,22 @@ const DialogDataAssessmentPeriod = () => {
     refetchOnWindowFocus: false,
     enabled: !!assessmentPeriodId,
   });
-  const listStaff = listStaffOfAssessmentPeriodQuery?.data?.data;
+  const listEmployee = listEmployeeOfAssessmentPeriodQuery?.data?.data;
 
   // Row count for DataGrid pagination
   const rowCountRef = React.useRef(
-    listStaffOfAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0,
+    listEmployeeOfAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0,
   );
   const rowCount = React.useMemo(() => {
     if (
-      listStaffOfAssessmentPeriodQuery?.data?.pagination?.totalRecords !==
+      listEmployeeOfAssessmentPeriodQuery?.data?.pagination?.totalRecords !==
       undefined
     ) {
       rowCountRef.current =
-        listStaffOfAssessmentPeriodQuery?.data?.pagination?.totalRecords;
+        listEmployeeOfAssessmentPeriodQuery?.data?.pagination?.totalRecords;
     }
     return rowCountRef.current;
-  }, [listStaffOfAssessmentPeriodQuery?.data?.pagination?.totalRecords]);
+  }, [listEmployeeOfAssessmentPeriodQuery?.data?.pagination?.totalRecords]);
 
   // Define columns
   const columns: GridColDef[] = [
@@ -124,10 +124,10 @@ const DialogDataAssessmentPeriod = () => {
       </IconButton>
       <DialogContent className="flex flex-col gap-6">
         <DataGrid
-          rows={listStaff}
+          rows={listEmployee}
           columns={columns}
           getRowId={(row) => row.id}
-          loading={listStaffOfAssessmentPeriodQuery?.isLoading}
+          loading={listEmployeeOfAssessmentPeriodQuery?.isLoading}
           slotProps={{
             loadingOverlay: {
               variant: "skeleton",

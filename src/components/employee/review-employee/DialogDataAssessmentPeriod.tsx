@@ -1,7 +1,7 @@
-import { getListStaffAssignedToMe } from "@/apis/assessment";
+import { getListEmployeeAssignedToMe } from "@/apis/assessment";
 import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
-import { useDataAssessmentPeriodDialogStore } from "@/lib/zustand/staff/dialogDataAssessmentPeriodStore";
-import { useStaffDialogSummaryInfoStore } from "@/lib/zustand/staffDialogSummaryInfoStore";
+import { useDataAssessmentPeriodDialogStore } from "@/lib/zustand/employee/dialogDataAssessmentPeriodStore";
+import { useEmployeeDialogSummaryInfoStore } from "@/lib/zustand/employeeDialogSummaryInfoStore";
 import { JOB_POSITIONS } from "@/types";
 import { getFormType } from "@/utils";
 import { DocumentTextIcon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -35,10 +35,10 @@ const DialogDataAssessmentPeriod = () => {
     page: 0,
   });
 
-  const listStaffOfAssessmentPeriodQuery = useQuery({
-    queryKey: ["reviewStaff-listStaffOfAssessmentPeriod", assessmentPeriodId],
+  const listEmployeeOfAssessmentPeriodQuery = useQuery({
+    queryKey: ["reviewEmployee-listEmployeeOfAssessmentPeriod", assessmentPeriodId],
     queryFn: () =>
-      getListStaffAssignedToMe(
+      getListEmployeeAssignedToMe(
         assessmentPeriodId as number,
         paginationModel.pageSize,
         paginationModel.page,
@@ -46,28 +46,28 @@ const DialogDataAssessmentPeriod = () => {
     refetchOnWindowFocus: false,
     enabled: !!assessmentPeriodId,
   });
-  const listStaff = listStaffOfAssessmentPeriodQuery?.data?.data;
+  const listEmployee = listEmployeeOfAssessmentPeriodQuery?.data?.data;
 
   // Row count for DataGrid pagination
   const rowCountRef = React.useRef(
-    listStaffOfAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0,
+    listEmployeeOfAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0,
   );
   const rowCount = React.useMemo(() => {
     if (
-      listStaffOfAssessmentPeriodQuery?.data?.pagination?.totalRecords !==
+      listEmployeeOfAssessmentPeriodQuery?.data?.pagination?.totalRecords !==
       undefined
     ) {
       rowCountRef.current =
-        listStaffOfAssessmentPeriodQuery?.data?.pagination?.totalRecords;
+        listEmployeeOfAssessmentPeriodQuery?.data?.pagination?.totalRecords;
     }
     return rowCountRef.current;
-  }, [listStaffOfAssessmentPeriodQuery?.data?.pagination?.totalRecords]);
+  }, [listEmployeeOfAssessmentPeriodQuery?.data?.pagination?.totalRecords]);
 
   // Handle open summary dialog
-  const openDialogSummaryInfo = useStaffDialogSummaryInfoStore(
+  const openDialogSummaryInfo = useEmployeeDialogSummaryInfoStore(
     (store) => store.openDialog,
   );
-  const setSummaryInfoData = useStaffDialogSummaryInfoStore(
+  const setSummaryInfoData = useEmployeeDialogSummaryInfoStore(
     (store) => store.setDialogData,
   );
 
@@ -179,10 +179,10 @@ const DialogDataAssessmentPeriod = () => {
       </IconButton>
       <DialogContent className="flex flex-col gap-6">
         <DataGrid
-          rows={listStaff}
+          rows={listEmployee}
           columns={columns}
           getRowId={(row) => row.id}
-          loading={listStaffOfAssessmentPeriodQuery?.isLoading}
+          loading={listEmployeeOfAssessmentPeriodQuery?.isLoading}
           slotProps={{
             loadingOverlay: {
               variant: "skeleton",

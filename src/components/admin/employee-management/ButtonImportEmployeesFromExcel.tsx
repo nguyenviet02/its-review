@@ -1,17 +1,17 @@
 "use client";
 
 import { importListUser } from "@/apis/users";
-import { IStaff } from "@/types";
-import { formatDataImportListStaff } from "@/utils";
+import { IEmployee } from "@/types";
+import { formatDataImportListEmployee } from "@/utils";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import * as XLSX from "xlsx";
 import Image from "next/image";
 
-const ButtonImportStaffsFromExcel = () => {
+const ButtonImportEmployeesFromExcel = () => {
   const queryClient = useQueryClient();
   const importListUserMutation = useMutation({
-    mutationFn: (listUser: IStaff[]) => importListUser(listUser),
+    mutationFn: (listUser: IEmployee[]) => importListUser(listUser),
     onSuccess: async () => {
       await queryClient.invalidateQueries({
         queryKey: ["users-listUser"],
@@ -31,7 +31,7 @@ const ButtonImportStaffsFromExcel = () => {
       /* DO SOMETHING WITH workbook HERE */
       const firstWorkSheet = workbook.Sheets[workbook.SheetNames[0]];
       const dataJson = XLSX.utils.sheet_to_json(firstWorkSheet);
-      const dataToImport = formatDataImportListStaff(dataJson);
+      const dataToImport = formatDataImportListEmployee(dataJson);
       importListUserMutation.mutate(dataToImport);
     };
 
@@ -64,4 +64,4 @@ const ButtonImportStaffsFromExcel = () => {
   );
 };
 
-export default ButtonImportStaffsFromExcel;
+export default ButtonImportEmployeesFromExcel;

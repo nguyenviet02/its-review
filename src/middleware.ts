@@ -27,4 +27,4 @@ export default withAuth(
   },
 );
 
-export const config = { matcher: ["/admin", "/staff"] };
+export const config = { matcher: ["/admin", "/employee"] };
