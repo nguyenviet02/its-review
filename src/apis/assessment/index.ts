@@ -123,3 +123,15 @@ export const submitDataFormReview = async (
   );
   return res;
 };
+
+export const exportDataAssessmentPeriodById = async (
+  assessmentPeriodId: number,
+) => {
+  const { data } = await axiosInstance.get(
+    `/api/v1/annual-reviews/${assessmentPeriodId}/export`,
+    {
+      responseType: "blob",
+    },
+  );
+  return data;
+};
