@@ -3,7 +3,7 @@
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import React from "react";
 import { DocumentTextIcon } from "@heroicons/react/24/outline";
-import { useStaffDialogSummaryInfoStore } from "@/lib/zustand/staffDialogSummaryInfoStore";
+import { useEmployeeDialogSummaryInfoStore } from "@/lib/zustand/employeeDialogSummaryInfoStore";
 import { useQuery } from "@tanstack/react-query";
 import { getMyListAssessmentPeriod } from "@/apis/assessment";
 import { formatDate, getFormType } from "@/utils";
@@ -11,13 +11,13 @@ import { useSession } from "next-auth/react";
 import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
 import { JOB_POSITIONS } from "@/types";
 
-const Staff = () => {
+const Employee = () => {
   const session = useSession();
 
-  const handleOpenSummaryInfoDialog = useStaffDialogSummaryInfoStore(
+  const handleOpenSummaryInfoDialog = useEmployeeDialogSummaryInfoStore(
     (store) => store.openDialog,
   );
-  const setDialogData = useStaffDialogSummaryInfoStore(
+  const setDialogData = useEmployeeDialogSummaryInfoStore(
     (store) => store.setDialogData,
   );
   const setUserId = useReviewFormDialogStore((store) => store.setUserId);
@@ -79,14 +79,14 @@ const Staff = () => {
     },
     {
       field: "title",
-      headerName: "Tên kỳ đánh giá",
+      headerName: "Title",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
       field: "start",
-      headerName: "Thời gian bắt đầu",
+      headerName: "Start Time",
       valueGetter: (value) => formatDate(value),
       flex: 1,
       headerAlign: "center",
@@ -94,7 +94,7 @@ const Staff = () => {
     },
     {
       field: "end",
-      headerName: "Thời gian kết thúc",
+      headerName: "End Time",
       valueGetter: (value) => formatDate(value),
       flex: 1,
       headerAlign: "center",
@@ -102,7 +102,7 @@ const Staff = () => {
     },
     {
       field: "action",
-      headerName: "Thao tác",
+      headerName: "Actions",
       headerAlign: "center",
       align: "center",
       renderCell: (params: GridRenderCellParams) => {
@@ -124,7 +124,7 @@ const Staff = () => {
                   firstReviewer: "",
                   secondReviewer: "",
                 });
-								setUserId(session?.data?.user?.id || "");
+                setUserId(session?.data?.user?.id || "");
                 setFormType(formType);
                 setAssessmentPeriodId(params.row.id);
                 setIsManager(isManager);
@@ -167,4 +167,4 @@ const Staff = () => {
   );
 };
 
-export default Staff;
+export default Employee;

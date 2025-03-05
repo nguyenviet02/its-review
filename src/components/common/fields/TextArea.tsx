@@ -15,7 +15,7 @@ const TextArea = ({ disabled, name }: Props) => {
         disabled={disabled}
         {...formMethods.register(name)}
         className="w-full p-2 outline-none disabled:cursor-not-allowed"
-        placeholder="Điền vào ô trống..."
+        placeholder=""
         rows={5}
       ></textarea>
     </div>

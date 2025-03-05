@@ -43,35 +43,35 @@ export default function Sidebar({
           current: pathName === "/admin",
         },
         {
-          name: "Quản lý nhân sự",
-          href: "/admin/staff-management",
+          name: "Employee Management",
+          href: "/admin/employee-management",
           icon: UserGroupIcon,
-          current: pathName?.includes("/admin/staff-management"),
+          current: pathName?.includes("/admin/employee-management"),
         },
+        // {
+        //   name: "Document Management",
+        //   href: "/admin/documents-management",
+        //   icon: DocumentTextIcon,
+        //   current: pathName?.includes("/admin/documents-management"),
+        // },
         {
-          name: "Quản lý đơn từ",
-          href: "/admin/documents-management",
-          icon: DocumentTextIcon,
-          current: pathName?.includes("/admin/documents-management"),
-        },
-        {
-          name: "Quản lý kỳ đánh giá",
+          name: "Assessment Period Management",
           href: "/admin/assessment-period-management",
           icon: CalendarDaysIcon,
           current: pathName?.includes("/admin/assessment-period-management"),
         },
-        {
-          name: "Quản lý phòng ban",
-          href: "/admin/departments-management",
-          icon: RectangleGroupIcon,
-          current: pathName?.includes("/admin/departments-management"),
-        },
-        {
-          name: "Quản lý Admin",
-          href: "/admin/admin-management",
-          icon: IdentificationIcon,
-          current: pathName?.includes("/admin/admin-management"),
-        },
+        // {
+        //   name: "Department Management",
+        //   href: "/admin/departments-management",
+        //   icon: RectangleGroupIcon,
+        //   current: pathName?.includes("/admin/departments-management"),
+        // },
+        // {
+        //   name: "Admin Management",
+        //   href: "/admin/admin-management",
+        //   icon: IdentificationIcon,
+        //   current: pathName?.includes("/admin/admin-management"),
+        // },
       ];
     }
 
@@ -106,7 +106,7 @@ export default function Sidebar({
     }
 
     return [
-      { name: "Đơn từ", href: "/", icon: DocumentTextIcon, current: true },
+      { name: "Đơn từ", href: "/employee", icon: DocumentTextIcon, current: true },
     ];
   }, [pathName, role]);
   return (

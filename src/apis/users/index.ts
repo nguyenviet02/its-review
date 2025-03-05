@@ -1,5 +1,5 @@
 import axiosInstance from "@/lib/axios/axiosInstance";
-import { IStaff } from "@/types";
+import { IEmployee } from "@/types";
 
 export const getListUser = async (
   limit: number,
@@ -16,7 +16,7 @@ export const getListUser = async (
   return res;
 };
 
-export const importListUser = async (listUser: IStaff[]) => {
+export const importListUser = async (listUser: IEmployee[]) => {
   const res = await axiosInstance.post("/api/v1/users", listUser);
   return res;
 };

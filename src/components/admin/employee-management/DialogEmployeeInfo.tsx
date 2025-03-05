@@ -2,8 +2,13 @@
 
 import DataReviewTable from "@/components/common/DataReviewTable";
 import ErrorMessage from "@/components/common/ErrorMessage";
-import { useDialogStaffInfoStore } from "@/lib/zustand/dialogStaffInfoStore";
-import { FORM_STATUS, IAssessmentMinifyData, IStaff, JOB_POSITIONS } from "@/types";
+import { useDialogEmployeeInfoStore } from "@/lib/zustand/dialogEmployeeInfoStore";
+import {
+  FORM_STATUS,
+  IAssessmentMinifyData,
+  IEmployee,
+  JOB_POSITIONS,
+} from "@/types";
 import {
   Field,
   Label,
@@ -47,21 +52,23 @@ const data: IAssessmentMinifyData[] = [
   },
 ];
 
-const DialogStaffInfo = () => {
-  const dialogState = useDialogStaffInfoStore((store) => store.isOpen);
-  const handleClose = useDialogStaffInfoStore((store) => store.closeDialog);
-  const staffInfo = useDialogStaffInfoStore((store) => store.staffInfo);
+const DialogEmployeeInfo = () => {
+  const dialogState = useDialogEmployeeInfoStore((store) => store.isOpen);
+  const handleClose = useDialogEmployeeInfoStore((store) => store.closeDialog);
+  const employeeInfo = useDialogEmployeeInfoStore(
+    (store) => store.employeeInfo,
+  );
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IStaff>({
-    defaultValues: staffInfo,
-    values: staffInfo,
+  } = useForm<IEmployee>({
+    defaultValues: employeeInfo,
+    values: employeeInfo,
   });
-  const handleSubmitChangeStaffInfo: SubmitHandler<IStaff> = (
-    data: IStaff,
+  const handleSubmitChangeEmployeeInfo: SubmitHandler<IEmployee> = (
+    data: IEmployee,
   ) => {
     console.log(data);
   };
@@ -76,7 +83,7 @@ const DialogStaffInfo = () => {
       maxWidth="lg"
     >
       <DialogTitle id="alert-dialog-title" className="text-3xl font-bold">
-        Chi tiết nhân sự
+        Employee Information
       </DialogTitle>
       <IconButton
         aria-label="close"
@@ -93,55 +100,55 @@ const DialogStaffInfo = () => {
       <DialogContent className="flex flex-col gap-6">
         <form
           className="flex flex-col gap-4"
-          onSubmit={handleSubmit(handleSubmitChangeStaffInfo)}
+          onSubmit={handleSubmit(handleSubmitChangeEmployeeInfo)}
         >
           <Field disabled className="flex flex-col gap-1">
-            <Label className="text-xl font-bold">ID Cá nhân:</Label>
+            <Label className="text-lg font-bold">Employee ID:</Label>
             <Input
               className="rounded border border-black px-2 py-3"
               {...register("id", {
-                required: "Trường này không được để trống",
+                required: "This field is required",
               })}
             />
             <ErrorMessage errorMessage={errors.username?.message} />
           </Field>
           <Field disabled className="flex flex-col gap-1">
-            <Label className="text-xl font-bold">Họ tên</Label>
+            <Label className="text-lg font-bold">Full Name</Label>
             <Input
               className="rounded border border-black px-2 py-3"
               {...register("username", {
-                required: "Trường này không được để trống",
+                required: "This field is required",
               })}
             />
             <ErrorMessage errorMessage={errors.username?.message} />
           </Field>
           <Field disabled className="flex flex-col gap-1">
-            <Label className="text-xl font-bold">Email</Label>
+            <Label className="text-lg font-bold">Email</Label>
             <Input
               className="rounded border border-black px-2 py-3"
               {...register("email", {
-                required: "Trường này không được để trống",
+                required: "This field is required",
               })}
             />
             <ErrorMessage errorMessage={errors.username?.message} />
           </Field>
           <div className="flex items-center gap-4">
             <Field disabled className="flex flex-1 flex-col gap-1">
-              <Label className="text-xl font-bold">Phòng ban</Label>
+              <Label className="text-lg font-bold">Department</Label>
               <Input
                 className="rounded border border-black px-2 py-3"
                 {...register("department", {
-                  required: "Trường này không được để trống",
+                  required: "This field is required",
                 })}
               />
               <ErrorMessage errorMessage={errors.username?.message} />
             </Field>
             <Field disabled className="flex flex-1 flex-col gap-1">
-              <Label className="text-xl font-bold">Vị trí</Label>
+              <Label className="text-lg font-bold">Job Position</Label>
               <Input
                 className="rounded border border-black px-2 py-3"
                 {...register("jobPosition", {
-                  required: "Trường này không được để trống",
+                  required: "This field is required",
                 })}
               />
               <ErrorMessage errorMessage={errors.username?.message} />
@@ -151,10 +158,10 @@ const DialogStaffInfo = () => {
         <TabGroup>
           <TabList className="mb-2 flex gap-4">
             <Tab className="border-b border-transparent font-bold text-[#14142B] opacity-50 data-[selected]:border-b-black data-[selected]:text-black data-[selected]:opacity-100">
-              Tab 1
+              List of Assessments
             </Tab>
             <Tab className="border-b border-transparent font-bold text-[#14142B] opacity-50 data-[selected]:border-b-black data-[selected]:text-black data-[selected]:opacity-100">
-              Tab 2
+              List of Assigned Assessments
             </Tab>
           </TabList>
           <TabPanels>
@@ -173,10 +180,7 @@ const DialogStaffInfo = () => {
           padding: "1rem",
         }}
       >
-        <Button
-          onClick={handleClose}
-          className="button-primary"
-        >
+        <Button onClick={handleClose} className="button-primary">
           Xuất thông tin nhân sự
         </Button>
       </DialogActions>
@@ -184,4 +188,4 @@ const DialogStaffInfo = () => {
   );
 };
 
-export default DialogStaffInfo;
+export default DialogEmployeeInfo;

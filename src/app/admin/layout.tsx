@@ -2,7 +2,7 @@
 
 import DialogCreateAssessmentPeriod from "@/components/admin/assessment-period-management/DialogCreateAssessmentPeriod";
 import DialogDataAssessmentPeriod from "@/components/admin/assessment-period-management/DialogDataAssessmentPeriod";
-import DialogStaffInfo from "@/components/admin/staff-management/DialogStaffInfo";
+import DialogEmployeeInfo from "@/components/admin/employee-management/DialogEmployeeInfo";
 import Header from "@/layouts/Header";
 import Sidebar from "@/layouts/Sidebar";
 import { ROLES } from "@/types";
@@ -27,7 +27,7 @@ export default function SuperAdminLayout({
           <div className="w-full px-4 sm:px-6 lg:px-8">{children}</div>
         </main>
       </div>
-      <DialogStaffInfo />
+      <DialogEmployeeInfo />
       <DialogCreateAssessmentPeriod />
 			<DialogDataAssessmentPeriod />
     </>

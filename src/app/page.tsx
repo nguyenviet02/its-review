@@ -21,7 +21,7 @@ const CheckRole = async () => {
     redirect("/admin");
   }
 
-  redirect("/staff");
+  redirect("/employee");
 
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-[#1e1b1b] text-white">

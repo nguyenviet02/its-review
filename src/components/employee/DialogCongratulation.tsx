@@ -51,7 +51,7 @@ const DialogCongratulation = () => {
           onClick={handleClose}
           className="button-primary"
         >
-          Đóng
+          Close
         </Button>
       </DialogActions>
     </Dialog>

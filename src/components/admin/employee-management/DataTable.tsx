@@ -1,8 +1,8 @@
 "use client";
 
 import { getListUser } from "@/apis/users";
-import { useDialogStaffInfoStore } from "@/lib/zustand/dialogStaffInfoStore";
-import { IStaff } from "@/types";
+import { useDialogEmployeeInfoStore } from "@/lib/zustand/dialogEmployeeInfoStore";
+import { IEmployee } from "@/types";
 import { Button } from "@headlessui/react";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -11,13 +11,15 @@ import React from "react";
 
 const DataTable = () => {
   // Dialog State from Zustand
-  const openDialogStaffInfo = useDialogStaffInfoStore(
+  const openDialogEmployeeInfo = useDialogEmployeeInfoStore(
     (store) => store.openDialog,
   );
-  const setStaffInfo = useDialogStaffInfoStore((store) => store.setStaffInfo);
-  const handleOpenDialogStaffInfo = (staffInfo: IStaff) => {
-    setStaffInfo(staffInfo);
-    openDialogStaffInfo();
+  const setEmployeeInfo = useDialogEmployeeInfoStore(
+    (store) => store.setEmployeeInfo,
+  );
+  const handleOpenDialogEmployeeInfo = (employeeInfo: IEmployee) => {
+    setEmployeeInfo(employeeInfo);
+    openDialogEmployeeInfo();
   };
 
   // Pagination DataGrid
@@ -49,27 +51,27 @@ const DataTable = () => {
   const columns: GridColDef[] = [
     {
       field: "id",
-      headerName: "ID cá nhân",
+      headerName: "Employee ID",
       headerAlign: "center",
       align: "center",
     },
     {
       field: "username",
-      headerName: "Họ tên",
+      headerName: "Full Name",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
       field: "department",
-      headerName: "Phòng ban",
+      headerName: "Department",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
       field: "jobPosition",
-      headerName: "Vị trí",
+      headerName: "Job Position",
       flex: 1,
       headerAlign: "center",
       align: "center",
@@ -83,7 +85,7 @@ const DataTable = () => {
     },
     {
       field: "action",
-      headerName: "Thao tác",
+      headerName: "Actions",
       flex: 1,
       headerAlign: "center",
       align: "center",
@@ -93,7 +95,7 @@ const DataTable = () => {
             <Button
               className="flex items-center justify-center rounded border border-gray-500 p-1"
               onClick={() => {
-                handleOpenDialogStaffInfo(params.row);
+                handleOpenDialogEmployeeInfo(params.row);
               }}
             >
               <EyeIcon className="h-6 w-6 text-black" />

@@ -27,9 +27,9 @@ const MultiInput = ({ disabled, name }: Props) => {
             className="flex w-full gap-2 overflow-hidden rounded border border-gray-300 px-4 py-2"
           >
             <input
-							disabled={disabled}
+              disabled={disabled}
               className="flex-1 border-none outline-none disabled:cursor-not-allowed"
-              placeholder="Điền vào chỗ trống"
+              placeholder="Input here"
               type="text"
               {...formMethods.register(`${name}.${index}.value`)}
             />

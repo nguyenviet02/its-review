@@ -28,7 +28,7 @@ const Filter = () => {
           />
         </div>
 
-        <Select
+        {/* <Select
           className="h-full w-full max-w-[200px] rounded border border-gray-700"
           defaultValue={""}
         >
@@ -37,14 +37,14 @@ const Filter = () => {
           </option>
           <option value="active">Đang hoạt động</option>
           <option value="inactive">Ngừng hoạt động</option>
-        </Select>
+        </Select> */}
       </div>
       <div className="flex items-center gap-2">
         <Button
           onClick={handleOpenCreateAssessmentPeriodDialog}
           className="button-primary"
         >
-          Tạo mới kỳ đánh giá
+          Create Assessment Period
         </Button>
       </div>
     </div>

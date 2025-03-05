@@ -5,7 +5,7 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getMyListAssessmentPeriod } from "@/apis/assessment";
 import { formatDate } from "@/utils";
-import { useDataAssessmentPeriodDialogStore } from "@/lib/zustand/staff/dialogDataAssessmentPeriodStore";
+import { useDataAssessmentPeriodDialogStore } from "@/lib/zustand/employee/dialogDataAssessmentPeriodStore";
 
 const dataGridStyle = {
   "&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell": {
@@ -19,7 +19,7 @@ const dataGridStyle = {
   },
 };
 
-const ReviewStaff = () => {
+const ReviewEmployee = () => {
   // Pagination DataGrid
   const [paginationModel, setPaginationModel] = React.useState({
     pageSize: 10,
@@ -78,14 +78,14 @@ const ReviewStaff = () => {
     },
     {
       field: "title",
-      headerName: "Tên kỳ đánh giá",
+      headerName: "Title",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
       field: "start",
-      headerName: "Thời gian bắt đầu",
+      headerName: "Start Time",
       valueGetter: (value) => formatDate(value),
       flex: 1,
       headerAlign: "center",
@@ -93,7 +93,7 @@ const ReviewStaff = () => {
     },
     {
       field: "end",
-      headerName: "Thời gian kết thúc",
+      headerName: "End Time",
       valueGetter: (value) => formatDate(value),
       flex: 1,
       headerAlign: "center",
@@ -101,7 +101,7 @@ const ReviewStaff = () => {
     },
     {
       field: "action",
-      headerName: "Thao tác",
+      headerName: "Actions",
       headerAlign: "center",
       align: "center",
       minWidth: 200,
@@ -114,7 +114,7 @@ const ReviewStaff = () => {
               }
               className="btn btn-primary rounded border border-black p-1 py-2 hover:bg-slate-200"
             >
-              Xem danh sách
+              View Detail
             </button>
           </div>
         );
@@ -145,4 +145,4 @@ const ReviewStaff = () => {
   );
 };
 
-export default ReviewStaff;
+export default ReviewEmployee;

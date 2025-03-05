@@ -7,10 +7,10 @@ import { useMemo, useState } from "react";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import DialogSummaryInfo from "@/components/staff/DialogSummaryInfo";
-import DialogFormReview from "@/components/staff/DialogFormReview";
-import DialogCongratulation from "@/components/staff/DialogCongratulation";
-import DialogDataAssessmentPeriod from "@/components/staff/review-staff/DialogDataAssessmentPeriod";
+import DialogSummaryInfo from "@/components/employee/DialogSummaryInfo";
+import DialogFormReview from "@/components/employee/DialogFormReview";
+import DialogCongratulation from "@/components/employee/DialogCongratulation";
+import DialogDataAssessmentPeriod from "@/components/employee/review-employee/DialogDataAssessmentPeriod";
 
 export default function SuperAdminLayout({
   children,
@@ -24,8 +24,8 @@ export default function SuperAdminLayout({
 
   const navigationBaseRole = useMemo(() => {
     return [
-      { name: "Tự đánh giá", href: "/staff" },
-      { name: "Đánh giá nhân sự", href: "/staff/review-staff" },
+      { name: "Self Assessment", href: "/employee" },
+      { name: "Employee Assessment", href: "/employee/review-employee" },
     ];
   }, []);
 
@@ -43,7 +43,7 @@ export default function SuperAdminLayout({
         <main className="w-full">
           <Header setSidebarOpen={setSidebarOpen} />
           <div className="flex w-full flex-col gap-4 px-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold">Danh sách các kỳ đánh giá</h1>
+            <h1 className="text-3xl font-bold">List of Assessment Period</h1>
 
             {/* Navigation */}
             <div className="flex gap-2">
@@ -72,7 +72,7 @@ export default function SuperAdminLayout({
       <DialogSummaryInfo />
       <DialogFormReview />
       <DialogCongratulation />
-			<DialogDataAssessmentPeriod />
+      <DialogDataAssessmentPeriod />
     </>
   );
 }

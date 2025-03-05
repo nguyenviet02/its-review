@@ -1,7 +1,7 @@
 import { FORM_TYPES } from "@/types";
 import { create } from "zustand";
 
-interface IStaffDialogReviewFormStore {
+interface IEmployeeDialogReviewFormStore {
   isOpen: boolean;
   type: FORM_TYPES;
   assessmentPeriodId: number | null;
@@ -15,7 +15,7 @@ interface IStaffDialogReviewFormStore {
   setIsManager: (isManager: boolean) => void;
 }
 
-export const useReviewFormDialogStore = create<IStaffDialogReviewFormStore>(
+export const useReviewFormDialogStore = create<IEmployeeDialogReviewFormStore>(
   (set) => ({
     isOpen: false,
     type: FORM_TYPES.UNSET,

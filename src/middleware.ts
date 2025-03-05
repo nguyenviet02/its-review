@@ -5,7 +5,6 @@ import { ROLES } from "./types";
 import { intersection } from "lodash";
 
 const rolesCanAccessAdmin = [ROLES.ADMIN, ROLES.SUPER_ADMIN];
-const rolesCanAccessStaff = [ROLES.ADMIN, ROLES.SUPER_ADMIN, ROLES.STAFF];
 
 export default withAuth(
   // `withAuth` augments your `Request` with the user's token.
@@ -20,17 +19,6 @@ export default withAuth(
     ) {
       return NextResponse.rewrite(new URL("/denied", request.url));
     }
-
-    // If the
-    if (
-      request.nextUrl.pathname.startsWith("/staff") &&
-      intersection(
-        rolesCanAccessStaff,
-        request.nextauth.token?.user?.roles || [],
-      ).length === 0
-    ) {
-      return NextResponse.rewrite(new URL("/denied", request.url));
-    }
   },
   {
     callbacks: {
@@ -39,4 +27,4 @@ export default withAuth(
   },
 );
 
-export const config = { matcher: ["/admin", "/staff"] };
+export const config = { matcher: ["/admin", "/employee"] };

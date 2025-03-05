@@ -14,6 +14,8 @@ import React from "react";
 import ButtonImportDataAssessment from "./ButtonImportDataAssessment";
 import { EyeIcon } from "@heroicons/react/24/outline";
 import { useDataAssessmentPeriodDialogStore } from "@/lib/zustand/dialogDataAssessmentPeriodStore";
+import { Tooltip } from "@mui/material";
+import ButtonExportDataAssessment from "./ButtonExportDataAssessment";
 
 const DataTable = () => {
   // Pagination DataGrid
@@ -79,14 +81,14 @@ const DataTable = () => {
     },
     {
       field: "title",
-      headerName: "Tên kỳ đánh giá",
+      headerName: "Title",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
       field: "start",
-      headerName: "Thời gian bắt đầu",
+      headerName: "Start time",
       valueGetter: (value) => formatDate(value),
       flex: 1,
       headerAlign: "center",
@@ -94,7 +96,7 @@ const DataTable = () => {
     },
     {
       field: "end",
-      headerName: "Thời gian kết thúc",
+      headerName: "End time",
       valueGetter: (value) => formatDate(value),
       flex: 1,
       headerAlign: "center",
@@ -102,22 +104,38 @@ const DataTable = () => {
     },
     {
       field: "",
-      headerName: "Thao tác",
+      headerName: "Actions",
       headerAlign: "center",
       align: "center",
       flex: 1,
       renderCell: (params) => {
         return (
           <div className="flex h-full items-center justify-center gap-2">
-            <button
-              onClick={() =>
-                handleOpenDialogShowData(params.row.id, params.row.title)
-              }
-              className="rounded border border-black p-2 text-black"
-            >
-              <EyeIcon className="h-5 w-5" />
-            </button>
-            <ButtonImportDataAssessment assessmentPeriodId={params.row.id} />
+            <Tooltip title="View detail" arrow>
+              <button
+                onClick={() =>
+                  handleOpenDialogShowData(params.row.id, params.row.title)
+                }
+                className="rounded border border-black p-2 text-black"
+              >
+                <EyeIcon className="h-5 w-5" />
+              </button>
+            </Tooltip>
+            <Tooltip title="Import" arrow>
+              <div>
+                <ButtonImportDataAssessment
+                  assessmentPeriodId={params.row.id}
+                />
+              </div>
+            </Tooltip>
+            <Tooltip title="Export" arrow>
+              <div>
+                <ButtonExportDataAssessment
+                  assessmentPeriodId={params.row.id}
+                  assessmentPeriodTitle={params.row.title}
+                />
+              </div>
+            </Tooltip>
           </div>
         );
       },

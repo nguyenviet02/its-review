@@ -6,7 +6,7 @@ import { formatDataImportListReviewer } from "@/utils";
 import { useMutation } from "@tanstack/react-query";
 import { importAssessmentPeriodData } from "@/apis/assessment";
 import { IAssessmentPeriodImportData } from "@/types";
-import { DocumentArrowDownIcon } from "@heroicons/react/24/outline";
+import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 
 type Props = {
   assessmentPeriodId: number;
@@ -50,7 +50,7 @@ const ButtonImportDataAssessment = ({ assessmentPeriodId }: Props) => {
       htmlFor={`import-excel-${assessmentPeriodId}`}
       className="flex cursor-pointer items-center justify-center rounded border border-black p-2"
     >
-      <DocumentArrowDownIcon className="h-5 w-5" />
+      <ArrowUpTrayIcon className="size-5" />
       <input
         type="file"
         className="h-0 w-0 opacity-0"

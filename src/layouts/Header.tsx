@@ -13,7 +13,7 @@ import Image from "next/image";
 import AvatarDefault from "@/assets/icons/avatar-default.svg";
 import { signOut, useSession } from "next-auth/react";
 
-const userNavigation = [{ name: "Thông tin cá nhân", href: "#" }];
+const userNavigation = [{ name: "My Profile", href: "#" }];
 
 type HeaderProps = {
   setSidebarOpen: (open: boolean) => void;
@@ -91,7 +91,7 @@ export default function Header({ setSidebarOpen }: HeaderProps) {
             </MenuButton>
             <MenuItems
               transition
-              className="absolute min-w-[150px] right-0 z-10 mt-2.5 w-fit origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+              className="absolute right-0 z-10 mt-2.5 w-fit min-w-[150px] origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
             >
               {userNavigation.map((item) => (
                 <MenuItem key={item.name}>
@@ -113,7 +113,7 @@ export default function Header({ setSidebarOpen }: HeaderProps) {
                     className="size-5 text-gray-900"
                   />
                   <span className="block text-left text-sm/6 text-gray-900 data-[focus]:bg-gray-50 data-[focus]:outline-none">
-                    Đăng xuất
+                    Sign out
                   </span>
                 </button>
               </MenuItem>

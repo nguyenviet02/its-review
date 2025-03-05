@@ -1,14 +1,14 @@
 import { JOB_POSITIONS, TSummaryInfoData, TSummaryInfoState } from "@/types";
 import { create } from "zustand";
 
-interface IStaffDialogSummaryInfoStore {
+interface IEmployeeDialogSummaryInfoStore {
   dialogState: TSummaryInfoState;
   openDialog: () => void;
   closeDialog: () => void;
   setDialogData: (data: TSummaryInfoData) => void;
 }
 
-export const staffDialogSummaryInfoDefaultState: TSummaryInfoState = {
+export const employeeDialogSummaryInfoDefaultState: TSummaryInfoState = {
   isOpen: false,
   data: {
     id: "",
@@ -20,9 +20,9 @@ export const staffDialogSummaryInfoDefaultState: TSummaryInfoState = {
   },
 };
 
-export const useStaffDialogSummaryInfoStore =
-  create<IStaffDialogSummaryInfoStore>((set) => ({
-    dialogState: staffDialogSummaryInfoDefaultState,
+export const useEmployeeDialogSummaryInfoStore =
+  create<IEmployeeDialogSummaryInfoStore>((set) => ({
+    dialogState: employeeDialogSummaryInfoDefaultState,
     openDialog: () =>
       set((store) => ({
         ...store,
@@ -31,7 +31,7 @@ export const useStaffDialogSummaryInfoStore =
     closeDialog: () =>
       set((store) => ({
         ...store,
-        dialogState: staffDialogSummaryInfoDefaultState,
+        dialogState: employeeDialogSummaryInfoDefaultState,
       })),
     setDialogData: (data: TSummaryInfoData) =>
       set((store) => ({

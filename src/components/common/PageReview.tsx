@@ -71,11 +71,11 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
         refetchType: "active",
       });
       toast.dismiss();
-      toast.success("Gửi dữ liệu thành công");
+      toast.success("Submit data successfully");
       resetForm();
-      dialogCongratulationState.setTitle("Đánh giá nhân sự ngày");
+      dialogCongratulationState.setTitle("Congratulation");
       dialogCongratulationState.setContent(
-        "Cảm ơn bạn đã hoàn thành quá trình đánh giá nhân sự.",
+        "Thanks for your submission! Your review has been successfully submitted.",
       );
       dialogCongratulationState.openDialog();
     },
@@ -89,7 +89,7 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (data: any) => {
       setIsSubmitting(true);
-      toast.loading("Đang gửi dữ liệu đánh giá, vui lòng đợi");
+      toast.loading("Submitting data...");
       const dataToSubmit = {
         ...data,
       };
@@ -185,7 +185,7 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
               type="submit"
               className="button-primary disabled:cursor-not-allowed disabled:opacity-50"
             >
-              Hoàn thành
+              Submit
             </Button>
           </div>
         )}
