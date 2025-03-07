@@ -115,7 +115,8 @@ export const getDataFormReview = async (
 export const submitDataFormReview = async (
   assessmentPeriodId: number,
   employeeId: string,
-  data,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data: any,
 ) => {
   const res = await axiosInstance.post(
     `/api/v1/annual-reviews/${assessmentPeriodId}/employees/${employeeId}/reviews`,

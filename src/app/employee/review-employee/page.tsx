@@ -130,6 +130,9 @@ const ReviewEmployee = () => {
           loading={myListAssessmentPeriodQuery.isLoading}
           rows={listAssessmentPeriod}
           columns={columns}
+					rowCount={rowCount}
+					paginationModel={paginationModel}
+					onPaginationModelChange={setPaginationModel}
           getRowHeight={() => "auto"}
           disableRowSelectionOnClick
           pageSizeOptions={[5, 10, 25]}
@@ -139,6 +142,7 @@ const ReviewEmployee = () => {
               noRowsVariant: "skeleton",
             },
           }}
+					paginationMode="server"
         />
       </div>
     </section>

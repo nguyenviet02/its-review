@@ -13,14 +13,12 @@ import {
 import React from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createAssessmentPeriod } from "@/apis/assessment";
 import { toast } from "react-toastify";
 
-type Props = {};
-
-const DialogCreateAssessmentPeriod = (props: Props) => {
+const DialogCreateAssessmentPeriod = () => {
   const queryClient = useQueryClient();
   const dialogState = useCreateAssessmentPeriodDialogStore(
     (store) => store.isOpen,
@@ -41,6 +39,7 @@ const DialogCreateAssessmentPeriod = (props: Props) => {
       handleClose();
     },
     onError: (error) => {
+      console.log('☠️ ~ DialogCreateAssessmentPeriod ~ error:', error)
       toast.dismiss();
       toast.error("Create new assessment period failed");
     },

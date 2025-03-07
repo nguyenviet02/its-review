@@ -1,4 +1,3 @@
-import { Dayjs } from "dayjs";
 
 export enum ROLES {
   SUPER_ADMIN = "super-admin",

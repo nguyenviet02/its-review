@@ -1,10 +1,5 @@
 import { TFormReview } from "@/types";
 
-const formReviewTester: TFormReview = [
-  {
-    id: "01",
-    fields: [],
-  },
-];
+const formReviewTester: TFormReview = [];
 
 export default formReviewTester;

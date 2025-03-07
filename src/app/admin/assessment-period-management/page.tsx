@@ -2,9 +2,7 @@ import DataTable from "@/components/admin/assessment-period-management/DataTable
 import Filter from "@/components/admin/assessment-period-management/Filter";
 import React from "react";
 
-type Props = {};
-
-const AssessmentPeriodManagement = (props: Props) => {
+const AssessmentPeriodManagement = () => {
   return (
     <div className="flex flex-col gap-4 p-4">
       <h1 className="text-3xl font-bold">Assessment Period Management</h1>

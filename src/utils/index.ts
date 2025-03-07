@@ -1,25 +1,27 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FORM_TYPES, IEmployee, JOB_POSITIONS } from "@/types";
 
 // Make function format number smaller than 10 to 2 digits
 export const formatNumberToTwoDigits = (number: number) => {
   return number < 10 ? `0${number}` : number;
 };
-
-export const formatDataImportListReviewer = (dataFromExcel) => {
-  const data = dataFromExcel.map((item) => {
+export const formatDataImportListReviewer = (dataFromExcel: any) => {
+  const data = dataFromExcel.map((item: any) => {
     const employeeId = item[0];
     const startIndexOfReviewer = 6;
     const reviewers = item.slice(startIndexOfReviewer);
     return {
       employeeId,
-      reviewerNames: reviewers as unknown as string[],
+      reviewerNames: reviewers as string[],
     };
   });
   return data?.slice(1) || [];
 };
 
-export const formatDataImportListEmployee = (dataFromExcel): IEmployee[] => {
-  const formattedData = dataFromExcel.map((data) => {
+export const formatDataImportListEmployee = (
+  dataFromExcel: any,
+): IEmployee[] => {
+  const formattedData = dataFromExcel.map((data: any) => {
     return {
       id: data["ID Cá nhân"],
       username: data["Họ và tên"],

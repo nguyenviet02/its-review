@@ -1,15 +1,13 @@
-import axios, { AxiosInstance } from "axios";
+import { AxiosInstance } from "axios";
 import { getSession } from "next-auth/react";
 
 import axiosInstance from "@/lib/axios/axiosInstance";
-import { useEffect } from "react";
 
 // Token storage key
 const TOKEN_STORAGE_KEY = "auth_access_token";
 
 // Module-level variables
 let accessTokenCache: string | undefined;
-let isRefreshingToken = false;
 let refreshPromise: Promise<string | undefined> | null = null;
 
 // Functions to handle localStorage token storage
@@ -41,19 +39,16 @@ async function refreshAccessToken(): Promise<string | undefined> {
     return refreshPromise;
   }
 
-  isRefreshingToken = true;
   refreshPromise = getSession()
     .then((session) => {
       const token = session?.accessToken;
       // Store token in localStorage
       setAccessTokenToStorage(token);
-      isRefreshingToken = false;
       refreshPromise = null;
       return token;
     })
     .catch((error) => {
       console.error("Failed to refresh token:", error);
-      isRefreshingToken = false;
       refreshPromise = null;
       return undefined;
     });

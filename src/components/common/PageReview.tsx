@@ -6,13 +6,14 @@ import CustomTooltip from "./CustomToolTip";
 import { useForm, FormProvider } from "react-hook-form";
 import { useDialogCongratulationStore } from "@/lib/zustand/dialogCongratulationStore";
 import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
-import { Button, Field } from "@headlessui/react";
+import { Button } from "@headlessui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { submitDataFormReview } from "@/apis/assessment";
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 
 type Props = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   defaultValues?: any;
   managerId?: string;
   fields: IField[];
@@ -63,6 +64,7 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
     }: {
       assessmentPeriodId: number;
       userId: string;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       data: any;
     }) => submitDataFormReview(assessmentPeriodId, userId, data),
     onSuccess: async () => {
@@ -119,7 +121,7 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
         data: payload,
       });
     },
-    [handleCloseReviewFormDialog, formMethods, dialogCongratulationState],
+    [assessmentPeriodId, formType, submitDataFormReviewMutation, userId],
   );
 
   const listFields = useMemo(() => {

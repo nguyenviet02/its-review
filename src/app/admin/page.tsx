@@ -2,11 +2,10 @@
 
 import { getServerSession } from "next-auth";
 import React from "react";
-import { authConfig } from "../api/auth/[...nextauth]/route";
+import { authConfig } from "../api/auth/[...nextauth]/authConfig";
 
 const Admin = async () => {
   const session = await getServerSession(authConfig);
-  console.log("☠️ ~ Admin ~ session:", session);
 
   return (
     <div>

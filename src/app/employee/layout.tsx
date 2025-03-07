@@ -4,7 +4,6 @@ import Header from "@/layouts/Header";
 import Sidebar from "@/layouts/Sidebar";
 import { ROLES } from "@/types";
 import { useMemo, useState } from "react";
-import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import DialogSummaryInfo from "@/components/employee/DialogSummaryInfo";
@@ -18,7 +17,6 @@ export default function SuperAdminLayout({
   children: React.ReactNode;
 }>) {
   const pathname = usePathname();
-  const session = useSession();
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 

@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
+  subsets: ["latin", "vietnamese"],
 });
 
 export const metadata: Metadata = {

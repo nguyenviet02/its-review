@@ -6,8 +6,6 @@ import {
   DataGrid,
   GridColDef,
   GridRowParams,
-  useGridApiContext,
-  useGridSelector,
 } from "@mui/x-data-grid";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";

@@ -3,12 +3,11 @@
 import { getServerSession } from "next-auth";
 import React from "react";
 import { redirect } from "next/navigation";
-import { authConfig } from "./api/auth/[...nextauth]/route";
 import { ROLES } from "@/types";
+import { authConfig } from "./api/auth/[...nextauth]/authConfig";
 
 const CheckRole = async () => {
   const session = await getServerSession(authConfig);
-  console.log('☠️ ~ CheckRole ~ session:', session)
 
   if (!session) {
     redirect("/login");

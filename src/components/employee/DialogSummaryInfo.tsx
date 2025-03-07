@@ -112,17 +112,22 @@ const DialogSummaryInfo = () => {
                     </TableCell>
                   </TableRow>
                 ))}
-                {listReviewer?.map((reviewer, index) => (
-                  <TableRow
-                    key={reviewer.id}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      <span className="font-semibold">{`Reviewer ${index + 1}:`}</span>
-                    </TableCell>
-                    <TableCell>{`${reviewer.username}`}</TableCell>
-                  </TableRow>
-                ))}
+                {listReviewer?.map(
+                  (
+                    reviewer: { id: string; username: string },
+                    index: number,
+                  ) => (
+                    <TableRow
+                      key={reviewer.id}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        <span className="font-semibold">{`Reviewer ${index + 1}:`}</span>
+                      </TableCell>
+                      <TableCell>{`${reviewer.username}`}</TableCell>
+                    </TableRow>
+                  ),
+                )}
               </TableBody>
             </Table>
           </TableContainer>

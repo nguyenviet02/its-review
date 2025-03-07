@@ -61,7 +61,7 @@ const DataReviewTable = ({ data }: Props) => {
       headerName: "Actions",
       headerAlign: "center",
       align: "center",
-      renderCell: (params: GridRenderCellParams) => {
+      renderCell: () => {
         return (
           <div className="flex items-center justify-center gap-4">
             <button className="btn btn-primary rounded border border-black p-1 hover:bg-slate-200">

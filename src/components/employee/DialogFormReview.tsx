@@ -1,13 +1,6 @@
 import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
 import { FORM_TYPES, TFormReview } from "@/types";
-import {
-  Button,
-  Tab,
-  TabGroup,
-  TabList,
-  TabPanel,
-  TabPanels,
-} from "@headlessui/react";
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { DialogContent, Dialog, DialogTitle, IconButton } from "@mui/material";
 import React, { useMemo, useState } from "react";
@@ -17,7 +10,6 @@ import formReviewGeneral from "@/forms/form-review-general";
 import formReviewBA from "@/forms/form-review-ba";
 import formReviewDev from "@/forms/form-review-dev";
 import formReviewTester from "@/forms/form-review-tester";
-import { useEmployeeDialogSummaryInfoStore } from "@/lib/zustand/employeeDialogSummaryInfoStore";
 import { useQuery } from "@tanstack/react-query";
 import {
   getDataFormReview,
@@ -28,9 +20,6 @@ import Loading from "../common/Loading";
 const DialogFormReview = () => {
   const isOpenReviewFormDialog = useReviewFormDialogStore(
     (store) => store.isOpen,
-  );
-  const summaryInfoStore = useEmployeeDialogSummaryInfoStore(
-    (store) => store.dialogState,
   );
   const handleCloseReviewFormDialog = useReviewFormDialogStore(
     (store) => store.closeDialog,
@@ -148,16 +137,18 @@ const DialogFormReview = () => {
               <Tab className="rounded-full border border-transparent px-3 py-1 text-sm/6 font-semibold text-black hover:border-gray-200 focus:outline-none data-[hover]:bg-white/5 data-[selected]:bg-black data-[selected]:text-white">
                 Self Review
               </Tab>
-              {listReviewer?.map((reviewer) => {
-                return (
-                  <Tab
-                    key={reviewer?.id}
-                    className="rounded-full border border-transparent px-3 py-1 text-sm/6 font-semibold text-black hover:border-gray-200 focus:outline-none data-[hover]:bg-white/5 data-[selected]:bg-black data-[selected]:text-white"
-                  >
-                    {reviewer?.username}
-                  </Tab>
-                );
-              })}
+              {listReviewer?.map(
+                (reviewer: { id: string; username: string }) => {
+                  return (
+                    <Tab
+                      key={reviewer?.id}
+                      className="rounded-full border border-transparent px-3 py-1 text-sm/6 font-semibold text-black hover:border-gray-200 focus:outline-none data-[hover]:bg-white/5 data-[selected]:bg-black data-[selected]:text-white"
+                    >
+                      {reviewer?.username}
+                    </Tab>
+                  );
+                },
+              )}
             </TabList>
             <TabPanels className="relative mt-3">
               <TabPanel className="relative rounded-xl bg-white/5 p-3 pb-6">
@@ -170,29 +161,31 @@ const DialogFormReview = () => {
                   fields={selectedForm}
                 />
               </TabPanel>
-              {listReviewer?.map((reviewer) => {
-                const defaultValues =
-                  getDataFormReviewQuery?.data?.managerReviews?.find(
-                    (data) => data?.managerId === reviewer?.id,
+              {listReviewer?.map(
+                (reviewer: { id: string; username: string }) => {
+                  const defaultValues =
+                    getDataFormReviewQuery?.data?.managerReviews?.find(
+                      (data: { managerId: string }) =>
+                        data?.managerId === reviewer?.id,
+                    );
+                  return (
+                    <TabPanel
+                      key={reviewer?.id}
+                      className="rounded-xl bg-white/5 p-3 pb-4"
+                    >
+                      {renderTotalPoint(
+                        defaultValues?.point,
+                        defaultValues?.maxPoint,
+                      )}
+                      <PageReview
+                        defaultValues={defaultValues || {}}
+                        managerId={reviewer?.id}
+                        fields={selectedForm}
+                      />
+                    </TabPanel>
                   );
-
-                return (
-                  <TabPanel
-                    key={reviewer?.id}
-                    className="rounded-xl bg-white/5 p-3 pb-4"
-                  >
-                    {renderTotalPoint(
-                      defaultValues?.point,
-                      defaultValues?.maxPoint,
-                    )}
-                    <PageReview
-                      defaultValues={defaultValues || {}}
-                      managerId={reviewer?.id}
-                      fields={selectedForm}
-                    />
-                  </TabPanel>
-                );
-              })}
+                },
+              )}
             </TabPanels>
           </TabGroup>
         </Loading>
