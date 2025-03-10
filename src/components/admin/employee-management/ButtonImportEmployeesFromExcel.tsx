@@ -7,8 +7,10 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import * as XLSX from "xlsx";
 import Image from "next/image";
+import { toast } from "react-toastify";
 
 const ButtonImportEmployeesFromExcel = () => {
+  const inputRef = React.useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
   const importListUserMutation = useMutation({
     mutationFn: (listUser: IEmployee[]) => importListUser(listUser),
@@ -17,6 +19,14 @@ const ButtonImportEmployeesFromExcel = () => {
         queryKey: ["users-listUser"],
         refetchType: "active",
       });
+      toast.dismiss();
+      toast.success("Import data successfully");
+      if (inputRef.current) inputRef.current.value = ""; // Reset the input value
+    },
+    onError: (error) => {
+      toast.dismiss();
+      toast.error(error?.response?.data?.message || "Import data failed");
+      if (inputRef.current) inputRef.current.value = ""; // Reset the input value
     },
   });
 
@@ -25,6 +35,7 @@ const ButtonImportEmployeesFromExcel = () => {
     const file = e.target.files?.[0];
     const reader = new FileReader();
     reader.onload = function (e) {
+      toast.loading("Importing data...");
       const data = e.target?.result;
       const workbook = XLSX.read(data);
 
@@ -56,6 +67,7 @@ const ButtonImportEmployeesFromExcel = () => {
 
       <input
         type="file"
+        ref={inputRef}
         className="h-0 w-0 opacity-0"
         id="import-excel"
         onChange={handleFileAsync}
