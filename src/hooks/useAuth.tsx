@@ -11,7 +11,7 @@ let accessTokenCache: string | undefined;
 let refreshPromise: Promise<string | undefined> | null = null;
 
 // Functions to handle localStorage token storage
-const setAccessTokenToStorage = (token: string | undefined): void => {
+export const setAccessTokenToStorage = (token: string | undefined): void => {
   if (typeof window !== "undefined") {
     if (token) {
       localStorage.setItem(TOKEN_STORAGE_KEY, token);

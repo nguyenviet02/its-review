@@ -12,6 +12,7 @@ import Image from "next/image";
 
 import AvatarDefault from "@/assets/icons/avatar-default.svg";
 import { signOut, useSession } from "next-auth/react";
+import { setAccessTokenToStorage } from "@/hooks/useAuth";
 
 const userNavigation = [{ name: "My Profile", href: "#" }];
 
@@ -105,7 +106,10 @@ export default function Header({ setSidebarOpen }: HeaderProps) {
               ))}
               <MenuItem>
                 <button
-                  onClick={() => signOut({ callbackUrl: "/" })}
+                  onClick={() => {
+                    setAccessTokenToStorage(undefined); // Clear the access token from storage
+                    signOut({ callbackUrl: "/" });
+                  }}
                   className="flex w-full items-center gap-1 border-t border-gray-300 px-3 py-1"
                 >
                   <ArrowLeftStartOnRectangleIcon
