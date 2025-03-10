@@ -30,23 +30,28 @@ const formReviewDev: TFormReview = [
         scoreScale: [
           {
             score: 2,
-            description: "1 - Follow",
+            description:
+              "1 - Follow: Receives on-the-job training in a variety of new environments while working under close supervision as they gain experience, typically working on small tasks within larger projects.",
           },
           {
             score: 4,
-            description: "2 - Assist",
+            description:
+              "2 - Assist: Performs technical tasks with limited direct supervision and solves problems based on principles of applied science technology. Also makes some decisions for which they assume responsibility.",
           },
           {
             score: 6,
-            description: "3 - Apply",
+            description:
+              "3 - Apply: Works in a complex technological area without direct supervision (independently). Receives broad task objectives, is responsible for significant technical decisions and may train other professionals.",
           },
           {
             score: 8,
-            description: "4 - Create",
+            description:
+              "4 - Create: Performs a senior management role with overall responsibility for projects while supervising teams of professionals.",
           },
           {
             score: 10,
-            description: "5 - Design",
+            description:
+              "5 - Design: Performs a commander role with overall responsibility for projects based on multiple platforms and business domains while supervising teams of professionals and middle management.",
           },
         ],
       },
@@ -203,23 +208,27 @@ For FE:
         scoreScale: [
           {
             score: 0,
-            description: "0: No Knowledge",
+            description: "0-No Knowledge: Have no knowledge and experience.",
           },
           {
             score: 1.3,
-            description: "1: Fundamental Awareness",
+            description:
+              "1-Fundamental Awareness: Have a common knowledge or an understanding of basic techniques and concepts.",
           },
           {
             score: 2.5,
-            description: "2: Limited Experience",
+            description:
+              "2-Limited Experience: Capable of applies knowledge and experience of the skill, including tools and techniques, adopting those most appropriate for the environment.",
           },
           {
             score: 3.8,
-            description: "3: Intermediate",
+            description:
+              "3-Intermediate: Shares knowledge and experience of the skill with others, including tools and techniques, defining those most appropriate for the environment.",
           },
           {
             score: 5,
-            description: "4: Advanced",
+            description:
+              "4-Advanced: Has knowledge and experience in the application of this skill. Is a recognised specialist and advisor in this skill including user needs, generation of ideas, methods, tools and leading or guiding others in best practice use.",
           },
         ],
       },
@@ -235,27 +244,32 @@ For FE:
         scoreScale: [
           {
             score: 0,
-            description: "0: No Knowledge",
+            description: "0-No Knowledge: Have no knowledge and experience.",
           },
           {
             score: 5,
-            description: "1: Fundamental Awareness",
+            description:
+              "1-Fundamental Awareness: Have a common knowledge or an understanding of basic techniques and concepts.",
           },
           {
             score: 10,
-            description: "2: Limited Experience",
+            description:
+              "2-Limited Experience: Capable of applies knowledge and experience of the skill, including tools and techniques, adopting those most appropriate for the environment.",
           },
           {
             score: 15,
-            description: "3: Intermediate",
+            description:
+              "3-Intermediate: Shares knowledge and experience of the skill with others, including tools and techniques, defining those most appropriate for the environment.",
           },
           {
             score: 20,
-            description: "4: Advanced",
+            description:
+              "4-Advanced: Has knowledge and experience in the application of this skill. Is a recognised specialist and advisor in this skill including user needs, generation of ideas, methods, tools and leading or guiding others in best practice use.",
           },
           {
             score: 25,
-            description: "5: Expert",
+            description:
+              "5: Expert: A prolonged or intense experience through practice and consultant in a particular field.",
           },
         ],
       },
@@ -269,23 +283,27 @@ For FE:
         scoreScale: [
           {
             score: 0,
-            description: "0: No Knowledge",
+            description: "0-No Knowledge: Have no knowledge and experience.",
           },
           {
             score: 2.5,
-            description: "1: Fundamental Awareness",
+            description:
+              "1-Fundamental Awareness: Have a common knowledge or an understanding of basic techniques and concepts.",
           },
           {
             score: 5,
-            description: "2: Limited Experience",
+            description:
+              "2-Limited Experience: Capable of applies knowledge and experience of the skill, including tools and techniques, adopting those most appropriate for the environment.",
           },
           {
             score: 7.5,
-            description: "3: Intermediate",
+            description:
+              "3-Intermediate: Shares knowledge and experience of the skill with others, including tools and techniques, defining those most appropriate for the environment.",
           },
           {
             score: 10,
-            description: "4: Advanced",
+            description:
+              "4-Advanced: Has knowledge and experience in the application of this skill. Is a recognised specialist and advisor in this skill including user needs, generation of ideas, methods, tools and leading or guiding others in best practice use.",
           },
         ],
       },
@@ -305,23 +323,27 @@ For FE:
         scoreScale: [
           {
             score: 0,
-            description: "0: No Knowledge",
+            description: "0-No Knowledge: Have no knowledge and experience.",
           },
           {
             score: 2,
-            description: "1: Fundamental Awareness",
+            description:
+              "1-Fundamental Awareness: Have a common knowledge or an understanding of basic techniques and concepts.",
           },
           {
             score: 4,
-            description: "2: Limited Experience",
+            description:
+              "2-Limited Experience: Capable of applies knowledge and experience of the skill, including tools and techniques, adopting those most appropriate for the environment.",
           },
           {
             score: 6,
-            description: "3: Intermediate",
+            description:
+              "3-Intermediate: Shares knowledge and experience of the skill with others, including tools and techniques, defining those most appropriate for the environment.",
           },
           {
             score: 8,
-            description: "4: Advanced",
+            description:
+              "4-Advanced: Has knowledge and experience in the application of this skill. Is a recognised specialist and advisor in this skill including user needs, generation of ideas, methods, tools and leading or guiding others in best practice use.",
           },
         ],
       },
@@ -335,23 +357,27 @@ For FE:
         scoreScale: [
           {
             score: 0,
-            description: "0: No Knowledge",
+            description: "0-No Knowledge: Have no knowledge and experience.",
           },
           {
             score: 0.5,
-            description: "1: Fundamental Awareness",
+            description:
+              "1-Fundamental Awareness: Have a common knowledge or an understanding of basic techniques and concepts.",
           },
           {
             score: 1,
-            description: "2: Limited Experience",
+            description:
+              "2-Limited Experience: Capable of applies knowledge and experience of the skill, including tools and techniques, adopting those most appropriate for the environment.",
           },
           {
             score: 1.5,
-            description: "3: Intermediate",
+            description:
+              "3-Intermediate: Shares knowledge and experience of the skill with others, including tools and techniques, defining those most appropriate for the environment.",
           },
           {
             score: 2,
-            description: "4: Advanced",
+            description:
+              "4-Advanced: Has knowledge and experience in the application of this skill. Is a recognised specialist and advisor in this skill including user needs, generation of ideas, methods, tools and leading or guiding others in best practice use.",
           },
         ],
       },
@@ -379,23 +405,27 @@ For FE:
         scoreScale: [
           {
             score: 0,
-            description: "0: No Knowledge",
+            description: "0-No Knowledge: Have no knowledge and experience.",
           },
           {
             score: 2.5,
-            description: "1: Fundamental Awareness",
+            description:
+              "1-Fundamental Awareness: Have a common knowledge or an understanding of basic techniques and concepts.",
           },
           {
             score: 5,
-            description: "2: Limited Experience",
+            description:
+              "2-Limited Experience: Capable of applies knowledge and experience of the skill, including tools and techniques, adopting those most appropriate for the environment.",
           },
           {
             score: 7.5,
-            description: "3: Intermediate",
+            description:
+              "3-Intermediate: Shares knowledge and experience of the skill with others, including tools and techniques, defining those most appropriate for the environment.",
           },
           {
             score: 10,
-            description: "4: Advanced",
+            description:
+              "4-Advanced: Has knowledge and experience in the application of this skill. Is a recognised specialist and advisor in this skill including user needs, generation of ideas, methods, tools and leading or guiding others in best practice use.",
           },
         ],
       },
@@ -408,23 +438,27 @@ For FE:
         scoreScale: [
           {
             score: 0,
-            description: "0: No Knowledge",
+            description: "0-No Knowledge: Have no knowledge and experience.",
           },
           {
             score: 0.5,
-            description: "1: Fundamental Awareness",
+            description:
+              "1-Fundamental Awareness: Have a common knowledge or an understanding of basic techniques and concepts.",
           },
           {
             score: 1,
-            description: "2: Limited Experience",
+            description:
+              "2-Limited Experience: Capable of applies knowledge and experience of the skill, including tools and techniques, adopting those most appropriate for the environment.",
           },
           {
             score: 1.5,
-            description: "3: Intermediate",
+            description:
+              "3-Intermediate: Shares knowledge and experience of the skill with others, including tools and techniques, defining those most appropriate for the environment.",
           },
           {
             score: 2,
-            description: "4: Advanced",
+            description:
+              "4-Advanced: Has knowledge and experience in the application of this skill. Is a recognised specialist and advisor in this skill including user needs, generation of ideas, methods, tools and leading or guiding others in best practice use.",
           },
         ],
       },
@@ -437,23 +471,27 @@ For FE:
         scoreScale: [
           {
             score: 0,
-            description: "0: No Knowledge",
+            description: "0-No Knowledge: Have no knowledge and experience.",
           },
           {
             score: 1.3,
-            description: "1: Fundamental Awareness",
+            description:
+              "1-Fundamental Awareness: Have a common knowledge or an understanding of basic techniques and concepts.",
           },
           {
             score: 2.5,
-            description: "2: Limited Experience",
+            description:
+              "2-Limited Experience: Capable of applies knowledge and experience of the skill, including tools and techniques, adopting those most appropriate for the environment.",
           },
           {
             score: 3.8,
-            description: "3: Intermediate",
+            description:
+              "3-Intermediate: Shares knowledge and experience of the skill with others, including tools and techniques, defining those most appropriate for the environment.",
           },
           {
             score: 5,
-            description: "4: Advanced",
+            description:
+              "4-Advanced: Has knowledge and experience in the application of this skill. Is a recognised specialist and advisor in this skill including user needs, generation of ideas, methods, tools and leading or guiding others in best practice use.",
           },
         ],
       },
@@ -466,23 +504,27 @@ For FE:
         scoreScale: [
           {
             score: 0,
-            description: "0: No Knowledge",
+            description: "0-No Knowledge: Have no knowledge and experience.",
           },
           {
             score: 0.5,
-            description: "1: Fundamental Awareness",
+            description:
+              "1-Fundamental Awareness: Have a common knowledge or an understanding of basic techniques and concepts.",
           },
           {
             score: 1,
-            description: "2: Limited Experience",
+            description:
+              "2-Limited Experience: Capable of applies knowledge and experience of the skill, including tools and techniques, adopting those most appropriate for the environment.",
           },
           {
             score: 1.5,
-            description: "3: Intermediate",
+            description:
+              "3-Intermediate: Shares knowledge and experience of the skill with others, including tools and techniques, defining those most appropriate for the environment.",
           },
           {
             score: 2,
-            description: "4: Advanced",
+            description:
+              "4-Advanced: Has knowledge and experience in the application of this skill. Is a recognised specialist and advisor in this skill including user needs, generation of ideas, methods, tools and leading or guiding others in best practice use.",
           },
         ],
       },
@@ -495,19 +537,22 @@ For FE:
         scoreScale: [
           {
             score: 0,
-            description: "0: No Knowledge",
+            description: "0-No Knowledge: Have no knowledge and experience.",
           },
           {
             score: 0.3,
-            description: "1: Fundamental Awareness",
+            description:
+              "1-Fundamental Awareness: Have a common knowledge or an understanding of basic techniques and concepts.",
           },
           {
             score: 0.7,
-            description: "2: Limited Experience",
+            description:
+              "2-Limited Experience: Capable of applies knowledge and experience of the skill, including tools and techniques, adopting those most appropriate for the environment.",
           },
           {
             score: 1,
-            description: "3: Intermediate",
+            description:
+              "3-Intermediate: Shares knowledge and experience of the skill with others, including tools and techniques, defining those most appropriate for the environment.",
           },
         ],
       },
