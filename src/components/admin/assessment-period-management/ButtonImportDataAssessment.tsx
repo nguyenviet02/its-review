@@ -7,12 +7,14 @@ import { useMutation } from "@tanstack/react-query";
 import { importAssessmentPeriodData } from "@/apis/assessment";
 import { IAssessmentPeriodImportData } from "@/types";
 import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
+import { toast } from "react-toastify";
 
 type Props = {
   assessmentPeriodId: number;
 };
 
 const ButtonImportDataAssessment = ({ assessmentPeriodId }: Props) => {
+  const inputRef = React.useRef<HTMLInputElement>(null);
   const importAssessmentPeriodDataMutation = useMutation({
     mutationFn: ({
       id,
@@ -21,12 +23,23 @@ const ButtonImportDataAssessment = ({ assessmentPeriodId }: Props) => {
       id: number;
       data: IAssessmentPeriodImportData;
     }) => importAssessmentPeriodData(id, data),
+    onSuccess: () => {
+      toast.dismiss();
+      toast.success("Import data successfully");
+      if (inputRef.current) inputRef.current.value = ""; // Reset the input value
+    },
+    onError: (error) => {
+      toast.dismiss();
+      toast.error(error?.response?.data?.message || "Import data failed");
+      if (inputRef.current) inputRef.current.value = ""; // Reset the input value
+    },
   });
   async function handleFileAsync(e: React.ChangeEvent<HTMLInputElement>) {
     /* get first file */
     const file = e.target.files?.[0];
     const reader = new FileReader();
     reader.onload = function (e) {
+      toast.loading("Importing data...");
       const data = e.target?.result;
       const workbook = XLSX.read(data);
 
@@ -53,6 +66,7 @@ const ButtonImportDataAssessment = ({ assessmentPeriodId }: Props) => {
       <ArrowUpTrayIcon className="size-5" />
       <input
         type="file"
+        ref={inputRef}
         className="h-0 w-0 opacity-0"
         id={`import-excel-${assessmentPeriodId}`}
         onChange={handleFileAsync}
