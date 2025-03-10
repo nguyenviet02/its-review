@@ -1,10 +1,10 @@
 import { IScoreScale } from "@/types";
-import { Field, Select } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { Field } from "@headlessui/react";
 import { memo } from "react";
 import { FieldError, useFormContext } from "react-hook-form";
 import ErrorMessage from "../ErrorMessage";
 import { get } from "lodash";
+import { MenuItem, Select } from "@mui/material";
 
 type Props = {
   disabled?: boolean;
@@ -26,22 +26,26 @@ function SelectField({ disabled, name, scoreScale }: Props) {
               required: "This field is required",
               validate: (value) => value !== "",
             })}
+            MenuProps={{ className: "w-[200px]" }}
             disabled={disabled}
             defaultValue=""
-            className="h-full w-full appearance-none bg-transparent px-4 py-2 disabled:cursor-not-allowed"
+            className="w-full appearance-none text-wrap bg-transparent disabled:cursor-not-allowed"
           >
-            <option value={""} disabled>
+            <MenuItem value={""} disabled>
               Please select
-            </option>
+            </MenuItem>
             {scoreScale?.map((scale: IScoreScale, index) => {
               return (
-                <option key={index} value={Number(scale.score)}>
+                <MenuItem
+                  key={index}
+                  className="!whitespace-normal"
+                  value={Number(scale.score)}
+                >
                   {scale.description}
-                </option>
+                </MenuItem>
               );
             })}
           </Select>
-          <ChevronDownIcon className="group pointer-events-none absolute right-4 top-1/2 size-6 -translate-y-1/2 fill-black" />
         </div>
       </Field>
       <ErrorMessage errorMessage={errorMessage} />
