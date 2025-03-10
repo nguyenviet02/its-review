@@ -5,14 +5,14 @@ import { FORM_TYPES, IEmployee, JOB_POSITIONS } from "@/types";
 export const formatNumberToTwoDigits = (number: number) => {
   return number < 10 ? `0${number}` : number;
 };
-export const formatDataImportListReviewer = (dataFromExcel: any) => {
+export const formatDataImportListManager = (dataFromExcel: any) => {
   const data = dataFromExcel.map((item: any) => {
     const employeeId = item[0];
-    const startIndexOfReviewer = 6;
-    const reviewers = item.slice(startIndexOfReviewer);
+    const startIndexOfManager = 6;
+    const managers = item.slice(startIndexOfManager);
     return {
       employeeId,
-      reviewerNames: reviewers as string[],
+      managerNames: managers as string[],
     };
   });
   return data?.slice(1) || [];

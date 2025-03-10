@@ -121,8 +121,8 @@ const Employee = () => {
                   department: session?.data?.user?.department as string,
                   jobPosition: session?.data?.user
                     ?.jobPosition as JOB_POSITIONS,
-                  firstReviewer: "",
-                  secondReviewer: "",
+                  firstManager: "",
+                  secondManager: "",
                 });
                 setUserId(session?.data?.user?.id || "");
                 setFormType(formType);

@@ -63,8 +63,8 @@ export type TSummaryInfoData = {
   username: string;
   department: string;
   jobPosition: JOB_POSITIONS;
-  firstReviewer: string;
-  secondReviewer?: string;
+  firstManager: string;
+  secondManager?: string;
 };
 export type TSummaryInfoState = {
   isOpen: boolean;
@@ -99,5 +99,5 @@ export interface IAssessmentPeriod {
 
 export interface IAssessmentPeriodImportData {
   employeeId: string;
-  reviewerNames: string[];
+  managerNames: string[];
 }

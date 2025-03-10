@@ -1,4 +1,4 @@
-import { getListReviewerOfEmployee } from "@/apis/assessment";
+import { getListManagerOfEmployee } from "@/apis/assessment";
 import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
 import { useEmployeeDialogSummaryInfoStore } from "@/lib/zustand/employeeDialogSummaryInfoStore";
 import { TSummaryInfoData } from "@/types";
@@ -62,14 +62,14 @@ const DialogSummaryInfo = () => {
     handleCloseDialogSummaryInfo();
   };
 
-  const getListReviewerQuery = useQuery({
-    queryKey: ["getListReviewerOfEmployee", userId, assessmentPeriodId],
+  const getListManagerQuery = useQuery({
+    queryKey: ["getListManagerOfEmployee", userId, assessmentPeriodId],
     queryFn: async () =>
-      getListReviewerOfEmployee(assessmentPeriodId as number, userId as string),
+      getListManagerOfEmployee(assessmentPeriodId as number, userId as string),
     refetchOnWindowFocus: false,
     enabled: !!userId && !!assessmentPeriodId && isManager,
   });
-  const listReviewer = getListReviewerQuery?.data?.data;
+  const listManager = getListManagerQuery?.data?.data;
 
   return (
     <Dialog
@@ -95,7 +95,7 @@ const DialogSummaryInfo = () => {
         <XMarkIcon className="size-6 text-black" />
       </IconButton>
       <DialogContent>
-        <Loading isLoading={getListReviewerQuery.isLoading}>
+        <Loading isLoading={getListManagerQuery.isLoading}>
           <TableContainer>
             <Table aria-label="simple table">
               <TableBody>
@@ -112,19 +112,19 @@ const DialogSummaryInfo = () => {
                     </TableCell>
                   </TableRow>
                 ))}
-                {listReviewer?.map(
+                {listManager?.map(
                   (
-                    reviewer: { id: string; username: string },
+                    manager: { id: string; username: string },
                     index: number,
                   ) => (
                     <TableRow
-                      key={reviewer.id}
+                      key={manager.id}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
-                        <span className="font-semibold">{`Reviewer ${index + 1}:`}</span>
+                        <span className="font-semibold">{`Manager ${index + 1}:`}</span>
                       </TableCell>
-                      <TableCell>{`${reviewer.username}`}</TableCell>
+                      <TableCell>{`${manager.username}`}</TableCell>
                     </TableRow>
                   ),
                 )}

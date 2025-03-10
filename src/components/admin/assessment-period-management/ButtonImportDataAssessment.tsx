@@ -2,7 +2,7 @@
 
 import React from "react";
 import * as XLSX from "xlsx";
-import { formatDataImportListReviewer } from "@/utils";
+import { formatDataImportListManager } from "@/utils";
 import { useMutation } from "@tanstack/react-query";
 import { importAssessmentPeriodData } from "@/apis/assessment";
 import { IAssessmentPeriodImportData } from "@/types";
@@ -33,7 +33,7 @@ const ButtonImportDataAssessment = ({ assessmentPeriodId }: Props) => {
       /* DO SOMETHING WITH workbook HERE */
       const firstWorkSheet = workbook.Sheets[workbook.SheetNames[0]];
       const dataJson = XLSX.utils.sheet_to_json(firstWorkSheet, { header: 1 });
-      const dataFormatted = formatDataImportListReviewer(dataJson);
+      const dataFormatted = formatDataImportListManager(dataJson);
       importAssessmentPeriodDataMutation.mutate({
         id: assessmentPeriodId,
         data: dataFormatted,

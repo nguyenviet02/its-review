@@ -13,7 +13,7 @@ import formReviewTester from "@/forms/form-review-tester";
 import { useQuery } from "@tanstack/react-query";
 import {
   getDataFormReview,
-  getListReviewerOfEmployee,
+  getListManagerOfEmployee,
 } from "@/apis/assessment";
 import Loading from "../common/Loading";
 
@@ -70,14 +70,14 @@ const DialogFormReview = () => {
     enabled: !!userId && !!assessmentPeriodId,
   });
 
-  const getListReviewerQuery = useQuery({
-    queryKey: ["getListReviewerOfEmployee", userId, assessmentPeriodId],
+  const getListManagerQuery = useQuery({
+    queryKey: ["getListManagerOfEmployee", userId, assessmentPeriodId],
     queryFn: async () =>
-      getListReviewerOfEmployee(assessmentPeriodId as number, userId as string),
+      getListManagerOfEmployee(assessmentPeriodId as number, userId as string),
     refetchOnWindowFocus: false,
     enabled: !!userId && !!assessmentPeriodId && isManager,
   });
-  const listReviewer = getListReviewerQuery?.data?.data;
+  const listManager = getListManagerQuery?.data?.data;
 
   const renderTotalPoint = (point: number, maxPoint: number) => {
     if (!point || !maxPoint) return null;
@@ -126,7 +126,7 @@ const DialogFormReview = () => {
       <DialogContent className="relative" sx={{ paddingTop: 0 }}>
         <Loading
           isLoading={
-            getDataFormReviewQuery.isLoading || getListReviewerQuery.isLoading
+            getDataFormReviewQuery.isLoading || getListManagerQuery.isLoading
           }
         >
           <TabGroup
@@ -137,14 +137,14 @@ const DialogFormReview = () => {
               <Tab className="rounded-full border border-transparent px-3 py-1 text-sm/6 font-semibold text-black hover:border-gray-200 focus:outline-none data-[hover]:bg-white/5 data-[selected]:bg-black data-[selected]:text-white">
                 Self Review
               </Tab>
-              {listReviewer?.map(
-                (reviewer: { id: string; username: string }) => {
+              {listManager?.map(
+                (manager: { id: string; username: string }) => {
                   return (
                     <Tab
-                      key={reviewer?.id}
+                      key={manager?.id}
                       className="rounded-full border border-transparent px-3 py-1 text-sm/6 font-semibold text-black hover:border-gray-200 focus:outline-none data-[hover]:bg-white/5 data-[selected]:bg-black data-[selected]:text-white"
                     >
-                      {reviewer?.username}
+                      {manager?.username}
                     </Tab>
                   );
                 },
@@ -161,16 +161,16 @@ const DialogFormReview = () => {
                   fields={selectedForm}
                 />
               </TabPanel>
-              {listReviewer?.map(
-                (reviewer: { id: string; username: string }) => {
+              {listManager?.map(
+                (manager: { id: string; username: string }) => {
                   const defaultValues =
                     getDataFormReviewQuery?.data?.managerReviews?.find(
                       (data: { managerId: string }) =>
-                        data?.managerId === reviewer?.id,
+                        data?.managerId === manager?.id,
                     );
                   return (
                     <TabPanel
-                      key={reviewer?.id}
+                      key={manager?.id}
                       className="rounded-xl bg-white/5 p-3 pb-4"
                     >
                       {renderTotalPoint(
@@ -179,7 +179,7 @@ const DialogFormReview = () => {
                       )}
                       <PageReview
                         defaultValues={defaultValues || {}}
-                        managerId={reviewer?.id}
+                        managerId={manager?.id}
                         fields={selectedForm}
                       />
                     </TabPanel>

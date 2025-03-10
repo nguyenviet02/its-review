@@ -80,7 +80,7 @@ export const getListEmployeeAssignedToMe = async (
   order: string = "ASC",
 ) => {
   const { data } = await axiosInstance.get(
-    `/api/v1/annual-reviews/${id}/reviewers/employees`,
+    `/api/v1/annual-reviews/${id}/managers/employees`,
     {
       params: {
         limit: limit,
@@ -92,12 +92,12 @@ export const getListEmployeeAssignedToMe = async (
   return data;
 };
 
-export const getListReviewerOfEmployee = async (
+export const getListManagerOfEmployee = async (
   assessmentPeriodId: number,
   userId: string,
 ) => {
   const { data } = await axiosInstance.get(
-    `/api/v1/annual-reviews/${assessmentPeriodId}/employees/${userId}/reviewers`,
+    `/api/v1/annual-reviews/${assessmentPeriodId}/employees/${userId}/managers`,
   );
   return data;
 };
