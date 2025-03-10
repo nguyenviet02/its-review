@@ -31,7 +31,7 @@ function SelectField({ disabled, name, scoreScale }: Props) {
             className="h-full w-full appearance-none bg-transparent px-4 py-2 disabled:cursor-not-allowed"
           >
             <option value={""} disabled>
-              Chọn điểm
+              Please select
             </option>
             {scoreScale?.map((scale: IScoreScale, index) => {
               return (
