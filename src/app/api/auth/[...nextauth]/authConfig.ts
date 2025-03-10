@@ -12,7 +12,7 @@ const clientSecret = env.NEXT_PUBLIC_AZURE_AD_CLIENT_SECRET;
 const tenantId = env.NEXT_PUBLIC_AZURE_AD_TENANT_ID;
 
 const COOKIES_LIFE_TIME = 24 * 60 * 60;
-const COOKIE_PREFIX = process.env.NODE_ENV === 'production' ? '__Secure-' : '';
+const COOKIE_PREFIX = process.env.NODE_ENV === "production" ? "__Secure-" : "";
 
 declare module "next-auth" {
   interface Session {
@@ -50,6 +50,7 @@ declare module "next-auth/jwt" {
     accessTokenExpires?: number;
     apiTokenDetails?: {
       accessToken?: string;
+      expiresOn?: string;
     };
     error?: string;
   }
@@ -116,7 +117,12 @@ async function refreshAccessToken(token: JWT) {
     const refreshToken = refreshedTokens?.refresh_token as string;
     if (refreshToken) {
       const apiToken = await generateApiAccessToken(refreshToken);
-      token.apiTokenDetails = apiToken || { accessToken: undefined };
+      token.apiTokenDetails = apiToken
+        ? {
+            accessToken: apiToken.accessToken,
+            expiresOn: apiToken.expiresOn?.toISOString(),
+          }
+        : { accessToken: undefined };
     }
 
     return {
@@ -153,9 +159,19 @@ export const authConfig = {
     async jwt({ token, user, account }) {
       // Persist the access_token, expires_at & refresh_token to the token right after signin
       if (account && account.access_token && account.expires_at && user) {
+        const apiToken = await generateApiAccessToken(
+          account.refresh_token as string,
+        );
+
         token.accessToken = account.access_token;
         token.refreshToken = account.refresh_token;
         token.accessTokenExpires = account.expires_at * 1000;
+        token.apiTokenDetails = apiToken
+          ? {
+              accessToken: apiToken.accessToken,
+              expiresOn: apiToken.expiresOn?.toISOString(),
+            }
+          : {};
 
         let userData = null;
         try {
@@ -165,7 +181,7 @@ export const authConfig = {
               method: "GET",
               headers: {
                 "Content-Type": "application/json",
-                Authorization: `Bearer ${token.accessToken}`,
+                Authorization: `Bearer ${apiToken?.accessToken}`,
               },
             },
           );
@@ -176,11 +192,12 @@ export const authConfig = {
         }
       }
 
-      if (Date.now() < Number(token.accessTokenExpires)) {
-        if (token.refreshToken) {
-          const apiToken = await generateApiAccessToken(token.refreshToken);
-          token.apiTokenDetails = apiToken || { accessToken: undefined };
-        }
+      if (
+        Date.now() < Number(token.accessTokenExpires) &&
+        Date.now() <
+          new Date(token.apiTokenDetails?.expiresOn || "").getTime() &&
+        token?.apiTokenDetails?.accessToken
+      ) {
         return token;
       }
 
