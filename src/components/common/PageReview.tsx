@@ -20,6 +20,8 @@ type Props = {
 };
 
 const PageReview = ({ managerId, defaultValues, fields }: Props) => {
+  console.log("☠️ ~ PageReview ~ defaultValues:", defaultValues);
+
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const session = useSession();
   const queryClient = useQueryClient();

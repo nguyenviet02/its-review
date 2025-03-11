@@ -69,6 +69,7 @@ const DialogFormReview = () => {
     refetchOnWindowFocus: false,
     enabled: !!userId && !!assessmentPeriodId,
   });
+  console.log('☠️ ~ DialogFormReview ~ getDataFormReviewQuery:', getDataFormReviewQuery)
 
   const getListManagerQuery = useQuery({
     queryKey: ["getListManagerOfEmployee", userId, assessmentPeriodId],
@@ -153,18 +154,18 @@ const DialogFormReview = () => {
             <TabPanels className="relative mt-3">
               <TabPanel className="relative rounded-xl bg-white/5 p-3 pb-6">
                 {renderTotalPoint(
-                  getDataFormReviewQuery?.data?.selfReview?.point,
-                  getDataFormReviewQuery?.data?.selfReview?.maxPoint,
+                  getDataFormReviewQuery?.data?.form?.selfReview?.point,
+                  getDataFormReviewQuery?.data?.form?.selfReview?.maxPoint,
                 )}
                 <PageReview
-                  defaultValues={getDataFormReviewQuery?.data?.selfReview}
+                  defaultValues={getDataFormReviewQuery?.data?.form?.selfReview}
                   fields={selectedForm}
                 />
               </TabPanel>
               {listManager?.map(
                 (manager: { id: string; username: string }) => {
                   const defaultValues =
-                    getDataFormReviewQuery?.data?.managerReviews?.find(
+                    getDataFormReviewQuery?.data?.form?.managerReviews?.find(
                       (data: { managerId: string }) =>
                         data?.managerId === manager?.id,
                     );

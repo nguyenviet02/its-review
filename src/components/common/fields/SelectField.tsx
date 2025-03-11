@@ -1,7 +1,7 @@
 import { IScoreScale } from "@/types";
 import { Field } from "@headlessui/react";
 import { memo } from "react";
-import { FieldError, useFormContext } from "react-hook-form";
+import { Controller, FieldError, useFormContext } from "react-hook-form";
 import ErrorMessage from "../ErrorMessage";
 import { get } from "lodash";
 import { MenuItem, Select } from "@mui/material";
@@ -20,32 +20,41 @@ function SelectField({ disabled, name, scoreScale }: Props) {
     <div className="flex flex-col gap-1">
       <Field className="w-full rounded-md border border-gray-300">
         <div className="relative">
-          <Select
-            {...formMethods.register(name, {
-              valueAsNumber: true,
-              required: "This field is required",
-              validate: (value) => value !== "",
-            })}
-            MenuProps={{ className: "w-[200px]" }}
-            disabled={disabled}
-            defaultValue=""
-            className="w-full appearance-none text-wrap bg-transparent disabled:cursor-not-allowed"
-          >
-            <MenuItem value={""} disabled>
-              Please select
-            </MenuItem>
-            {scoreScale?.map((scale: IScoreScale, index) => {
+          <Controller
+            render={({ field }) => {
               return (
-                <MenuItem
-                  key={index}
-                  className="!whitespace-normal"
-                  value={Number(scale.score)}
+                <Select
+                  {...formMethods.register(name, {
+                    valueAsNumber: true,
+                    required: "This field is required",
+                    validate: (value) => value !== "",
+                  })}
+                  {...field}
+                  MenuProps={{ className: "w-[200px]" }}
+                  disabled={disabled}
+                  defaultValue=""
+                  className="w-full appearance-none text-wrap bg-transparent disabled:cursor-not-allowed"
                 >
-                  {scale.description}
-                </MenuItem>
+                  <MenuItem value={""} disabled>
+                    Please select
+                  </MenuItem>
+                  {scoreScale?.map((scale: IScoreScale, index) => {
+                    return (
+                      <MenuItem
+                        key={index}
+                        className="!whitespace-normal"
+                        value={Number(scale.score)}
+                      >
+                        {scale.description}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
               );
-            })}
-          </Select>
+            }}
+            name={name}
+            control={formMethods.control}
+          />
         </div>
       </Field>
       <ErrorMessage errorMessage={errorMessage} />
