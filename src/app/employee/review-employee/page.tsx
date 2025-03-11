@@ -37,10 +37,6 @@ const ReviewEmployee = () => {
     refetchOnWindowFocus: false,
   });
   const listAssessmentPeriod = myListAssessmentPeriodQuery?.data?.data;
-  console.log(
-    "☠️ ~ ReviewEmployee ~ listAssessmentPeriod:",
-    listAssessmentPeriod,
-  );
 
   // Row count for DataGrid pagination
   const rowCountRef = React.useRef(

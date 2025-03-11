@@ -3,7 +3,7 @@ import { FORM_TYPES, TFormReview } from "@/types";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { DialogContent, Dialog, DialogTitle, IconButton } from "@mui/material";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import PageReview from "../common/PageReview";
 import { useForm } from "react-hook-form";
 import formReviewGeneral from "@/forms/form-review-general";
@@ -13,6 +13,7 @@ import formReviewTester from "@/forms/form-review-tester";
 import { useQuery } from "@tanstack/react-query";
 import { getDataFormReview, getListManagerOfEmployee } from "@/apis/assessment";
 import Loading from "../common/Loading";
+import { toast } from "react-toastify";
 
 const DialogFormReview = () => {
   const isOpenReviewFormDialog = useReviewFormDialogStore(
@@ -86,6 +87,20 @@ const DialogFormReview = () => {
       </div>
     );
   };
+
+  useEffect(() => {
+    if (!getDataFormReviewQuery?.error) return;
+    if (getDataFormReviewQuery?.error) {
+      console.log(
+        "☠️ ~ useEffect ~ getDataFormReviewQuery?.error:",
+        getDataFormReviewQuery?.error,
+      );
+      toast.error(
+        getDataFormReviewQuery?.error?.response?.data?.message ||
+          "Something went wrong",
+      );
+    }
+  }, [getDataFormReviewQuery?.error]);
 
   return (
     <Dialog
