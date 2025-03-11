@@ -24,11 +24,6 @@ function SelectField({ disabled, name, scoreScale }: Props) {
             render={({ field }) => {
               return (
                 <Select
-                  {...formMethods.register(name, {
-                    valueAsNumber: true,
-                    required: "This field is required",
-                    validate: (value) => value !== "",
-                  })}
                   {...field}
                   MenuProps={{ className: "w-[200px]" }}
                   disabled={disabled}
@@ -53,6 +48,13 @@ function SelectField({ disabled, name, scoreScale }: Props) {
               );
             }}
             name={name}
+            defaultValue={""}
+            rules={{
+              required: {
+                value: true,
+                message: "This field is required",
+              },
+            }}
             control={formMethods.control}
           />
         </div>

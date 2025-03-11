@@ -81,7 +81,7 @@ const DialogFormReview = () => {
     return (
       <div className="flex h-10 w-full items-center justify-center bg-white py-4 text-2xl font-bold">
         <span>
-          Total Point: {point}/{maxPoint}
+          Total Point: {Math.round(point)}/{maxPoint}
         </span>
       </div>
     );

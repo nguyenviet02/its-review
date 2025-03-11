@@ -128,6 +128,8 @@ const Employee = () => {
       headerName: "Actions",
       headerAlign: "center",
       align: "center",
+      sortable: false,
+      disableColumnMenu: true,
       renderCell: (params: GridRenderCellParams) => {
         const isManager = false;
         const formType = getFormType(
