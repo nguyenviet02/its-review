@@ -39,7 +39,7 @@ const DialogCreateAssessmentPeriod = () => {
       handleClose();
     },
     onError: (error) => {
-      console.log('☠️ ~ DialogCreateAssessmentPeriod ~ error:', error)
+      console.log("☠️ ~ DialogCreateAssessmentPeriod ~ error:", error);
       toast.dismiss();
       toast.error("Create new assessment period failed");
     },
@@ -49,14 +49,23 @@ const DialogCreateAssessmentPeriod = () => {
     register,
     control,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<IAssessmentPeriod>({
     defaultValues: {
       title: "",
       start: null as Date | null,
       end: null as Date | null,
+      selfReviewEnd: null as Date | null,
+      managerReviewEnd: null as Date | null,
     },
   });
+
+  // Watch all date fields for validation
+  const startDate = watch("start");
+  const selfReviewEndDate = watch("selfReviewEnd");
+  const managerReviewEndDate = watch("managerReviewEnd");
+  const endDate = watch("end");
 
   const onSubmit: SubmitHandler<IAssessmentPeriod> = (data) => {
     toast.loading("Creating new assessment period...");
@@ -94,7 +103,8 @@ const DialogCreateAssessmentPeriod = () => {
         <XMarkIcon className="size-6 text-black" />
       </IconButton>
       <DialogContent className="flex flex-col gap-6">
-        <form>
+        <form className="flex flex-col gap-4">
+          {/* Title */}
           <Field className="flex flex-col gap-1">
             <Label className="label-form">Title</Label>
             <Input
@@ -105,39 +115,171 @@ const DialogCreateAssessmentPeriod = () => {
             />
             <ErrorMessage errorMessage={errors.title?.message} />
           </Field>
+
+          {/* Start Time */}
           <Field className="flex flex-col gap-1">
             <Label className="label-form">Start Time</Label>
             <Controller
               control={control}
               name="start"
-              rules={{ required: true }}
+              rules={{
+                required: "This field is required",
+                validate: {
+                  notBeforeSelfReview: (value) =>
+                    !value ||
+                    !selfReviewEndDate ||
+                    dayjs(value).isBefore(dayjs(selfReviewEndDate)) ||
+                    "Start time must be before self review end time",
+                  notBeforeToday: (value) =>
+                    !value ||
+                    dayjs(value).isAfter(dayjs().subtract(1, "day")) ||
+                    "Start time must be today or later",
+                },
+              }}
               render={({ field }) => {
                 return (
                   <DatePicker
                     value={dayjs(field.value)}
+                    format="DD/MM/YYYY"
                     onChange={(date) => {
                       field.onChange(date);
                     }}
                     slotProps={{ textField: { fullWidth: true } }}
+                    shouldDisableDate={(date) =>
+                      dayjs(date).isBefore(dayjs(), "day")
+                    }
                   />
                 );
               }}
             />
             <ErrorMessage errorMessage={errors.start?.message} />
           </Field>
+
+          {/* Self Review End */}
+          <Field className="flex flex-col gap-1">
+            <Label className="label-form">Self Review End</Label>
+            <Controller
+              control={control}
+              name="selfReviewEnd"
+              rules={{
+                required: "This field is required",
+                validate: {
+                  afterStart: (value) =>
+                    !value ||
+                    !startDate ||
+                    dayjs(value).isAfter(dayjs(startDate)) ||
+                    "Self review end must be after start time",
+                  beforeManagerReview: (value) =>
+                    !value ||
+                    !managerReviewEndDate ||
+                    dayjs(value).isBefore(dayjs(managerReviewEndDate)) ||
+                    "Self review end must be before manager review end",
+                },
+              }}
+              render={({ field }) => {
+                return (
+                  <DatePicker
+                    value={dayjs(field.value)}
+                    format="DD/MM/YYYY"
+                    onChange={(date) => {
+                      field.onChange(date);
+                    }}
+                    slotProps={{ textField: { fullWidth: true } }}
+                    shouldDisableDate={(date) =>
+                      startDate
+                        ? dayjs(date).isBefore(dayjs(), "day") ||
+                          dayjs(date).isBefore(dayjs(startDate), "day") ||
+                          dayjs(date).isSame(dayjs(startDate), "day")
+                        : dayjs(date).isBefore(dayjs(), "day")
+                    }
+                  />
+                );
+              }}
+            />
+            <ErrorMessage errorMessage={errors.selfReviewEnd?.message} />
+          </Field>
+
+          {/* Manager Review End */}
+          <Field className="flex flex-col gap-1">
+            <Label className="label-form">Manager Review End</Label>
+            <Controller
+              control={control}
+              name="managerReviewEnd"
+              rules={{
+                required: "This field is required",
+                validate: {
+                  afterSelfReview: (value) =>
+                    !value ||
+                    !selfReviewEndDate ||
+                    dayjs(value).isAfter(dayjs(selfReviewEndDate)) ||
+                    "Manager review end must be after self review end",
+                  beforeEnd: (value) =>
+                    !value ||
+                    !endDate ||
+                    dayjs(value).isBefore(dayjs(endDate)) ||
+                    "Manager review end must be before end time",
+                },
+              }}
+              render={({ field }) => {
+                return (
+                  <DatePicker
+                    value={dayjs(field.value)}
+                    format="DD/MM/YYYY"
+                    onChange={(date) => {
+                      field.onChange(date);
+                    }}
+                    shouldDisableDate={(date) =>
+                      selfReviewEndDate
+                        ? dayjs(date).isBefore(dayjs(), "day") ||
+                          dayjs(date).isBefore(
+                            dayjs(selfReviewEndDate),
+                            "day",
+                          ) ||
+                          dayjs(date).isSame(dayjs(selfReviewEndDate), "day")
+                        : dayjs(date).isBefore(dayjs(), "day")
+                    }
+                  />
+                );
+              }}
+            />
+            <ErrorMessage errorMessage={errors.managerReviewEnd?.message} />
+          </Field>
+
+          {/* End Time */}
           <Field className="flex flex-col gap-1">
             <Label className="label-form">End Time</Label>
             <Controller
               control={control}
               name="end"
-              rules={{ required: true }}
+              rules={{
+                required: "This field is required",
+                validate: {
+                  afterManagerReview: (value) =>
+                    !value ||
+                    !managerReviewEndDate ||
+                    dayjs(value).isAfter(dayjs(managerReviewEndDate)) ||
+                    "End time must be after manager review end",
+                },
+              }}
               render={({ field }) => {
                 return (
                   <DatePicker
                     value={dayjs(field.value)}
+                    format="DD/MM/YYYY"
                     onChange={(date) => {
                       field.onChange(date);
                     }}
+                    slotProps={{ textField: { fullWidth: true } }}
+                    shouldDisableDate={(date) =>
+                      managerReviewEndDate
+                        ? dayjs(date).isBefore(dayjs(), "day") ||
+                          dayjs(date).isBefore(
+                            dayjs(managerReviewEndDate),
+                            "day",
+                          ) ||
+                          dayjs(date).isSame(dayjs(managerReviewEndDate), "day")
+                        : dayjs(date).isBefore(dayjs(), "day")
+                    }
                   />
                 );
               }}
@@ -152,7 +294,11 @@ const DialogCreateAssessmentPeriod = () => {
           padding: "1rem",
         }}
       >
-        <Button onClick={handleSubmit(onSubmit)} className="button-primary">
+        <Button
+          disabled={createAssessmentPeriodMutation?.isPending}
+          onClick={handleSubmit(onSubmit)}
+          className="button-primary"
+        >
           {createAssessmentPeriodMutation.isPending ? "Creating..." : "Create"}
         </Button>
       </DialogActions>

@@ -4,7 +4,7 @@
 
 @layer components {
   .button-primary {
-    @apply rounded bg-black p-2 px-4 font-semibold text-white;
+    @apply rounded bg-black p-2 px-4 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50;
   }
 
   .button-secondary {

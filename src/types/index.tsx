@@ -1,4 +1,3 @@
-
 export enum ROLES {
   SUPER_ADMIN = "super-admin",
   ADMIN = "admin",
@@ -95,6 +94,8 @@ export interface IAssessmentPeriod {
   title: string;
   start: Date | null;
   end: Date | null;
+  selfReviewEnd: Date | null;
+  managerReviewEnd: Date | null;
 }
 
 export interface IAssessmentPeriodImportData {
