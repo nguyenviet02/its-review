@@ -75,7 +75,7 @@ const DialogFormReview = () => {
     refetchOnWindowFocus: false,
     enabled: !!userId && !!assessmentPeriodId && isManager,
   });
-  const listManager = getListManagerQuery?.data?.data;
+  const listManager = getListManagerQuery?.data;
 
   const renderTotalPoint = (point: number, maxPoint: number) => {
     if (!point || !maxPoint) return null;
