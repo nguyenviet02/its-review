@@ -11,10 +11,7 @@ import formReviewBA from "@/forms/form-review-ba";
 import formReviewDev from "@/forms/form-review-dev";
 import formReviewTester from "@/forms/form-review-tester";
 import { useQuery } from "@tanstack/react-query";
-import {
-  getDataFormReview,
-  getListManagerOfEmployee,
-} from "@/apis/assessment";
+import { getDataFormReview, getListManagerOfEmployee } from "@/apis/assessment";
 import Loading from "../common/Loading";
 
 const DialogFormReview = () => {
@@ -69,7 +66,6 @@ const DialogFormReview = () => {
     refetchOnWindowFocus: false,
     enabled: !!userId && !!assessmentPeriodId,
   });
-  console.log('☠️ ~ DialogFormReview ~ getDataFormReviewQuery:', getDataFormReviewQuery)
 
   const getListManagerQuery = useQuery({
     queryKey: ["getListManagerOfEmployee", userId, assessmentPeriodId],
@@ -138,18 +134,16 @@ const DialogFormReview = () => {
               <Tab className="rounded-full border border-transparent px-3 py-1 text-sm/6 font-semibold text-black hover:border-gray-200 focus:outline-none data-[hover]:bg-white/5 data-[selected]:bg-black data-[selected]:text-white">
                 Self Review
               </Tab>
-              {listManager?.map(
-                (manager: { id: string; username: string }) => {
-                  return (
-                    <Tab
-                      key={manager?.id}
-                      className="rounded-full border border-transparent px-3 py-1 text-sm/6 font-semibold text-black hover:border-gray-200 focus:outline-none data-[hover]:bg-white/5 data-[selected]:bg-black data-[selected]:text-white"
-                    >
-                      {manager?.username}
-                    </Tab>
-                  );
-                },
-              )}
+              {listManager?.map((manager: { id: string; username: string }) => {
+                return (
+                  <Tab
+                    key={manager?.id}
+                    className="rounded-full border border-transparent px-3 py-1 text-sm/6 font-semibold text-black hover:border-gray-200 focus:outline-none data-[hover]:bg-white/5 data-[selected]:bg-black data-[selected]:text-white"
+                  >
+                    {manager?.username}
+                  </Tab>
+                );
+              })}
             </TabList>
             <TabPanels className="relative mt-3">
               <TabPanel className="relative rounded-xl bg-white/5 p-3 pb-6">
@@ -162,31 +156,29 @@ const DialogFormReview = () => {
                   fields={selectedForm}
                 />
               </TabPanel>
-              {listManager?.map(
-                (manager: { id: string; username: string }) => {
-                  const defaultValues =
-                    getDataFormReviewQuery?.data?.form?.managerReviews?.find(
-                      (data: { managerId: string }) =>
-                        data?.managerId === manager?.id,
-                    );
-                  return (
-                    <TabPanel
-                      key={manager?.id}
-                      className="rounded-xl bg-white/5 p-3 pb-4"
-                    >
-                      {renderTotalPoint(
-                        defaultValues?.point,
-                        defaultValues?.maxPoint,
-                      )}
-                      <PageReview
-                        defaultValues={defaultValues || {}}
-                        managerId={manager?.id}
-                        fields={selectedForm}
-                      />
-                    </TabPanel>
+              {listManager?.map((manager: { id: string; username: string }) => {
+                const defaultValues =
+                  getDataFormReviewQuery?.data?.form?.managerReviews?.find(
+                    (data: { managerId: string }) =>
+                      data?.managerId === manager?.id,
                   );
-                },
-              )}
+                return (
+                  <TabPanel
+                    key={manager?.id}
+                    className="rounded-xl bg-white/5 p-3 pb-4"
+                  >
+                    {renderTotalPoint(
+                      defaultValues?.point,
+                      defaultValues?.maxPoint,
+                    )}
+                    <PageReview
+                      defaultValues={defaultValues || {}}
+                      managerId={manager?.id}
+                      fields={selectedForm}
+                    />
+                  </TabPanel>
+                );
+              })}
             </TabPanels>
           </TabGroup>
         </Loading>
