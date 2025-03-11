@@ -576,12 +576,11 @@ For FE:
   },
   {
     number: "6",
-    title: "Nhận xét, đánh giá thêm của Quản lý",
-    isForManager: true,
+    title: "Nhận xét, đánh giá thêm",
     criterions: [
       {
         number: "6.1",
-        title: "Nhận xét, đánh giá thêm của Quản lý",
+        title: "Nhận xét, đánh giá thêm",
         name: "comment",
         type: FORM_FIELDS.TEXTAREA,
       },

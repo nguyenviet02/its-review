@@ -24,11 +24,11 @@ function SelectField({ disabled, name, scoreScale }: Props) {
             render={({ field }) => {
               return (
                 <Select
-                  {...field}
                   MenuProps={{ className: "w-[200px]" }}
                   disabled={disabled}
                   defaultValue=""
                   className="w-full appearance-none text-wrap bg-transparent disabled:cursor-not-allowed"
+                  {...field}
                 >
                   <MenuItem value={""} disabled>
                     Please select
