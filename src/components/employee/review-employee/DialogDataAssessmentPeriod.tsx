@@ -15,6 +15,7 @@ import {
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import CurrentStatus from "@/components/data-grid/CurrentStatus";
 
 const DialogDataAssessmentPeriod = () => {
   const dialogState = useDataAssessmentPeriodDialogStore(
@@ -144,6 +145,21 @@ const DialogDataAssessmentPeriod = () => {
       align: "center",
     },
     {
+      field: "status",
+      headerName: "Status",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      renderCell: (params: GridRenderCellParams) => {
+        const status = params.row.status;
+        return (
+          <div className="h-full flex items-center justify-center">
+            <CurrentStatus currentStatus={status} />;
+          </div>
+        );
+      },
+    },
+    {
       field: "",
       headerName: "Actions",
       flex: 1,
@@ -194,6 +210,7 @@ const DialogDataAssessmentPeriod = () => {
           rows={listEmployee}
           columns={columns}
           getRowId={(row) => row.id}
+					getRowHeight={() => 'auto'}
           loading={listEmployeeOfAssessmentPeriodQuery?.isLoading}
           slotProps={{
             loadingOverlay: {

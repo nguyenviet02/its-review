@@ -69,7 +69,7 @@ const DialogSummaryInfo = () => {
     refetchOnWindowFocus: false,
     enabled: !!userId && !!assessmentPeriodId && isManager,
   });
-  const listManager = getListManagerQuery?.data?.data;
+  const listManager = getListManagerQuery?.data;
 
   return (
     <Dialog

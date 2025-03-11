@@ -10,6 +10,7 @@ import { formatDate, getFormType } from "@/utils";
 import { useSession } from "next-auth/react";
 import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
 import { JOB_POSITIONS } from "@/types";
+import CurrentStatus from "@/components/data-grid/CurrentStatus";
 
 const Employee = () => {
   const session = useSession();
@@ -115,6 +116,17 @@ const Employee = () => {
       flex: 1,
       headerAlign: "center",
       align: "center",
+    },
+    {
+      field: "status",
+      headerName: "Status",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      renderCell: (params: GridRenderCellParams) => {
+        const status = params.row.status;
+        return <CurrentStatus currentStatus={status} />;
+      },
     },
     {
       field: "result",

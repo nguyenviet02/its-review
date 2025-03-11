@@ -1,39 +1,39 @@
 import React, { useMemo } from "react";
 
 type Props = {
-  currentStatus: "waitingFillForm" | "waitingManager" | "waitingBO";
+  currentStatus: "waiting_employee" | "waiting_manager" | "completed";
 };
 
 const CurrentStatus = ({ currentStatus }: Props) => {
   const status = useMemo(() => {
-    if (currentStatus === "waitingFillForm") {
-      return "Chờ điền đơn";
+    if (currentStatus === "waiting_employee") {
+      return "Waiting Employee";
     }
-    if (currentStatus === "waitingManager") {
-      return "Chờ quản lý điền đơn";
+    if (currentStatus === "waiting_manager") {
+      return "Waiting Manager";
     }
-    if (currentStatus === "waitingBO") {
-      return "BO tổng hợp";
+    if (currentStatus === "completed") {
+      return "Completed";
     }
   }, [currentStatus]);
 
   const bgColor = useMemo(() => {
-    if (currentStatus === "waitingFillForm") {
+    if (currentStatus === "waiting_employee") {
       return "bg-[#FFE874]";
     }
-    if (currentStatus === "waitingManager") {
+    if (currentStatus === "waiting_manager") {
       return "bg-[#78C0FF]";
     }
-    if (currentStatus === "waitingBO") {
+    if (currentStatus === "completed") {
       return "bg-[#5AFF8B]";
     }
   }, [currentStatus]);
 
   return (
     <div
-      className={`mx-auto flex h-10 min-h-fit w-fit max-w-[120px] items-center justify-center text-wrap rounded border border-black px-2 ${bgColor}`}
+      className={`mx-auto flex min-h-fit w-fit max-w-[120px] items-center justify-center text-wrap rounded border border-black px-2 ${bgColor}`}
     >
-      <span>{status}</span>
+      {status}
     </div>
   );
 };

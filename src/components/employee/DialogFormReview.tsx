@@ -65,7 +65,7 @@ const DialogFormReview = () => {
     queryFn: async () =>
       getDataFormReview(assessmentPeriodId as number, userId as string),
     refetchOnWindowFocus: false,
-    enabled: !!userId && !!assessmentPeriodId,
+    enabled: !!userId && !!assessmentPeriodId && isOpenReviewFormDialog,
   });
 
   const getListManagerQuery = useQuery({
