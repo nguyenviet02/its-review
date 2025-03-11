@@ -36,7 +36,10 @@ const DialogDataAssessmentPeriod = () => {
   });
 
   const listEmployeeOfAssessmentPeriodQuery = useQuery({
-    queryKey: ["reviewEmployee-listEmployeeOfAssessmentPeriod", assessmentPeriodId],
+    queryKey: [
+      "reviewEmployee-listEmployeeOfAssessmentPeriod",
+      assessmentPeriodId,
+    ],
     queryFn: () =>
       getListEmployeeAssignedToMe(
         assessmentPeriodId as number,
@@ -101,27 +104,27 @@ const DialogDataAssessmentPeriod = () => {
   const columns: GridColDef[] = [
     {
       field: "id",
-      headerName: "ID cá nhân",
+      headerName: "Employee ID",
       headerAlign: "center",
       align: "center",
     },
     {
       field: "username",
-      headerName: "Họ tên",
+      headerName: "Full Name",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
       field: "department",
-      headerName: "Phòng ban",
+      headerName: "Department",
       flex: 1,
       headerAlign: "center",
       align: "center",
     },
     {
       field: "jobPosition",
-      headerName: "Vị trí",
+      headerName: "Job Position",
       flex: 1,
       headerAlign: "center",
       align: "center",
@@ -134,10 +137,19 @@ const DialogDataAssessmentPeriod = () => {
       align: "center",
     },
     {
+      field: "result",
+      headerName: "Result",
+      flex: 1.5,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
       field: "",
-      headerName: "Thao tác",
+      headerName: "Actions",
       flex: 1,
       headerAlign: "center",
+      sortable: false,
+      disableColumnMenu: true,
       renderCell: (params) => {
         return (
           <div className="flex h-full cursor-pointer items-center text-black">
@@ -160,10 +172,10 @@ const DialogDataAssessmentPeriod = () => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
       fullWidth
-      maxWidth="lg"
+      maxWidth="xl"
     >
       <DialogTitle id="alert-dialog-title" className="text-3xl font-bold">
-        Danh sách nhân sự {assessmentPeriodName}
+        {assessmentPeriodName}
       </DialogTitle>
       <IconButton
         aria-label="close"

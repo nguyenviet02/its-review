@@ -37,6 +37,11 @@ const ReviewEmployee = () => {
     refetchOnWindowFocus: false,
   });
   const listAssessmentPeriod = myListAssessmentPeriodQuery?.data?.data;
+  console.log(
+    "☠️ ~ ReviewEmployee ~ listAssessmentPeriod:",
+    listAssessmentPeriod,
+  );
+
   // Row count for DataGrid pagination
   const rowCountRef = React.useRef(
     myListAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0,
@@ -92,6 +97,22 @@ const ReviewEmployee = () => {
       align: "center",
     },
     {
+      field: "selfReviewEnd",
+      headerName: "Self Review End",
+      valueGetter: (value) => formatDate(value),
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "managerReviewEnd",
+      headerName: "Manager Review End",
+      valueGetter: (value) => formatDate(value),
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
       field: "end",
       headerName: "End Time",
       valueGetter: (value) => formatDate(value),
@@ -105,6 +126,8 @@ const ReviewEmployee = () => {
       headerAlign: "center",
       align: "center",
       minWidth: 200,
+      sortable: false,
+      disableColumnMenu: true,
       renderCell: (params: GridRenderCellParams) => {
         return (
           <div className="flex items-center justify-center gap-4">
@@ -130,9 +153,9 @@ const ReviewEmployee = () => {
           loading={myListAssessmentPeriodQuery.isLoading}
           rows={listAssessmentPeriod}
           columns={columns}
-					rowCount={rowCount}
-					paginationModel={paginationModel}
-					onPaginationModelChange={setPaginationModel}
+          rowCount={rowCount}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
           getRowHeight={() => "auto"}
           disableRowSelectionOnClick
           pageSizeOptions={[5, 10, 25]}
@@ -142,7 +165,7 @@ const ReviewEmployee = () => {
               noRowsVariant: "skeleton",
             },
           }}
-					paginationMode="server"
+          paginationMode="server"
         />
       </div>
     </section>
