@@ -14,7 +14,7 @@ import { XMarkIcon, BellIcon } from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
 import { Fragment, useEffect, useState } from "react";
 import Loading from "../common/Loading";
-import { INotificationResponseAPI, JOB_POSITIONS } from "@/types";
+import { INotificationResponseAPI } from "@/types";
 import { getFormType } from "@/utils";
 import { useEmployeeDialogSummaryInfoStore } from "@/lib/zustand/employeeDialogSummaryInfoStore";
 import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
@@ -23,7 +23,6 @@ const NotificationPopup = () => {
   const [dontShowAgain, setDontShowAgain] = useState(false);
   const { isOpen, closePopup, notifications, setNotifications } =
     useNotificationPopupStore();
-  console.log("☠️ ~ NotificationPopup ~ notifications:", notifications);
 
   const getListNotificationQuery = useQuery({
     queryKey: ["getListNotification", isOpen],
@@ -65,8 +64,7 @@ const NotificationPopup = () => {
 
   const handleOpenSummaryDialog = (data: INotificationResponseAPI) => {
     const isManager = true;
-    const newJobPosition = JOB_POSITIONS.DEV;
-    const formType = getFormType(newJobPosition, isManager);
+    const formType = getFormType(data.employee.jobPosition, isManager);
     setSummaryInfoData({
       id: data.employee.id,
       username: data.employee.username,
