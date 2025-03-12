@@ -366,29 +366,29 @@ const formReviewGeneral: TFormReview = [
   },
 
   {
-    number: "5",
+    number: "6",
     title: "Ý kiến, đề xuất của nhân viên",
     criterions: [
       {
-        number: "5.1",
+        number: "6.1",
         title: "Thuận lợi/Điểm mạnh",
         name: "opinionAndSuggestion.strongPoints",
         type: FORM_FIELDS.TEXTAREA,
       },
       {
-        number: "5.2",
+        number: "6.2",
         title: "Khó khăn/Điểm yếu",
         name: "opinionAndSuggestion.weakness",
         type: FORM_FIELDS.TEXTAREA,
       },
       {
-        number: "5.3",
+        number: "6.3",
         title: "Kế hoạch cho sự phát triển nghề nghiệp của bản thân",
         name: "opinionAndSuggestion.plan",
         type: FORM_FIELDS.TABLE,
       },
       {
-        number: "5.4",
+        number: "6.4",
         title: "Đề xuất khác (nếu có)",
         name: "opinionAndSuggestion.otherSuggestions",
         type: FORM_FIELDS.TEXTAREA,
