@@ -13,6 +13,7 @@ import Image from "next/image";
 import AvatarDefault from "@/assets/icons/avatar-default.svg";
 import { signOut, useSession } from "next-auth/react";
 import { setAccessTokenToStorage } from "@/hooks/useAuth";
+import Link from "next/link";
 
 const userNavigation = [{ name: "My Profile", href: "#" }];
 
@@ -96,12 +97,12 @@ export default function Header({ setSidebarOpen }: HeaderProps) {
             >
               {userNavigation.map((item) => (
                 <MenuItem key={item.name}>
-                  <a
+                  <Link
                     href={item.href}
                     className="block px-3 py-1 text-sm/6 text-gray-900 data-[focus]:bg-gray-50 data-[focus]:outline-none"
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 </MenuItem>
               ))}
               <MenuItem>
