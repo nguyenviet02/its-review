@@ -102,3 +102,12 @@ export interface IAssessmentPeriodImportData {
   employeeId: string;
   managerNames: string[];
 }
+
+export interface INotification {
+  id: string;
+  title: string;
+  content: string;
+  createdAt: string;
+  isRead: boolean;
+  type: string;
+}

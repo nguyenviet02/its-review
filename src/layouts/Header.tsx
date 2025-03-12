@@ -14,6 +14,7 @@ import AvatarDefault from "@/assets/icons/avatar-default.svg";
 import { signOut, useSession } from "next-auth/react";
 import { setAccessTokenToStorage } from "@/hooks/useAuth";
 import Link from "next/link";
+import { useNotificationPopupStore } from "@/lib/zustand/notificationPopupStore";
 
 const userNavigation = [{ name: "My Profile", href: "#" }];
 
@@ -23,7 +24,11 @@ type HeaderProps = {
 
 export default function Header({ setSidebarOpen }: HeaderProps) {
   const { data } = useSession();
+  const { openPopup: openPopupNotification } = useNotificationPopupStore();
   const user = data?.user;
+  const handleOpenPopupNotification = () => {
+    openPopupNotification();
+  };
   return (
     <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
       <button
@@ -55,6 +60,7 @@ export default function Header({ setSidebarOpen }: HeaderProps) {
         <div className="flex items-center gap-x-4 lg:gap-x-6">
           <button
             type="button"
+            onClick={handleOpenPopupNotification}
             className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
           >
             <span className="sr-only">View notifications</span>

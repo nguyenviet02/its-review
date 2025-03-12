@@ -10,6 +10,8 @@ import DialogSummaryInfo from "@/components/employee/DialogSummaryInfo";
 import DialogFormReview from "@/components/employee/DialogFormReview";
 import DialogCongratulation from "@/components/employee/DialogCongratulation";
 import DialogDataAssessmentPeriod from "@/components/employee/review-employee/DialogDataAssessmentPeriod";
+import NotificationPopup from "@/components/notification/NotificationPopup";
+import NotificationController from "@/components/notification/NotificationController";
 
 export default function SuperAdminLayout({
   children,
@@ -71,6 +73,8 @@ export default function SuperAdminLayout({
       <DialogFormReview />
       <DialogCongratulation />
       <DialogDataAssessmentPeriod />
+      <NotificationPopup />
+      <NotificationController />
     </>
   );
 }
