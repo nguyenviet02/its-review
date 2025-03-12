@@ -50,12 +50,20 @@ const FormField = ({ disabled, criterion }: Props) => {
     );
   }
   if (criterion.type === FORM_FIELDS.SCORE_INPUT) {
-    return <ScoreInput disabled={disabled} name={criterion.name} title={criterion.title} />;
+    return (
+      <ScoreInput
+        disabled={disabled}
+        name={criterion.name}
+        title={criterion.title}
+      />
+    );
   }
   if (criterion.type === FORM_FIELDS.TEXTAREA) {
     return (
       <>
-        <h3 className="font-semibold">{`${criterion.number}. ${criterion.title}`}</h3>
+        {!!criterion.title && (
+          <h3 className="font-semibold">{`${criterion.number}. ${criterion.title}`}</h3>
+        )}
         <TextArea disabled={disabled} name={criterion.name} />
       </>
     );

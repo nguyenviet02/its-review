@@ -48,11 +48,19 @@ export const getFormType = (jobPosition: JOB_POSITIONS, isManager: boolean) => {
   if (isManager) {
     if (jobPosition === JOB_POSITIONS.DEV) {
       formType = FORM_TYPES.FOR_DEV_MANAGER_V1;
+    } else if (jobPosition === JOB_POSITIONS.ITS) {
+      formType = FORM_TYPES.FOR_ITS_MANAGER_V1;
+    } else {
+      formType = FORM_TYPES.FOR_ITS_MANAGER_V1;
     }
   }
   if (!isManager) {
     if (jobPosition === JOB_POSITIONS.DEV) {
       formType = FORM_TYPES.FOR_DEV_V1;
+    } else if (jobPosition === JOB_POSITIONS.ITS) {
+      formType = FORM_TYPES.FOR_ITS_V1;
+    } else {
+      formType = FORM_TYPES.FOR_ITS_V1;
     }
   }
   return formType;

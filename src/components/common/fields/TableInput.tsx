@@ -34,7 +34,7 @@ function EditToolbar(props: GridSlotProps["toolbar"]) {
     const id = randomId();
     setTableData((oldRows) => [
       ...oldRows,
-      { id, goal: "", suggestion: "", estimatedTime: "" },
+      { id, goal: "", propose: "", estimatedTime: "" },
     ]);
   };
 
@@ -63,7 +63,7 @@ const TableInput = ({ disabled, name }: Props) => {
       {
         id: randomId(),
         goal: "",
-        suggestion: "",
+        propose: "",
         estimatedTime: "",
       },
     ];
@@ -89,7 +89,7 @@ const TableInput = ({ disabled, name }: Props) => {
       flex: 1,
     },
     {
-      field: "suggestion",
+      field: "propose",
       headerName: "Đề xuất",
       headerAlign: "center",
       editable: true,

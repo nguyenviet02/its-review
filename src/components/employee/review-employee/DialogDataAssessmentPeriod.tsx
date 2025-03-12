@@ -2,7 +2,6 @@ import { getListEmployeeAssignedToMe } from "@/apis/assessment";
 import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
 import { useDataAssessmentPeriodDialogStore } from "@/lib/zustand/employee/dialogDataAssessmentPeriodStore";
 import { useEmployeeDialogSummaryInfoStore } from "@/lib/zustand/employeeDialogSummaryInfoStore";
-import { JOB_POSITIONS } from "@/types";
 import { getFormType } from "@/utils";
 import { DocumentTextIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import {
@@ -84,8 +83,7 @@ const DialogDataAssessmentPeriod = () => {
 
   const handleOpenSummaryDialog = (params: GridRenderCellParams) => {
     const isManager = true;
-    const newJobPosition = JOB_POSITIONS.DEV;
-    const formType = getFormType(newJobPosition, isManager);
+    const formType = getFormType(params.row.jobPosition, isManager);
     setSummaryInfoData({
       id: params.row.id,
       username: params.row.username,

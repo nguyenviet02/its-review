@@ -1,4 +1,4 @@
-import { ICriterion, IField } from "@/types";
+import { ICriterion, IField, IPlanData } from "@/types";
 import React, { useCallback, useMemo } from "react";
 import FormField from "./FormField";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
@@ -11,6 +11,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { submitDataFormReview } from "@/apis/assessment";
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
+import { randomId } from "@mui/x-data-grid-generator";
 
 type Props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -26,13 +27,25 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
   const session = useSession();
   const queryClient = useQueryClient();
   const defaultValuesFormatted = useMemo(() => {
-    if (!defaultValues?.bonus) return defaultValues;
-    const dataBonus = Object.entries(defaultValues.bonus).map(
-      ([title, score]) => ({
+    let dataBonus;
+    if (defaultValues?.bonus) {
+      dataBonus = Object.entries(defaultValues.bonus).map(([title, score]) => ({
         title,
         score,
-      }),
-    );
+      }));
+    }
+    if (defaultValues?.opinionAndSuggestions?.plans?.length > 0) {
+      const dataPlans = defaultValues?.opinionAndSuggestions?.plans?.map(
+        (plan: IPlanData) => {
+          return {
+            ...plan,
+						estimatedTime: new Date(plan.estimatedTime),
+            id: randomId(),
+          };
+        },
+      );
+      defaultValues.opinionAndSuggestions.plans = dataPlans;
+    }
     return {
       ...defaultValues,
       bonus: dataBonus,
@@ -97,12 +110,14 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
       const dataToSubmit = {
         ...data,
       };
-      if (data.workPerformedAndAchievementsAchieved?.length > 0) {
-        dataToSubmit.workPerformedAndAchievementsAchieved =
-          data.workPerformedAndAchievementsAchieved.map(
-            (item: { value: string }) => item.value,
-          );
-      }
+      // if (data.workPerformedAndAchievementsAchieved?.length > 0) {
+      //   dataToSubmit.workPerformedAndAchievementsAchieved =
+      //     data.workPerformedAndAchievementsAchieved.map(
+      //       (item: { value: string }) => item.value,
+      //     );
+      // }
+
+      // Format data bonus in form review DEV
       if (data?.bonus?.length > 0) {
         const dataBonus = data?.bonus?.map(
           (item: { title: string; score: number }) => ({
@@ -111,12 +126,25 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
         );
         dataToSubmit.bonus = Object.assign({}, ...dataBonus);
       }
+
+      // Format data plans in form review ITS
+      if (data?.opinionAndSuggestions?.plans?.length > 0) {
+        // Remove field id from data
+        const dataPlans = data?.opinionAndSuggestions?.plans.map((plan: IPlanData) => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { id, ...rest } = plan;
+          return rest;
+        });
+        dataToSubmit.opinionAndSuggestions.plans = dataPlans;
+      }
+
       const payload = {
         review: {
           ...dataToSubmit,
           __type: formType,
         },
       };
+      console.log("☠️ ~ PageReview ~ payload:", payload);
       submitDataFormReviewMutation.mutate({
         assessmentPeriodId: assessmentPeriodId as number,
         userId: userId as string,

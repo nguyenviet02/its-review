@@ -29,7 +29,6 @@ const DialogSummaryInfo = () => {
   );
 
   const userId = useReviewFormDialogStore((store) => store.userId);
-  const isManager = useReviewFormDialogStore((store) => store.isManager);
   const handleOpenReviewForm = useReviewFormDialogStore(
     (store) => store.openDialog,
   );
@@ -67,7 +66,7 @@ const DialogSummaryInfo = () => {
     queryFn: async () =>
       getListManagerOfEmployee(assessmentPeriodId as number, userId as string),
     refetchOnWindowFocus: false,
-    enabled: !!userId && !!assessmentPeriodId && isManager,
+    enabled: !!userId && !!assessmentPeriodId,
   });
   const listManager = getListManagerQuery?.data;
 

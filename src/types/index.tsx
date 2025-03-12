@@ -18,6 +18,7 @@ export enum FORM_FIELDS {
 export enum JOB_POSITIONS {
   UNSET = "Unset",
   DEV = "Developer",
+	ITS = "ITS",
 }
 
 export enum FORM_TYPES {
@@ -26,6 +27,8 @@ export enum FORM_TYPES {
   FOR_BA = "for-ba",
   FOR_DEV_V1 = "self_review_dev_v1",
   FOR_DEV_MANAGER_V1 = "manager_review_dev_v1",
+	FOR_ITS_V1 = "self_review_its_v1",
+	FOR_ITS_MANAGER_V1 = "manager_review_its_v1",
   FOR_TESTER = "for-tester",
 }
 
@@ -120,4 +123,11 @@ export interface IAnnualReviewResponseAPI {
 export interface INotificationResponseAPI {
   employee: IEmployeeResponseAPI;
   annualReview: IAnnualReviewResponseAPI;
+}
+
+export interface IPlanData {
+	id?: string;
+	goal: string;
+	estimatedTime: Date;
+	propose: string;	
 }

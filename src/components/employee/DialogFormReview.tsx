@@ -6,7 +6,6 @@ import { DialogContent, Dialog, DialogTitle, IconButton } from "@mui/material";
 import React, { useEffect, useMemo, useState } from "react";
 import PageReview from "../common/PageReview";
 import { useForm } from "react-hook-form";
-import formReviewGeneral from "@/forms/form-review-general";
 import formReviewBA from "@/forms/form-review-ba";
 import formReviewDev from "@/forms/form-review-dev";
 import formReviewTester from "@/forms/form-review-tester";
@@ -14,6 +13,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getDataFormReview, getListManagerOfEmployee } from "@/apis/assessment";
 import Loading from "../common/Loading";
 import { toast } from "react-toastify";
+import formReviewITS from "@/forms/form-review-its";
 
 const DialogFormReview = () => {
   const isOpenReviewFormDialog = useReviewFormDialogStore(
@@ -46,11 +46,14 @@ const DialogFormReview = () => {
       case FORM_TYPES.FOR_DEV_MANAGER_V1:
         return formReviewDev;
         break;
+      case FORM_TYPES.FOR_ITS_V1:
+      case FORM_TYPES.FOR_ITS_MANAGER_V1:
+        return formReviewITS;
       case FORM_TYPES.FOR_TESTER:
         return formReviewTester;
         break;
       default:
-        return formReviewGeneral;
+        return formReviewITS;
         break;
     }
   }, [formType]);
@@ -69,7 +72,12 @@ const DialogFormReview = () => {
   });
 
   const getListManagerQuery = useQuery({
-    queryKey: ["getListManagerOfEmployee", userId, assessmentPeriodId],
+    queryKey: [
+      "getListManagerOfEmployee",
+      userId,
+      assessmentPeriodId,
+      isManager,
+    ],
     queryFn: async () =>
       getListManagerOfEmployee(assessmentPeriodId as number, userId as string),
     refetchOnWindowFocus: false,
@@ -110,6 +118,7 @@ const DialogFormReview = () => {
       aria-describedby="alert-dialog-description"
       fullWidth
       maxWidth="xl"
+      closeAfterTransition={false}
       sx={{
         "& .MuiDialogContent-root": {
           paddingBottom: 0,
