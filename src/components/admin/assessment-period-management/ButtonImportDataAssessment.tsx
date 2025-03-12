@@ -28,7 +28,8 @@ const ButtonImportDataAssessment = ({ assessmentPeriodId }: Props) => {
       toast.success("Import data successfully");
       if (inputRef.current) inputRef.current.value = ""; // Reset the input value
     },
-    onError: (error) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onError: (error: any) => {
       toast.dismiss();
       toast.error(error?.response?.data?.message || "Import data failed");
       if (inputRef.current) inputRef.current.value = ""; // Reset the input value

@@ -103,9 +103,11 @@ const DialogFormReview = () => {
         "☠️ ~ useEffect ~ getDataFormReviewQuery?.error:",
         getDataFormReviewQuery?.error,
       );
+      // Type assertion for API error with response property
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const error = getDataFormReviewQuery.error as any;
       toast.error(
-        getDataFormReviewQuery?.error?.response?.data?.message ||
-          "Something went wrong",
+        error?.response?.data?.message || "Something went wrong"
       );
     }
   }, [getDataFormReviewQuery?.error]);
