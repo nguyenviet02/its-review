@@ -15,8 +15,6 @@ export const employeeDialogSummaryInfoDefaultState: TSummaryInfoState = {
     username: "",
     department: "",
     jobPosition: JOB_POSITIONS.UNSET,
-    firstManager: "",
-    secondManager: "",
   },
 };
 

@@ -2,53 +2,28 @@
 
 import { getNotification } from "@/apis/notification";
 import { useNotificationPopupStore } from "@/lib/zustand/notificationPopupStore";
-import { INotification } from "@/types";
 import {
   Transition,
   Dialog,
   TransitionChild,
   DialogTitle,
   DialogPanel,
+  Button,
 } from "@headlessui/react";
 import { XMarkIcon, BellIcon } from "@heroicons/react/24/outline";
 import { useQuery } from "@tanstack/react-query";
 import { Fragment, useEffect, useState } from "react";
-
-// Mock notifications for demonstration
-const mockNotifications: INotification[] = [
-  {
-    id: "1",
-    title: "Review Deadline Approaching",
-    content:
-      "You have 5 days left to complete your self-assessment for Q2 2023.",
-    createdAt: new Date().toISOString(),
-    isRead: false,
-    type: "deadline",
-  },
-  {
-    id: "2",
-    title: "Manager Review Completed",
-    content:
-      "Your manager has completed your performance review. You can check the results now.",
-    createdAt: new Date(Date.now() - 86400000).toISOString(),
-    isRead: false,
-    type: "review",
-  },
-  {
-    id: "3",
-    title: "New Assessment Period",
-    content:
-      "A new assessment period for Q3 2023 has been opened. You can start your self-assessment.",
-    createdAt: new Date(Date.now() - 172800000).toISOString(),
-    isRead: true,
-    type: "period",
-  },
-];
+import Loading from "../common/Loading";
+import { INotificationResponseAPI, JOB_POSITIONS } from "@/types";
+import { getFormType } from "@/utils";
+import { useEmployeeDialogSummaryInfoStore } from "@/lib/zustand/employeeDialogSummaryInfoStore";
+import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
 
 const NotificationPopup = () => {
   const [dontShowAgain, setDontShowAgain] = useState(false);
-  const { isOpen, closePopup, notifications, setNotifications, markAllAsRead } =
+  const { isOpen, closePopup, notifications, setNotifications } =
     useNotificationPopupStore();
+  console.log("☠️ ~ NotificationPopup ~ notifications:", notifications);
 
   const getListNotificationQuery = useQuery({
     queryKey: ["getListNotification", isOpen],
@@ -56,15 +31,11 @@ const NotificationPopup = () => {
     staleTime: 1000 * 60 * 5, // 5 minutes
     refetchInterval: 1000 * 60 * 5, // 5 minutes
   });
-  console.log(
-    "☠️ ~ NotificationPopup ~ getListNotificationQuery:",
-    getListNotificationQuery,
-  );
 
   useEffect(() => {
-    // For demonstration purposes, we'll use mock data
-    setNotifications(mockNotifications);
-  }, [setNotifications]);
+    if (!getListNotificationQuery?.data) return;
+    setNotifications(getListNotificationQuery.data);
+  }, [getListNotificationQuery.data, setNotifications]);
 
   const handleClose = () => {
     if (dontShowAgain) {
@@ -78,18 +49,35 @@ const NotificationPopup = () => {
     closePopup();
   };
 
-  const handleMarkAllAsRead = () => {
-    markAllAsRead();
-  };
+  const setSummaryInfoData = useEmployeeDialogSummaryInfoStore(
+    (store) => store.setDialogData,
+  );
+  const openDialogSummaryInfo = useEmployeeDialogSummaryInfoStore(
+    (store) => store.openDialog,
+  );
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return new Intl.DateTimeFormat("en-US", {
-      month: "short",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    }).format(date);
+  const setUserId = useReviewFormDialogStore((store) => store.setUserId);
+  const setAssessmentPeriodId = useReviewFormDialogStore(
+    (store) => store.setAssessmentPeriodId,
+  );
+  const setFormType = useReviewFormDialogStore((store) => store.setFormType);
+  const setIsManager = useReviewFormDialogStore((store) => store.setIsManager);
+
+  const handleOpenSummaryDialog = (data: INotificationResponseAPI) => {
+    const isManager = true;
+    const newJobPosition = JOB_POSITIONS.DEV;
+    const formType = getFormType(newJobPosition, isManager);
+    setSummaryInfoData({
+      id: data.employee.id,
+      username: data.employee.username,
+      department: data.employee.department,
+      jobPosition: data.employee.jobPosition,
+    });
+    setUserId(data.employee.id);
+    setIsManager(isManager);
+    setAssessmentPeriodId(data.annualReview.id as number);
+    setFormType(formType);
+    openDialogSummaryInfo();
   };
 
   return (
@@ -121,7 +109,7 @@ const NotificationPopup = () => {
               <DialogPanel className="w-full max-w-lg transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                 <DialogTitle
                   as="h3"
-                  className="flex items-center justify-between text-lg font-medium leading-6 text-gray-900"
+                  className="flex items-center justify-between border-b border-gray-200 pb-3 text-lg font-medium leading-6 text-gray-900"
                 >
                   <div className="flex items-center gap-2">
                     <BellIcon className="h-5 w-5" />
@@ -136,50 +124,42 @@ const NotificationPopup = () => {
                   </button>
                 </DialogTitle>
 
-                <div className="mt-4 flex justify-between">
-                  <button
-                    onClick={handleMarkAllAsRead}
-                    className="text-sm text-blue-600 hover:text-blue-800"
-                  >
-                    Mark all as read
-                  </button>
-                  <span className="text-sm text-gray-500">
-                    {notifications.filter((n) => !n.isRead).length} unread
-                  </span>
-                </div>
-
-                <div className="mt-2 max-h-60 overflow-y-auto">
-                  {notifications.length === 0 ? (
-                    <p className="py-4 text-center text-gray-500">
-                      No notifications
-                    </p>
-                  ) : (
-                    <ul className="divide-y divide-gray-200">
-                      {notifications.map((notification) => (
-                        <li
-                          key={notification.id}
-                          className={`py-4 ${!notification.isRead ? "bg-blue-50" : ""}`}
-                        >
-                          <div className="flex space-x-3">
-                            <div className="flex-1 space-y-1">
-                              <div className="flex items-center justify-between">
-                                <h3 className="text-sm font-medium">
-                                  {notification.title}
-                                </h3>
-                                <p className="text-xs text-gray-500">
-                                  {formatDate(notification.createdAt)}
+                <Loading isLoading={getListNotificationQuery.isLoading}>
+                  <div className="mt-2 max-h-72 overflow-y-auto">
+                    {notifications.length === 0 ? (
+                      <p className="py-4 text-center text-gray-500">
+                        No notifications
+                      </p>
+                    ) : (
+                      <ul className="divide-y divide-gray-200">
+                        {notifications.map((notification, index) => (
+                          <li
+                            key={`${notification?.employee?.id}-${index}`}
+                            className={`bg-gray-100 px-2 py-4`}
+                          >
+                            <div className="flex space-x-3">
+                              <Button
+                                onClick={() =>
+                                  handleOpenSummaryDialog(notification)
+                                }
+                                className="flex-1 space-y-1"
+                              >
+                                <div className="flex items-center justify-between">
+                                  <h3 className="text-sm font-medium">
+                                    {`${notification?.annualReview?.title} - ${notification?.employee?.username}`}
+                                  </h3>
+                                </div>
+                                <p className="text-sm text-gray-500">
+                                  {`You need to review ${notification?.employee?.username}. Click here to open the review form.`}
                                 </p>
-                              </div>
-                              <p className="text-sm text-gray-500">
-                                {notification.content}
-                              </p>
+                              </Button>
                             </div>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </Loading>
 
                 <div className="mt-5 flex items-center">
                   <input

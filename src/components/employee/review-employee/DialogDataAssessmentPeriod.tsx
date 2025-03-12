@@ -91,8 +91,6 @@ const DialogDataAssessmentPeriod = () => {
       username: params.row.username,
       department: params.row.department,
       jobPosition: params.row.jobPosition,
-      firstManager: params.row.firstManager,
-      secondManager: params.row.secondManager,
     });
     setUserId(params.row.id);
     setIsManager(isManager);

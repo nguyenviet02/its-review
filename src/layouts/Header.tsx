@@ -24,7 +24,8 @@ type HeaderProps = {
 
 export default function Header({ setSidebarOpen }: HeaderProps) {
   const { data } = useSession();
-  const { openPopup: openPopupNotification } = useNotificationPopupStore();
+  const { notifications, openPopup: openPopupNotification } =
+    useNotificationPopupStore();
   const user = data?.user;
   const handleOpenPopupNotification = () => {
     openPopupNotification();
@@ -61,10 +62,15 @@ export default function Header({ setSidebarOpen }: HeaderProps) {
           <button
             type="button"
             onClick={handleOpenPopupNotification}
-            className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
+            className="relative -m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
           >
             <span className="sr-only">View notifications</span>
             <BellIcon aria-hidden="true" className="size-6" />
+            {notifications.length > 0 && (
+              <span className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-xs font-medium text-white">
+                {notifications.length}
+              </span>
+            )}
           </button>
 
           {/* Separator */}

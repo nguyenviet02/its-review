@@ -140,7 +140,7 @@ const DialogSummaryInfo = () => {
         }}
       >
         <Button onClick={handleStartReviewForm} className="button-primary">
-          Start
+          Start Review
         </Button>
       </DialogActions>
     </Dialog>

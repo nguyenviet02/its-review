@@ -62,8 +62,6 @@ export type TSummaryInfoData = {
   username: string;
   department: string;
   jobPosition: JOB_POSITIONS;
-  firstManager: string;
-  secondManager?: string;
 };
 export type TSummaryInfoState = {
   isOpen: boolean;
@@ -103,11 +101,23 @@ export interface IAssessmentPeriodImportData {
   managerNames: string[];
 }
 
-export interface INotification {
-  id: string;
-  title: string;
-  content: string;
+export interface IEmployeeResponseAPI extends IEmployee {
   createdAt: string;
-  isRead: boolean;
-  type: string;
+  updatedAt: string;
+}
+
+export interface IAnnualReviewResponseAPI {
+  id: number;
+  title: string;
+  start: string;
+  selfReviewEnd: string;
+  managerReviewEnd: string;
+  end: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface INotificationResponseAPI {
+  employee: IEmployeeResponseAPI;
+  annualReview: IAnnualReviewResponseAPI;
 }
