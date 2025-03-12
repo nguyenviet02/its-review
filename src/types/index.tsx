@@ -99,6 +99,12 @@ export interface IAssessmentPeriod {
   managerReviewEnd: Date | null;
 }
 
+export interface IAssessmentPeriodResponseAPI extends IAssessmentPeriod {
+	id: number;
+	createdAt: string;
+	updatedAt: string;
+}
+
 export interface IAssessmentPeriodImportData {
   employeeId: string;
   managerNames: string[];
@@ -130,4 +136,22 @@ export interface IPlanData {
 	goal: string;
 	estimatedTime: Date;
 	propose: string;	
+}
+
+export interface IDepartmentReviewCount {
+  department: string;
+  count: number;
+}
+
+export interface IReviewStatusRatio {
+  waitingEmployee: number;
+  waitingManager: number;
+  completed: number;
+}
+
+export interface IDashboardData {
+  userCount: number;
+  employeeInAnnualReviewCount: number;
+  reviewCountByDepartment: IDepartmentReviewCount[];
+  reviewStatusRatio: IReviewStatusRatio;
 }
