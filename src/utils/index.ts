@@ -55,9 +55,9 @@ const developerPositions = [
 export const getFormType = (jobPosition: string, isManager: boolean) => {
   let formType = FORM_TYPES.UNSET;
   const jobPositionFormatted = jobPosition
-    .trim()
-    .toLowerCase()
-    .replaceAll(/[\s\-_.,!@#$%^&*()]/g, "");
+    ?.trim()
+    ?.toLowerCase()
+    ?.replaceAll(/[\s\-_.,!@#$%^&*()]/g, "");
   if (isManager) {
     if (developerPositions.includes(jobPositionFormatted)) {
       formType = FORM_TYPES.FOR_DEV_MANAGER_V1;
