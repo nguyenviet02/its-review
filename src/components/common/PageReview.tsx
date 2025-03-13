@@ -1,5 +1,5 @@
 import { ICriterion, IField, IPlanData } from "@/types";
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import FormField from "./FormField";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import CustomTooltip from "./CustomToolTip";
@@ -39,7 +39,7 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
         (plan: IPlanData) => {
           return {
             ...plan,
-						estimatedTime: new Date(plan.estimatedTime),
+            estimatedTime: new Date(plan.estimatedTime),
             id: randomId(),
           };
         },
@@ -130,11 +130,13 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
       // Format data plans in form review ITS
       if (data?.opinionAndSuggestions?.plans?.length > 0) {
         // Remove field id from data
-        const dataPlans = data?.opinionAndSuggestions?.plans.map((plan: IPlanData) => {
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          const { id, ...rest } = plan;
-          return rest;
-        });
+        const dataPlans = data?.opinionAndSuggestions?.plans.map(
+          (plan: IPlanData) => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            const { id, ...rest } = plan;
+            return rest;
+          },
+        );
         dataToSubmit.opinionAndSuggestions.plans = dataPlans;
       }
 
@@ -165,6 +167,11 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
       managerId === session?.data?.user?.id
     );
   }, [managerId, session?.data?.user?.id, userId]);
+
+  useEffect(() => {
+    if (!defaultValues) return;
+		formMethods.reset(defaultValues);
+  }, [defaultValues, fields, formMethods]);
 
   return (
     <FormProvider {...formMethods}>

@@ -128,12 +128,6 @@ const DialogFormReview = () => {
     }
   }, [formType]);
 
-  useEffect(() => {
-    formMethods.reset({
-      ...getDataFormReviewQuery?.data?.form,
-    });
-  }, [selectedForm, getDataFormReviewQuery?.data?.form, formMethods]);
-
   return (
     <Dialog
       open={isOpenReviewFormDialog}
