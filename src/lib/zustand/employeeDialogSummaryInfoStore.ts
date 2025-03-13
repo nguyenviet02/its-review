@@ -1,4 +1,4 @@
-import { JOB_POSITIONS, TSummaryInfoData, TSummaryInfoState } from "@/types";
+import { TSummaryInfoData, TSummaryInfoState } from "@/types";
 import { create } from "zustand";
 
 interface IEmployeeDialogSummaryInfoStore {
@@ -14,7 +14,7 @@ export const employeeDialogSummaryInfoDefaultState: TSummaryInfoState = {
     id: "",
     username: "",
     department: "",
-    jobPosition: JOB_POSITIONS.UNSET,
+    jobPosition: "",
   },
 };
 

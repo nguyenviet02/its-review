@@ -3,12 +3,7 @@
 import DataReviewTable from "@/components/common/DataReviewTable";
 import ErrorMessage from "@/components/common/ErrorMessage";
 import { useDialogEmployeeInfoStore } from "@/lib/zustand/dialogEmployeeInfoStore";
-import {
-  FORM_STATUS,
-  IAssessmentMinifyData,
-  IEmployee,
-  JOB_POSITIONS,
-} from "@/types";
+import { FORM_STATUS, IAssessmentMinifyData, IEmployee } from "@/types";
 import {
   Field,
   Label,
@@ -36,7 +31,7 @@ const data: IAssessmentMinifyData[] = [
     id: "1",
     username: "Nguyễn Văn A",
     department: "Phòng Kinh doanh",
-    jobPosition: JOB_POSITIONS.DEV,
+    jobPosition: "Dev",
     currentStatus: FORM_STATUS.WAITING_FILL_FORM,
     period: "2023-2024",
     deadline: "2024-01-01",
@@ -45,7 +40,7 @@ const data: IAssessmentMinifyData[] = [
     id: "2",
     username: "Nguyễn Văn B",
     department: "Phòng Kinh doanh",
-    jobPosition: JOB_POSITIONS.DEV,
+    jobPosition: "Dev",
     currentStatus: FORM_STATUS.WAITING_BO,
     period: "2023-2024",
     deadline: "2024-01-01",

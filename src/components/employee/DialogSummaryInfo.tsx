@@ -76,6 +76,7 @@ const DialogSummaryInfo = () => {
       onClose={handleCloseDialogSummaryInfo}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
+      closeAfterTransition={false}
       fullWidth
     >
       <DialogTitle id="alert-dialog-title" className="text-3xl font-bold">

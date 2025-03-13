@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FORM_TYPES, IEmployee, JOB_POSITIONS } from "@/types";
+import { FORM_TYPES, IEmployee } from "@/types";
 
 // Make function format number smaller than 10 to 2 digits
 export const formatNumberToTwoDigits = (number: number) => {
@@ -43,21 +43,34 @@ export const formatDate = (date: string) => {
   return `${formatNumberToTwoDigits(day)}/${formatNumberToTwoDigits(month)}/${year}`;
 };
 
-export const getFormType = (jobPosition: JOB_POSITIONS, isManager: boolean) => {
+const developerPositions = [
+  "dev",
+  "developer",
+  "fullstack",
+  "frontend",
+  "backend",
+  "mobile",
+];
+
+export const getFormType = (jobPosition: string, isManager: boolean) => {
   let formType = FORM_TYPES.UNSET;
+  const jobPositionFormatted = jobPosition
+    .trim()
+    .toLowerCase()
+    .replaceAll(/[\s\-_.,!@#$%^&*()]/g, "");
   if (isManager) {
-    if (jobPosition === JOB_POSITIONS.DEV) {
+    if (developerPositions.includes(jobPositionFormatted)) {
       formType = FORM_TYPES.FOR_DEV_MANAGER_V1;
-    } else if (jobPosition === JOB_POSITIONS.ITS) {
+    } else if (jobPositionFormatted === "its") {
       formType = FORM_TYPES.FOR_ITS_MANAGER_V1;
     } else {
       formType = FORM_TYPES.FOR_ITS_MANAGER_V1;
     }
   }
   if (!isManager) {
-    if (jobPosition === JOB_POSITIONS.DEV) {
+    if (developerPositions.includes(jobPositionFormatted)) {
       formType = FORM_TYPES.FOR_DEV_V1;
-    } else if (jobPosition === JOB_POSITIONS.ITS) {
+    } else if (jobPositionFormatted === "its") {
       formType = FORM_TYPES.FOR_ITS_V1;
     } else {
       formType = FORM_TYPES.FOR_ITS_V1;

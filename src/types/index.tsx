@@ -15,20 +15,14 @@ export enum FORM_FIELDS {
   TABLE = "table",
 }
 
-export enum JOB_POSITIONS {
-  UNSET = "Unset",
-  DEV = "Developer",
-	ITS = "ITS",
-}
-
 export enum FORM_TYPES {
   UNSET = "unset",
   GENERAL = "general",
   FOR_BA = "for-ba",
   FOR_DEV_V1 = "self_review_dev_v1",
   FOR_DEV_MANAGER_V1 = "manager_review_dev_v1",
-	FOR_ITS_V1 = "self_review_its_v1",
-	FOR_ITS_MANAGER_V1 = "manager_review_its_v1",
+  FOR_ITS_V1 = "self_review_its_v1",
+  FOR_ITS_MANAGER_V1 = "manager_review_its_v1",
   FOR_TESTER = "for-tester",
 }
 
@@ -64,7 +58,7 @@ export type TSummaryInfoData = {
   id: string;
   username: string;
   department: string;
-  jobPosition: JOB_POSITIONS;
+  jobPosition: string;
 };
 export type TSummaryInfoState = {
   isOpen: boolean;
@@ -75,7 +69,7 @@ export interface IEmployee {
   id: string;
   username: string;
   department: string;
-  jobPosition: JOB_POSITIONS;
+  jobPosition: string;
   email: string;
   organizationId?: number;
 }
@@ -84,7 +78,7 @@ export interface IAssessmentMinifyData {
   id: string;
   username: string;
   department: string;
-  jobPosition: JOB_POSITIONS;
+  jobPosition: string;
   currentStatus: string;
   period: string;
   deadline: string;
@@ -100,9 +94,9 @@ export interface IAssessmentPeriod {
 }
 
 export interface IAssessmentPeriodResponseAPI extends IAssessmentPeriod {
-	id: number;
-	createdAt: string;
-	updatedAt: string;
+  id: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface IAssessmentPeriodImportData {
@@ -132,10 +126,10 @@ export interface INotificationResponseAPI {
 }
 
 export interface IPlanData {
-	id?: string;
-	goal: string;
-	estimatedTime: Date;
-	propose: string;	
+  id?: string;
+  goal: string;
+  estimatedTime: Date;
+  propose: string;
 }
 
 export interface IDepartmentReviewCount {

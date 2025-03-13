@@ -9,7 +9,6 @@ import { getMyListAssessmentPeriod } from "@/apis/assessment";
 import { formatDate, getFormType } from "@/utils";
 import { useSession } from "next-auth/react";
 import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
-import { JOB_POSITIONS } from "@/types";
 import CurrentStatus from "@/components/data-grid/CurrentStatus";
 
 const Employee = () => {
@@ -145,7 +144,7 @@ const Employee = () => {
       renderCell: (params: GridRenderCellParams) => {
         const isManager = false;
         const formType = getFormType(
-          session?.data?.user?.jobPosition as JOB_POSITIONS,
+          session?.data?.user?.jobPosition as string,
           isManager,
         );
         return (
@@ -157,7 +156,7 @@ const Employee = () => {
                   username: session?.data?.user?.username as string,
                   department: session?.data?.user?.department as string,
                   jobPosition: session?.data?.user
-                    ?.jobPosition as JOB_POSITIONS,
+                    ?.jobPosition as string,
                 });
                 setUserId(session?.data?.user?.id || "");
                 setFormType(formType);

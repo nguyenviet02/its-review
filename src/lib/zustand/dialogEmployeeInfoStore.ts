@@ -1,4 +1,4 @@
-import { IEmployee, JOB_POSITIONS } from "@/types";
+import { IEmployee } from "@/types";
 import { create } from "zustand";
 
 interface IDialogEmployeeInfoStore {
@@ -14,7 +14,7 @@ const dialogDefaultData: IEmployee = {
   id: "",
   username: "",
   department: "",
-  jobPosition: JOB_POSITIONS.UNSET,
+  jobPosition: "",
   email: "",
   organizationId: 1,
 };
