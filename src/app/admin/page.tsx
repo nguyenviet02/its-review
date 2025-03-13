@@ -28,7 +28,6 @@ const Admin = () => {
     enabled: !!selectedAssessmentPeriodId,
   });
   const { data: dataDashboard } = dataDashboardQuery;
-  console.log("☠️ ~ Admin ~ dataDashboard:", dataDashboard);
 
   useEffect(() => {
     if (!listAssessmentPeriodQuery?.data?.data?.data) return;
