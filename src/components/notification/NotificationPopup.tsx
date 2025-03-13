@@ -15,14 +15,16 @@ import { useQuery } from "@tanstack/react-query";
 import { Fragment, useEffect, useState } from "react";
 import Loading from "../common/Loading";
 import { INotificationResponseAPI } from "@/types";
-import { getFormType } from "@/utils";
+import { formatDate, getFormType } from "@/utils";
 import { useEmployeeDialogSummaryInfoStore } from "@/lib/zustand/employeeDialogSummaryInfoStore";
 import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
+import { useSession } from "next-auth/react";
 
 const NotificationPopup = () => {
   const [dontShowAgain, setDontShowAgain] = useState(false);
   const { isOpen, closePopup, notifications, setNotifications } =
     useNotificationPopupStore();
+  const session = useSession();
 
   const getListNotificationQuery = useQuery({
     queryKey: ["getListNotification", isOpen],
@@ -130,30 +132,45 @@ const NotificationPopup = () => {
                       </p>
                     ) : (
                       <ul className="divide-y divide-gray-200">
-                        {notifications.map((notification, index) => (
-                          <li
-                            key={`${notification?.employee?.id}-${index}`}
-                            className={`bg-gray-100 px-2 py-4`}
-                          >
-                            <div className="flex space-x-3">
-                              <Button
-                                onClick={() =>
-                                  handleOpenSummaryDialog(notification)
-                                }
-                                className="flex-1 space-y-1"
-                              >
-                                <div className="flex items-center justify-between">
-                                  <h3 className="text-sm font-medium">
-                                    {`${notification?.annualReview?.title} - ${notification?.employee?.username}`}
-                                  </h3>
-                                </div>
-                                <p className="text-sm text-gray-500">
-                                  {`You need to review ${notification?.employee?.username}. Click here to open the review form.`}
-                                </p>
-                              </Button>
-                            </div>
-                          </li>
-                        ))}
+                        {notifications.map((notification, index) => {
+                          const isSelfReview = notification?.employee?.id === session?.data?.user?.id;
+                          return (
+                            <li
+                              key={`${notification?.employee?.id}-${index}`}
+                              className={`mb-2 rounded-lg bg-gray-100 px-4 py-4 transition-colors duration-200 hover:bg-gray-200`}
+                            >
+                              <div className="flex space-x-3">
+                                <Button
+                                  onClick={() =>
+                                    handleOpenSummaryDialog(notification)
+                                  }
+                                  className="flex-1 space-y-2 text-left"
+                                >
+                                  <div className="flex items-center justify-between">
+                                    <h3 className="text-sm font-semibold text-gray-900">
+                                      {`${notification?.annualReview?.title} - ${notification?.employee?.username}`}
+                                    </h3>
+                                  </div>
+                                  <p className="text-sm text-gray-950">
+                                    {isSelfReview
+                                      ? "Please review yourself. Click here to open the review form."
+                                      : `You need to review ${notification?.employee?.username}. Click here to open the review form.`}
+                                  </p>
+                                  <p className="text-sm text-gray-600">
+                                    This form will be available until{" "}
+                                    <span className="font-semibold text-gray-900">
+                                      {formatDate(
+                                        isSelfReview
+                                          ? notification?.annualReview?.selfReviewEnd
+                                          : notification?.annualReview?.end
+                                      )}
+                                    </span>
+                                  </p>
+                                </Button>
+                              </div>
+                            </li>
+                          );
+                        })}
                       </ul>
                     )}
                   </div>
