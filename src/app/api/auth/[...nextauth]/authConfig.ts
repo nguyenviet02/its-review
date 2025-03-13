@@ -152,7 +152,8 @@ export const authConfig = {
             "api://9aab055b-cfde-451f-9ddd-eb18a95778f7/Todolist.ReadWrite openid email profile User.Read  offline_access",
         },
       },
-      httpOptions: { timeout: 10000 },
+			issuer: `https://login.microsoftonline.com/${tenantId}/v2.0`,
+      httpOptions: { timeout: 15000 },
     }),
   ],
   callbacks: {
