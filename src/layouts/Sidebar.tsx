@@ -105,7 +105,7 @@ export default function Sidebar({
     }
 
     return [
-      { name: "Đơn từ", href: "/employee", icon: DocumentTextIcon, current: true },
+      { name: "Documents", href: "/employee", icon: DocumentTextIcon, current: true },
     ];
   }, [pathName, role]);
   return (
