@@ -176,17 +176,19 @@ export const authConfig = {
 
         let userData = null;
         try {
+					console.time('jwt')
           const res = await fetch(
-            `${env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/users/me`,
+						`${env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/users/me`,
             {
-              method: "GET",
+							method: "GET",
               headers: {
-                "Content-Type": "application/json",
+								"Content-Type": "application/json",
                 Authorization: `Bearer ${apiToken?.accessToken}`,
               },
             },
           );
           userData = await res.json();
+					console.timeEnd('jwt')
           token.user = userData;
         } catch (error) {
           console.log(error);
