@@ -175,25 +175,38 @@ const Admin = () => {
                         Employees by Department
                       </Typography>
                       <Box sx={{ height: 300 }}>
-                        <BarChart
-                          dataset={dataDashboard.reviewCountByDepartment.map(
-                            (item) => ({
-                              ...item,
-                              [item.department]: item.count,
-                            }),
-                          )}
-                          xAxis={[{ scaleType: "band", dataKey: "department" }]}
-                          series={[
-                            {
-                              dataKey: "count",
-                              valueFormatter: (v) => `${v} employees`,
-                              color: "#3f51b5",
-                            },
-                          ]}
-                          layout="vertical"
-                          height={300}
-                          margin={{ left: 80, right: 20, top: 10, bottom: 30 }}
-                        />
+                        {dataDashboard.reviewCountByDepartment?.length > 0 ? (
+                          <BarChart
+                            dataset={dataDashboard.reviewCountByDepartment.map(
+                              (item) => ({
+                                ...item,
+                                [item.department]: item.count,
+                              }),
+                            )}
+                            xAxis={[
+                              { scaleType: "band", dataKey: "department" },
+                            ]}
+                            series={[
+                              {
+                                dataKey: "count",
+                                valueFormatter: (v) => `${v} employees`,
+                                color: "#3f51b5",
+                              },
+                            ]}
+                            layout="vertical"
+                            height={300}
+                            margin={{
+                              left: 80,
+                              right: 20,
+                              top: 10,
+                              bottom: 30,
+                            }}
+                          />
+                        ) : (
+                          <div className="flex h-full items-center justify-center">
+                            <p>No data available for this assessment period.</p>
+                          </div>
+                        )}
                       </Box>
                     </CardContent>
                   </Card>
