@@ -11,8 +11,8 @@ const clientId = env.NEXT_PUBLIC_AZURE_AD_CLIENT_ID;
 const clientSecret = env.NEXT_PUBLIC_AZURE_AD_CLIENT_SECRET;
 const tenantId = env.NEXT_PUBLIC_AZURE_AD_TENANT_ID;
 
-const COOKIES_LIFE_TIME = 24 * 60 * 60;
-const COOKIE_PREFIX = process.env.NODE_ENV === "production" ? "__Secure-" : "";
+// const COOKIES_LIFE_TIME = 24 * 60 * 60;
+// const COOKIE_PREFIX = process.env.NODE_ENV === "production" ? "__Secure-" : "";
 
 declare module "next-auth" {
   interface Session {
@@ -213,61 +213,61 @@ export const authConfig = {
       return session;
     },
   },
-  cookies: {
-    sessionToken: {
-      name: `${COOKIE_PREFIX}next-auth.session-token`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: true,
-      },
-    },
-    callbackUrl: {
-      name: `${COOKIE_PREFIX}next-auth.callback-url`,
-      options: {
-        sameSite: "lax",
-        path: "/",
-        secure: true,
-      },
-    },
-    csrfToken: {
-      name: `${COOKIE_PREFIX}next-auth.csrf-token`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: true,
-      },
-    },
-    pkceCodeVerifier: {
-      name: `${COOKIE_PREFIX}next-auth.pkce.code_verifier`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: true,
-        maxAge: COOKIES_LIFE_TIME,
-      },
-    },
-    state: {
-      name: `${COOKIE_PREFIX}next-auth.state`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: true,
-        maxAge: COOKIES_LIFE_TIME,
-      },
-    },
-    nonce: {
-      name: `${COOKIE_PREFIX}next-auth.nonce`,
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: true,
-      },
-    },
-  },
+  // cookies: {
+  //   sessionToken: {
+  //     name: `${COOKIE_PREFIX}next-auth.session-token`,
+  //     options: {
+  //       httpOnly: true,
+  //       sameSite: "lax",
+  //       path: "/",
+  //       secure: true,
+  //     },
+  //   },
+  //   callbackUrl: {
+  //     name: `${COOKIE_PREFIX}next-auth.callback-url`,
+  //     options: {
+  //       sameSite: "lax",
+  //       path: "/",
+  //       secure: true,
+  //     },
+  //   },
+  //   csrfToken: {
+  //     name: `${COOKIE_PREFIX}next-auth.csrf-token`,
+  //     options: {
+  //       httpOnly: true,
+  //       sameSite: "lax",
+  //       path: "/",
+  //       secure: true,
+  //     },
+  //   },
+  //   pkceCodeVerifier: {
+  //     name: `${COOKIE_PREFIX}next-auth.pkce.code_verifier`,
+  //     options: {
+  //       httpOnly: true,
+  //       sameSite: "lax",
+  //       path: "/",
+  //       secure: true,
+  //       maxAge: COOKIES_LIFE_TIME,
+  //     },
+  //   },
+  //   state: {
+  //     name: `${COOKIE_PREFIX}next-auth.state`,
+  //     options: {
+  //       httpOnly: true,
+  //       sameSite: "lax",
+  //       path: "/",
+  //       secure: true,
+  //       maxAge: COOKIES_LIFE_TIME,
+  //     },
+  //   },
+  //   nonce: {
+  //     name: `${COOKIE_PREFIX}next-auth.nonce`,
+  //     options: {
+  //       httpOnly: true,
+  //       sameSite: "lax",
+  //       path: "/",
+  //       secure: true,
+  //     },
+  //   },
+  // },
 } satisfies NextAuthOptions;
