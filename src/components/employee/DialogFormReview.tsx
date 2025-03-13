@@ -3,7 +3,7 @@ import { FORM_TYPES, TFormReview } from "@/types";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { DialogContent, Dialog, DialogTitle, IconButton } from "@mui/material";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import PageReview from "../common/PageReview";
 import { useForm } from "react-hook-form";
 import formReviewBA from "@/forms/form-review-ba";
@@ -32,31 +32,14 @@ const DialogFormReview = () => {
   console.log("☠️ ~ DialogFormReview ~ isManager:", isManager);
   const formType = useReviewFormDialogStore((store) => store.type);
   console.log("☠️ ~ DialogFormReview ~ formType:", formType);
+  const setFormType = useReviewFormDialogStore((store) => store.setFormType);
+  const memoizedSetFormType = useCallback(setFormType, [setFormType]);
 
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
+  const [selectedForm, setSelectedForm] = useState<TFormReview>(formReviewITS);
 
   //* TODO: Add default values for form fields
   const formMethods = useForm();
-  const selectedForm: TFormReview = useMemo(() => {
-    switch (formType) {
-      case FORM_TYPES.FOR_BA:
-        return formReviewBA;
-        break;
-      case FORM_TYPES.FOR_DEV_V1:
-      case FORM_TYPES.FOR_DEV_MANAGER_V1:
-        return formReviewDev;
-        break;
-      case FORM_TYPES.FOR_ITS_V1:
-      case FORM_TYPES.FOR_ITS_MANAGER_V1:
-        return formReviewITS;
-      case FORM_TYPES.FOR_TESTER:
-        return formReviewTester;
-        break;
-      default:
-        return formReviewITS;
-        break;
-    }
-  }, [formType]);
 
   const getDataFormReviewQuery = useQuery({
     queryKey: [
@@ -106,11 +89,50 @@ const DialogFormReview = () => {
       // Type assertion for API error with response property
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const error = getDataFormReviewQuery.error as any;
-      toast.error(
-        error?.response?.data?.message || "Something went wrong"
-      );
+      toast.error(error?.response?.data?.message || "Something went wrong");
     }
   }, [getDataFormReviewQuery?.error]);
+
+  useEffect(() => {
+    if (!getDataFormReviewQuery?.data) return;
+    const formData = getDataFormReviewQuery?.data?.form;
+    let newFormType;
+    if (isManager) {
+      newFormType = formData?.managerReviews?.[0]?.__type;
+    } else {
+      newFormType = formData?.selfReview?.__type;
+    }
+    if (newFormType === formType) return;
+    memoizedSetFormType(newFormType);
+  }, [formType, getDataFormReviewQuery?.data, isManager, memoizedSetFormType]);
+
+  useEffect(() => {
+    switch (formType) {
+      case FORM_TYPES.FOR_BA:
+        setSelectedForm(formReviewBA);
+        break;
+      case FORM_TYPES.FOR_DEV_V1:
+      case FORM_TYPES.FOR_DEV_MANAGER_V1:
+        setSelectedForm(formReviewDev);
+        break;
+      case FORM_TYPES.FOR_ITS_V1:
+      case FORM_TYPES.FOR_ITS_MANAGER_V1:
+        setSelectedForm(formReviewITS);
+        break;
+      case FORM_TYPES.FOR_TESTER:
+        setSelectedForm(formReviewTester);
+        break;
+      default:
+        setSelectedForm(formReviewITS);
+        break;
+    }
+  }, [formType]);
+
+  useEffect(() => {
+    formMethods.reset({
+      ...getDataFormReviewQuery?.data?.form,
+    });
+  }, [selectedForm, getDataFormReviewQuery?.data?.form, formMethods]);
 
   return (
     <Dialog
