@@ -34,18 +34,18 @@ const DataTable = () => {
     queryFn: () => getListUser(paginationModel.pageSize, paginationModel.page),
     refetchOnWindowFocus: false,
   });
-  const listUser = listUserQuery?.data?.data?.data;
+  const listUser = listUserQuery?.data?.data;
 
   // Row count for DataGrid pagination
   const rowCountRef = React.useRef(
-    listUserQuery?.data?.data?.pagination?.totalRecords || 0,
+    listUserQuery?.data?.pagination?.totalRecords || 0,
   );
   const rowCount = React.useMemo(() => {
-    if (listUserQuery?.data?.data?.pagination?.totalRecords !== undefined) {
-      rowCountRef.current = listUserQuery?.data?.data?.pagination?.totalRecords;
+    if (listUserQuery?.data?.pagination?.totalRecords !== undefined) {
+      rowCountRef.current = listUserQuery?.data?.pagination?.totalRecords;
     }
     return rowCountRef.current;
-  }, [listUserQuery?.data?.data?.pagination?.totalRecords]);
+  }, [listUserQuery?.data?.pagination?.totalRecords]);
 
   // Define columns
   const columns: GridColDef[] = [

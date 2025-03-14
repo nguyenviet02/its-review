@@ -22,6 +22,7 @@ const Admin = () => {
     queryFn: () => getListAssessmentPeriod(9999, 0),
     refetchOnWindowFocus: false,
   });
+  console.log('☠️ ~ Admin ~ listAssessmentPeriodQuery:', listAssessmentPeriodQuery)
 
   const dataDashboardQuery = useQuery({
     queryKey: ["dashboard", selectedAssessmentPeriodId],
@@ -31,13 +32,13 @@ const Admin = () => {
   const { data: dataDashboard } = dataDashboardQuery;
 
   useEffect(() => {
-    if (!listAssessmentPeriodQuery?.data?.data?.data) return;
+    if (!listAssessmentPeriodQuery?.data?.data) return;
     const listAssessmentPeriodData =
-      listAssessmentPeriodQuery?.data?.data?.data;
+      listAssessmentPeriodQuery?.data?.data;
     setListAssessmentPeriod(listAssessmentPeriodData);
     const defaultSelectedId = listAssessmentPeriodData[0]?.id || null;
     setSelectedAssessmentPeriodId(defaultSelectedId);
-  }, [listAssessmentPeriodQuery?.data?.data?.data]);
+  }, [listAssessmentPeriodQuery?.data?.data]);
 
   return (
     <div className="size-full p-4">

@@ -29,22 +29,22 @@ const DataTable = () => {
       getListAssessmentPeriod(paginationModel.pageSize, paginationModel.page),
     refetchOnWindowFocus: false,
   });
-  const listAssessmentPeriod = listAssessmentPeriodQuery?.data?.data?.data;
+  const listAssessmentPeriod = listAssessmentPeriodQuery?.data?.data;
 
   // Row count for DataGrid pagination
   const rowCountRef = React.useRef(
-    listAssessmentPeriodQuery?.data?.data?.pagination?.totalRecords || 0,
+    listAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0,
   );
   const rowCount = React.useMemo(() => {
     if (
-      listAssessmentPeriodQuery?.data?.data?.pagination?.totalRecords !==
+      listAssessmentPeriodQuery?.data?.pagination?.totalRecords !==
       undefined
     ) {
       rowCountRef.current =
-        listAssessmentPeriodQuery?.data?.data?.pagination?.totalRecords;
+        listAssessmentPeriodQuery?.data?.pagination?.totalRecords;
     }
     return rowCountRef.current;
-  }, [listAssessmentPeriodQuery?.data?.data?.pagination?.totalRecords]);
+  }, [listAssessmentPeriodQuery?.data?.pagination?.totalRecords]);
 
   const getDetailPanelContent = React.useCallback(({ row }: GridRowParams) => {
     console.log(row);
