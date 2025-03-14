@@ -15,7 +15,7 @@ const formReviewDev: TFormReview = [
 - Develop flowcharts, diagrams, layouts, and documentation to identify requirements and solutions for the software products.
 - Integrate software components or frameworks into a fully functional of a new or existing software system.
 - Implement localization or globalization of a part or whole components of the software product.
-- Troubleshoot, debug, fixing bugs, and upgrade existing componens or whole systems.
+- Troubleshoot, debug, fixing bugs, and upgrade existing components or whole systems.
 - Apply an automated build process by delivering all the software products through the CI/CD pipeline as well as DevOps Tools
 - Provide ongoing maintenance, support, and enhancements in existing systems and platforms.
 - Provide the guidance of the policies, best practices, standards, and conventions to the team members.
@@ -27,6 +27,7 @@ const formReviewDev: TFormReview = [
         title: "Roles & Responsibilities",
         name: "performanceReview.rolesAndResponsibilities.rolesAndResponsibilities",
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 2,
@@ -75,6 +76,7 @@ const formReviewDev: TFormReview = [
 4. Complex Business Requirements
 Normal -> Medium (1F) -> Complex (2Fs) -> Very Complex (>=3Fs)`,
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 2.5,
@@ -100,6 +102,7 @@ Normal -> Medium (1F) -> Complex (2Fs) -> Very Complex (>=3Fs)`,
         name: "performanceReview.experiencesAndContributions.softwareEngineeringExperiences",
         description: `Number of years working as Software Engineer, Software Developer, Front-end Developer, Back-end Developer, Mobile Developer, Fullstack Developer`,
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 0,
@@ -129,6 +132,7 @@ Normal -> Medium (1F) -> Complex (2Fs) -> Very Complex (>=3Fs)`,
         name: "performanceReview.experiencesAndContributions.subordinateDevelopment",
         description: `Number of team members or number of people trained/coached`,
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 0,
@@ -158,6 +162,7 @@ Normal -> Medium (1F) -> Complex (2Fs) -> Very Complex (>=3Fs)`,
         name: "performanceReview.experiencesAndContributions.numberOfApplicationsOrSoftwareProjects",
         description: `Number of applications, components, the succesful level of project that you have designed, developed, supported, migrated, deployed, managed application softwares, maintenanced systems or software modules.`,
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 0,
@@ -205,6 +210,7 @@ For FE:
 - Styling Architecture, Accessibility & User Experience (UX) Design
 - Performance & Optimization Strategies, Scalability & Maintainability Best Practices`,
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 0,
@@ -241,6 +247,7 @@ For FE:
 - React, Angular, AngularJS, VueJS, NodeJS
 - Solidity, Rust, Move,…`,
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 0,
@@ -280,6 +287,7 @@ For FE:
         description: `- Testing Techniques, Function Tests, Integration Test, Performance Tests, Security Test, Automation Test
 - Code Review, Unit Test Coding, Unit Testing, Debugging Methods, Code Optimization Technique, Database Access Optimization Techniques`,
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 0,
@@ -320,6 +328,7 @@ For FE:
 - State Management: Redux, Vuex, Zustand, Context API,...
 - Storage Management: localStorage, sessionStorage, IndexedDB`,
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 0,
@@ -354,6 +363,7 @@ For FE:
         description: `- DevOps, Jenkins, GIT, Subversion
 - CI/CD Pipelines, feature toggling, gradual exposure, branch handling`,
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 0,
@@ -402,6 +412,7 @@ For FE:
 - Interview
 - Public Speaking`,
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 0,
@@ -435,6 +446,7 @@ For FE:
         name: "performanceReview.softwareEngineeringSoftSkills.scrumAgileModel",
         description: `- Scrum / Agile Model`,
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 0,
@@ -468,6 +480,7 @@ For FE:
         name: "performanceReview.softwareEngineeringSoftSkills.troubleshooting",
         description: `- Issues and Solution, Limitation of Current Solution, Business Viewpoints for New Solution, …`,
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 0,
@@ -501,6 +514,7 @@ For FE:
         name: "performanceReview.softwareEngineeringSoftSkills.softwareDocumentationAndGuildLines",
         description: `- Coding Standards and Conventions, Best Practices, Application Notes, Release Notes, End-to-End Guidelines`,
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 0,
@@ -534,6 +548,7 @@ For FE:
         name: "performanceReview.softwareEngineeringSoftSkills.projectManagement",
         description: `- Can be assessed on following knowledge items: Project Time Management, Project Quality Management, Project Risk Management`,
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 0,
@@ -571,6 +586,7 @@ For FE:
         name: "bonus",
         title: "Bổ sung",
         type: FORM_FIELDS.MULTI_INPUT_SCORE,
+        isRequired: true,
       },
     ],
   },
@@ -583,6 +599,7 @@ For FE:
         title: "Nhận xét, đánh giá thêm",
         name: "comment",
         type: FORM_FIELDS.TEXTAREA,
+        isRequired: true,
       },
     ],
   },

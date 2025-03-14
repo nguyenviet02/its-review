@@ -10,12 +10,13 @@ type SelectFieldProps = {
   disabled?: boolean;
   name: string;
   scoreScale?: IScoreScale[];
+	isRequired?: boolean;
 };
 
 /**
  * Select field component for form fields with score scales
  */
-function SelectField({ disabled, name, scoreScale }: SelectFieldProps) {
+function SelectField({ disabled, name, scoreScale, isRequired }: SelectFieldProps) {
   const formMethods = useFormContext();
   const errorMessage = (get(formMethods.formState.errors, name) as FieldError)
     ?.message;
@@ -55,7 +56,7 @@ function SelectField({ disabled, name, scoreScale }: SelectFieldProps) {
             defaultValue={""}
             rules={{
               required: {
-                value: true,
+                value: !!isRequired,
                 message: "This field is required",
               },
             }}

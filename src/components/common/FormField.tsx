@@ -45,6 +45,7 @@ const FormField = ({ disabled, criterion }: Props) => {
           disabled={disabled}
           name={criterion.name}
           scoreScale={criterion.scoreScale}
+          isRequired={criterion?.isRequired}
         />
       </>
     );
@@ -64,7 +65,11 @@ const FormField = ({ disabled, criterion }: Props) => {
         {!!criterion.title && (
           <h3 className="font-semibold">{`${criterion.number}. ${criterion.title}`}</h3>
         )}
-        <TextAreaField disabled={disabled} name={criterion.name} />
+        <TextAreaField
+          disabled={disabled}
+          name={criterion.name}
+          isRequired={criterion?.isRequired}
+        />
       </>
     );
   }

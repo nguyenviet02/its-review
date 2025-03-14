@@ -11,6 +11,7 @@ const formReviewITS: TFormReview = [
         name: "workPerformedAndAchievementsAchieved",
         title: "",
         type: FORM_FIELDS.TEXTAREA,
+        isRequired: true,
       },
     ],
     description:
@@ -27,6 +28,7 @@ const formReviewITS: TFormReview = [
         title: "Chất lượng công việc",
         name: "performanceReview.generalAssessmentOfResult.qualityOfWork",
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 1,
@@ -59,6 +61,7 @@ const formReviewITS: TFormReview = [
         title: "Tiến độ thực hiện công việc được giao",
         name: "performanceReview.generalAssessmentOfResult.progressOfAssignedWork",
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 1,
@@ -92,6 +95,7 @@ const formReviewITS: TFormReview = [
         title: "Kiến thức, năng lực chuyên môn",
         name: "performanceReview.generalAssessmentOfResult.knowledgeAndProfessionalCapacity",
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 1,
@@ -125,6 +129,7 @@ const formReviewITS: TFormReview = [
         title: "Tính chủ động, sáng kiến trong công việc",
         name: "performanceReview.generalAssessmentOfResult.proactivityAndInitiativeAtWork",
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 1,
@@ -166,6 +171,7 @@ const formReviewITS: TFormReview = [
         title: "Kĩ năng làm việc nhóm",
         name: "performanceReview.skillsAtWork.teamWorking",
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 1,
@@ -199,6 +205,7 @@ const formReviewITS: TFormReview = [
         title: "Kỹ năng giao tiếp và truyền đạt thông tin",
         name: "performanceReview.skillsAtWork.communicationAndInformationDissemination",
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 1,
@@ -232,6 +239,7 @@ const formReviewITS: TFormReview = [
         title: "Kỹ năng giải quyết vấn đề",
         name: "performanceReview.skillsAtWork.problemSolving",
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 1,
@@ -265,6 +273,7 @@ const formReviewITS: TFormReview = [
         title: "Kỹ năng quản lý thời gian/Quản lý task",
         name: "performanceReview.skillsAtWork.timeManagementSkillsAndTaskManagement",
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 1,
@@ -306,6 +315,7 @@ const formReviewITS: TFormReview = [
         title: "Tính kỷ luật, tuân thủ",
         name: "performanceReview.attitudeAndConsciousness.disciplineAndCompliance",
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 1,
@@ -340,6 +350,7 @@ const formReviewITS: TFormReview = [
           "Sẵn sàng tham gia các công việc, dự án, các hoạt động chung của Công ty (ngoài công việc chuyên môn)",
         name: "performanceReview.attitudeAndConsciousness.generalActivities",
         type: FORM_FIELDS.SELECT,
+        isRequired: true,
         scoreScale: [
           {
             score: 1,
@@ -381,6 +392,7 @@ const formReviewITS: TFormReview = [
           "Khen thưởng nội bộ hoặc giải thưởng từ đơn vị chuyên môn/khách hàng.",
         name: "additionReview.internalCommendationOrAwardFromCustomer",
         type: FORM_FIELDS.SCORE_INPUT,
+        isRequired: true,
       },
       {
         number: "5.2",
@@ -388,6 +400,7 @@ const formReviewITS: TFormReview = [
           "Nỗ lực đáng kể cho những nhiệm vụ rất khó khăn so với level hiện tại, mặc dù thành tích chưa rõ ràng.",
         name: "additionReview.considerableEffort",
         type: FORM_FIELDS.SCORE_INPUT,
+        isRequired: true,
       },
     ],
   },
@@ -401,18 +414,21 @@ const formReviewITS: TFormReview = [
         title: "Thuận lợi/Điểm mạnh",
         name: "opinionAndSuggestions.strongPoints",
         type: FORM_FIELDS.TEXTAREA,
+        isRequired: true,
       },
       {
         number: "6.2",
         title: "Khó khăn/Điểm yếu",
         name: "opinionAndSuggestions.weakness",
         type: FORM_FIELDS.TEXTAREA,
+        isRequired: true,
       },
       {
         number: "6.3",
         title: "Kế hoạch cho sự phát triển nghề nghiệp của bản thân",
         name: "opinionAndSuggestions.plans",
         type: FORM_FIELDS.TABLE,
+        isRequired: true,
       },
       {
         number: "6.4",

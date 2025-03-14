@@ -31,6 +31,7 @@ export interface ICriterion {
   type: FORM_FIELDS;
   description?: string;
   scoreScale?: IScoreScale[];
+  isRequired?: boolean;
 }
 
 export interface IField {
