@@ -23,7 +23,6 @@ type Props = {
 };
 
 const PageReview = ({ managerId, defaultValues, fields }: Props) => {
-
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const session = useSession();
   const queryClient = useQueryClient();
@@ -103,12 +102,6 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
       const dataToSubmit = {
         ...data,
       };
-      // if (data.workPerformedAndAchievementsAchieved?.length > 0) {
-      //   dataToSubmit.workPerformedAndAchievementsAchieved =
-      //     data.workPerformedAndAchievementsAchieved.map(
-      //       (item: { value: string }) => item.value,
-      //     );
-      // }
 
       // Format data plans in form review ITS
       if (data?.opinionAndSuggestions?.plans?.length > 0) {

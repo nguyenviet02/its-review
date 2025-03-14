@@ -10,7 +10,7 @@ const formReviewITS: TFormReview = [
         number: "1.1",
         name: "workPerformedAndAchievementsAchieved",
         title: "",
-        type: FORM_FIELDS.TEXTAREA,
+        type: FORM_FIELDS.MULTI_INPUT,
         isRequired: true,
       },
     ],
