@@ -28,13 +28,6 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
   const session = useSession();
   const queryClient = useQueryClient();
   const defaultValuesFormatted = useMemo(() => {
-    let dataBonus;
-    if (defaultValues?.bonus) {
-      dataBonus = Object.entries(defaultValues.bonus).map(([title, score]) => ({
-        title,
-        score,
-      }));
-    }
     if (defaultValues?.opinionAndSuggestions?.plans?.length > 0) {
       const dataPlans = defaultValues?.opinionAndSuggestions?.plans?.map(
         (plan: IPlanData) => {
@@ -49,7 +42,6 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
     }
     return {
       ...defaultValues,
-      bonus: dataBonus,
     };
   }, [defaultValues]);
   const formMethods = useForm({
@@ -117,16 +109,6 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
       //       (item: { value: string }) => item.value,
       //     );
       // }
-
-      // Format data bonus in form review DEV
-      if (data?.bonus?.length > 0) {
-        const dataBonus = data?.bonus?.map(
-          (item: { title: string; score: number }) => ({
-            [item.title]: item.score,
-          }),
-        );
-        dataToSubmit.bonus = Object.assign({}, ...dataBonus);
-      }
 
       // Format data plans in form review ITS
       if (data?.opinionAndSuggestions?.plans?.length > 0) {

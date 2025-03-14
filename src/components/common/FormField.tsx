@@ -56,6 +56,7 @@ const FormField = ({ disabled, criterion }: Props) => {
         disabled={disabled}
         name={criterion.name}
         title={criterion.title}
+				isRequired={criterion?.isRequired}
       />
     );
   }
