@@ -1,5 +1,5 @@
-import { getListEmployeeOfAssessmentPeriod } from "@/apis/assessment";
-import { useDataAssessmentPeriodDialogStore } from "@/lib/zustand/dialogDataAssessmentPeriodStore";
+import { getListEmployeeOfAssessmentPeriod } from "@/services/api";
+import { useDataAssessmentPeriodDialogStore } from "@/store";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   Dialog,

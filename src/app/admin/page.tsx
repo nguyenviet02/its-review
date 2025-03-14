@@ -1,15 +1,14 @@
 "use client";
 
-import { getListAssessmentPeriod } from "@/apis/assessment";
-import { getDataDashboard } from "@/apis/dashboard";
 import SelectBox from "@/components/admin/dashboard/SelectBox";
-import Loading from "@/components/common/Loading";
 import { IAssessmentPeriodResponseAPI } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import { PieChart, BarChart } from "@mui/x-charts";
 import { Card, CardContent, Typography, Box } from "@mui/material";
 import Grid from "@mui/material/Grid2"; // Updated import for Grid
+import Loading from "@/components/ui/Loading";
+import { getDataDashboard, getListAssessmentPeriod } from "@/services/api";
 
 const Admin = () => {
   const [listAssessmentPeriod, setListAssessmentPeriod] = React.useState<
@@ -23,6 +22,7 @@ const Admin = () => {
     queryFn: () => getListAssessmentPeriod(9999, 0),
     refetchOnWindowFocus: false,
   });
+  console.log('☠️ ~ Admin ~ listAssessmentPeriodQuery:', listAssessmentPeriodQuery)
 
   const dataDashboardQuery = useQuery({
     queryKey: ["dashboard", selectedAssessmentPeriodId],
@@ -32,13 +32,13 @@ const Admin = () => {
   const { data: dataDashboard } = dataDashboardQuery;
 
   useEffect(() => {
-    if (!listAssessmentPeriodQuery?.data?.data?.data) return;
+    if (!listAssessmentPeriodQuery?.data?.data) return;
     const listAssessmentPeriodData =
-      listAssessmentPeriodQuery?.data?.data?.data;
+      listAssessmentPeriodQuery?.data?.data;
     setListAssessmentPeriod(listAssessmentPeriodData);
     const defaultSelectedId = listAssessmentPeriodData[0]?.id || null;
     setSelectedAssessmentPeriodId(defaultSelectedId);
-  }, [listAssessmentPeriodQuery?.data?.data?.data]);
+  }, [listAssessmentPeriodQuery?.data?.data]);
 
   return (
     <div className="size-full p-4">

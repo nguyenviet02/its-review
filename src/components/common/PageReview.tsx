@@ -2,16 +2,18 @@ import { ICriterion, IField, IPlanData } from "@/types";
 import React, { useCallback, useEffect, useMemo } from "react";
 import FormField from "./FormField";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
-import CustomTooltip from "./CustomToolTip";
 import { useForm, FormProvider } from "react-hook-form";
-import { useDialogCongratulationStore } from "@/lib/zustand/dialogCongratulationStore";
-import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
 import { Button } from "@headlessui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { submitDataFormReview } from "@/apis/assessment";
+import { submitDataFormReview } from "@/services/api";
 import { useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 import { randomId } from "@mui/x-data-grid-generator";
+import {
+  useReviewFormDialogStore,
+  useDialogCongratulationStore,
+} from "@/store";
+import CustomTooltip from "../ui/CustomTooltip";
 
 type Props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -170,7 +172,7 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
 
   useEffect(() => {
     if (!defaultValues) return;
-		formMethods.reset(defaultValues);
+    formMethods.reset(defaultValues);
   }, [defaultValues, fields, formMethods]);
 
   return (

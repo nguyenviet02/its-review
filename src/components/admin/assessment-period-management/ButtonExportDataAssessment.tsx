@@ -1,4 +1,4 @@
-import { exportDataAssessmentPeriodById } from "@/apis/assessment";
+import { exportDataAssessmentPeriodById } from "@/services/api";
 import { Button } from "@headlessui/react";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import { useMutation } from "@tanstack/react-query";

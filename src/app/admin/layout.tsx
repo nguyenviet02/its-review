@@ -3,8 +3,8 @@
 import DialogCreateAssessmentPeriod from "@/components/admin/assessment-period-management/DialogCreateAssessmentPeriod";
 import DialogDataAssessmentPeriod from "@/components/admin/assessment-period-management/DialogDataAssessmentPeriod";
 import DialogEmployeeInfo from "@/components/admin/employee-management/DialogEmployeeInfo";
-import Header from "@/layouts/Header";
-import Sidebar from "@/layouts/Sidebar";
+import Header from "@/components/layout/Header";
+import Sidebar from "@/components/layout/Sidebar";
 import { ROLES } from "@/types";
 import { useState } from "react";
 

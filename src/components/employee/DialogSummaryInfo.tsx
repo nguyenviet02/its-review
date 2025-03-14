@@ -1,6 +1,3 @@
-import { getListManagerOfEmployee } from "@/apis/assessment";
-import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
-import { useEmployeeDialogSummaryInfoStore } from "@/lib/zustand/employeeDialogSummaryInfoStore";
 import { TSummaryInfoData } from "@/types";
 import { Button } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -18,7 +15,12 @@ import {
 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import Loading from "../common/Loading";
+import {
+  useEmployeeDialogSummaryInfoStore,
+  useReviewFormDialogStore,
+} from "@/store";
+import Loading from "../ui/Loading";
+import { getListManagerOfEmployee } from "@/services/api";
 
 const DialogSummaryInfo = () => {
   const dialogState = useEmployeeDialogSummaryInfoStore(
@@ -122,7 +124,9 @@ const DialogSummaryInfo = () => {
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
-                        <span className="font-semibold">{`Manager ${index + 1}:`}</span>
+                        <span className="font-semibold">
+                          {`Manager ${index + 1}:`}
+                        </span>
                       </TableCell>
                       <TableCell>{`${manager.username}`}</TableCell>
                     </TableRow>

@@ -1,4 +1,3 @@
-import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
 import { FORM_TYPES, TFormReview } from "@/types";
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -10,10 +9,11 @@ import formReviewBA from "@/forms/form-review-ba";
 import formReviewDev from "@/forms/form-review-dev";
 import formReviewTester from "@/forms/form-review-tester";
 import { useQuery } from "@tanstack/react-query";
-import { getDataFormReview, getListManagerOfEmployee } from "@/apis/assessment";
-import Loading from "../common/Loading";
+import { getDataFormReview, getListManagerOfEmployee } from "@/services/api";
 import { toast } from "react-toastify";
 import formReviewITS from "@/forms/form-review-its";
+import Loading from "../ui/Loading";
+import { useReviewFormDialogStore } from "@/store";
 
 const DialogFormReview = () => {
   const isOpenReviewFormDialog = useReviewFormDialogStore(

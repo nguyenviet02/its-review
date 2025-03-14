@@ -1,7 +1,5 @@
 "use client";
 
-import Header from "@/layouts/Header";
-import Sidebar from "@/layouts/Sidebar";
 import { ROLES } from "@/types";
 import { useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
@@ -10,8 +8,10 @@ import DialogSummaryInfo from "@/components/employee/DialogSummaryInfo";
 import DialogFormReview from "@/components/employee/DialogFormReview";
 import DialogCongratulation from "@/components/employee/DialogCongratulation";
 import DialogDataAssessmentPeriod from "@/components/employee/review-employee/DialogDataAssessmentPeriod";
-import NotificationPopup from "@/components/notification/NotificationPopup";
-import NotificationController from "@/components/notification/NotificationController";
+import Sidebar from "@/components/layout/Sidebar";
+import Header from "@/components/layout/Header";
+import NotificationPopup from "@/components/features/notification/NotificationPopup";
+import NotificationController from "@/components/features/notification/NotificationController";
 
 export default function SuperAdminLayout({
   children,

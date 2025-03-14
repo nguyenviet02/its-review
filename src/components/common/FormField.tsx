@@ -1,13 +1,13 @@
 import { FORM_FIELDS, ICriterion } from "@/types";
 import React from "react";
-import MultiInput from "./fields/MultiInput";
-import SelectField from "./fields/SelectField";
-import ScoreInput from "./fields/ScoreInput";
-import TextArea from "./fields/TextArea";
-import TableInput from "./fields/TableInput";
-import CustomTooltip from "./CustomToolTip";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
-import MultiInputScore from "./fields/MultiInputScore";
+import MultiInput from "../forms/fields/MultiInput";
+import MultiInputScore from "../forms/fields/MultiInputScore";
+import ScoreInput from "../forms/fields/ScoreInput";
+import SelectField from "../forms/fields/SelectField";
+import TableInput from "../forms/fields/TableInput";
+import CustomTooltip from "../ui/CustomTooltip";
+import TextAreaField from "../forms/fields/TextAreaField";
 
 type Props = {
   disabled?: boolean;
@@ -64,7 +64,7 @@ const FormField = ({ disabled, criterion }: Props) => {
         {!!criterion.title && (
           <h3 className="font-semibold">{`${criterion.number}. ${criterion.title}`}</h3>
         )}
-        <TextArea disabled={disabled} name={criterion.name} />
+        <TextAreaField disabled={disabled} name={criterion.name} />
       </>
     );
   }

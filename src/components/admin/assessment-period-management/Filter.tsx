@@ -3,7 +3,7 @@
 import React from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { Button } from "@headlessui/react";
-import { useCreateAssessmentPeriodDialogStore } from "@/lib/zustand/dialogCreateAssessmentPeriodStore";
+import { useCreateAssessmentPeriodDialogStore } from "@/store";
 
 const Filter = () => {
   const handleOpenCreateAssessmentPeriodDialog =

@@ -1,6 +1,6 @@
 "use client";
 
-import { getListAssessmentPeriod } from "@/apis/assessment";
+import { getListAssessmentPeriod } from "@/services/api";
 import { formatDate } from "@/utils";
 import {
   DataGrid,
@@ -11,9 +11,9 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import ButtonImportDataAssessment from "./ButtonImportDataAssessment";
 import { EyeIcon } from "@heroicons/react/24/outline";
-import { useDataAssessmentPeriodDialogStore } from "@/lib/zustand/dialogDataAssessmentPeriodStore";
 import { Tooltip } from "@mui/material";
 import ButtonExportDataAssessment from "./ButtonExportDataAssessment";
+import { useDataAssessmentPeriodDialogStore } from "@/store";
 
 const DataTable = () => {
   // Pagination DataGrid
@@ -29,22 +29,22 @@ const DataTable = () => {
       getListAssessmentPeriod(paginationModel.pageSize, paginationModel.page),
     refetchOnWindowFocus: false,
   });
-  const listAssessmentPeriod = listAssessmentPeriodQuery?.data?.data?.data;
+  const listAssessmentPeriod = listAssessmentPeriodQuery?.data?.data;
 
   // Row count for DataGrid pagination
   const rowCountRef = React.useRef(
-    listAssessmentPeriodQuery?.data?.data?.pagination?.totalRecords || 0,
+    listAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0,
   );
   const rowCount = React.useMemo(() => {
     if (
-      listAssessmentPeriodQuery?.data?.data?.pagination?.totalRecords !==
+      listAssessmentPeriodQuery?.data?.pagination?.totalRecords !==
       undefined
     ) {
       rowCountRef.current =
-        listAssessmentPeriodQuery?.data?.data?.pagination?.totalRecords;
+        listAssessmentPeriodQuery?.data?.pagination?.totalRecords;
     }
     return rowCountRef.current;
-  }, [listAssessmentPeriodQuery?.data?.data?.pagination?.totalRecords]);
+  }, [listAssessmentPeriodQuery?.data?.pagination?.totalRecords]);
 
   const getDetailPanelContent = React.useCallback(({ row }: GridRowParams) => {
     console.log(row);
