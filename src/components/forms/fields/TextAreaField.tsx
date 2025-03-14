@@ -22,10 +22,8 @@ function TextAreaField({
   isRequired,
 }: TextAreaProps) {
   const formMethods = useFormContext();
-  console.log("☠️ ~ formMethods:", formMethods.formState.errors?.[name]);
   const errorMessage = (get(formMethods.formState.errors, name) as FieldError)
     ?.message;
-  console.log("☠️ ~ errorMessage:", errorMessage);
 
   return (
     <div className="flex flex-col">

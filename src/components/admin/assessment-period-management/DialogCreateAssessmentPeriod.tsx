@@ -39,9 +39,8 @@ const DialogCreateAssessmentPeriod = () => {
       handleClose();
     },
     onError: (error) => {
-      console.log("☠️ ~ DialogCreateAssessmentPeriod ~ error:", error);
       toast.dismiss();
-      toast.error("Create new assessment period failed");
+      toast.error("Create new assessment period failed" + error.message);
     },
   });
 

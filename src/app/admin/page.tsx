@@ -22,10 +22,6 @@ const Admin = () => {
     queryFn: () => getListAssessmentPeriod(9999, 0),
     refetchOnWindowFocus: false,
   });
-  console.log(
-    "☠️ ~ Admin ~ listAssessmentPeriodQuery:",
-    listAssessmentPeriodQuery,
-  );
 
   const dataDashboardQuery = useQuery({
     queryKey: ["dashboard", selectedAssessmentPeriodId],

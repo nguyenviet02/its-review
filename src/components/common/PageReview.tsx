@@ -23,7 +23,6 @@ type Props = {
 };
 
 const PageReview = ({ managerId, defaultValues, fields }: Props) => {
-  console.log("☠️ ~ PageReview ~ defaultValues:", defaultValues);
 
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const session = useSession();
@@ -148,7 +147,6 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
           __type: formType,
         },
       };
-      console.log("☠️ ~ PageReview ~ payload:", payload);
       submitDataFormReviewMutation.mutate({
         assessmentPeriodId: assessmentPeriodId as number,
         userId: userId as string,

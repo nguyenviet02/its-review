@@ -24,14 +24,11 @@ const DialogFormReview = () => {
   );
 
   const userId = useReviewFormDialogStore((store) => store.userId);
-  console.log("☠️ ~ DialogFormReview ~ userId:", userId);
   const assessmentPeriodId = useReviewFormDialogStore(
     (store) => store.assessmentPeriodId,
   );
   const isManager = useReviewFormDialogStore((store) => store.isManager);
-  console.log("☠️ ~ DialogFormReview ~ isManager:", isManager);
   const formType = useReviewFormDialogStore((store) => store.type);
-  console.log("☠️ ~ DialogFormReview ~ formType:", formType);
   const setFormType = useReviewFormDialogStore((store) => store.setFormType);
   const memoizedSetFormType = useCallback(setFormType, [setFormType]);
 
@@ -82,10 +79,6 @@ const DialogFormReview = () => {
   useEffect(() => {
     if (!getDataFormReviewQuery?.error) return;
     if (getDataFormReviewQuery?.error) {
-      console.log(
-        "☠️ ~ useEffect ~ getDataFormReviewQuery?.error:",
-        getDataFormReviewQuery?.error,
-      );
       // Type assertion for API error with response property
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const error = getDataFormReviewQuery.error as any;

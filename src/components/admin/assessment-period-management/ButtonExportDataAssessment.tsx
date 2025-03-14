@@ -25,10 +25,6 @@ const ButtonExportDataAssessment = ({
     },
   });
   const handleExport = async () => {
-    console.log(
-      "☠️ ~ ButtonExportDataAssessment ~ assessmentPeriodId:",
-      assessmentPeriodId,
-    );
     await exportDataAssessmentMutation.mutateAsync();
   };
   return (
