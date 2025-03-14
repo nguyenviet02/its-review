@@ -4,7 +4,7 @@ import React from "react";
 import * as XLSX from "xlsx";
 import { formatDataImportListManager } from "@/utils";
 import { useMutation } from "@tanstack/react-query";
-import { importAssessmentPeriodData } from "@/apis/assessment";
+import { importAssessmentPeriodData } from "@/services/api";
 import { IAssessmentPeriodImportData } from "@/types";
 import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 import { toast } from "react-toastify";

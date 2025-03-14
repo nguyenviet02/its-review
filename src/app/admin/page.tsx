@@ -1,15 +1,14 @@
 "use client";
 
-import { getListAssessmentPeriod } from "@/apis/assessment";
-import { getDataDashboard } from "@/apis/dashboard";
 import SelectBox from "@/components/admin/dashboard/SelectBox";
-import Loading from "@/components/common/Loading";
 import { IAssessmentPeriodResponseAPI } from "@/types";
 import { useQuery } from "@tanstack/react-query";
 import React, { useEffect } from "react";
 import { PieChart, BarChart } from "@mui/x-charts";
 import { Card, CardContent, Typography, Box } from "@mui/material";
 import Grid from "@mui/material/Grid2"; // Updated import for Grid
+import Loading from "@/components/ui/Loading";
+import { getDataDashboard, getListAssessmentPeriod } from "@/services/api";
 
 const Admin = () => {
   const [listAssessmentPeriod, setListAssessmentPeriod] = React.useState<

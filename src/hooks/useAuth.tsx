@@ -1,38 +1,15 @@
 import { AxiosInstance } from "axios";
 import { getSession } from "next-auth/react";
-
-import axiosInstance from "@/lib/axios/axiosInstance";
-
-// Token storage key
-const TOKEN_STORAGE_KEY = "auth_access_token";
+import axiosInstance from "@/services/api/axiosInstance";
+import { getAccessTokenFromStorage, setAccessTokenToStorage } from "@/services/auth/tokenStorage";
 
 // Module-level variables
-let accessTokenCache: string | undefined;
 let refreshPromise: Promise<string | undefined> | null = null;
 
-// Functions to handle localStorage token storage
-export const setAccessTokenToStorage = (token: string | undefined): void => {
-  if (typeof window !== "undefined") {
-    if (token) {
-      localStorage.setItem(TOKEN_STORAGE_KEY, token);
-    } else {
-      localStorage.removeItem(TOKEN_STORAGE_KEY);
-    }
-    accessTokenCache = token;
-  }
-};
-
-const getAccessTokenFromStorage = (): string | undefined => {
-  if (typeof window !== "undefined") {
-    if (!accessTokenCache) {
-      accessTokenCache = localStorage.getItem(TOKEN_STORAGE_KEY) || undefined;
-    }
-    return accessTokenCache;
-  }
-  return undefined;
-};
-
-// Function to get a fresh token
+/**
+ * Refresh access token from session
+ * Using a singleton promise to prevent multiple simultaneous refresh attempts
+ */
 async function refreshAccessToken(): Promise<string | undefined> {
   // If we're already refreshing, return the existing promise to prevent multiple calls
   if (refreshPromise) {
@@ -114,7 +91,7 @@ export function useAxiosInstance(): {
   };
 
   return {
-    axiosInstance: axiosInstance,
+    axiosInstance,
     initializeToken,
   };
 }

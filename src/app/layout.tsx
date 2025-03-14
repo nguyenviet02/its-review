@@ -4,6 +4,7 @@ import "./globals.css";
 import SessionProviderWrapper from "@/providers/SessionProvider";
 import QueryClientProviderWrapper from "@/providers/QueryClientProvider";
 import LocalizationProviderWrapper from "@/providers/LocalizationProvider";
+import { AppProvider } from "@/providers/AppProvider";
 import { ToastContainer } from "react-toastify";
 
 const montserrat = Montserrat({
@@ -27,7 +28,9 @@ export default async function RootLayout({
         <QueryClientProviderWrapper>
           <SessionProviderWrapper>
             <LocalizationProviderWrapper>
-              {children}
+              <AppProvider>
+                {children}
+              </AppProvider>
             </LocalizationProviderWrapper>
           </SessionProviderWrapper>
         </QueryClientProviderWrapper>

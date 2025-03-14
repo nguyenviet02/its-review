@@ -1,8 +1,8 @@
 "use client";
 
 import DataReviewTable from "@/components/common/DataReviewTable";
-import ErrorMessage from "@/components/common/ErrorMessage";
-import { useDialogEmployeeInfoStore } from "@/lib/zustand/dialogEmployeeInfoStore";
+import ErrorMessage from "@/components/forms/ErrorMessage";
+import { useDialogEmployeeInfoStore } from "@/store";
 import { FORM_STATUS, IAssessmentMinifyData, IEmployee } from "@/types";
 import {
   Field,

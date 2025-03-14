@@ -1,7 +1,7 @@
 "use client";
 
-import { getListUser } from "@/apis/users";
-import { useDialogEmployeeInfoStore } from "@/lib/zustand/dialogEmployeeInfoStore";
+import { getListUser } from "@/services/api";
+import { useDialogEmployeeInfoStore } from "@/store";
 import { IEmployee } from "@/types";
 import { Button } from "@headlessui/react";
 import { EyeIcon } from "@heroicons/react/24/outline";

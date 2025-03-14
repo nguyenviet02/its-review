@@ -1,4 +1,4 @@
-import { useDialogCongratulationStore } from "@/lib/zustand/dialogCongratulationStore";
+import { useDialogCongratulationStore } from "@/store";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   IconButton,

@@ -1,7 +1,3 @@
-import { getListEmployeeAssignedToMe } from "@/apis/assessment";
-import { useReviewFormDialogStore } from "@/lib/zustand/reviewFormDialogStore";
-import { useDataAssessmentPeriodDialogStore } from "@/lib/zustand/employee/dialogDataAssessmentPeriodStore";
-import { useEmployeeDialogSummaryInfoStore } from "@/lib/zustand/employeeDialogSummaryInfoStore";
 import { getFormType } from "@/utils";
 import { DocumentTextIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import {
@@ -11,10 +7,16 @@ import {
   DialogContent,
   DialogActions,
 } from "@mui/material";
-import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import { DataGrid, gridClasses, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import CurrentStatus from "@/components/data-grid/CurrentStatus";
+import {
+  useDataAssessmentPeriodDialogStore,
+  useEmployeeDialogSummaryInfoStore,
+  useReviewFormDialogStore,
+} from "@/store";
+import { getListEmployeeAssignedToMe } from "@/services/api";
 
 const DialogDataAssessmentPeriod = () => {
   const dialogState = useDataAssessmentPeriodDialogStore(
@@ -149,7 +151,7 @@ const DialogDataAssessmentPeriod = () => {
       renderCell: (params: GridRenderCellParams) => {
         const status = params.row.status;
         return (
-          <div className="h-full flex items-center justify-center">
+          <div className="flex h-full items-center justify-center">
             <CurrentStatus currentStatus={status} />;
           </div>
         );
@@ -206,7 +208,7 @@ const DialogDataAssessmentPeriod = () => {
           rows={listEmployee}
           columns={columns}
           getRowId={(row) => row.id}
-					getRowHeight={() => 'auto'}
+          getRowHeight={() => "auto"}
           loading={listEmployeeOfAssessmentPeriodQuery?.isLoading}
           slotProps={{
             loadingOverlay: {
@@ -220,6 +222,11 @@ const DialogDataAssessmentPeriod = () => {
           paginationModel={paginationModel}
           onPaginationModelChange={setPaginationModel}
           pageSizeOptions={[10, 15, 20, 25]}
+          sx={{
+            [`& .${gridClasses.cell}`]: {
+              py: 1,
+            },
+          }}
         />
       </DialogContent>
       <DialogActions

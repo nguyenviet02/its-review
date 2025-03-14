@@ -1,6 +1,6 @@
 "use client";
 
-import { getListAssessmentPeriod } from "@/apis/assessment";
+import { getListAssessmentPeriod } from "@/services/api";
 import { formatDate } from "@/utils";
 import {
   DataGrid,
@@ -11,9 +11,9 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import ButtonImportDataAssessment from "./ButtonImportDataAssessment";
 import { EyeIcon } from "@heroicons/react/24/outline";
-import { useDataAssessmentPeriodDialogStore } from "@/lib/zustand/dialogDataAssessmentPeriodStore";
 import { Tooltip } from "@mui/material";
 import ButtonExportDataAssessment from "./ButtonExportDataAssessment";
+import { useDataAssessmentPeriodDialogStore } from "@/store";
 
 const DataTable = () => {
   // Pagination DataGrid

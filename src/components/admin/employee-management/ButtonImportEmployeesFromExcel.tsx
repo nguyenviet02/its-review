@@ -1,6 +1,6 @@
 "use client";
 
-import { importListUser } from "@/apis/users";
+import { importListUser } from "@/services/api";
 import { IEmployee } from "@/types";
 import { formatDataImportListEmployee } from "@/utils";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
