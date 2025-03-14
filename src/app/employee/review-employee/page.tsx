@@ -72,12 +72,6 @@ const ReviewEmployee = () => {
 
   const columns: GridColDef[] = [
     {
-      field: "id",
-      headerName: "ID",
-      headerAlign: "center",
-      align: "center",
-    },
-    {
       field: "title",
       headerName: "Title",
       flex: 1,
@@ -153,6 +147,7 @@ const ReviewEmployee = () => {
           paginationModel={paginationModel}
           onPaginationModelChange={setPaginationModel}
           getRowHeight={() => "auto"}
+          getRowId={(row) => row.id}
           disableRowSelectionOnClick
           pageSizeOptions={[5, 10, 25]}
           slotProps={{

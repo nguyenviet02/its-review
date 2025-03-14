@@ -8,7 +8,10 @@ import { getMyListAssessmentPeriod } from "@/services/api";
 import { formatDate, getFormType } from "@/utils";
 import { useSession } from "next-auth/react";
 import CurrentStatus from "@/components/data-grid/CurrentStatus";
-import { useEmployeeDialogSummaryInfoStore, useReviewFormDialogStore } from "@/store";
+import {
+  useEmployeeDialogSummaryInfoStore,
+  useReviewFormDialogStore,
+} from "@/store";
 
 const Employee = () => {
   const session = useSession();
@@ -70,12 +73,6 @@ const Employee = () => {
     },
   };
   const columns: GridColDef[] = [
-    {
-      field: "id",
-      headerName: "ID",
-      headerAlign: "center",
-      align: "center",
-    },
     {
       field: "title",
       headerName: "Title",
@@ -154,8 +151,7 @@ const Employee = () => {
                   id: session?.data?.user?.id || "",
                   username: session?.data?.user?.username as string,
                   department: session?.data?.user?.department as string,
-                  jobPosition: session?.data?.user
-                    ?.jobPosition as string,
+                  jobPosition: session?.data?.user?.jobPosition as string,
                 });
                 setUserId(session?.data?.user?.id || "");
                 setFormType(formType);
@@ -181,6 +177,7 @@ const Employee = () => {
           loading={myListAssessmentPeriodQuery.isLoading}
           rows={listAssessmentPeriod}
           columns={columns}
+          getRowId={(row) => row.id}
           getRowHeight={() => "auto"}
           disableRowSelectionOnClick
           slotProps={{

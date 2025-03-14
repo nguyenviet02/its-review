@@ -102,12 +102,6 @@ const DialogDataAssessmentPeriod = () => {
   // Define columns
   const columns: GridColDef[] = [
     {
-      field: "id",
-      headerName: "Employee ID",
-      headerAlign: "center",
-      align: "center",
-    },
-    {
       field: "username",
       headerName: "Full Name",
       flex: 1,
