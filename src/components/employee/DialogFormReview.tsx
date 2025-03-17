@@ -91,6 +91,7 @@ const DialogFormReview = () => {
 		if (!formData?.selfReview?.__type) return;
     let newFormType;
     if (isManager) {
+			if (!formData?.managerReviews?.length) return;
       newFormType = formData?.managerReviews?.[0]?.__type;
     } else {
       newFormType = formData?.selfReview?.__type;
