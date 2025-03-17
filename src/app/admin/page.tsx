@@ -33,10 +33,17 @@ const Admin = () => {
   useEffect(() => {
     if (!listAssessmentPeriodQuery?.data?.data) return;
     const listAssessmentPeriodData = listAssessmentPeriodQuery?.data?.data;
-    setListAssessmentPeriod(listAssessmentPeriodData);
-    const defaultSelectedId = listAssessmentPeriodData[0]?.id || null;
-    setSelectedAssessmentPeriodId(defaultSelectedId);
-  }, [listAssessmentPeriodQuery?.data?.data]);
+    
+    // Only update state if necessary
+    if (listAssessmentPeriod !== listAssessmentPeriodData) {
+      setListAssessmentPeriod(listAssessmentPeriodData);
+      
+      if (!selectedAssessmentPeriodId) {
+        const defaultSelectedId = listAssessmentPeriodData[0]?.id || null;
+        setSelectedAssessmentPeriodId(defaultSelectedId);
+      }
+    }
+  }, [listAssessmentPeriod, listAssessmentPeriodQuery?.data, selectedAssessmentPeriodId]);
 
   return (
     <div className="size-full p-4">
