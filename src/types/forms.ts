@@ -11,7 +11,8 @@ export enum FORM_FIELDS {
 export enum FORM_TYPES {
   UNSET = "unset",
   GENERAL = "general",
-  FOR_BA = "for-ba",
+  FOR_BA_V1 = "self_review_ba_v1",
+  FOR_BA_MANAGER_V1 = "manager_review_ba_v1",
   FOR_DEV_V1 = "self_review_dev_v1",
   FOR_DEV_MANAGER_V1 = "manager_review_dev_v1",
   FOR_ITS_V1 = "self_review_its_v1",
