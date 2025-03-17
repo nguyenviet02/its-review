@@ -87,10 +87,11 @@ const DialogFormReview = () => {
   }, [getDataFormReviewQuery?.error]);
 
   useEffect(() => {
-    if (!getDataFormReviewQuery?.data) return;
     const formData = getDataFormReviewQuery?.data?.form;
+		if (!formData?.selfReview?.__type) return;
     let newFormType;
     if (isManager) {
+			if (!formData?.managerReviews?.length) return;
       newFormType = formData?.managerReviews?.[0]?.__type;
     } else {
       newFormType = formData?.selfReview?.__type;

@@ -1,3 +1,4 @@
+import CurrentStatus from "@/components/data-grid/CurrentStatus";
 import { getListEmployeeOfAssessmentPeriod } from "@/services/api";
 import { useDataAssessmentPeriodDialogStore } from "@/store";
 import { XMarkIcon } from "@heroicons/react/24/outline";
@@ -8,7 +9,12 @@ import {
   DialogContent,
   DialogActions,
 } from "@mui/material";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  gridClasses,
+  GridColDef,
+  GridRenderCellParams,
+} from "@mui/x-data-grid";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
@@ -107,6 +113,16 @@ const DialogDataAssessmentPeriod = () => {
       align: "center",
     },
     {
+      field: "status",
+      headerName: "Status",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      renderCell: (params: GridRenderCellParams) => {
+        return <CurrentStatus currentStatus={params.value} />;
+      },
+    },
+    {
       field: "email",
       headerName: "Email",
       flex: 1.5,
@@ -144,6 +160,7 @@ const DialogDataAssessmentPeriod = () => {
           rows={listEmployee}
           columns={columns}
           getRowId={(row) => row.id}
+          getRowHeight={() => "auto"}
           loading={listEmployeeOfAssessmentPeriodQuery?.isLoading}
           slotProps={{
             loadingOverlay: {
@@ -157,6 +174,11 @@ const DialogDataAssessmentPeriod = () => {
           paginationModel={paginationModel}
           onPaginationModelChange={setPaginationModel}
           pageSizeOptions={[10, 15, 20, 25]}
+          sx={{
+            [`& .${gridClasses.cell}`]: {
+              py: 1,
+            },
+          }}
         />
       </DialogContent>
       <DialogActions
