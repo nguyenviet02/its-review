@@ -1,5 +1,3 @@
-import { ROLES } from "./common";
-
 export interface IEmployee {
   id: string;
   username: string;
@@ -7,23 +5,11 @@ export interface IEmployee {
   jobPosition: string;
   email: string;
   organizationId?: number;
+  block: string;
+  team?: string;
 }
 
 export interface IEmployeeResponseAPI extends IEmployee {
   createdAt: string;
   updatedAt: string;
-}
-
-export interface IUser extends IEmployee {
-  roles: ROLES[];
-}
-
-export interface IUserSession {
-  id: string;
-  username: string;
-  email: string;
-  roles: ROLES[];
-  department?: string;
-  jobPosition?: string;
-  accessToken?: string;
 }

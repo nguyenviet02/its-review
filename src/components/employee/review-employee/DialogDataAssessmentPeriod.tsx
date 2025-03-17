@@ -7,7 +7,12 @@ import {
   DialogContent,
   DialogActions,
 } from "@mui/material";
-import { DataGrid, gridClasses, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  gridClasses,
+  GridColDef,
+  GridRenderCellParams,
+} from "@mui/x-data-grid";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import CurrentStatus from "@/components/data-grid/CurrentStatus";
@@ -109,8 +114,22 @@ const DialogDataAssessmentPeriod = () => {
       align: "center",
     },
     {
+      field: "block",
+      headerName: "Block",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
       field: "department",
       headerName: "Department",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "team",
+      headerName: "Team",
       flex: 1,
       headerAlign: "center",
       align: "center",

@@ -31,6 +31,8 @@ export const formatDataImportListEmployee = (
       jobPosition: data["Vị trí"],
       email: data["Email"],
       organizationId: data["organizationId"] || 1,
+			team: data["Team"],
+			block: data["Khối"],
     };
   });
   return formattedData;

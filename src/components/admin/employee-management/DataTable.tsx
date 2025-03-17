@@ -63,8 +63,22 @@ const DataTable = () => {
       align: "center",
     },
     {
+      field: "block",
+      headerName: "Block",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
       field: "department",
       headerName: "Department",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "team",
+      headerName: "Team",
       flex: 1,
       headerAlign: "center",
       align: "center",
