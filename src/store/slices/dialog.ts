@@ -50,7 +50,9 @@ interface IDataAssessmentPeriodDialogStore extends IDialogBase {
 const dialogDefaultData: IEmployee = {
   id: "",
   username: "",
+	block: "",
   department: "",
+	team: "",
   jobPosition: "",
   email: "",
   organizationId: 1,

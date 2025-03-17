@@ -1,6 +1,6 @@
 import { MinusCircleIcon } from "@heroicons/react/24/outline";
 import React, { useEffect } from "react";
-import { useFieldArray, useFormContext } from "react-hook-form";
+import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 
 type Props = {
   disabled?: boolean;
@@ -15,7 +15,7 @@ const MultiInput = ({ disabled, name }: Props) => {
   });
   useEffect(() => {
     if (fields.length === 0 && fields.length < 1) {
-      append({ value: "" });
+      append("");
     }
   }, [append, fields.length]);
   return (
@@ -26,12 +26,18 @@ const MultiInput = ({ disabled, name }: Props) => {
             key={field.id}
             className="flex w-full gap-2 overflow-hidden rounded border border-gray-300 px-4 py-2"
           >
-            <input
-              disabled={disabled}
-              className="flex-1 border-none outline-none disabled:cursor-not-allowed"
-              placeholder="Input here"
-              type="text"
-              {...formMethods.register(`${name}.${index}.value`)}
+            <Controller
+              render={({ field }) => (
+                <input
+                  disabled={disabled}
+                  className="flex-1 border-none outline-none disabled:cursor-not-allowed"
+                  placeholder="Input here"
+                  type="text"
+                  {...field}
+                />
+              )}
+              name={`${name}.${index}`}
+              control={formMethods.control}
             />
             <button className="w-fit shrink-0" onClick={() => remove(index)}>
               <MinusCircleIcon className="size-6" />
@@ -41,8 +47,10 @@ const MultiInput = ({ disabled, name }: Props) => {
       })}
       <button
         className="w-fit shrink-0 rounded border border-black px-4 py-1"
-        onClick={() => {
-          append({ value: "" });
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          append("");
         }}
       >
         Thêm mới

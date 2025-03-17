@@ -97,14 +97,6 @@ const Employee = () => {
       align: "center",
     },
     {
-      field: "managerReviewEnd",
-      headerName: "Manager Review End",
-      valueGetter: (value) => formatDate(value),
-      flex: 1,
-      headerAlign: "center",
-      align: "center",
-    },
-    {
       field: "end",
       headerName: "End Time",
       valueGetter: (value) => formatDate(value),

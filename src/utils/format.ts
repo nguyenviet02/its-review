@@ -7,7 +7,7 @@ import { IEmployee } from "@/types";
 export const formatDataImportListManager = (dataFromExcel: any) => {
   const data = dataFromExcel.map((item: any) => {
     const employeeId = item[0];
-    const startIndexOfManager = 6;
+    const startIndexOfManager = 2;
     const managers = item.slice(startIndexOfManager);
     return {
       employeeId,
@@ -31,6 +31,8 @@ export const formatDataImportListEmployee = (
       jobPosition: data["Vị trí"],
       email: data["Email"],
       organizationId: data["organizationId"] || 1,
+			team: data["Team"],
+			block: data["Khối"],
     };
   });
   return formattedData;

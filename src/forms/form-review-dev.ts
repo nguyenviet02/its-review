@@ -577,19 +577,30 @@ For FE:
   // Tiêu chí 5
   {
     number: "5",
-    title: "Bổ sung khác",
+    title: "Additional Review",
+    description: "Only for Manager. Max Point: 5",
     isForManager: true,
-    description: `Nhận xét, đánh giá thêm của Quản lý`,
     criterions: [
       {
         number: "5.1",
-        name: "bonus",
-        title: "Bổ sung",
-        type: FORM_FIELDS.MULTI_INPUT_SCORE,
+        title:
+          "Internal commendation or award from customer",
+        name: "additionReview.internalCommendationOrAwardFromCustomer",
+        type: FORM_FIELDS.SCORE_INPUT,
+        isRequired: true,
+      },
+      {
+        number: "5.2",
+        title:
+          "Consider able effort in the project",
+        name: "additionReview.considerableEffort",
+        type: FORM_FIELDS.SCORE_INPUT,
         isRequired: true,
       },
     ],
   },
+
+  // Tiêu chí 6
   {
     number: "6",
     title: "Nhận xét, đánh giá thêm",
