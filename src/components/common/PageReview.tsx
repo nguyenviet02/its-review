@@ -88,9 +88,22 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
       );
       dialogCongratulationState.openDialog();
     },
-    onError: async (error) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onError: async (error: any) => {
       toast.dismiss();
-      toast.error(`Error: ${error}`);
+      toast.error(
+        <div>
+          {error?.response?.data?.details?.map(
+            (error: { property: string; code: string; message: string }) => (
+              <div key={error.property} className="mb-2">
+                {error.code}: {error.message}
+              </div>
+            ),
+          ) ||
+            error?.response?.data?.message ||
+            "Submit data failed"}
+        </div>,
+      );
       setIsSubmitting(false);
     },
   });

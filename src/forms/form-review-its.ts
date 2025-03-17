@@ -390,7 +390,7 @@ const formReviewITS: TFormReview = [
         number: "5.1",
         title:
           "Khen thưởng nội bộ hoặc giải thưởng từ đơn vị chuyên môn/khách hàng.",
-        name: "additionReview.internalCommendationOrAwardFromCustomer",
+        name: "bonus.internalCommendationOrAwardFromCustomer",
         type: FORM_FIELDS.SCORE_INPUT,
         isRequired: true,
       },
@@ -398,7 +398,7 @@ const formReviewITS: TFormReview = [
         number: "5.2",
         title:
           "Nỗ lực đáng kể cho những nhiệm vụ rất khó khăn so với level hiện tại, mặc dù thành tích chưa rõ ràng.",
-        name: "additionReview.considerableEffort",
+        name: "bonus.considerableEffort",
         type: FORM_FIELDS.SCORE_INPUT,
         isRequired: true,
       },

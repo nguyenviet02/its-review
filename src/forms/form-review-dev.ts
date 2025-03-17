@@ -585,7 +585,7 @@ For FE:
         number: "5.1",
         title:
           "Internal commendation or award from customer",
-        name: "additionReview.internalCommendationOrAwardFromCustomer",
+        name: "bonus.internalCommendationOrAwardFromCustomer",
         type: FORM_FIELDS.SCORE_INPUT,
         isRequired: true,
       },
@@ -593,7 +593,7 @@ For FE:
         number: "5.2",
         title:
           "Consider able effort in the project",
-        name: "additionReview.considerableEffort",
+        name: "bonus.considerableEffort",
         type: FORM_FIELDS.SCORE_INPUT,
         isRequired: true,
       },
