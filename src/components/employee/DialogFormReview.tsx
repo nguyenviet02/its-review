@@ -86,12 +86,13 @@ const DialogFormReview = () => {
     }
   }, [getDataFormReviewQuery?.error]);
 
+  //* If form type get from API is different from the one in store, update the store
   useEffect(() => {
     const formData = getDataFormReviewQuery?.data?.form;
-		if (!formData?.selfReview?.__type) return;
+    if (!formData?.selfReview?.__type) return;
     let newFormType;
     if (isManager) {
-			if (!formData?.managerReviews?.length) return;
+      if (!formData?.managerReviews?.length) return;
       newFormType = formData?.managerReviews?.[0]?.__type;
     } else {
       newFormType = formData?.selfReview?.__type;
@@ -102,7 +103,8 @@ const DialogFormReview = () => {
 
   useEffect(() => {
     switch (formType) {
-      case FORM_TYPES.FOR_BA:
+      case FORM_TYPES.FOR_BA_V1:
+      case FORM_TYPES.FOR_BA_MANAGER_V1:
         setSelectedForm(formReviewBA);
         break;
       case FORM_TYPES.FOR_DEV_V1:
