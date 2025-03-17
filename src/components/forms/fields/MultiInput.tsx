@@ -1,4 +1,4 @@
-import { MinusCircleIcon } from "@heroicons/react/24/outline";
+import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
 import React, { useEffect } from "react";
 import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 
@@ -53,7 +53,7 @@ const MultiInput = ({ disabled, name }: Props) => {
           append("");
         }}
       >
-        Thêm mới
+        <PlusCircleIcon className="size-6" />
       </button>
     </div>
   );

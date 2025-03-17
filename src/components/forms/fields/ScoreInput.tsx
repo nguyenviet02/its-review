@@ -27,6 +27,7 @@ const ScoreInput = ({ disabled, name, title, isRequired }: Props) => {
               value: !!isRequired,
               message: "This field is required",
             },
+						valueAsNumber: true,
           })}
         />
       </div>
