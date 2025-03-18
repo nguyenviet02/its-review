@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import dayjs from "dayjs";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createAssessmentPeriod } from "@/services/api";
@@ -135,9 +135,9 @@ const DialogCreateAssessmentPeriod = () => {
               }}
               render={({ field }) => {
                 return (
-                  <DatePicker
+                  <DateTimePicker
                     value={dayjs(field.value)}
-                    format="DD/MM/YYYY"
+                    format="DD/MM/YYYY HH:mm"
                     onChange={(date) => {
                       field.onChange(date);
                     }}
@@ -175,9 +175,9 @@ const DialogCreateAssessmentPeriod = () => {
               }}
               render={({ field }) => {
                 return (
-                  <DatePicker
+                  <DateTimePicker
                     value={dayjs(field.value)}
-                    format="DD/MM/YYYY"
+                    format="DD/MM/YYYY HH:mm"
                     onChange={(date) => {
                       field.onChange(date);
                     }}
@@ -215,9 +215,9 @@ const DialogCreateAssessmentPeriod = () => {
               }}
               render={({ field }) => {
                 return (
-                  <DatePicker
+                  <DateTimePicker
                     value={dayjs(field.value)}
-                    format="DD/MM/YYYY"
+                    format="DD/MM/YYYY HH:mm"
                     onChange={(date) => {
                       field.onChange(date);
                     }}
