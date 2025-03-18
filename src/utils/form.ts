@@ -12,6 +12,8 @@ const developerPositions = [
 
 const baPositions = ["ba", "businessanalyst"];
 
+const testerPositions = ["tester", "test"];
+
 /**
  * Determine the appropriate form type based on job position and manager status
  */
@@ -32,6 +34,8 @@ export const getFormType = (
       formType = FORM_TYPES.FOR_ITS_MANAGER_V1;
     } else if (baPositions.includes(jobPositionFormatted)) {
       formType = FORM_TYPES.FOR_BA_MANAGER_V1;
+    } else if (testerPositions.includes(jobPositionFormatted)) {
+      formType = FORM_TYPES.FOR_TESTER_MANAGER_V1;
     } else {
       formType = FORM_TYPES.FOR_ITS_MANAGER_V1;
     }
@@ -42,6 +46,8 @@ export const getFormType = (
     formType = FORM_TYPES.FOR_DEV_V1;
   } else if (jobPositionFormatted === "its") {
     formType = FORM_TYPES.FOR_ITS_V1;
+  } else if (testerPositions.includes(jobPositionFormatted)) {
+    formType = FORM_TYPES.FOR_TESTER_V1;
   } else if (baPositions.includes(jobPositionFormatted)) {
     formType = FORM_TYPES.FOR_BA_V1;
   } else {

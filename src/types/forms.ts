@@ -17,7 +17,8 @@ export enum FORM_TYPES {
   FOR_DEV_MANAGER_V1 = "manager_review_dev_v1",
   FOR_ITS_V1 = "self_review_its_v1",
   FOR_ITS_MANAGER_V1 = "manager_review_its_v1",
-  FOR_TESTER = "for-tester",
+  FOR_TESTER_V1 = "self_review_tester_v1",
+	FOR_TESTER_MANAGER_V1 = "manager_review_tester_v1",
 }
 
 export interface IScoreScale {

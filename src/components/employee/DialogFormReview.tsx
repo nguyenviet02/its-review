@@ -115,7 +115,8 @@ const DialogFormReview = () => {
       case FORM_TYPES.FOR_ITS_MANAGER_V1:
         setSelectedForm(formReviewITS);
         break;
-      case FORM_TYPES.FOR_TESTER:
+      case FORM_TYPES.FOR_TESTER_V1:
+      case FORM_TYPES.FOR_TESTER_MANAGER_V1:
         setSelectedForm(formReviewTester);
         break;
       default:
