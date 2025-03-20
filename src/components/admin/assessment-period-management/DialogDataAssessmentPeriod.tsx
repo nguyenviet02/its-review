@@ -1,6 +1,7 @@
 import CurrentStatus from "@/components/data-grid/CurrentStatus";
 import { getListEmployeeOfAssessmentPeriod } from "@/services/api";
 import { useDataAssessmentPeriodDialogStore } from "@/store";
+import { getUsernameFromEmail } from "@/utils/format";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   Dialog,
@@ -8,6 +9,7 @@ import {
   IconButton,
   DialogContent,
   DialogActions,
+  Tooltip,
 } from "@mui/material";
 import {
   DataGrid,
@@ -119,7 +121,7 @@ const DialogDataAssessmentPeriod = () => {
       headerAlign: "center",
       align: "center",
       renderCell: (params: GridRenderCellParams) => {
-        return <CurrentStatus currentStatus={params.value} />
+        return <CurrentStatus currentStatus={params.value} />;
       },
     },
     {
@@ -128,6 +130,24 @@ const DialogDataAssessmentPeriod = () => {
       flex: 1.5,
       headerAlign: "center",
       align: "center",
+    },
+    {
+      field: "managerEmails",
+      headerName: "Managers",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      renderCell: (params: GridRenderCellParams) => {
+        return (
+          <div className="flex justify-center flex-wrap gap-2">
+            {params.value.map((email: string) => (
+              <Tooltip key={email} title={email}>
+                <p>{getUsernameFromEmail(email)}</p>
+              </Tooltip>
+            ))}
+          </div>
+        );
+      },
     },
   ];
 

@@ -44,3 +44,8 @@ export const formatDataImportListEmployee = (
   });
   return formattedData;
 };
+
+export const getUsernameFromEmail = (email: string) => {
+  const username = email.split("@")[0];
+  return username;
+};
