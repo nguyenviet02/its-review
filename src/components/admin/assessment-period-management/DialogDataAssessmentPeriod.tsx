@@ -138,7 +138,7 @@ const DialogDataAssessmentPeriod = () => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
       fullWidth
-      maxWidth="lg"
+      maxWidth="xl"
     >
       <DialogTitle id="alert-dialog-title" className="text-3xl font-bold">
         List of Employees {assessmentPeriodName}
