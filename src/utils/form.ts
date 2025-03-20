@@ -8,11 +8,20 @@ const developerPositions = [
   "frontend",
   "backend",
   "mobile",
+  "lậptrìnhbackend",
+  "lậptrìnhblockchain",
+  "lậptrìnhfrontend",
+  "lậptrìnhjava",
+  "lậptrìnhnodejs",
+  "lậptrìnhphp",
+  "lậptrìnhios",
+  "pháttriểnphầnmềm",
+  "lậptrìnhfullstack",
 ];
 
-const baPositions = ["ba", "businessanalyst"];
+const baPositions = ["ba", "businessanalyst", "phântíchnghiệpvụ"];
 
-const testerPositions = ["tester", "test"];
+const testerPositions = ["tester", "test", "kiểmthử"];
 
 /**
  * Determine the appropriate form type based on job position and manager status

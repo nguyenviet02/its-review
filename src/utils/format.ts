@@ -10,7 +10,9 @@ export const formatDataImportListManager = (dataFromExcel: any) => {
     const managerIds = [];
     const firstManagerId = item[2];
     const secondManagerId = item[4];
-    managerIds.push(firstManagerId);
+    if (firstManagerId) {
+      managerIds.push(firstManagerId);
+    }
     if (secondManagerId) {
       managerIds.push(secondManagerId);
     }
