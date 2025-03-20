@@ -47,6 +47,7 @@ const MultiInput = ({ disabled, name }: Props) => {
       })}
       <button
         className="w-fit shrink-0 rounded border border-black px-4 py-1"
+        disabled={disabled}
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
