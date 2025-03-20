@@ -112,7 +112,7 @@ const Employee = () => {
       align: "center",
       renderCell: (params: GridRenderCellParams) => {
         const status = params.row.status;
-        return <CurrentStatus currentStatus={status} />;
+        return <CurrentStatus currentStatus={status} />
       },
     },
     {

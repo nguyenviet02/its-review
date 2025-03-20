@@ -165,7 +165,7 @@ const DialogDataAssessmentPeriod = () => {
         const status = params.row.status;
         return (
           <div className="flex h-full items-center justify-center">
-            <CurrentStatus currentStatus={status} />;
+            <CurrentStatus currentStatus={status} />
           </div>
         );
       },

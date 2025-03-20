@@ -53,7 +53,7 @@ const DataReviewTable = ({ data }: Props) => {
       headerAlign: "center",
       align: "center",
       renderCell: (params: GridRenderCellParams) => {
-        return <CurrentStatus currentStatus={params.value} />;
+        return <CurrentStatus currentStatus={params.value} />
       },
     },
     {
