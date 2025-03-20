@@ -18,7 +18,7 @@ export enum FORM_TYPES {
   FOR_ITS_V1 = "self_review_its_v1",
   FOR_ITS_MANAGER_V1 = "manager_review_its_v1",
   FOR_TESTER_V1 = "self_review_tester_v1",
-	FOR_TESTER_MANAGER_V1 = "manager_review_tester_v1",
+  FOR_TESTER_MANAGER_V1 = "manager_review_tester_v1",
 }
 
 export interface IScoreScale {
@@ -42,6 +42,7 @@ export interface IField {
   description?: string;
   criterions: ICriterion[];
   isForManager?: boolean;
+  notForManager?: boolean;
 }
 
 export type TFormReview = IField[];

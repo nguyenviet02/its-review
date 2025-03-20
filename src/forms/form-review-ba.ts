@@ -300,7 +300,8 @@ Business Analysis Planning`,
 
   {
     number: "2",
-    title: "Ý kiến, đề xuất",
+    title: "Ý kiến, đề xuất của nhân viên",
+    notForManager: true,
     criterions: [
       {
         number: "2.1",

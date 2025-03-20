@@ -421,6 +421,7 @@ const formReviewTester: TFormReview = [
   {
     number: "6",
     title: "Ý kiến, đề xuất của nhân viên",
+    notForManager: true,
     criterions: [
       {
         number: "6.1",

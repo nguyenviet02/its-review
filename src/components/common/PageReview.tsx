@@ -145,7 +145,8 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
   );
 
   const listFields = useMemo(() => {
-    if (!!managerId) return fields;
+    if (!!managerId)
+      return fields.filter((field) => !!field?.notForManager === false);
     return fields.filter((field) => !!field?.isForManager === false);
   }, [fields, managerId]);
 
