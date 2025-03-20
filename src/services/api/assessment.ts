@@ -73,14 +73,14 @@ export const getListEmployeeOfAssessmentPeriod = async (
 };
 
 export const getMyListAssessmentPeriod = async (
-  iAssignedToReview: boolean,
+  assignedToReview: boolean,
   limit: number,
   page: number,
   order: string = "ASC",
 ) => {
   const { data } = await axiosInstance.get(`/api/v1/annual-reviews`, {
     params: {
-      iAssignedToReview: iAssignedToReview,
+      assignedToReview: assignedToReview,
       limit: limit,
       page: page + 1, // DataGrid page start from 0
       order: order,
