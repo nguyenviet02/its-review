@@ -358,6 +358,22 @@ Business Analysis Planning`,
       },
     ],
   },
+
+  // Tiêu chí 4
+  {
+    number: "4",
+    title: "Nhận xét, đánh giá của quản lý",
+    isForManager: true,
+    criterions: [
+      {
+        number: "4.1",
+        title: "Nhận xét, đánh giá thêm",
+        name: "comment",
+        type: FORM_FIELDS.TEXTAREA,
+        isRequired: true,
+      },
+    ],
+  },
 ];
 
 export default formReviewBA;

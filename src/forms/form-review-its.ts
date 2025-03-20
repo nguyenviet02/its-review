@@ -439,6 +439,22 @@ const formReviewITS: TFormReview = [
       },
     ],
   },
+
+  // Tiêu chí 7
+  {
+    number: "7",
+    title: "Nhận xét, đánh giá của quản lý",
+    isForManager: true,
+    criterions: [
+      {
+        number: "7.1",
+        title: "Nhận xét, đánh giá thêm",
+        name: "comment",
+        type: FORM_FIELDS.TEXTAREA,
+        isRequired: true,
+      },
+    ],
+  },
 ];
 
 export default formReviewITS;
