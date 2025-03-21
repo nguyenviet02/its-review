@@ -2,11 +2,7 @@
 
 import { getListAssessmentPeriod } from "@/services/api";
 import { formatDate } from "@/utils";
-import {
-  DataGrid,
-  GridColDef,
-  GridRowParams,
-} from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridRowParams } from "@mui/x-data-grid";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import ButtonImportDataAssessment from "./ButtonImportDataAssessment";
@@ -37,8 +33,7 @@ const DataTable = () => {
   );
   const rowCount = React.useMemo(() => {
     if (
-      listAssessmentPeriodQuery?.data?.pagination?.totalRecords !==
-      undefined
+      listAssessmentPeriodQuery?.data?.pagination?.totalRecords !== undefined
     ) {
       rowCountRef.current =
         listAssessmentPeriodQuery?.data?.pagination?.totalRecords;
@@ -87,6 +82,14 @@ const DataTable = () => {
     {
       field: "start",
       headerName: "Start time",
+      valueGetter: (value) => formatDate(value),
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "selfReviewEnd",
+      headerName: "Self review end time",
       valueGetter: (value) => formatDate(value),
       flex: 1,
       headerAlign: "center",
