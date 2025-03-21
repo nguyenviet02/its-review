@@ -132,6 +132,13 @@ const DialogDataAssessmentPeriod = () => {
       align: "center",
     },
     {
+      field: "result",
+      headerName: "Result",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
       field: "managerEmails",
       headerName: "Managers",
       flex: 1,
@@ -139,7 +146,7 @@ const DialogDataAssessmentPeriod = () => {
       align: "center",
       renderCell: (params: GridRenderCellParams) => {
         return (
-          <div className="flex justify-center flex-wrap gap-2">
+          <div className="flex flex-wrap justify-center gap-2">
             {params.value.map((email: string) => (
               <Tooltip key={email} title={email}>
                 <p>{getUsernameFromEmail(email)}</p>
