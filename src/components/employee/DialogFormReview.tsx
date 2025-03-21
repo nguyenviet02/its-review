@@ -213,6 +213,7 @@ const DialogFormReview = () => {
                     <PageReview
                       defaultValues={defaultValues || {}}
                       managerId={manager?.id}
+											isEmployeeSelfReview={!!getDataFormReviewQuery?.data?.form?.selfReview}
                       fields={selectedForm}
                     />
                   </TabPanel>

@@ -20,9 +20,15 @@ type Props = {
   defaultValues?: any;
   managerId?: string;
   fields: IField[];
+  isEmployeeSelfReview?: boolean;
 };
 
-const PageReview = ({ managerId, defaultValues, fields }: Props) => {
+const PageReview = ({
+  managerId,
+  defaultValues,
+  fields,
+  isEmployeeSelfReview,
+}: Props) => {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const session = useSession();
   const queryClient = useQueryClient();
@@ -153,9 +159,12 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
   const isAllowEditAndSubmit = useMemo(() => {
     return (
       session?.data?.user?.id === userId ||
-      managerId === session?.data?.user?.id
+      (managerId === session?.data?.user?.id && isEmployeeSelfReview)
     );
-  }, [managerId, session?.data?.user?.id, userId]);
+  }, [managerId, session?.data?.user?.id, userId, isEmployeeSelfReview]);
+
+  // Show manager review notification when viewing as manager and employee has submitted a self-review
+  const showManagerReviewNotice = managerId && managerId === session?.data?.user?.id && !isEmployeeSelfReview;
 
   useEffect(() => {
     if (!defaultValues) return;
@@ -165,6 +174,14 @@ const PageReview = ({ managerId, defaultValues, fields }: Props) => {
   return (
     <FormProvider {...formMethods}>
       <form onSubmit={formMethods.handleSubmit(onSubmit)} className="relative">
+        {showManagerReviewNotice && (
+          <div className="mb-4 rounded-lg bg-blue-50 p-4 text-blue-800 shadow">
+            <h3 className="mb-1 font-medium">Employee Self Review Required</h3>
+            <p className="text-sm">
+              You are reviewing this employee as a manager. But the employee has not submitted a self-review yet. Please ask the employee to submit a self-review first.
+            </p>
+          </div>
+        )}
         <div className="flex flex-col gap-4">
           {listFields.map((field: IField) => {
             return (

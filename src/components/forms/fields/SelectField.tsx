@@ -32,7 +32,24 @@ function SelectField({ disabled, name, scoreScale, isRequired }: SelectFieldProp
                   MenuProps={{ className: "w-[200px]" }}
                   disabled={disabled}
                   defaultValue=""
-                  className="w-full appearance-none text-wrap bg-transparent disabled:cursor-not-allowed"
+                  className="w-full appearance-none text-wrap bg-transparent"
+                  sx={{
+                    '&.Mui-disabled': {
+                      '& .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'rgba(0, 0, 0, 0.26)'
+                      },
+                      '& .MuiSelect-select': {
+                        color: 'rgba(0, 0, 0, 0.38)',
+                        WebkitTextFillColor: 'rgba(0, 0, 0, 0.38)',
+                        cursor: 'not-allowed !important'
+                      },
+                      '& .MuiInputBase-input': {
+                        cursor: 'not-allowed !important'
+                      },
+                      opacity: 0.7,
+                      cursor: 'not-allowed !important'
+                    },
+                  }}
                   {...field}
                 >
                   <MenuItem value={""} disabled>
