@@ -36,7 +36,6 @@ const NotificationPopup = () => {
     queryFn: getNotification,
     staleTime: 1000 * 60 * 5, // 5 minutes
     refetchInterval: 1000 * 60 * 5, // 5 minutes
-    throwOnError: true,
   });
 
   useEffect(() => {
