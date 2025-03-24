@@ -200,6 +200,7 @@ const DialogDataAssessmentPeriod = () => {
       aria-describedby="alert-dialog-description"
       fullWidth
       maxWidth="xl"
+      closeAfterTransition={false}
     >
       <DialogTitle id="alert-dialog-title" className="text-3xl font-bold">
         {assessmentPeriodName}

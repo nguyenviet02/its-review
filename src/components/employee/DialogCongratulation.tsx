@@ -24,6 +24,7 @@ const DialogCongratulation = () => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
       fullWidth
+      closeAfterTransition={false}
     >
       <DialogTitle id="alert-dialog-title" className="text-3xl font-bold">
         {dialogTitle}
@@ -47,10 +48,7 @@ const DialogCongratulation = () => {
           padding: "1rem",
         }}
       >
-        <Button
-          onClick={handleClose}
-          className="button-primary"
-        >
+        <Button onClick={handleClose} className="button-primary">
           Close
         </Button>
       </DialogActions>
