@@ -30,10 +30,11 @@ const ButtonExportDataAssessment = ({
   return (
     <Button
       type="button"
-      className="flex cursor-pointer items-center justify-center rounded border border-black p-2"
+      className="bg-primary flex cursor-pointer items-center justify-center gap-2 rounded-md"
       onClick={handleExport}
     >
       <ArrowDownTrayIcon className="size-5" />
+      Export Data
     </Button>
   );
 };

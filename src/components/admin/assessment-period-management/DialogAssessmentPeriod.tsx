@@ -1,4 +1,6 @@
-import { IAssessmentPeriod } from "@/types";
+"use client";
+
+import { IAssessmentPeriod, IUpdateAssessmentPeriodPayload } from "@/types";
 import { Button, Field, Input, Label } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
@@ -8,25 +10,39 @@ import {
   DialogContent,
   DialogActions,
 } from "@mui/material";
-import React from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import React, { useEffect } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { Controller } from "react-hook-form";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import dayjs from "dayjs";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createAssessmentPeriod } from "@/services/api";
+import { 
+  createAssessmentPeriod, 
+  updateAssessmentPeriod 
+} from "@/services/api";
 import { toast } from "react-toastify";
-import { useCreateAssessmentPeriodDialogStore } from "@/store";
+import { useAssessmentPeriodDialogStore } from "@/store";
 import ErrorMessage from "@/components/forms/ErrorMessage";
 
-const DialogCreateAssessmentPeriod = () => {
+/**
+ * Dialog component for creating and editing assessment periods
+ * Uses a unified store for both operations
+ */
+const DialogAssessmentPeriod = () => {
   const queryClient = useQueryClient();
-  const dialogState = useCreateAssessmentPeriodDialogStore(
-    (store) => store.isOpen,
-  );
-  const handleClose = useCreateAssessmentPeriodDialogStore(
-    (store) => store.closeDialog,
-  );
+  
+  // Unified dialog state
+  const {
+    isOpen: dialogOpen,
+    mode,
+    assessmentPeriod,
+    closeDialog
+  } = useAssessmentPeriodDialogStore();
+  
+  // Determine if dialog is in edit mode
+  const isEditMode = mode === 'edit';
 
+  // Mutations
   const createAssessmentPeriodMutation = useMutation({
     mutationFn: createAssessmentPeriod,
     onSuccess: async () => {
@@ -36,11 +52,28 @@ const DialogCreateAssessmentPeriod = () => {
         queryKey: ["organization-listAssessmentPeriod"],
         refetchType: "active",
       });
-      handleClose();
+      closeDialog();
     },
     onError: (error) => {
       toast.dismiss();
-      toast.error("Create new assessment period failed" + error.message);
+      toast.error("Create new assessment period failed: " + error.message);
+    },
+  });
+
+  const updateAssessmentPeriodMutation = useMutation({
+    mutationFn: (payload: IUpdateAssessmentPeriodPayload) => updateAssessmentPeriod(payload),
+    onSuccess: async () => {
+      toast.dismiss();
+      toast.success("Update assessment period successfully");
+      queryClient.invalidateQueries({
+        queryKey: ["organization-listAssessmentPeriod"],
+        refetchType: "active",
+      });
+      closeDialog();
+    },
+    onError: (error) => {
+      toast.dismiss();
+      toast.error("Update assessment period failed: " + error.message);
     },
   });
 
@@ -49,6 +82,7 @@ const DialogCreateAssessmentPeriod = () => {
     control,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm<IAssessmentPeriod>({
     defaultValues: {
@@ -59,37 +93,76 @@ const DialogCreateAssessmentPeriod = () => {
     },
   });
 
+  // Load form data when assessment period changes in edit mode
+  useEffect(() => {
+    if (isEditMode && assessmentPeriod) {
+      reset({
+        title: assessmentPeriod.title,
+        start: assessmentPeriod.start ? new Date(assessmentPeriod.start) : null,
+        selfReviewEnd: assessmentPeriod.selfReviewEnd ? new Date(assessmentPeriod.selfReviewEnd) : null,
+        end: assessmentPeriod.end ? new Date(assessmentPeriod.end) : null,
+      });
+    } else if (!isEditMode) {
+      // Reset form when in create mode
+      reset({
+        title: "",
+        start: null as Date | null,
+        end: null as Date | null,
+        selfReviewEnd: null as Date | null,
+      });
+    }
+  }, [assessmentPeriod, isEditMode, reset]);
+
   // Watch all date fields for validation
   const startDate = watch("start");
   const selfReviewEndDate = watch("selfReviewEnd");
   const endDate = watch("end");
 
   const onSubmit: SubmitHandler<IAssessmentPeriod> = (data) => {
-    toast.loading("Creating new assessment period...");
-    const payload = {
-      ...data,
-      start: dayjs(data.start).toDate(),
-      end: dayjs(data.end).toDate(),
-      organizationId: 1,
-    };
-    createAssessmentPeriodMutation.mutate(payload);
+    if (isEditMode) {
+      // Update existing assessment period
+      if (!assessmentPeriod?.id) return;
+      
+      toast.loading("Updating assessment period...");
+      const payload: IUpdateAssessmentPeriodPayload = {
+        id: assessmentPeriod.id,
+        ...data,
+        start: dayjs(data.start).toDate(),
+        end: dayjs(data.end).toDate(),
+        selfReviewEnd: dayjs(data.selfReviewEnd).toDate(),
+        organizationId: 1,
+      };
+      updateAssessmentPeriodMutation.mutate(payload);
+    } else {
+      // Create new assessment period
+      toast.loading("Creating new assessment period...");
+      const payload = {
+        ...data,
+        start: dayjs(data.start).toDate(),
+        end: dayjs(data.end).toDate(),
+        selfReviewEnd: dayjs(data.selfReviewEnd).toDate(),
+        organizationId: 1,
+      };
+      createAssessmentPeriodMutation.mutate(payload);
+    }
   };
 
   return (
     <Dialog
-      open={dialogState}
-      onClose={handleClose}
+      open={dialogOpen}
+      onClose={closeDialog}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
       fullWidth
       maxWidth="sm"
+			closeAfterTransition={false}
     >
       <DialogTitle id="alert-dialog-title" className="text-3xl font-bold">
-        Create New Assessment Period
+        {isEditMode ? "Edit Assessment Period" : "Create New Assessment Period"}
       </DialogTitle>
       <IconButton
         aria-label="close"
-        onClick={handleClose}
+        onClick={closeDialog}
         sx={(theme) => ({
           position: "absolute",
           right: 8,
@@ -136,7 +209,7 @@ const DialogCreateAssessmentPeriod = () => {
               render={({ field }) => {
                 return (
                   <DateTimePicker
-                    value={dayjs(field.value)}
+                    value={field.value ? dayjs(field.value) : null}
                     format="DD/MM/YYYY HH:mm"
                     onChange={(date) => {
                       field.onChange(date);
@@ -176,7 +249,7 @@ const DialogCreateAssessmentPeriod = () => {
               render={({ field }) => {
                 return (
                   <DateTimePicker
-                    value={dayjs(field.value)}
+                    value={field.value ? dayjs(field.value) : null}
                     format="DD/MM/YYYY HH:mm"
                     onChange={(date) => {
                       field.onChange(date);
@@ -216,7 +289,7 @@ const DialogCreateAssessmentPeriod = () => {
               render={({ field }) => {
                 return (
                   <DateTimePicker
-                    value={dayjs(field.value)}
+                    value={field.value ? dayjs(field.value) : null}
                     format="DD/MM/YYYY HH:mm"
                     onChange={(date) => {
                       field.onChange(date);
@@ -247,15 +320,19 @@ const DialogCreateAssessmentPeriod = () => {
         }}
       >
         <Button
-          disabled={createAssessmentPeriodMutation?.isPending}
+          disabled={isEditMode 
+            ? updateAssessmentPeriodMutation?.isPending 
+            : createAssessmentPeriodMutation?.isPending}
           onClick={handleSubmit(onSubmit)}
           className="button-primary"
         >
-          {createAssessmentPeriodMutation.isPending ? "Creating..." : "Create"}
+          {isEditMode 
+            ? (updateAssessmentPeriodMutation.isPending ? "Updating..." : "Update")
+            : (createAssessmentPeriodMutation.isPending ? "Creating..." : "Create")}
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-export default DialogCreateAssessmentPeriod;
+export default DialogAssessmentPeriod; 

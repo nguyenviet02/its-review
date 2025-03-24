@@ -16,7 +16,10 @@ export interface IAssessmentPeriod {
   start: Date | null;
   end: Date | null;
   selfReviewEnd: Date | null;
-  managerReviewEnd: Date | null;
+}
+
+export interface IUpdateAssessmentPeriodPayload extends IAssessmentPeriod {
+  id: number;
 }
 
 export interface IAssessmentPeriodResponseAPI extends IAssessmentPeriod {
@@ -58,8 +61,8 @@ export interface IReviewStatusRatio {
 }
 
 export interface IDashboardData {
-	employeeInAnnualReviewCount: number;
-	userCount: number;
+  employeeInAnnualReviewCount: number;
+  userCount: number;
   reviewCountByDepartment: IDepartmentReviewCount[];
   reviewStatusRatio: IReviewStatusRatio;
 }

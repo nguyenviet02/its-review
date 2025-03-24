@@ -62,16 +62,17 @@ const ButtonImportDataAssessment = ({ assessmentPeriodId }: Props) => {
   return (
     <label
       htmlFor={`import-excel-${assessmentPeriodId}`}
-      className="flex cursor-pointer items-center justify-center rounded border border-black p-2"
+      className="bg-primary flex cursor-pointer items-center justify-center gap-2 rounded-md"
     >
       <ArrowUpTrayIcon className="size-5" />
       <input
         type="file"
         ref={inputRef}
-        className="h-0 w-0 opacity-0"
+        className="h-0 w-0 opacity-0 hidden"
         id={`import-excel-${assessmentPeriodId}`}
         onChange={handleFileAsync}
       />
+      Import Data
     </label>
   );
 };

@@ -1,8 +1,8 @@
 "use client";
 
-import DialogCreateAssessmentPeriod from "@/components/admin/assessment-period-management/DialogCreateAssessmentPeriod";
 import DialogDataAssessmentPeriod from "@/components/admin/assessment-period-management/DialogDataAssessmentPeriod";
 import DialogEmployeeInfo from "@/components/admin/employee-management/DialogEmployeeInfo";
+import DialogAssessmentPeriod from "@/components/admin/assessment-period-management/DialogAssessmentPeriod";
 import Header from "@/components/layout/Header";
 import Sidebar from "@/components/layout/Sidebar";
 import { ROLES } from "@/types";
@@ -28,8 +28,8 @@ export default function SuperAdminLayout({
         </main>
       </div>
       <DialogEmployeeInfo />
-      <DialogCreateAssessmentPeriod />
-			<DialogDataAssessmentPeriod />
+      <DialogDataAssessmentPeriod />
+      <DialogAssessmentPeriod />
     </>
   );
 }

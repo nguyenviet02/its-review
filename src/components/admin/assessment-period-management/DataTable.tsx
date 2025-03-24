@@ -6,10 +6,15 @@ import { DataGrid, GridColDef, GridRowParams } from "@mui/x-data-grid";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import ButtonImportDataAssessment from "./ButtonImportDataAssessment";
-import { EyeIcon } from "@heroicons/react/24/outline";
-import { Tooltip } from "@mui/material";
+import { EyeIcon, PencilIcon } from "@heroicons/react/24/outline";
+import { Menu, MenuItem, IconButton } from "@mui/material";
 import ButtonExportDataAssessment from "./ButtonExportDataAssessment";
-import { useDataAssessmentPeriodDialogStore } from "@/store";
+import { 
+  useDataAssessmentPeriodDialogStore, 
+  useAssessmentPeriodDialogStore 
+} from "@/store";
+import { EllipsisVerticalIcon } from "@heroicons/react/24/solid";
+import { IAssessmentPeriodResponseAPI } from "@/types";
 
 const DataTable = () => {
   // Pagination DataGrid
@@ -17,6 +22,19 @@ const DataTable = () => {
     pageSize: 10,
     page: 0,
   });
+
+  // Menu state for dropdown
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [selectedRow, setSelectedRow] = React.useState<IAssessmentPeriodResponseAPI | null>(null);
+  
+  const handleOpenMenu = (event: React.MouseEvent<HTMLElement>, row: IAssessmentPeriodResponseAPI) => {
+    setAnchorEl(event.currentTarget);
+    setSelectedRow(row);
+  };
+  
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
 
   // Query get list user
   const listAssessmentPeriodQuery = useQuery({
@@ -46,16 +64,22 @@ const DataTable = () => {
     return <div>Detail</div>;
   }, []);
 
+  // Data view dialog
   const openDialogDataAssessmentPeriod = useDataAssessmentPeriodDialogStore(
-    (store) => store.openDialog,
+    (state) => state.openDialog,
   );
 
   const setAssessmentPeriodId = useDataAssessmentPeriodDialogStore(
-    (store) => store.setAssessmentPeriodId,
+    (state) => state.setAssessmentPeriodId,
   );
 
   const setAsessmentPeriodName = useDataAssessmentPeriodDialogStore(
-    (store) => store.setAssessmentPeriodName,
+    (state) => state.setAssessmentPeriodName,
+  );
+  
+  // Unified create/edit dialog store
+  const openEditDialog = useAssessmentPeriodDialogStore(
+    (state) => state.openEditDialog
   );
 
   const handleOpenDialogShowData = (id: number, name: string) => [
@@ -63,6 +87,11 @@ const DataTable = () => {
     setAssessmentPeriodId(id),
     setAsessmentPeriodName(name),
   ];
+  
+  const handleOpenEditDialog = (row: IAssessmentPeriodResponseAPI) => {
+    openEditDialog(row);
+    handleCloseMenu();
+  };
 
   // Define columns
   const columns: GridColDef[] = [
@@ -111,32 +140,50 @@ const DataTable = () => {
       flex: 1,
       renderCell: (params) => {
         return (
-          <div className="flex h-full items-center justify-center gap-2">
-            <Tooltip title="View detail" arrow>
-              <button
-                onClick={() =>
-                  handleOpenDialogShowData(params.row.id, params.row.title)
-                }
-                className="rounded border border-black p-2 text-black"
-              >
-                <EyeIcon className="h-5 w-5" />
-              </button>
-            </Tooltip>
-            <Tooltip title="Import" arrow>
-              <div>
-                <ButtonImportDataAssessment
-                  assessmentPeriodId={params.row.id}
-                />
-              </div>
-            </Tooltip>
-            <Tooltip title="Export" arrow>
-              <div>
-                <ButtonExportDataAssessment
-                  assessmentPeriodId={params.row.id}
-                  assessmentPeriodTitle={params.row.title}
-                />
-              </div>
-            </Tooltip>
+          <div className="flex h-full items-center justify-center">
+            <IconButton onClick={(e) => handleOpenMenu(e, params.row)}>
+              <EllipsisVerticalIcon className="h-5 w-5" />
+            </IconButton>
+            
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl) && selectedRow?.id === params.row.id}
+              onClose={handleCloseMenu}
+            >
+              <MenuItem onClick={() => {
+                handleOpenDialogShowData(params.row.id, params.row.title);
+                handleCloseMenu();
+              }}>
+                <span className="flex items-center gap-2">
+                  <EyeIcon className="h-5 w-5" />
+                  View Detail
+                </span>
+              </MenuItem>
+              
+              <MenuItem onClick={() => handleOpenEditDialog(params.row)}>
+                <span className="flex items-center gap-2">
+                  <PencilIcon className="h-5 w-5" />
+                  Edit
+                </span>
+              </MenuItem>
+              
+              <MenuItem>
+                <span className="flex items-center gap-2">
+                  <ButtonImportDataAssessment
+                    assessmentPeriodId={params.row.id}
+                  />
+                </span>
+              </MenuItem>
+              
+              <MenuItem>
+                <span className="flex items-center gap-2">
+                  <ButtonExportDataAssessment
+                    assessmentPeriodId={params.row.id}
+                    assessmentPeriodTitle={params.row.title}
+                  />
+                </span>
+              </MenuItem>
+            </Menu>
           </div>
         );
       },

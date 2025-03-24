@@ -1,4 +1,4 @@
-import { IAssessmentPeriod, IAssessmentPeriodImportData } from "@/types";
+import { IAssessmentPeriod, IAssessmentPeriodImportData, IUpdateAssessmentPeriodPayload } from "@/types";
 import axiosInstance from "./axiosInstance";
 
 // POST
@@ -30,6 +30,16 @@ export const submitDataFormReview = async (
   const res = await axiosInstance.post(
     `/api/v1/annual-reviews/${assessmentPeriodId}/employees/${employeeId}/reviews`,
     data,
+  );
+  return res;
+};
+
+// PATCH
+export const updateAssessmentPeriod = async (payload: IUpdateAssessmentPeriodPayload) => {
+  const { id, ...data } = payload;
+  const res = await axiosInstance.patch(
+    `/api/v1/organizations/annual-reviews/${id}`,
+    data
   );
   return res;
 };

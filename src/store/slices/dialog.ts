@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { IEmployee, TSummaryInfoData, TSummaryInfoState } from "@/types";
+import { IEmployee, TSummaryInfoData, TSummaryInfoState, IAssessmentPeriodResponseAPI } from "@/types";
 
 // Default states
 export const employeeDialogSummaryInfoDefaultState: TSummaryInfoState = {
@@ -44,6 +44,16 @@ interface IDataAssessmentPeriodDialogStore extends IDialogBase {
   assessmentPeriodName: string;
   setAssessmentPeriodId: (id: number) => void;
   setAssessmentPeriodName: (name: string) => void;
+}
+
+// Combined assessment period dialog store for both create and edit operations
+interface IAssessmentPeriodDialogStore extends IDialogBase {
+  mode: 'create' | 'edit';
+  assessmentPeriod: IAssessmentPeriodResponseAPI | null;
+  setMode: (mode: 'create' | 'edit') => void;
+  setAssessmentPeriod: (assessmentPeriod: IAssessmentPeriodResponseAPI | null) => void;
+  openCreateDialog: () => void;
+  openEditDialog: (assessmentPeriod: IAssessmentPeriodResponseAPI) => void;
 }
 
 // Default data for employee info dialog
@@ -113,9 +123,29 @@ export const useDataAssessmentPeriodDialogStore =
       set({ assessmentPeriodName: name }),
   }));
 
-export const useCreateAssessmentPeriodDialogStore =
-  create<IDialogBase>((set) => ({
+// Combined store for assessment period create/edit operations
+export const useAssessmentPeriodDialogStore =
+  create<IAssessmentPeriodDialogStore>((set) => ({
     isOpen: false,
+    mode: 'create',
+    assessmentPeriod: null,
     openDialog: () => set({ isOpen: true }),
-    closeDialog: () => set({ isOpen: false }),
+    closeDialog: () => set({ 
+      isOpen: false,
+      // Reset assessment period data when closing
+      assessmentPeriod: null
+    }),
+    setMode: (mode: 'create' | 'edit') => set({ mode }),
+    setAssessmentPeriod: (assessmentPeriod: IAssessmentPeriodResponseAPI | null) => 
+      set({ assessmentPeriod }),
+    openCreateDialog: () => set({ 
+      isOpen: true, 
+      mode: 'create',
+      assessmentPeriod: null
+    }),
+    openEditDialog: (assessmentPeriod: IAssessmentPeriodResponseAPI) => set({ 
+      isOpen: true, 
+      mode: 'edit',
+      assessmentPeriod
+    }),
   }));
