@@ -21,9 +21,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
 const DialogDataAssessmentPeriod = () => {
-  const dialogState = useDataAssessmentPeriodDialogStore(
-    (store) => store.isOpen,
-  );
+  const isOpen = useDataAssessmentPeriodDialogStore((store) => store.isOpen);
   const handleClose = useDataAssessmentPeriodDialogStore(
     (store) => store.closeDialog,
   );
@@ -44,6 +42,7 @@ const DialogDataAssessmentPeriod = () => {
     queryKey: [
       "organization-listEmployeeOfAssessmentPeriod",
       assessmentPeriodId,
+      isOpen,
     ],
     queryFn: () =>
       getListEmployeeOfAssessmentPeriod(
@@ -52,7 +51,7 @@ const DialogDataAssessmentPeriod = () => {
         paginationModel.page,
       ),
     refetchOnWindowFocus: false,
-    enabled: !!assessmentPeriodId,
+    enabled: !!assessmentPeriodId && isOpen,
   });
   const listEmployee = listEmployeeOfAssessmentPeriodQuery?.data?.data;
 
@@ -160,7 +159,7 @@ const DialogDataAssessmentPeriod = () => {
 
   return (
     <Dialog
-      open={dialogState}
+      open={isOpen}
       onClose={handleClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"

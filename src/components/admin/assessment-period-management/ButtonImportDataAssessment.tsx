@@ -3,7 +3,7 @@
 import React from "react";
 import * as XLSX from "xlsx";
 import { formatDataImportListManager } from "@/utils";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { importAssessmentPeriodData } from "@/services/api";
 import { IAssessmentPeriodImportData } from "@/types";
 import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
@@ -15,6 +15,7 @@ type Props = {
 
 const ButtonImportDataAssessment = ({ assessmentPeriodId }: Props) => {
   const inputRef = React.useRef<HTMLInputElement>(null);
+  const queryClient = useQueryClient();
   const importAssessmentPeriodDataMutation = useMutation({
     mutationFn: ({
       id,
@@ -27,6 +28,9 @@ const ButtonImportDataAssessment = ({ assessmentPeriodId }: Props) => {
       toast.dismiss();
       toast.success("Import data successfully");
       if (inputRef.current) inputRef.current.value = ""; // Reset the input value
+      queryClient.invalidateQueries({
+        queryKey: ["organization-listAssessmentPeriod"],
+      });
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (error: any) => {
@@ -68,7 +72,7 @@ const ButtonImportDataAssessment = ({ assessmentPeriodId }: Props) => {
       <input
         type="file"
         ref={inputRef}
-        className="h-0 w-0 opacity-0 hidden"
+        className="hidden h-0 w-0 opacity-0"
         id={`import-excel-${assessmentPeriodId}`}
         onChange={handleFileAsync}
       />
