@@ -103,6 +103,13 @@ const ReviewEmployee = () => {
       align: "center",
     },
     {
+      field: "extendTime",
+      headerName: "Extend Time",
+      headerAlign: "center",
+      align: "center",
+      valueGetter: (value) => (value ? formatDate(value) : ""),
+    },
+    {
       field: "action",
       headerName: "Actions",
       headerAlign: "center",

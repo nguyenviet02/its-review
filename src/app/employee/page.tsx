@@ -105,6 +105,13 @@ const Employee = () => {
       align: "center",
     },
     {
+      field: "extendTime",
+      headerName: "Extend Time",
+      headerAlign: "center",
+      align: "center",
+      valueGetter: (value) => (value ? formatDate(value) : ""),
+    },
+    {
       field: "status",
       headerName: "Status",
       flex: 1,
@@ -112,7 +119,7 @@ const Employee = () => {
       align: "center",
       renderCell: (params: GridRenderCellParams) => {
         const status = params.row.status;
-        return <CurrentStatus currentStatus={status} />
+        return <CurrentStatus currentStatus={status} />;
       },
     },
     {
