@@ -16,10 +16,7 @@ import { Controller } from "react-hook-form";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import dayjs from "dayjs";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { 
-  createAssessmentPeriod, 
-  updateAssessmentPeriod 
-} from "@/services/api";
+import { createAssessmentPeriod, updateAssessmentPeriod } from "@/services/api";
 import { toast } from "react-toastify";
 import { useAssessmentPeriodDialogStore } from "@/store";
 import ErrorMessage from "@/components/forms/ErrorMessage";
@@ -30,17 +27,17 @@ import ErrorMessage from "@/components/forms/ErrorMessage";
  */
 const DialogAssessmentPeriod = () => {
   const queryClient = useQueryClient();
-  
+
   // Unified dialog state
   const {
     isOpen: dialogOpen,
     mode,
     assessmentPeriod,
-    closeDialog
+    closeDialog,
   } = useAssessmentPeriodDialogStore();
-  
+
   // Determine if dialog is in edit mode
-  const isEditMode = mode === 'edit';
+  const isEditMode = mode === "edit";
 
   // Mutations
   const createAssessmentPeriodMutation = useMutation({
@@ -61,7 +58,8 @@ const DialogAssessmentPeriod = () => {
   });
 
   const updateAssessmentPeriodMutation = useMutation({
-    mutationFn: (payload: IUpdateAssessmentPeriodPayload) => updateAssessmentPeriod(payload),
+    mutationFn: (payload: IUpdateAssessmentPeriodPayload) =>
+      updateAssessmentPeriod(payload),
     onSuccess: async () => {
       toast.dismiss();
       toast.success("Update assessment period successfully");
@@ -99,7 +97,9 @@ const DialogAssessmentPeriod = () => {
       reset({
         title: assessmentPeriod.title,
         start: assessmentPeriod.start ? new Date(assessmentPeriod.start) : null,
-        selfReviewEnd: assessmentPeriod.selfReviewEnd ? new Date(assessmentPeriod.selfReviewEnd) : null,
+        selfReviewEnd: assessmentPeriod.selfReviewEnd
+          ? new Date(assessmentPeriod.selfReviewEnd)
+          : null,
         end: assessmentPeriod.end ? new Date(assessmentPeriod.end) : null,
       });
     } else if (!isEditMode) {
@@ -122,7 +122,7 @@ const DialogAssessmentPeriod = () => {
     if (isEditMode) {
       // Update existing assessment period
       if (!assessmentPeriod?.id) return;
-      
+
       toast.loading("Updating assessment period...");
       const payload: IUpdateAssessmentPeriodPayload = {
         id: assessmentPeriod.id,
@@ -155,7 +155,7 @@ const DialogAssessmentPeriod = () => {
       aria-describedby="alert-dialog-description"
       fullWidth
       maxWidth="sm"
-			closeAfterTransition={false}
+      closeAfterTransition={false}
     >
       <DialogTitle id="alert-dialog-title" className="text-3xl font-bold">
         {isEditMode ? "Edit Assessment Period" : "Create New Assessment Period"}
@@ -194,17 +194,25 @@ const DialogAssessmentPeriod = () => {
               name="start"
               rules={{
                 required: "This field is required",
-                validate: {
-                  notBeforeSelfReview: (value) =>
-                    !value ||
-                    !selfReviewEndDate ||
-                    dayjs(value).isBefore(dayjs(selfReviewEndDate)) ||
-                    "Start time must be before self review end time",
-                  notBeforeToday: (value) =>
-                    !value ||
-                    dayjs(value).isAfter(dayjs().subtract(1, "day")) ||
-                    "Start time must be today or later",
-                },
+                validate: isEditMode
+                  ? {
+                      notBeforeSelfReview: (value) =>
+                        !value ||
+                        !selfReviewEndDate ||
+                        dayjs(value).isBefore(dayjs(selfReviewEndDate)) ||
+                        "Start time must be before self review end time",
+                    }
+                  : {
+                      notBeforeSelfReview: (value) =>
+                        !value ||
+                        !selfReviewEndDate ||
+                        dayjs(value).isBefore(dayjs(selfReviewEndDate)) ||
+                        "Start time must be before self review end time",
+                      notBeforeToday: (value) =>
+                        !value ||
+                        dayjs(value).isAfter(dayjs().subtract(1, "day")) ||
+                        "Start time must be today or later",
+                    },
               }}
               render={({ field }) => {
                 return (
@@ -320,19 +328,25 @@ const DialogAssessmentPeriod = () => {
         }}
       >
         <Button
-          disabled={isEditMode 
-            ? updateAssessmentPeriodMutation?.isPending 
-            : createAssessmentPeriodMutation?.isPending}
+          disabled={
+            isEditMode
+              ? updateAssessmentPeriodMutation?.isPending
+              : createAssessmentPeriodMutation?.isPending
+          }
           onClick={handleSubmit(onSubmit)}
           className="button-primary"
         >
-          {isEditMode 
-            ? (updateAssessmentPeriodMutation.isPending ? "Updating..." : "Update")
-            : (createAssessmentPeriodMutation.isPending ? "Creating..." : "Create")}
+          {isEditMode
+            ? updateAssessmentPeriodMutation.isPending
+              ? "Updating..."
+              : "Update"
+            : createAssessmentPeriodMutation.isPending
+              ? "Creating..."
+              : "Create"}
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-export default DialogAssessmentPeriod; 
+export default DialogAssessmentPeriod;

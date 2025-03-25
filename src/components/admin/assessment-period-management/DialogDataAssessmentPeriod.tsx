@@ -1,7 +1,12 @@
 import CurrentStatus from "@/components/data-grid/CurrentStatus";
 import { getListEmployeeOfAssessmentPeriod } from "@/services/api";
-import { useDataAssessmentPeriodDialogStore } from "@/store";
+import {
+  useDataAssessmentPeriodDialogStore,
+  useExtendTimeDialogStore,
+} from "@/store";
+import { formatDate } from "@/utils";
 import { getUsernameFromEmail } from "@/utils/format";
+import { Button } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   Dialog,
@@ -69,6 +74,15 @@ const DialogDataAssessmentPeriod = () => {
     }
     return rowCountRef.current;
   }, [listEmployeeOfAssessmentPeriodQuery?.data?.pagination?.totalRecords]);
+
+  // Handle open dialog extend time
+  const openDialogExtendTime = useExtendTimeDialogStore(
+    (store) => store.openDialog,
+  );
+  const handleOpenExtendTime = (employeeId: string) => {
+    const managerId = "";
+    openDialogExtendTime(employeeId, managerId, assessmentPeriodId as number);
+  };
 
   // Define columns
   const columns: GridColDef[] = [
@@ -152,6 +166,30 @@ const DialogDataAssessmentPeriod = () => {
               </Tooltip>
             ))}
           </div>
+        );
+      },
+    },
+    {
+      field: "extendTime",
+      headerName: "Extend Time",
+      headerAlign: "center",
+      align: "center",
+      valueGetter: (value) => (value ? formatDate(value) : ""),
+    },
+    {
+      field: "action",
+      headerName: "Action",
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+      renderCell: (params: GridRenderCellParams) => {
+        return (
+          <Button
+            onClick={() => handleOpenExtendTime(params.id.toString())}
+            className="button-secondary rounded"
+          >
+            Extend Time
+          </Button>
         );
       },
     },

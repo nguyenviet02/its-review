@@ -1,6 +1,8 @@
 import CurrentStatus from "@/components/data-grid/CurrentStatus";
 import { getListManagerOfAssessmentPeriod } from "@/services/api";
-import { useDialogListManagerStore } from "@/store";
+import { useDialogListManagerStore, useExtendTimeDialogStore } from "@/store";
+import { formatDate } from "@/utils";
+import { Button } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   Dialog,
@@ -67,6 +69,15 @@ const DialogListManager = () => {
     return rowCountRef.current;
   }, [listManagerOfAssessmentPeriodQuery?.data?.pagination?.totalRecords]);
 
+  // Handle open dialog extend time
+  const openDialogExtendTime = useExtendTimeDialogStore(
+    (store) => store.openDialog,
+  );
+  const handleOpenExtendTime = (managerId: string) => {
+    const employeeId = "";
+    openDialogExtendTime(employeeId, managerId, assessmentPeriodId as number);
+  };
+
   // Define columns
   const columns: GridColDef[] = [
     {
@@ -118,11 +129,28 @@ const DialogListManager = () => {
       align: "center",
     },
     {
-      field: "result",
-      headerName: "Result",
-      flex: 1,
+      field: "extendTime",
+      headerName: "Extend Time",
       headerAlign: "center",
       align: "center",
+      valueGetter: (value) => (value ? formatDate(value) : ""),
+    },
+    {
+      field: "action",
+      headerName: "Action",
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+      renderCell: (params: GridRenderCellParams) => {
+        return (
+          <Button
+            onClick={() => handleOpenExtendTime(params.id.toString())}
+            className="button-secondary rounded"
+          >
+            Extend Time
+          </Button>
+        );
+      },
     },
   ];
 

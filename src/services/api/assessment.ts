@@ -175,19 +175,19 @@ export const exportDataAssessmentPeriodById = async (
   return data;
 };
 
-export const extendTimeForUser = async (
-  assessmentPeriodId: number,
-  employeeId: string,
-  managerId: string,
-  extendTime: Date,
-) => {
+export const extendTimeForUser = async (payload: {
+  assessmentPeriodId: number;
+  employeeId?: string;
+  managerId?: string;
+  extendTime: Date;
+}) => {
   const body = {
-    employeeId: employeeId,
-    managerId: managerId,
-    extendTime: extendTime,
+    employeeId: payload.employeeId,
+    managerId: payload.managerId,
+    extendTime: payload.extendTime,
   };
   const { data } = await axiosInstance.post(
-    `/api/v1/organizations/annual-reviews/${assessmentPeriodId}/extend-time`,
+    `/api/v1/organizations/annual-reviews/${payload.assessmentPeriodId}/extend-time`,
     body,
   );
   return data;

@@ -8,6 +8,7 @@ import Sidebar from "@/components/layout/Sidebar";
 import { ROLES } from "@/types";
 import { useState } from "react";
 import DialogListManager from "@/components/admin/assessment-period-management/DialogListManager";
+import DialogExtendTime from "@/components/admin/assessment-period-management/DialogExtendTime";
 
 export default function SuperAdminLayout({
   children,
@@ -32,6 +33,7 @@ export default function SuperAdminLayout({
       <DialogDataAssessmentPeriod />
       <DialogAssessmentPeriod />
       <DialogListManager />
+      <DialogExtendTime />
     </>
   );
 }
