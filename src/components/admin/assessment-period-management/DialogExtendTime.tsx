@@ -77,10 +77,14 @@ const DialogExtendTime = () => {
         `Time extended successfully for ${!!employeeId ? "employee" : "managers"}`,
       );
       queryClient.invalidateQueries({
-        queryKey: ["organization-listAssessmentPeriod"],
+        queryKey: [
+          "organization-listManagerOfAssessmentPeriod",
+          "organization-listEmployeeOfAssessmentPeriod",
+        ],
       });
       closeDialog();
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (error: any) => {
       toast.dismiss();
       toast.error(error?.response?.data?.message || "Failed to extend time");
