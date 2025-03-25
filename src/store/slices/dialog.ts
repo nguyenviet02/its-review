@@ -1,5 +1,10 @@
 import { create } from "zustand";
-import { IEmployee, TSummaryInfoData, TSummaryInfoState, IAssessmentPeriodResponseAPI } from "@/types";
+import {
+  IEmployee,
+  TSummaryInfoData,
+  TSummaryInfoState,
+  IAssessmentPeriodResponseAPI,
+} from "@/types";
 
 // Default states
 export const employeeDialogSummaryInfoDefaultState: TSummaryInfoState = {
@@ -48,35 +53,46 @@ interface IDataAssessmentPeriodDialogStore extends IDialogBase {
 
 // Combined assessment period dialog store for both create and edit operations
 interface IAssessmentPeriodDialogStore extends IDialogBase {
-  mode: 'create' | 'edit';
+  mode: "create" | "edit";
   assessmentPeriod: IAssessmentPeriodResponseAPI | null;
-  setMode: (mode: 'create' | 'edit') => void;
-  setAssessmentPeriod: (assessmentPeriod: IAssessmentPeriodResponseAPI | null) => void;
+  setMode: (mode: "create" | "edit") => void;
+  setAssessmentPeriod: (
+    assessmentPeriod: IAssessmentPeriodResponseAPI | null,
+  ) => void;
   openCreateDialog: () => void;
   openEditDialog: (assessmentPeriod: IAssessmentPeriodResponseAPI) => void;
+}
+
+interface IDialogListManagerStore extends IDialogBase {
+  assessmentPeriodId: number | null;
+  assessmentPeriodName: string;
+  setAssessmentPeriodId: (id: number) => void;
+  setAssessmentPeriodName: (name: string) => void;
 }
 
 // Default data for employee info dialog
 const dialogDefaultData: IEmployee = {
   id: "",
   username: "",
-	block: "",
+  block: "",
   department: "",
-	team: "",
+  team: "",
   jobPosition: "",
   email: "",
   organizationId: 1,
 };
 
 // Store implementations
-export const useDialogEmployeeInfoStore = create<IDialogEmployeeInfoStore>((set) => ({
-  isOpen: false,
-  employeeInfo: dialogDefaultData,
-  openDialog: () => set({ isOpen: true }),
-  closeDialog: () => set({ isOpen: false }),
-  setEmployeeInfo: (employeeInfo: IEmployee) => set({ employeeInfo }),
-  resetEmployeeInfo: () => set({ employeeInfo: dialogDefaultData }),
-}));
+export const useDialogEmployeeInfoStore = create<IDialogEmployeeInfoStore>(
+  (set) => ({
+    isOpen: false,
+    employeeInfo: dialogDefaultData,
+    openDialog: () => set({ isOpen: true }),
+    closeDialog: () => set({ isOpen: false }),
+    setEmployeeInfo: (employeeInfo: IEmployee) => set({ employeeInfo }),
+    resetEmployeeInfo: () => set({ employeeInfo: dialogDefaultData }),
+  }),
+);
 
 export const useDialogCongratulationStore = create<IDialogCongratulationStore>(
   (set) => ({
@@ -127,25 +143,42 @@ export const useDataAssessmentPeriodDialogStore =
 export const useAssessmentPeriodDialogStore =
   create<IAssessmentPeriodDialogStore>((set) => ({
     isOpen: false,
-    mode: 'create',
+    mode: "create",
     assessmentPeriod: null,
     openDialog: () => set({ isOpen: true }),
-    closeDialog: () => set({ 
-      isOpen: false,
-      // Reset assessment period data when closing
-      assessmentPeriod: null
-    }),
-    setMode: (mode: 'create' | 'edit') => set({ mode }),
-    setAssessmentPeriod: (assessmentPeriod: IAssessmentPeriodResponseAPI | null) => 
-      set({ assessmentPeriod }),
-    openCreateDialog: () => set({ 
-      isOpen: true, 
-      mode: 'create',
-      assessmentPeriod: null
-    }),
-    openEditDialog: (assessmentPeriod: IAssessmentPeriodResponseAPI) => set({ 
-      isOpen: true, 
-      mode: 'edit',
-      assessmentPeriod
-    }),
+    closeDialog: () =>
+      set({
+        isOpen: false,
+        // Reset assessment period data when closing
+        assessmentPeriod: null,
+      }),
+    setMode: (mode: "create" | "edit") => set({ mode }),
+    setAssessmentPeriod: (
+      assessmentPeriod: IAssessmentPeriodResponseAPI | null,
+    ) => set({ assessmentPeriod }),
+    openCreateDialog: () =>
+      set({
+        isOpen: true,
+        mode: "create",
+        assessmentPeriod: null,
+      }),
+    openEditDialog: (assessmentPeriod: IAssessmentPeriodResponseAPI) =>
+      set({
+        isOpen: true,
+        mode: "edit",
+        assessmentPeriod,
+      }),
   }));
+
+export const useDialogListManagerStore = create<IDialogListManagerStore>(
+  (set) => ({
+    isOpen: false,
+    assessmentPeriodId: null,
+    assessmentPeriodName: "",
+    openDialog: () => set({ isOpen: true }),
+    closeDialog: () => set({ isOpen: false }),
+    setAssessmentPeriodId: (id: number) => set({ assessmentPeriodId: id }),
+    setAssessmentPeriodName: (name: string) =>
+      set({ assessmentPeriodName: name }),
+  }),
+);

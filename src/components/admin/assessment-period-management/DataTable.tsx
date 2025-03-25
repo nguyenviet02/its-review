@@ -9,9 +9,10 @@ import ButtonImportDataAssessment from "./ButtonImportDataAssessment";
 import { EyeIcon, PencilIcon } from "@heroicons/react/24/outline";
 import { Menu, MenuItem, IconButton } from "@mui/material";
 import ButtonExportDataAssessment from "./ButtonExportDataAssessment";
-import { 
-  useDataAssessmentPeriodDialogStore, 
-  useAssessmentPeriodDialogStore 
+import {
+  useDataAssessmentPeriodDialogStore,
+  useAssessmentPeriodDialogStore,
+  useDialogListManagerStore,
 } from "@/store";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/solid";
 import { IAssessmentPeriodResponseAPI } from "@/types";
@@ -25,13 +26,17 @@ const DataTable = () => {
 
   // Menu state for dropdown
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [selectedRow, setSelectedRow] = React.useState<IAssessmentPeriodResponseAPI | null>(null);
-  
-  const handleOpenMenu = (event: React.MouseEvent<HTMLElement>, row: IAssessmentPeriodResponseAPI) => {
+  const [selectedRow, setSelectedRow] =
+    React.useState<IAssessmentPeriodResponseAPI | null>(null);
+
+  const handleOpenMenu = (
+    event: React.MouseEvent<HTMLElement>,
+    row: IAssessmentPeriodResponseAPI,
+  ) => {
     setAnchorEl(event.currentTarget);
     setSelectedRow(row);
   };
-  
+
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
@@ -76,18 +81,35 @@ const DataTable = () => {
   const setAsessmentPeriodName = useDataAssessmentPeriodDialogStore(
     (state) => state.setAssessmentPeriodName,
   );
-  
-  // Unified create/edit dialog store
-  const openEditDialog = useAssessmentPeriodDialogStore(
-    (state) => state.openEditDialog
+
+  // Dialog List Manager
+  const openDialogListManager = useDialogListManagerStore(
+    (state) => state.openDialog,
+  );
+  const setAssessmentPeriodIdListManager = useDialogListManagerStore(
+    (state) => state.setAssessmentPeriodId,
+  );
+  const setAssessmentPeriodNameListManager = useDialogListManagerStore(
+    (state) => state.setAssessmentPeriodName,
   );
 
-  const handleOpenDialogShowData = (id: number, name: string) => [
-    openDialogDataAssessmentPeriod(),
-    setAssessmentPeriodId(id),
-    setAsessmentPeriodName(name),
-  ];
-  
+  // Unified create/edit dialog store
+  const openEditDialog = useAssessmentPeriodDialogStore(
+    (state) => state.openEditDialog,
+  );
+
+  const handleOpenDialogShowData = (id: number, name: string) => {
+    openDialogDataAssessmentPeriod();
+    setAssessmentPeriodId(id);
+    setAsessmentPeriodName(name);
+  };
+
+  const handleOpenDialogListManager = (id: number, name: string) => {
+    openDialogListManager();
+    setAssessmentPeriodIdListManager(id);
+    setAssessmentPeriodNameListManager(name);
+  };
+
   const handleOpenEditDialog = (row: IAssessmentPeriodResponseAPI) => {
     openEditDialog(row);
     handleCloseMenu();
@@ -144,29 +166,43 @@ const DataTable = () => {
             <IconButton onClick={(e) => handleOpenMenu(e, params.row)}>
               <EllipsisVerticalIcon className="h-5 w-5" />
             </IconButton>
-            
+
             <Menu
               anchorEl={anchorEl}
               open={Boolean(anchorEl) && selectedRow?.id === params.row.id}
               onClose={handleCloseMenu}
             >
-              <MenuItem onClick={() => {
-                handleOpenDialogShowData(params.row.id, params.row.title);
-                handleCloseMenu();
-              }}>
+              <MenuItem
+                onClick={() => {
+                  handleOpenDialogShowData(params.row.id, params.row.title);
+                  handleCloseMenu();
+                }}
+              >
                 <span className="flex items-center gap-2">
                   <EyeIcon className="h-5 w-5" />
-                  View Detail
+                  View List Employees
                 </span>
               </MenuItem>
-              
+
+              <MenuItem
+                onClick={() => {
+                  handleOpenDialogListManager(params.row.id, params.row.title);
+                  handleCloseMenu();
+                }}
+              >
+                <span className="flex items-center gap-2">
+                  <EyeIcon className="h-5 w-5" />
+                  View List Managers
+                </span>
+              </MenuItem>
+
               <MenuItem onClick={() => handleOpenEditDialog(params.row)}>
                 <span className="flex items-center gap-2">
                   <PencilIcon className="h-5 w-5" />
-                  Edit
+                  Edit Time
                 </span>
               </MenuItem>
-              
+
               <MenuItem>
                 <span className="flex items-center gap-2">
                   <ButtonImportDataAssessment
@@ -174,7 +210,7 @@ const DataTable = () => {
                   />
                 </span>
               </MenuItem>
-              
+
               <MenuItem>
                 <span className="flex items-center gap-2">
                   <ButtonExportDataAssessment

@@ -1,6 +1,6 @@
 "use client";
 
-import AssessmentPeriodManagement from "@/components/admin/assessment-period-management";
+import DataTable from "@/components/admin/assessment-period-management/DataTable";
 import { useAssessmentPeriodDialogStore } from "@/store";
 import React from "react";
 
@@ -18,7 +18,7 @@ const AssessmentPeriodManagementPage = () => {
           Create
         </button>
       </div>
-      <AssessmentPeriodManagement />
+			<DataTable />
     </div>
   );
 };

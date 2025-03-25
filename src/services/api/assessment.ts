@@ -1,4 +1,8 @@
-import { IAssessmentPeriod, IAssessmentPeriodImportData, IUpdateAssessmentPeriodPayload } from "@/types";
+import {
+  IAssessmentPeriod,
+  IAssessmentPeriodImportData,
+  IUpdateAssessmentPeriodPayload,
+} from "@/types";
 import axiosInstance from "./axiosInstance";
 
 // POST
@@ -35,11 +39,13 @@ export const submitDataFormReview = async (
 };
 
 // PATCH
-export const updateAssessmentPeriod = async (payload: IUpdateAssessmentPeriodPayload) => {
+export const updateAssessmentPeriod = async (
+  payload: IUpdateAssessmentPeriodPayload,
+) => {
   const { id, ...data } = payload;
   const res = await axiosInstance.patch(
     `/api/v1/organizations/annual-reviews/${id}`,
-    data
+    data,
   );
   return res;
 };
@@ -64,13 +70,32 @@ export const getListAssessmentPeriod = async (
 };
 
 export const getListEmployeeOfAssessmentPeriod = async (
-  id: number,
+  assessmentPeriodId: number,
   limit: number,
   page: number,
   order: string = "ASC",
 ) => {
   const { data } = await axiosInstance.get(
-    `/api/v1/organizations/annual-reviews/${id}/employees`,
+    `/api/v1/organizations/annual-reviews/${assessmentPeriodId}/employees`,
+    {
+      params: {
+        limit: limit,
+        page: page + 1, // DataGrid page start from 0
+        order: order,
+      },
+    },
+  );
+  return data;
+};
+
+export const getListManagerOfAssessmentPeriod = async (
+  assessmentPeriodId: number,
+  limit: number,
+  page: number,
+  order: string = "ASC",
+) => {
+  const { data } = await axiosInstance.get(
+    `/api/v1/organizations/annual-reviews/${assessmentPeriodId}/managers`,
     {
       params: {
         limit: limit,
@@ -146,6 +171,24 @@ export const exportDataAssessmentPeriodById = async (
     {
       responseType: "blob",
     },
+  );
+  return data;
+};
+
+export const extendTimeForUser = async (
+  assessmentPeriodId: number,
+  employeeId: string,
+  managerId: string,
+  extendTime: Date,
+) => {
+  const body = {
+    employeeId: employeeId,
+    managerId: managerId,
+    extendTime: extendTime,
+  };
+  const { data } = await axiosInstance.post(
+    `/api/v1/organizations/annual-reviews/${assessmentPeriodId}/extend-time`,
+    body,
   );
   return data;
 };
