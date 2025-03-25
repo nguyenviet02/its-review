@@ -1,7 +1,7 @@
 import { DocumentTextIcon } from "@heroicons/react/24/outline";
 import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
 import React from "react";
-import CurrentStatus from "../data-grid/CurrentStatus";
+import CurrentStatus from "./CurrentStatus";
 import { IAssessmentMinifyData } from "@/types";
 
 type Props = {

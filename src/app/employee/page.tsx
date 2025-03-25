@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getMyListAssessmentPeriod } from "@/services/api";
 import { formatDate, getFormType } from "@/utils";
 import { useSession } from "next-auth/react";
-import CurrentStatus from "@/components/data-grid/CurrentStatus";
+import CurrentStatus from "@/components/common/CurrentStatus";
 import {
   useEmployeeDialogSummaryInfoStore,
   useReviewFormDialogStore,

@@ -1,4 +1,4 @@
-import CurrentStatus from "@/components/data-grid/CurrentStatus";
+import CurrentStatus from "@/components/common/CurrentStatus";
 import { getListEmployeeOfAssessmentPeriod } from "@/services/api";
 import {
   useDataAssessmentPeriodDialogStore,

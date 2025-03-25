@@ -15,7 +15,7 @@ import {
 } from "@mui/x-data-grid";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import CurrentStatus from "@/components/data-grid/CurrentStatus";
+import CurrentStatus from "@/components/common/CurrentStatus";
 import {
   useDataAssessmentPeriodDialogStore,
   useEmployeeDialogSummaryInfoStore,
