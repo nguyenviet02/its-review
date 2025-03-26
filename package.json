@@ -20,7 +20,6 @@
     "@mui/x-data-grid-generator": "^7.27.0",
     "@mui/x-date-pickers": "^7.27.1",
     "@tanstack/react-query": "^5.66.9",
-    "@types/react-toastify": "^4.0.2",
     "axios": "^1.8.1",
     "dayjs": "^1.11.13",
     "lodash": "^4.17.21",
