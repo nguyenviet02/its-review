@@ -82,7 +82,11 @@ const PageReview = ({
     }) => submitDataFormReview(assessmentPeriodId, userId, data),
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: ["getDataFormReview"],
+        queryKey: [
+          "getDataFormReview",
+          "reviewEmployee-listEmployeeOfAssessmentPeriod",
+          "myListAssessmentPeriod",
+        ],
         refetchType: "active",
       });
       toast.dismiss();
@@ -164,7 +168,8 @@ const PageReview = ({
   }, [managerId, session?.data?.user?.id, userId, isEmployeeSelfReview]);
 
   // Show manager review notification when viewing as manager and employee has submitted a self-review
-  const showManagerReviewNotice = managerId && managerId === session?.data?.user?.id && !isEmployeeSelfReview;
+  const showManagerReviewNotice =
+    managerId && managerId === session?.data?.user?.id && !isEmployeeSelfReview;
 
   useEffect(() => {
     if (!defaultValues) return;
@@ -178,7 +183,9 @@ const PageReview = ({
           <div className="mb-4 rounded-lg bg-blue-50 p-4 text-blue-800 shadow">
             <h3 className="mb-1 font-medium">Employee Self Review Required</h3>
             <p className="text-sm">
-              You are reviewing this employee as a manager. But the employee has not submitted a self-review yet. Please ask the employee to submit a self-review first.
+              You are reviewing this employee as a manager. But the employee has
+              not submitted a self-review yet. Please ask the employee to submit
+              a self-review first.
             </p>
           </div>
         )}
