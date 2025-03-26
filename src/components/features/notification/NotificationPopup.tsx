@@ -72,7 +72,7 @@ const NotificationPopup = () => {
 
   // Handle opening employee summary dialog
   const handleOpenSummaryDialog = (notification: INotificationResponseAPI) => {
-    const isManager = true;
+    const isManager = notification.employee.id !== session?.data?.user?.id;
     const formType = getFormType(notification.employee.jobPosition, isManager);
 
     // Set up dialog data
