@@ -81,14 +81,20 @@ const PageReview = ({
       data: any;
     }) => submitDataFormReview(assessmentPeriodId, userId, data),
     onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: [
-          "getDataFormReview",
-          "reviewEmployee-listEmployeeOfAssessmentPeriod",
-          "myListAssessmentPeriod",
-        ],
-        refetchType: "active",
-      });
+      await Promise.all([
+        queryClient.refetchQueries({
+          queryKey: ["getDataFormReview"],
+          type: "active",
+        }),
+        queryClient.refetchQueries({
+          queryKey: ["reviewEmployee-listEmployeeOfAssessmentPeriod"],
+          type: "active",
+        }),
+        queryClient.refetchQueries({
+          queryKey: ["myListAssessmentPeriod"],
+          type: "active",
+        }),
+      ]);
       toast.dismiss();
       toast.success("Submit data successfully");
       resetForm();
