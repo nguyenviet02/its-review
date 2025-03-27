@@ -1,5 +1,5 @@
-import { PlusCircleIcon } from "@heroicons/react/24/outline";
-import { Box, Button } from "@mui/material";
+import { PlusCircleIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { Box, Button, IconButton } from "@mui/material";
 import {
   GridSlotProps,
   GridToolbarContainer,
@@ -10,6 +10,7 @@ import {
   GridRowModel,
 } from "@mui/x-data-grid";
 import { randomId } from "@mui/x-data-grid-generator";
+import dayjs from "dayjs";
 import React, { useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 
@@ -80,6 +81,13 @@ const TableInput = ({ disabled, name }: Props) => {
     formMethods.setValue(name, newTableData);
     return updatedRow;
   };
+
+  const handleDeleteRow = (id: string) => {
+    const newTableData = tableData.filter((row) => row.id !== id);
+    setTableData(newTableData);
+    formMethods.setValue(name, newTableData);
+  };
+
   const columns: GridColDef[] = [
     {
       field: "goal",
@@ -100,8 +108,26 @@ const TableInput = ({ disabled, name }: Props) => {
       headerName: "Thời gian dự kiến thực hiện",
       headerAlign: "center",
       type: "date",
+      valueFormatter: (value) => value && dayjs(value).format("DD/MM/YYYY"),
       editable: true,
       flex: 1,
+    },
+    {
+      field: "actions",
+      headerName: "Thao tác",
+      headerAlign: "center",
+      align: "center",
+      sortable: false,
+      width: 100,
+      renderCell: (params) => (
+        <IconButton
+          color="error"
+          onClick={() => handleDeleteRow(params.row.id)}
+          disabled={disabled}
+        >
+          <TrashIcon className="h-5 w-5" />
+        </IconButton>
+      ),
     },
   ];
 
@@ -130,7 +156,7 @@ const TableInput = ({ disabled, name }: Props) => {
         disableColumnMenu
         disableDensitySelector
         disableColumnResize
-				isCellEditable={() => !disabled}
+        isCellEditable={() => !disabled}
         hideFooter
         slots={{ toolbar: EditToolbar }}
         slotProps={{
