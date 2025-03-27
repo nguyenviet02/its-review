@@ -33,17 +33,21 @@ const Admin = () => {
   useEffect(() => {
     if (!listAssessmentPeriodQuery?.data?.data) return;
     const listAssessmentPeriodData = listAssessmentPeriodQuery?.data?.data;
-    
+
     // Only update state if necessary
     if (listAssessmentPeriod !== listAssessmentPeriodData) {
       setListAssessmentPeriod(listAssessmentPeriodData);
-      
+
       if (!selectedAssessmentPeriodId) {
         const defaultSelectedId = listAssessmentPeriodData[0]?.id || null;
         setSelectedAssessmentPeriodId(defaultSelectedId);
       }
     }
-  }, [listAssessmentPeriod, listAssessmentPeriodQuery?.data, selectedAssessmentPeriodId]);
+  }, [
+    listAssessmentPeriod,
+    listAssessmentPeriodQuery?.data,
+    selectedAssessmentPeriodId,
+  ]);
 
   return (
     <div className="size-full p-4">
@@ -91,9 +95,17 @@ const Admin = () => {
               </Grid>
 
               {/* Section 3: Pie Chart - Review Status Ratio */}
-              <Grid size={6}>
+              <Grid
+                size={{
+                  xs: 12,
+                  sm: 12,
+                  md: 12,
+                  lg: 12,
+                  xl: 6,
+                }}
+              >
                 <Card variant="outlined">
-                  <CardContent>
+                  <CardContent className="flex flex-col gap-4">
                     <Typography
                       variant="h6"
                       className="mb-4 text-center font-bold"
@@ -163,9 +175,17 @@ const Admin = () => {
               </Grid>
 
               {/* Section 4: Bar Chart - Review Count by Department */}
-              <Grid size={6}>
+              <Grid
+                size={{
+                  xs: 12,
+                  sm: 12,
+                  md: 12,
+                  lg: 12,
+                  xl: 6,
+                }}
+              >
                 <Card variant="outlined">
-                  <CardContent>
+                  <CardContent className="flex flex-col gap-4">
                     <Typography
                       variant="h6"
                       className="mb-4 text-center font-bold"
