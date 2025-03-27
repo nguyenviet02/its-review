@@ -12,7 +12,7 @@ export default async function LoginPage() {
       <div className="flex h-fit w-full max-w-[500px] flex-col items-center justify-center rounded-md bg-slate-300 px-10 py-6">
         {!session?.user?.email ? (
           <>
-            <h1 className="mb-4 text-center text-2xl">Đăng nhập để bắt đầu</h1>
+            <h1 className="mb-4 text-center text-2xl">Đăng nhập</h1>
             <div className="flex w-full flex-col gap-2">
               <div className="flex flex-col gap-1">
                 <label htmlFor="email">Email</label>

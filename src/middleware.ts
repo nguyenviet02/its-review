@@ -10,10 +10,11 @@ export default withAuth(
   function middleware(request: NextRequestWithAuth) {
     // If the user is not an admin or super-admin, redirect to denied page
     if (
-      request.nextUrl.pathname.startsWith("/admin") &&
-      rolesCanAccessAdmin.filter((role) =>
-        request.nextauth.token?.user?.roles?.includes(role),
-      ).length === 0
+      (request.nextUrl.pathname.startsWith("/admin") &&
+        rolesCanAccessAdmin.filter((role) =>
+          request.nextauth.token?.user?.roles?.includes(role),
+        ).length === 0) ||
+      !request.nextauth.token?.user?.id
     ) {
       return NextResponse.rewrite(new URL("/denied", request.url));
     }
