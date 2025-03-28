@@ -31,7 +31,7 @@ const DataTable = () => {
 
   const handleOpenMenu = (
     event: React.MouseEvent<HTMLElement>,
-    row: IAssessmentPeriodResponseAPI
+    row: IAssessmentPeriodResponseAPI,
   ) => {
     setAnchorEl(event.currentTarget);
     setSelectedRow(row);
@@ -52,7 +52,7 @@ const DataTable = () => {
 
   // Row count for DataGrid pagination
   const rowCountRef = React.useRef(
-    listAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0
+    listAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0,
   );
   const rowCount = React.useMemo(() => {
     if (
@@ -71,31 +71,31 @@ const DataTable = () => {
 
   // Data view dialog
   const openDialogDataAssessmentPeriod = useDataAssessmentPeriodDialogStore(
-    (state) => state.openDialog
+    (state) => state.openDialog,
   );
 
   const setAssessmentPeriodId = useDataAssessmentPeriodDialogStore(
-    (state) => state.setAssessmentPeriodId
+    (state) => state.setAssessmentPeriodId,
   );
 
   const setAsessmentPeriodName = useDataAssessmentPeriodDialogStore(
-    (state) => state.setAssessmentPeriodName
+    (state) => state.setAssessmentPeriodName,
   );
 
   // Dialog List Manager
   const openDialogListManager = useDialogListManagerStore(
-    (state) => state.openDialog
+    (state) => state.openDialog,
   );
   const setAssessmentPeriodIdListManager = useDialogListManagerStore(
-    (state) => state.setAssessmentPeriodId
+    (state) => state.setAssessmentPeriodId,
   );
   const setAssessmentPeriodNameListManager = useDialogListManagerStore(
-    (state) => state.setAssessmentPeriodName
+    (state) => state.setAssessmentPeriodName,
   );
 
   // Unified create/edit dialog store
   const openEditDialog = useAssessmentPeriodDialogStore(
-    (state) => state.openEditDialog
+    (state) => state.openEditDialog,
   );
 
   const handleOpenDialogShowData = (id: number, name: string) => {

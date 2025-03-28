@@ -9,7 +9,7 @@ export const getNotification = async (): Promise<
   INotificationResponseAPI[]
 > => {
   const res = await axiosInstance.get<INotificationResponseAPI[]>(
-    `/api/v1/notifications`
+    `/api/v1/notifications`,
   );
   if (res.status === 200) {
     return res.data;

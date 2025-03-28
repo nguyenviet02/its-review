@@ -23,7 +23,7 @@ declare module '@mui/x-data-grid' {
   interface ToolbarPropsOverrides {
     setTableData: (newRows: (oldRows: GridRowsProp) => GridRowsProp) => void;
     setRowModesModel: (
-      newModel: (oldModel: GridRowModesModel) => GridRowModesModel
+      newModel: (oldModel: GridRowModesModel) => GridRowModesModel,
     ) => void;
   }
 }
@@ -75,7 +75,7 @@ const TableInput = ({ disabled, name }: Props) => {
   const processRowUpdate = (newRow: GridRowModel) => {
     const updatedRow = { ...newRow };
     const newTableData = tableData.map((row) =>
-      row.id === newRow.id ? updatedRow : row
+      row.id === newRow.id ? updatedRow : row,
     );
     setTableData(newTableData);
     formMethods.setValue(name, newTableData);

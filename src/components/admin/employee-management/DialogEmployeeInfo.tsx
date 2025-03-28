@@ -51,7 +51,7 @@ const DialogEmployeeInfo = () => {
   const dialogState = useDialogEmployeeInfoStore((store) => store.isOpen);
   const handleClose = useDialogEmployeeInfoStore((store) => store.closeDialog);
   const employeeInfo = useDialogEmployeeInfoStore(
-    (store) => store.employeeInfo
+    (store) => store.employeeInfo,
   );
 
   const {
@@ -63,7 +63,7 @@ const DialogEmployeeInfo = () => {
     values: employeeInfo,
   });
   const handleSubmitChangeEmployeeInfo: SubmitHandler<IEmployee> = (
-    data: IEmployee
+    data: IEmployee,
   ) => {
     console.log(data);
   };

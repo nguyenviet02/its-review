@@ -4,7 +4,7 @@ import axiosInstance from './axiosInstance';
 export const getListUser = async (
   limit: number,
   page: number,
-  order: string = 'ASC'
+  order: string = 'ASC',
 ) => {
   const { data } = await axiosInstance.get(`/api/v1/users`, {
     params: {

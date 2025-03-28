@@ -28,7 +28,7 @@ export const formatDataImportListManager = (dataFromExcel: any) => {
  * Format data imported from Excel for employee list
  */
 export const formatDataImportListEmployee = (
-  dataFromExcel: any
+  dataFromExcel: any,
 ): IEmployee[] => {
   const formattedData = dataFromExcel.map((data: any) => {
     return {

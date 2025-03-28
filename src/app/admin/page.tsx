@@ -199,7 +199,7 @@ const Admin = () => {
                             (item) => ({
                               ...item,
                               [item.department]: item.count,
-                            })
+                            }),
                           )}
                           xAxis={[{ scaleType: 'band', dataKey: 'department' }]}
                           series={[

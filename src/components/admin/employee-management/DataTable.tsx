@@ -12,10 +12,10 @@ import React from 'react';
 const DataTable = () => {
   // Dialog State from Zustand
   const openDialogEmployeeInfo = useDialogEmployeeInfoStore(
-    (store) => store.openDialog
+    (store) => store.openDialog,
   );
   const setEmployeeInfo = useDialogEmployeeInfoStore(
-    (store) => store.setEmployeeInfo
+    (store) => store.setEmployeeInfo,
   );
   const handleOpenDialogEmployeeInfo = (employeeInfo: IEmployee) => {
     setEmployeeInfo(employeeInfo);
@@ -38,7 +38,7 @@ const DataTable = () => {
 
   // Row count for DataGrid pagination
   const rowCountRef = React.useRef(
-    listUserQuery?.data?.pagination?.totalRecords || 0
+    listUserQuery?.data?.pagination?.totalRecords || 0,
   );
   const rowCount = React.useMemo(() => {
     if (listUserQuery?.data?.pagination?.totalRecords !== undefined) {

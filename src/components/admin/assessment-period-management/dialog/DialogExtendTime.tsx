@@ -74,7 +74,7 @@ const DialogExtendTime = () => {
     onSuccess: () => {
       toast.dismiss();
       toast.success(
-        `Time extended successfully for ${!!employeeId ? 'employee' : 'managers'}`
+        `Time extended successfully for ${!!employeeId ? 'employee' : 'managers'}`,
       );
       queryClient.invalidateQueries({
         queryKey: [

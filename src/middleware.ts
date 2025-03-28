@@ -12,7 +12,7 @@ export default withAuth(
     if (
       (request.nextUrl.pathname.startsWith('/admin') &&
         rolesCanAccessAdmin.filter((role) =>
-          request.nextauth.token?.user?.roles?.includes(role)
+          request.nextauth.token?.user?.roles?.includes(role),
         ).length === 0) ||
       !request.nextauth.token?.user?.id
     ) {
@@ -23,7 +23,7 @@ export default withAuth(
     callbacks: {
       authorized: ({ token }) => !!token,
     },
-  }
+  },
 );
 
 export const config = {

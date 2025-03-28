@@ -160,7 +160,7 @@ export const authConfig = {
       // Persist the access_token, expires_at & refresh_token to the token right after signin
       if (account && account.access_token && account.expires_at && user) {
         const apiToken = await generateApiAccessToken(
-          account.refresh_token as string
+          account.refresh_token as string,
         );
 
         token.accessToken = account.access_token;
@@ -184,7 +184,7 @@ export const authConfig = {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${apiToken?.accessToken}`,
               },
-            }
+            },
           );
           userData = await res.json();
           console.timeEnd('jwt');

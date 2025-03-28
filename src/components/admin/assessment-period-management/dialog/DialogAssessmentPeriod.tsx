@@ -308,7 +308,7 @@ const DialogAssessmentPeriod = () => {
                         ? dayjs(date).isBefore(dayjs(), 'day') ||
                           dayjs(date).isBefore(
                             dayjs(selfReviewEndDate),
-                            'day'
+                            'day',
                           ) ||
                           dayjs(date).isSame(dayjs(selfReviewEndDate), 'day')
                         : dayjs(date).isBefore(dayjs(), 'day')

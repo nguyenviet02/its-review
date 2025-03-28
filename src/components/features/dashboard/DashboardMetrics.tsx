@@ -18,22 +18,22 @@ export default function DashboardMetrics({
   if (isLoading) {
     return (
       <div className="flex h-64 w-full items-center justify-center">
-        <div className="animate-spin rounded-full border-4 border-gray-300 border-t-blue-500 h-12 w-12"></div>
+        <div className="h-12 w-12 animate-spin rounded-full border-4 border-gray-300 border-t-blue-500"></div>
       </div>
     );
   }
 
   const totalReviews = departmentData.reduce(
     (acc, dept) => acc + dept.count,
-    0
+    0,
   );
 
   const statusRatioPercentages = {
     waitingEmployee: Math.round(
-      (statusRatioData.waitingEmployee / totalReviews) * 100
+      (statusRatioData.waitingEmployee / totalReviews) * 100,
     ),
     waitingManager: Math.round(
-      (statusRatioData.waitingManager / totalReviews) * 100
+      (statusRatioData.waitingManager / totalReviews) * 100,
     ),
     completed: Math.round((statusRatioData.completed / totalReviews) * 100),
   };

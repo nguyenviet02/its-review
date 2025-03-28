@@ -23,7 +23,7 @@ export const useEmployeeStore = create<IEmployeeStore>((set) => ({
   updateEmployee: (id, updatedData) =>
     set((state) => ({
       employees: state.employees.map((emp) =>
-        emp.id === id ? { ...emp, ...updatedData } : emp
+        emp.id === id ? { ...emp, ...updatedData } : emp,
       ),
       selectedEmployee:
         state.selectedEmployee?.id === id

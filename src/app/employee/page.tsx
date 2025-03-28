@@ -17,14 +17,14 @@ const Employee = () => {
   const session = useSession();
 
   const handleOpenSummaryInfoDialog = useEmployeeDialogSummaryInfoStore(
-    (store) => store.openDialog
+    (store) => store.openDialog,
   );
   const setDialogData = useEmployeeDialogSummaryInfoStore(
-    (store) => store.setDialogData
+    (store) => store.setDialogData,
   );
   const setUserId = useReviewFormDialogStore((store) => store.setUserId);
   const setAssessmentPeriodId = useReviewFormDialogStore(
-    (store) => store.setAssessmentPeriodId
+    (store) => store.setAssessmentPeriodId,
   );
   const setIsManager = useReviewFormDialogStore((store) => store.setIsManager);
   const setFormType = useReviewFormDialogStore((store) => store.setFormType);
@@ -41,7 +41,7 @@ const Employee = () => {
       getMyListAssessmentPeriod(
         false,
         paginationModel.pageSize,
-        paginationModel.page
+        paginationModel.page,
       ),
     refetchOnWindowFocus: false,
   });
@@ -49,7 +49,7 @@ const Employee = () => {
 
   // Row count for DataGrid pagination
   const rowCountRef = React.useRef(
-    myListAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0
+    myListAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0,
   );
   const rowCount = React.useMemo(() => {
     if (
@@ -140,7 +140,7 @@ const Employee = () => {
         const isManager = false;
         const formType = getFormType(
           session?.data?.user?.jobPosition as string,
-          isManager
+          isManager,
         );
         return (
           <div className="flex items-center justify-center gap-4">

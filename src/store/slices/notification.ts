@@ -17,5 +17,5 @@ export const useNotificationPopupStore = create<INotificationPopupStore>(
     closePopup: () => set({ isOpen: false }),
     setNotifications: (notifications: INotificationResponseAPI[]) =>
       set({ notifications }),
-  })
+  }),
 );

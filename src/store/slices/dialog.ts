@@ -57,7 +57,7 @@ interface IAssessmentPeriodDialogStore extends IDialogBase {
   assessmentPeriod: IAssessmentPeriodResponseAPI | null;
   setMode: (mode: 'create' | 'edit') => void;
   setAssessmentPeriod: (
-    assessmentPeriod: IAssessmentPeriodResponseAPI | null
+    assessmentPeriod: IAssessmentPeriodResponseAPI | null,
   ) => void;
   openCreateDialog: () => void;
   openEditDialog: (assessmentPeriod: IAssessmentPeriodResponseAPI) => void;
@@ -91,7 +91,7 @@ export const useDialogEmployeeInfoStore = create<IDialogEmployeeInfoStore>(
     closeDialog: () => set({ isOpen: false }),
     setEmployeeInfo: (employeeInfo: IEmployee) => set({ employeeInfo }),
     resetEmployeeInfo: () => set({ employeeInfo: dialogDefaultData }),
-  })
+  }),
 );
 
 export const useDialogCongratulationStore = create<IDialogCongratulationStore>(
@@ -104,7 +104,7 @@ export const useDialogCongratulationStore = create<IDialogCongratulationStore>(
     closeDialog: () => set({ isOpen: false }),
     setTitle: (title: string) => set({ title }),
     setContent: (content: string) => set({ content }),
-  })
+  }),
 );
 
 export const useEmployeeDialogSummaryInfoStore =
@@ -154,7 +154,7 @@ export const useAssessmentPeriodDialogStore =
       }),
     setMode: (mode: 'create' | 'edit') => set({ mode }),
     setAssessmentPeriod: (
-      assessmentPeriod: IAssessmentPeriodResponseAPI | null
+      assessmentPeriod: IAssessmentPeriodResponseAPI | null,
     ) => set({ assessmentPeriod }),
     openCreateDialog: () =>
       set({
@@ -180,5 +180,5 @@ export const useDialogListManagerStore = create<IDialogListManagerStore>(
     setAssessmentPeriodId: (id: number) => set({ assessmentPeriodId: id }),
     setAssessmentPeriodName: (name: string) =>
       set({ assessmentPeriodName: name }),
-  })
+  }),
 );

@@ -17,15 +17,15 @@ import { useReviewFormDialogStore } from '@/store';
 
 const DialogFormReview = () => {
   const isOpenReviewFormDialog = useReviewFormDialogStore(
-    (store) => store.isOpen
+    (store) => store.isOpen,
   );
   const handleCloseReviewFormDialog = useReviewFormDialogStore(
-    (store) => store.closeDialog
+    (store) => store.closeDialog,
   );
 
   const userId = useReviewFormDialogStore((store) => store.userId);
   const assessmentPeriodId = useReviewFormDialogStore(
-    (store) => store.assessmentPeriodId
+    (store) => store.assessmentPeriodId,
   );
   const isManager = useReviewFormDialogStore((store) => store.isManager);
   const formType = useReviewFormDialogStore((store) => store.type);
@@ -188,7 +188,7 @@ const DialogFormReview = () => {
               <TabPanel className="relative rounded-xl bg-white/5 p-3 pb-6">
                 {renderTotalPoint(
                   getDataFormReviewQuery?.data?.form?.selfReview?.point,
-                  getDataFormReviewQuery?.data?.form?.selfReview?.maxPoint
+                  getDataFormReviewQuery?.data?.form?.selfReview?.maxPoint,
                 )}
                 <PageReview
                   defaultValues={getDataFormReviewQuery?.data?.form?.selfReview}
@@ -199,7 +199,7 @@ const DialogFormReview = () => {
                 const defaultValues =
                   getDataFormReviewQuery?.data?.form?.managerReviews?.find(
                     (data: { managerId: string }) =>
-                      data?.managerId === manager?.id
+                      data?.managerId === manager?.id,
                   );
                 return (
                   <TabPanel
@@ -208,7 +208,7 @@ const DialogFormReview = () => {
                   >
                     {renderTotalPoint(
                       defaultValues?.point,
-                      defaultValues?.maxPoint
+                      defaultValues?.maxPoint,
                     )}
                     <PageReview
                       defaultValues={defaultValues || {}}

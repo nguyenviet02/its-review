@@ -50,7 +50,7 @@ const NotificationPopup = () => {
       const expiryTime = Date.now() + 60 * 60 * 1000; // 1 hour
       localStorage.setItem(
         'notification_dont_show_until',
-        expiryTime.toString()
+        expiryTime.toString(),
       );
     }
     closePopup();
@@ -58,14 +58,14 @@ const NotificationPopup = () => {
 
   // Store actions for opening forms
   const setSummaryInfoData = useEmployeeDialogSummaryInfoStore(
-    (store) => store.setDialogData
+    (store) => store.setDialogData,
   );
   const openDialogSummaryInfo = useEmployeeDialogSummaryInfoStore(
-    (store) => store.openDialog
+    (store) => store.openDialog,
   );
   const setUserId = useReviewFormDialogStore((store) => store.setUserId);
   const setAssessmentPeriodId = useReviewFormDialogStore(
-    (store) => store.setAssessmentPeriodId
+    (store) => store.setAssessmentPeriodId,
   );
   const setFormType = useReviewFormDialogStore((store) => store.setFormType);
   const setIsManager = useReviewFormDialogStore((store) => store.setIsManager);
@@ -178,7 +178,7 @@ const NotificationPopup = () => {
                                         isSelfReview
                                           ? notification?.annualReview
                                               ?.selfReviewEnd
-                                          : notification?.annualReview?.end
+                                          : notification?.annualReview?.end,
                                       )}
                                     </span>
                                   </p>

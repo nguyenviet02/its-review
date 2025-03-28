@@ -9,18 +9,18 @@ import axiosInstance from './axiosInstance';
 export const createAssessmentPeriod = async (payload: IAssessmentPeriod) => {
   const res = await axiosInstance.post(
     `/api/v1/organizations/annual-reviews`,
-    payload
+    payload,
   );
   return res;
 };
 
 export const importAssessmentPeriodData = async (
   id: number,
-  data: IAssessmentPeriodImportData
+  data: IAssessmentPeriodImportData,
 ) => {
   const res = await axiosInstance.post(
     `/api/v1/annual-reviews/${id}/review-assignment`,
-    data
+    data,
   );
   return res;
 };
@@ -29,23 +29,23 @@ export const submitDataFormReview = async (
   assessmentPeriodId: number,
   employeeId: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data: any
+  data: any,
 ) => {
   const res = await axiosInstance.post(
     `/api/v1/annual-reviews/${assessmentPeriodId}/employees/${employeeId}/reviews`,
-    data
+    data,
   );
   return res;
 };
 
 // PATCH
 export const updateAssessmentPeriod = async (
-  payload: IUpdateAssessmentPeriodPayload
+  payload: IUpdateAssessmentPeriodPayload,
 ) => {
   const { id, ...data } = payload;
   const res = await axiosInstance.patch(
     `/api/v1/organizations/annual-reviews/${id}`,
-    data
+    data,
   );
   return res;
 };
@@ -54,7 +54,7 @@ export const updateAssessmentPeriod = async (
 export const getListAssessmentPeriod = async (
   limit: number,
   page: number,
-  order: string = 'ASC'
+  order: string = 'ASC',
 ) => {
   const { data } = await axiosInstance.get(
     `/api/v1/organizations/annual-reviews`,
@@ -64,7 +64,7 @@ export const getListAssessmentPeriod = async (
         page: page + 1, // DataGrid page start from 0
         order: order,
       },
-    }
+    },
   );
   return data;
 };
@@ -73,7 +73,7 @@ export const getListEmployeeOfAssessmentPeriod = async (
   assessmentPeriodId: number,
   limit: number,
   page: number,
-  order: string = 'ASC'
+  order: string = 'ASC',
 ) => {
   const { data } = await axiosInstance.get(
     `/api/v1/organizations/annual-reviews/${assessmentPeriodId}/employees`,
@@ -83,7 +83,7 @@ export const getListEmployeeOfAssessmentPeriod = async (
         page: page + 1, // DataGrid page start from 0
         order: order,
       },
-    }
+    },
   );
   return data;
 };
@@ -92,7 +92,7 @@ export const getListManagerOfAssessmentPeriod = async (
   assessmentPeriodId: number,
   limit: number,
   page: number,
-  order: string = 'ASC'
+  order: string = 'ASC',
 ) => {
   const { data } = await axiosInstance.get(
     `/api/v1/organizations/annual-reviews/${assessmentPeriodId}/managers`,
@@ -102,7 +102,7 @@ export const getListManagerOfAssessmentPeriod = async (
         page: page + 1, // DataGrid page start from 0
         order: order,
       },
-    }
+    },
   );
   return data;
 };
@@ -111,7 +111,7 @@ export const getMyListAssessmentPeriod = async (
   assignedToReview: boolean,
   limit: number,
   page: number,
-  order: string = 'ASC'
+  order: string = 'ASC',
 ) => {
   const { data } = await axiosInstance.get(`/api/v1/annual-reviews`, {
     params: {
@@ -128,7 +128,7 @@ export const getListEmployeeAssignedToMe = async (
   id: number,
   limit: number,
   page: number,
-  order: string = 'ASC'
+  order: string = 'ASC',
 ) => {
   const { data } = await axiosInstance.get(
     `/api/v1/annual-reviews/${id}/managers/employees`,
@@ -138,39 +138,39 @@ export const getListEmployeeAssignedToMe = async (
         page: page + 1, // DataGrid page start from 0
         order: order,
       },
-    }
+    },
   );
   return data;
 };
 
 export const getListManagerOfEmployee = async (
   assessmentPeriodId: number,
-  userId: string
+  userId: string,
 ) => {
   const { data } = await axiosInstance.get(
-    `/api/v1/annual-reviews/${assessmentPeriodId}/employees/${userId}/managers`
+    `/api/v1/annual-reviews/${assessmentPeriodId}/employees/${userId}/managers`,
   );
   return data;
 };
 
 export const getDataFormReview = async (
   assessmentPeriodId: number,
-  employeeId: string
+  employeeId: string,
 ) => {
   const { data } = await axiosInstance.get(
-    `/api/v1/annual-reviews/${assessmentPeriodId}/employees/${employeeId}/reviews`
+    `/api/v1/annual-reviews/${assessmentPeriodId}/employees/${employeeId}/reviews`,
   );
   return data;
 };
 
 export const exportDataAssessmentPeriodById = async (
-  assessmentPeriodId: number
+  assessmentPeriodId: number,
 ) => {
   const { data } = await axiosInstance.get(
     `/api/v1/annual-reviews/${assessmentPeriodId}/export`,
     {
       responseType: 'blob',
-    }
+    },
   );
   return data;
 };
@@ -188,7 +188,7 @@ export const extendTimeForUser = async (payload: {
   };
   const { data } = await axiosInstance.post(
     `/api/v1/organizations/annual-reviews/${payload.assessmentPeriodId}/extend-time`,
-    body
+    body,
   );
   return data;
 };

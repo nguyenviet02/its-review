@@ -32,7 +32,7 @@ const ReviewEmployee = () => {
       getMyListAssessmentPeriod(
         true,
         paginationModel.pageSize,
-        paginationModel.page
+        paginationModel.page,
       ),
     refetchOnWindowFocus: false,
   });
@@ -40,7 +40,7 @@ const ReviewEmployee = () => {
 
   // Row count for DataGrid pagination
   const rowCountRef = React.useRef(
-    myListAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0
+    myListAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0,
   );
   const rowCount = React.useMemo(() => {
     if (
@@ -53,15 +53,15 @@ const ReviewEmployee = () => {
   }, [myListAssessmentPeriodQuery?.data?.pagination?.totalRecords]);
 
   const openDialogDataAssessmentPeriod = useDataAssessmentPeriodDialogStore(
-    (store) => store.openDialog
+    (store) => store.openDialog,
   );
 
   const setAssessmentPeriodId = useDataAssessmentPeriodDialogStore(
-    (store) => store.setAssessmentPeriodId
+    (store) => store.setAssessmentPeriodId,
   );
 
   const setAsessmentPeriodName = useDataAssessmentPeriodDialogStore(
-    (store) => store.setAssessmentPeriodName
+    (store) => store.setAssessmentPeriodName,
   );
 
   const handleOpenDialogShowData = (id: number, name: string) => [

@@ -19,7 +19,7 @@ const NotificationController = () => {
     if (isEmployeePage) {
       // Check if we should show the notification popup
       const dontShowUntil = localStorage.getItem(
-        'notification_dont_show_until'
+        'notification_dont_show_until',
       );
       const currentTime = Date.now();
 

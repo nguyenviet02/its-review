@@ -28,7 +28,7 @@ const testerPositions = ['tester', 'test', 'kiểmthử'];
  */
 export const getFormType = (
   jobPosition: string,
-  isManager: boolean
+  isManager: boolean,
 ): FORM_TYPES => {
   let formType = FORM_TYPES.UNSET;
   const jobPositionFormatted = jobPosition

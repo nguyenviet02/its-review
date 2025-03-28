@@ -23,10 +23,10 @@ const DialogListManager = () => {
   const isOpen = useDialogListManagerStore((store) => store.isOpen);
   const handleClose = useDialogListManagerStore((store) => store.closeDialog);
   const assessmentPeriodId = useDialogListManagerStore(
-    (store) => store.assessmentPeriodId
+    (store) => store.assessmentPeriodId,
   );
   const assessmentPeriodName = useDialogListManagerStore(
-    (store) => store.assessmentPeriodName
+    (store) => store.assessmentPeriodName,
   );
 
   // Pagination DataGrid
@@ -45,7 +45,7 @@ const DialogListManager = () => {
       getListManagerOfAssessmentPeriod(
         assessmentPeriodId as number,
         paginationModel.pageSize,
-        paginationModel.page
+        paginationModel.page,
       ),
     refetchOnWindowFocus: false,
     enabled: !!assessmentPeriodId && isOpen,
@@ -54,7 +54,7 @@ const DialogListManager = () => {
 
   // Row count for DataGrid pagination
   const rowCountRef = React.useRef(
-    listManagerOfAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0
+    listManagerOfAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0,
   );
   const rowCount = React.useMemo(() => {
     if (
@@ -69,7 +69,7 @@ const DialogListManager = () => {
 
   // Handle open dialog extend time
   const openDialogExtendTime = useExtendTimeDialogStore(
-    (store) => store.openDialog
+    (store) => store.openDialog,
   );
   const handleOpenExtendTime = (managerId: string) => {
     const employeeId = '';

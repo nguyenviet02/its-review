@@ -41,7 +41,7 @@ const PageReview = ({
             estimatedTime: new Date(plan.estimatedTime),
             id: randomId(),
           };
-        }
+        },
       );
       defaultValues.opinionAndSuggestions.plans = dataPlans;
     }
@@ -53,15 +53,15 @@ const PageReview = ({
     defaultValues: defaultValuesFormatted,
   });
   const handleCloseReviewFormDialog = useReviewFormDialogStore(
-    (store) => store.closeDialog
+    (store) => store.closeDialog,
   );
   const formType = useReviewFormDialogStore((store) => store.type);
   const assessmentPeriodId = useReviewFormDialogStore(
-    (store) => store.assessmentPeriodId
+    (store) => store.assessmentPeriodId,
   );
   const userId = useReviewFormDialogStore((store) => store.userId);
   const dialogCongratulationState = useDialogCongratulationStore(
-    (store) => store
+    (store) => store,
   );
   const resetForm = useCallback(() => {
     setIsSubmitting(false);
@@ -100,7 +100,7 @@ const PageReview = ({
       resetForm();
       dialogCongratulationState.setTitle('Congratulation');
       dialogCongratulationState.setContent(
-        'Thanks for your submission! Your review has been successfully submitted.'
+        'Thanks for your submission! Your review has been successfully submitted.',
       );
       dialogCongratulationState.openDialog();
     },
@@ -114,11 +114,11 @@ const PageReview = ({
               <div key={error.property} className="mb-2">
                 {error.code}: {error.message}
               </div>
-            )
+            ),
           ) ||
             error?.response?.data?.message ||
             'Submit data failed'}
-        </div>
+        </div>,
       );
       setIsSubmitting(false);
     },
@@ -140,7 +140,7 @@ const PageReview = ({
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { id, ...rest } = plan;
             return rest;
-          }
+          },
         );
         dataToSubmit.opinionAndSuggestions.plans = dataPlans;
       }
@@ -157,7 +157,7 @@ const PageReview = ({
         data: payload,
       });
     },
-    [assessmentPeriodId, formType, submitDataFormReviewMutation, userId]
+    [assessmentPeriodId, formType, submitDataFormReviewMutation, userId],
   );
 
   const listFields = useMemo(() => {

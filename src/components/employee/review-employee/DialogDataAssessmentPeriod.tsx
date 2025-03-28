@@ -25,15 +25,15 @@ import { getListEmployeeAssignedToMe } from '@/services/api';
 
 const DialogDataAssessmentPeriod = () => {
   const dialogState = useDataAssessmentPeriodDialogStore(
-    (store) => store.isOpen
+    (store) => store.isOpen,
   );
   const handleCloseDataAssessmentPeriodDialog =
     useDataAssessmentPeriodDialogStore((store) => store.closeDialog);
   const assessmentPeriodId = useDataAssessmentPeriodDialogStore(
-    (store) => store.assessmentPeriodId
+    (store) => store.assessmentPeriodId,
   );
   const assessmentPeriodName = useDataAssessmentPeriodDialogStore(
-    (store) => store.assessmentPeriodName
+    (store) => store.assessmentPeriodName,
   );
 
   // Pagination DataGrid
@@ -51,7 +51,7 @@ const DialogDataAssessmentPeriod = () => {
       getListEmployeeAssignedToMe(
         assessmentPeriodId as number,
         paginationModel.pageSize,
-        paginationModel.page
+        paginationModel.page,
       ),
     refetchOnWindowFocus: false,
     enabled: !!assessmentPeriodId,
@@ -60,7 +60,7 @@ const DialogDataAssessmentPeriod = () => {
 
   // Row count for DataGrid pagination
   const rowCountRef = React.useRef(
-    listEmployeeOfAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0
+    listEmployeeOfAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0,
   );
   const rowCount = React.useMemo(() => {
     if (
@@ -75,15 +75,15 @@ const DialogDataAssessmentPeriod = () => {
 
   // Handle open summary dialog
   const openDialogSummaryInfo = useEmployeeDialogSummaryInfoStore(
-    (store) => store.openDialog
+    (store) => store.openDialog,
   );
   const setSummaryInfoData = useEmployeeDialogSummaryInfoStore(
-    (store) => store.setDialogData
+    (store) => store.setDialogData,
   );
 
   const setUserId = useReviewFormDialogStore((store) => store.setUserId);
   const setAssessmentPeriodId = useReviewFormDialogStore(
-    (store) => store.setAssessmentPeriodId
+    (store) => store.setAssessmentPeriodId,
   );
   const setFormType = useReviewFormDialogStore((store) => store.setFormType);
   const setIsManager = useReviewFormDialogStore((store) => store.setIsManager);

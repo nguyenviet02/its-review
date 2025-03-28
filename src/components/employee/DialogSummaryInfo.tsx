@@ -24,19 +24,19 @@ import { getListManagerOfEmployee } from '@/services/api';
 
 const DialogSummaryInfo = () => {
   const dialogState = useEmployeeDialogSummaryInfoStore(
-    (store) => store.dialogState
+    (store) => store.dialogState,
   );
   const handleCloseDialogSummaryInfo = useEmployeeDialogSummaryInfoStore(
-    (store) => store.closeDialog
+    (store) => store.closeDialog,
   );
 
   const userId = useReviewFormDialogStore((store) => store.userId);
   const handleOpenReviewForm = useReviewFormDialogStore(
-    (store) => store.openDialog
+    (store) => store.openDialog,
   );
 
   const assessmentPeriodId = useReviewFormDialogStore(
-    (store) => store.assessmentPeriodId
+    (store) => store.assessmentPeriodId,
   );
 
   const rows = [
@@ -117,7 +117,7 @@ const DialogSummaryInfo = () => {
                 {listManager?.map(
                   (
                     manager: { id: string; username: string },
-                    index: number
+                    index: number,
                   ) => (
                     <TableRow
                       key={manager.id}
@@ -130,7 +130,7 @@ const DialogSummaryInfo = () => {
                       </TableCell>
                       <TableCell>{`${manager.username}`}</TableCell>
                     </TableRow>
-                  )
+                  ),
                 )}
               </TableBody>
             </Table>

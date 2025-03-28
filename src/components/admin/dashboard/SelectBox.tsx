@@ -16,7 +16,7 @@ const SelectBox = ({
   setSelectedAssessmentPeriodId,
 }: Props) => {
   const handleChangeAssessmentPeriodId = (
-    event: React.ChangeEvent<HTMLSelectElement>
+    event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     const selectedId = Number(event.target.value);
     setSelectedAssessmentPeriodId(selectedId);
@@ -35,7 +35,7 @@ const SelectBox = ({
             <option key={assessmentPeriod.id} value={assessmentPeriod.id}>
               {assessmentPeriod.title}
             </option>
-          )
+          ),
         )}
       </Select>
     </div>

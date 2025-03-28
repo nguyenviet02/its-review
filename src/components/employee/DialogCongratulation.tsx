@@ -15,7 +15,7 @@ const DialogCongratulation = () => {
   const dialogTitle = useDialogCongratulationStore((store) => store.title);
   const dialogContent = useDialogCongratulationStore((store) => store.content);
   const handleClose = useDialogCongratulationStore(
-    (store) => store.closeDialog
+    (store) => store.closeDialog,
   );
   return (
     <Dialog

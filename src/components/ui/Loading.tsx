@@ -21,7 +21,7 @@ const Loading = ({ isLoading, children, size = 'md' }: LoadingProps) => {
     return (
       <div className="flex size-full h-[300px] items-center justify-center">
         <div
-          className={`animate-spin rounded-full border-4 border-t-4 border-t-blue-500 border-gray-200 ${sizeClasses[size]}`}
+          className={`animate-spin rounded-full border-4 border-t-4 border-gray-200 border-t-blue-500 ${sizeClasses[size]}`}
         ></div>
       </div>
     );
