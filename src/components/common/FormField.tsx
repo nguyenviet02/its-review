@@ -1,13 +1,13 @@
-import { FORM_FIELDS, ICriterion } from "@/types";
-import React from "react";
-import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
-import MultiInput from "../forms/fields/MultiInput";
-import MultiInputScore from "../forms/fields/MultiInputScore";
-import ScoreInput from "../forms/fields/ScoreInput";
-import SelectField from "../forms/fields/SelectField";
-import TableInput from "../forms/fields/TableInput";
-import CustomTooltip from "../ui/CustomTooltip";
-import TextAreaField from "../forms/fields/TextAreaField";
+import { FORM_FIELDS, ICriterion } from '@/types';
+import React from 'react';
+import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
+import MultiInput from '../forms/fields/MultiInput';
+import MultiInputScore from '../forms/fields/MultiInputScore';
+import ScoreInput from '../forms/fields/ScoreInput';
+import SelectField from '../forms/fields/SelectField';
+import TableInput from '../forms/fields/TableInput';
+import CustomTooltip from '../ui/CustomTooltip';
+import TextAreaField from '../forms/fields/TextAreaField';
 
 type Props = {
   disabled?: boolean;
@@ -56,7 +56,7 @@ const FormField = ({ disabled, criterion }: Props) => {
         disabled={disabled}
         name={criterion.name}
         title={criterion.title}
-				isRequired={criterion?.isRequired}
+        isRequired={criterion?.isRequired}
       />
     );
   }

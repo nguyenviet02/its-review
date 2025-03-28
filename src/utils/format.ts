@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { IEmployee } from "@/types";
+import { IEmployee } from '@/types';
 
 /**
  * Format data imported from Excel for manager list
@@ -28,24 +28,24 @@ export const formatDataImportListManager = (dataFromExcel: any) => {
  * Format data imported from Excel for employee list
  */
 export const formatDataImportListEmployee = (
-  dataFromExcel: any,
+  dataFromExcel: any
 ): IEmployee[] => {
   const formattedData = dataFromExcel.map((data: any) => {
     return {
-      id: data["ID Cá nhân"],
-      username: data["Họ và tên"],
-      department: data["Phòng ban"],
-      jobPosition: data["Vị trí"],
-      email: data["Email"],
-      organizationId: data["organizationId"] || 1,
-      team: data["Team"],
-      block: data["Khối"],
+      id: data['ID Cá nhân'],
+      username: data['Họ và tên'],
+      department: data['Phòng ban'],
+      jobPosition: data['Vị trí'],
+      email: data['Email'],
+      organizationId: data['organizationId'] || 1,
+      team: data['Team'],
+      block: data['Khối'],
     };
   });
   return formattedData;
 };
 
 export const getUsernameFromEmail = (email: string) => {
-  const username = email.split("@")[0];
+  const username = email.split('@')[0];
   return username;
 };

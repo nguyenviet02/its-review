@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { getListAssessmentPeriod } from "@/services/api";
-import { formatDate } from "@/utils";
-import { DataGrid, GridColDef, GridRowParams } from "@mui/x-data-grid";
-import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import ButtonImportDataAssessment from "./ButtonImportDataAssessment";
-import { EyeIcon, PencilIcon } from "@heroicons/react/24/outline";
-import { Menu, MenuItem, IconButton } from "@mui/material";
-import ButtonExportDataAssessment from "./ButtonExportDataAssessment";
+import { getListAssessmentPeriod } from '@/services/api';
+import { formatDate } from '@/utils';
+import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
+import { useQuery } from '@tanstack/react-query';
+import React from 'react';
+import ButtonImportDataAssessment from './ButtonImportDataAssessment';
+import { EyeIcon, PencilIcon } from '@heroicons/react/24/outline';
+import { Menu, MenuItem, IconButton } from '@mui/material';
+import ButtonExportDataAssessment from './ButtonExportDataAssessment';
 import {
   useDataAssessmentPeriodDialogStore,
   useAssessmentPeriodDialogStore,
   useDialogListManagerStore,
-} from "@/store";
-import { EllipsisVerticalIcon } from "@heroicons/react/24/solid";
-import { IAssessmentPeriodResponseAPI } from "@/types";
+} from '@/store';
+import { EllipsisVerticalIcon } from '@heroicons/react/24/solid';
+import { IAssessmentPeriodResponseAPI } from '@/types';
 
 const DataTable = () => {
   // Pagination DataGrid
@@ -31,7 +31,7 @@ const DataTable = () => {
 
   const handleOpenMenu = (
     event: React.MouseEvent<HTMLElement>,
-    row: IAssessmentPeriodResponseAPI,
+    row: IAssessmentPeriodResponseAPI
   ) => {
     setAnchorEl(event.currentTarget);
     setSelectedRow(row);
@@ -43,7 +43,7 @@ const DataTable = () => {
 
   // Query get list user
   const listAssessmentPeriodQuery = useQuery({
-    queryKey: ["organization-listAssessmentPeriod", paginationModel],
+    queryKey: ['organization-listAssessmentPeriod', paginationModel],
     queryFn: () =>
       getListAssessmentPeriod(paginationModel.pageSize, paginationModel.page),
     refetchOnWindowFocus: false,
@@ -52,7 +52,7 @@ const DataTable = () => {
 
   // Row count for DataGrid pagination
   const rowCountRef = React.useRef(
-    listAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0,
+    listAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0
   );
   const rowCount = React.useMemo(() => {
     if (
@@ -71,31 +71,31 @@ const DataTable = () => {
 
   // Data view dialog
   const openDialogDataAssessmentPeriod = useDataAssessmentPeriodDialogStore(
-    (state) => state.openDialog,
+    (state) => state.openDialog
   );
 
   const setAssessmentPeriodId = useDataAssessmentPeriodDialogStore(
-    (state) => state.setAssessmentPeriodId,
+    (state) => state.setAssessmentPeriodId
   );
 
   const setAsessmentPeriodName = useDataAssessmentPeriodDialogStore(
-    (state) => state.setAssessmentPeriodName,
+    (state) => state.setAssessmentPeriodName
   );
 
   // Dialog List Manager
   const openDialogListManager = useDialogListManagerStore(
-    (state) => state.openDialog,
+    (state) => state.openDialog
   );
   const setAssessmentPeriodIdListManager = useDialogListManagerStore(
-    (state) => state.setAssessmentPeriodId,
+    (state) => state.setAssessmentPeriodId
   );
   const setAssessmentPeriodNameListManager = useDialogListManagerStore(
-    (state) => state.setAssessmentPeriodName,
+    (state) => state.setAssessmentPeriodName
   );
 
   // Unified create/edit dialog store
   const openEditDialog = useAssessmentPeriodDialogStore(
-    (state) => state.openEditDialog,
+    (state) => state.openEditDialog
   );
 
   const handleOpenDialogShowData = (id: number, name: string) => {
@@ -118,47 +118,47 @@ const DataTable = () => {
   // Define columns
   const columns: GridColDef[] = [
     {
-      field: "id",
-      headerName: "ID",
-      headerAlign: "center",
-      align: "center",
+      field: 'id',
+      headerName: 'ID',
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "title",
-      headerName: "Title",
+      field: 'title',
+      headerName: 'Title',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "start",
-      headerName: "Start time",
+      field: 'start',
+      headerName: 'Start time',
       valueGetter: (value) => formatDate(value),
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "selfReviewEnd",
-      headerName: "Self review end time",
+      field: 'selfReviewEnd',
+      headerName: 'Self review end time',
       valueGetter: (value) => formatDate(value),
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "end",
-      headerName: "End time",
+      field: 'end',
+      headerName: 'End time',
       valueGetter: (value) => formatDate(value),
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "",
-      headerName: "Actions",
-      headerAlign: "center",
-      align: "center",
+      field: '',
+      headerName: 'Actions',
+      headerAlign: 'center',
+      align: 'center',
       flex: 1,
       renderCell: (params) => {
         return (
@@ -239,8 +239,8 @@ const DataTable = () => {
         getDetailPanelContent={getDetailPanelContent}
         slotProps={{
           loadingOverlay: {
-            variant: "skeleton",
-            noRowsVariant: "skeleton",
+            variant: 'skeleton',
+            noRowsVariant: 'skeleton',
           },
         }}
         paginationMode="server"

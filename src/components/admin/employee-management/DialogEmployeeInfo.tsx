@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import DataReviewTable from "@/components/common/DataReviewTable";
-import ErrorMessage from "@/components/forms/ErrorMessage";
-import { useDialogEmployeeInfoStore } from "@/store";
-import { FORM_STATUS, IAssessmentMinifyData, IEmployee } from "@/types";
+import DataReviewTable from '@/components/common/DataReviewTable';
+import ErrorMessage from '@/components/forms/ErrorMessage';
+import { useDialogEmployeeInfoStore } from '@/store';
+import { FORM_STATUS, IAssessmentMinifyData, IEmployee } from '@/types';
 import {
   Field,
   Label,
@@ -14,36 +14,36 @@ import {
   TabList,
   TabPanel,
   TabPanels,
-} from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+} from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import {
   IconButton,
   DialogContent,
   DialogActions,
   Dialog,
   DialogTitle,
-} from "@mui/material";
-import React from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+} from '@mui/material';
+import React from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 const data: IAssessmentMinifyData[] = [
   {
-    id: "1",
-    username: "Nguyễn Văn A",
-    department: "Phòng Kinh doanh",
-    jobPosition: "Dev",
+    id: '1',
+    username: 'Nguyễn Văn A',
+    department: 'Phòng Kinh doanh',
+    jobPosition: 'Dev',
     currentStatus: FORM_STATUS.WAITING_FILL_FORM,
-    period: "2023-2024",
-    deadline: "2024-01-01",
+    period: '2023-2024',
+    deadline: '2024-01-01',
   },
   {
-    id: "2",
-    username: "Nguyễn Văn B",
-    department: "Phòng Kinh doanh",
-    jobPosition: "Dev",
+    id: '2',
+    username: 'Nguyễn Văn B',
+    department: 'Phòng Kinh doanh',
+    jobPosition: 'Dev',
     currentStatus: FORM_STATUS.WAITING_BO,
-    period: "2023-2024",
-    deadline: "2024-01-01",
+    period: '2023-2024',
+    deadline: '2024-01-01',
   },
 ];
 
@@ -51,7 +51,7 @@ const DialogEmployeeInfo = () => {
   const dialogState = useDialogEmployeeInfoStore((store) => store.isOpen);
   const handleClose = useDialogEmployeeInfoStore((store) => store.closeDialog);
   const employeeInfo = useDialogEmployeeInfoStore(
-    (store) => store.employeeInfo,
+    (store) => store.employeeInfo
   );
 
   const {
@@ -63,7 +63,7 @@ const DialogEmployeeInfo = () => {
     values: employeeInfo,
   });
   const handleSubmitChangeEmployeeInfo: SubmitHandler<IEmployee> = (
-    data: IEmployee,
+    data: IEmployee
   ) => {
     console.log(data);
   };
@@ -85,7 +85,7 @@ const DialogEmployeeInfo = () => {
         aria-label="close"
         onClick={handleClose}
         sx={(theme) => ({
-          position: "absolute",
+          position: 'absolute',
           right: 8,
           top: 8,
           color: theme.palette.grey[500],
@@ -102,8 +102,8 @@ const DialogEmployeeInfo = () => {
             <Label className="text-lg font-bold">Employee ID:</Label>
             <Input
               className="rounded border border-black px-2 py-3"
-              {...register("id", {
-                required: "This field is required",
+              {...register('id', {
+                required: 'This field is required',
               })}
             />
             <ErrorMessage errorMessage={errors.username?.message} />
@@ -112,8 +112,8 @@ const DialogEmployeeInfo = () => {
             <Label className="text-lg font-bold">Full Name</Label>
             <Input
               className="rounded border border-black px-2 py-3"
-              {...register("username", {
-                required: "This field is required",
+              {...register('username', {
+                required: 'This field is required',
               })}
             />
             <ErrorMessage errorMessage={errors.username?.message} />
@@ -122,8 +122,8 @@ const DialogEmployeeInfo = () => {
             <Label className="text-lg font-bold">Email</Label>
             <Input
               className="rounded border border-black px-2 py-3"
-              {...register("email", {
-                required: "This field is required",
+              {...register('email', {
+                required: 'This field is required',
               })}
             />
             <ErrorMessage errorMessage={errors.username?.message} />
@@ -133,8 +133,8 @@ const DialogEmployeeInfo = () => {
               <Label className="text-lg font-bold">Department</Label>
               <Input
                 className="rounded border border-black px-2 py-3"
-                {...register("department", {
-                  required: "This field is required",
+                {...register('department', {
+                  required: 'This field is required',
                 })}
               />
               <ErrorMessage errorMessage={errors.username?.message} />
@@ -143,8 +143,8 @@ const DialogEmployeeInfo = () => {
               <Label className="text-lg font-bold">Job Position</Label>
               <Input
                 className="rounded border border-black px-2 py-3"
-                {...register("jobPosition", {
-                  required: "This field is required",
+                {...register('jobPosition', {
+                  required: 'This field is required',
                 })}
               />
               <ErrorMessage errorMessage={errors.username?.message} />
@@ -172,8 +172,8 @@ const DialogEmployeeInfo = () => {
       </DialogContent>
       <DialogActions
         sx={{
-          justifyContent: "center",
-          padding: "1rem",
+          justifyContent: 'center',
+          padding: '1rem',
         }}
       >
         <Button onClick={handleClose} className="button-primary">

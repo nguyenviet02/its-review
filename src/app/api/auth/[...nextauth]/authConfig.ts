@@ -1,19 +1,19 @@
-import { NextAuthOptions } from "next-auth";
-import { JWT } from "next-auth/jwt";
-import * as msal from "@azure/msal-node";
+import { NextAuthOptions } from 'next-auth';
+import { JWT } from 'next-auth/jwt';
+import * as msal from '@azure/msal-node';
 
-import AzureADProvider from "next-auth/providers/azure-ad";
+import AzureADProvider from 'next-auth/providers/azure-ad';
 
-import { env } from "process";
+import { env } from 'process';
 
 const clientId = env.NEXT_PUBLIC_AZURE_AD_CLIENT_ID;
 const clientSecret = env.NEXT_PUBLIC_AZURE_AD_CLIENT_SECRET;
 const tenantId = env.NEXT_PUBLIC_AZURE_AD_TENANT_ID;
 
 const COOKIES_LIFE_TIME = 24 * 60 * 60;
-const COOKIE_PREFIX = process.env.NODE_ENV === "production" ? "__Secure-" : "";
+const COOKIE_PREFIX = process.env.NODE_ENV === 'production' ? '__Secure-' : '';
 
-declare module "next-auth" {
+declare module 'next-auth' {
   interface Session {
     accessToken?: string;
     error?: string;
@@ -31,7 +31,7 @@ declare module "next-auth" {
   }
 }
 
-declare module "next-auth/jwt" {
+declare module 'next-auth/jwt' {
   interface JWT {
     user?: {
       id: string;
@@ -59,11 +59,11 @@ const authority = `https://login.microsoftonline.com/${tenantId}`;
 
 const msalConfig = {
   auth: {
-    clientId: clientId || "",
+    clientId: clientId || '',
     authority,
-    clientSecret: clientSecret || "",
+    clientSecret: clientSecret || '',
     knownAuthorities: [authority],
-    redirectUri: "/",
+    redirectUri: '/',
   },
   system: {
     loggerOptions: {
@@ -92,19 +92,19 @@ async function refreshAccessToken(token: JWT) {
     const url = `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/token`;
 
     const body = new URLSearchParams({
-      client_id: clientId || "azure-ad-client-id",
-      client_secret: clientSecret || "azure-ad-client-secret",
-      grant_type: "refresh_token",
+      client_id: clientId || 'azure-ad-client-id',
+      client_secret: clientSecret || 'azure-ad-client-secret',
+      grant_type: 'refresh_token',
       scope:
-        "api://9aab055b-cfde-451f-9ddd-eb18a95778f7/Todolist.ReadWrite openid email profile User.Read offline_access",
+        'api://9aab055b-cfde-451f-9ddd-eb18a95778f7/Todolist.ReadWrite openid email profile User.Read offline_access',
       refresh_token: token?.refreshToken as string,
     });
 
     const response = await fetch(url, {
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
-      method: "POST",
+      method: 'POST',
       body,
     });
 
@@ -131,10 +131,10 @@ async function refreshAccessToken(token: JWT) {
       refreshToken: refreshedTokens.refresh_token ?? token.refreshToken,
     };
   } catch (error) {
-    console.error("Error refreshing access token", error);
+    console.error('Error refreshing access token', error);
     return {
       ...token,
-      error: "RefreshAccessTokenError",
+      error: 'RefreshAccessTokenError',
     };
   }
 }
@@ -148,10 +148,10 @@ export const authConfig = {
       authorization: {
         params: {
           scope:
-            "api://9aab055b-cfde-451f-9ddd-eb18a95778f7/Todolist.ReadWrite openid email profile User.Read  offline_access",
+            'api://9aab055b-cfde-451f-9ddd-eb18a95778f7/Todolist.ReadWrite openid email profile User.Read  offline_access',
         },
       },
-			issuer: `https://login.microsoftonline.com/${tenantId}/v2.0`,
+      issuer: `https://login.microsoftonline.com/${tenantId}/v2.0`,
       httpOptions: { timeout: 15000 },
     }),
   ],
@@ -160,7 +160,7 @@ export const authConfig = {
       // Persist the access_token, expires_at & refresh_token to the token right after signin
       if (account && account.access_token && account.expires_at && user) {
         const apiToken = await generateApiAccessToken(
-          account.refresh_token as string,
+          account.refresh_token as string
         );
 
         token.accessToken = account.access_token;
@@ -175,19 +175,19 @@ export const authConfig = {
 
         let userData = null;
         try {
-					console.time('jwt')
+          console.time('jwt');
           const res = await fetch(
-						`${env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/users/me`,
+            `${env.NEXT_PUBLIC_API_ENDPOINT}/api/v1/users/me`,
             {
-							method: "GET",
+              method: 'GET',
               headers: {
-								"Content-Type": "application/json",
+                'Content-Type': 'application/json',
                 Authorization: `Bearer ${apiToken?.accessToken}`,
               },
-            },
+            }
           );
           userData = await res.json();
-					console.timeEnd('jwt')
+          console.timeEnd('jwt');
           token.user = userData;
         } catch (error) {
           console.log(error);
@@ -197,7 +197,7 @@ export const authConfig = {
       if (
         Date.now() < Number(token.accessTokenExpires) &&
         Date.now() <
-          new Date(token.apiTokenDetails?.expiresOn || "").getTime() &&
+          new Date(token.apiTokenDetails?.expiresOn || '').getTime() &&
         token?.apiTokenDetails?.accessToken
       ) {
         return token;
@@ -219,16 +219,16 @@ export const authConfig = {
       name: `${COOKIE_PREFIX}next-auth.session-token`,
       options: {
         httpOnly: true,
-        sameSite: "lax",
-        path: "/",
+        sameSite: 'lax',
+        path: '/',
         secure: true,
       },
     },
     callbackUrl: {
       name: `${COOKIE_PREFIX}next-auth.callback-url`,
       options: {
-        sameSite: "lax",
-        path: "/",
+        sameSite: 'lax',
+        path: '/',
         secure: true,
       },
     },
@@ -236,8 +236,8 @@ export const authConfig = {
       name: `${COOKIE_PREFIX}next-auth.csrf-token`,
       options: {
         httpOnly: true,
-        sameSite: "lax",
-        path: "/",
+        sameSite: 'lax',
+        path: '/',
         secure: true,
       },
     },
@@ -245,8 +245,8 @@ export const authConfig = {
       name: `${COOKIE_PREFIX}next-auth.pkce.code_verifier`,
       options: {
         httpOnly: true,
-        sameSite: "lax",
-        path: "/",
+        sameSite: 'lax',
+        path: '/',
         secure: true,
         maxAge: COOKIES_LIFE_TIME,
       },
@@ -255,8 +255,8 @@ export const authConfig = {
       name: `${COOKIE_PREFIX}next-auth.state`,
       options: {
         httpOnly: true,
-        sameSite: "lax",
-        path: "/",
+        sameSite: 'lax',
+        path: '/',
         secure: true,
         maxAge: COOKIES_LIFE_TIME,
       },
@@ -265,8 +265,8 @@ export const authConfig = {
       name: `${COOKIE_PREFIX}next-auth.nonce`,
       options: {
         httpOnly: true,
-        sameSite: "lax",
-        path: "/",
+        sameSite: 'lax',
+        path: '/',
         secure: true,
       },
     },

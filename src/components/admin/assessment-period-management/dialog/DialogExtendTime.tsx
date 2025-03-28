@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
-import React from "react";
-import { Button, Field, Label } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import React from 'react';
+import { Button, Field, Label } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import {
   Dialog,
   DialogTitle,
   IconButton,
   DialogContent,
   DialogActions,
-} from "@mui/material";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import { Controller, useForm } from "react-hook-form";
-import dayjs from "dayjs";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { toast } from "react-toastify";
-import { useExtendTimeDialogStore } from "@/store";
-import ErrorMessage from "@/components/forms/ErrorMessage";
-import { extendTimeForUser } from "@/services/api";
+} from '@mui/material';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { Controller, useForm } from 'react-hook-form';
+import dayjs from 'dayjs';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import { useExtendTimeDialogStore } from '@/store';
+import ErrorMessage from '@/components/forms/ErrorMessage';
+import { extendTimeForUser } from '@/services/api';
 
 interface ExtendTimeFormData {
   extendTime: Date | null;
@@ -74,12 +74,12 @@ const DialogExtendTime = () => {
     onSuccess: () => {
       toast.dismiss();
       toast.success(
-        `Time extended successfully for ${!!employeeId ? "employee" : "managers"}`,
+        `Time extended successfully for ${!!employeeId ? 'employee' : 'managers'}`
       );
       queryClient.invalidateQueries({
         queryKey: [
-          "organization-listManagerOfAssessmentPeriod",
-          "organization-listEmployeeOfAssessmentPeriod",
+          'organization-listManagerOfAssessmentPeriod',
+          'organization-listEmployeeOfAssessmentPeriod',
         ],
       });
       closeDialog();
@@ -87,12 +87,12 @@ const DialogExtendTime = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (error: any) => {
       toast.dismiss();
-      toast.error(error?.response?.data?.message || "Failed to extend time");
+      toast.error(error?.response?.data?.message || 'Failed to extend time');
     },
   });
 
   const onSubmit = (data: ExtendTimeFormData) => {
-    toast.loading("Extending time...");
+    toast.loading('Extending time...');
     extendTimeMutation.mutate(data);
   };
 
@@ -106,13 +106,13 @@ const DialogExtendTime = () => {
       closeAfterTransition={false}
     >
       <DialogTitle id="extend-time-dialog-title" className="text-3xl font-bold">
-        {!!employeeId ? "Extend Time for Employee" : "Extend Time for Manager"}
+        {!!employeeId ? 'Extend Time for Employee' : 'Extend Time for Manager'}
       </DialogTitle>
       <IconButton
         aria-label="close"
         onClick={closeDialog}
         sx={(theme) => ({
-          position: "absolute",
+          position: 'absolute',
           right: 8,
           top: 8,
           color: theme.palette.grey[500],
@@ -128,12 +128,12 @@ const DialogExtendTime = () => {
               control={control}
               name="extendTime"
               rules={{
-                required: "Deadline is required",
+                required: 'Deadline is required',
                 validate: {
                   futureDate: (value) =>
                     !value ||
                     dayjs(value).isAfter(dayjs()) ||
-                    "Deadline must be in the future",
+                    'Deadline must be in the future',
                 },
               }}
               render={({ field }) => (
@@ -145,7 +145,7 @@ const DialogExtendTime = () => {
                   }}
                   slotProps={{ textField: { fullWidth: true } }}
                   shouldDisableDate={(date) =>
-                    dayjs(date).isBefore(dayjs(), "day")
+                    dayjs(date).isBefore(dayjs(), 'day')
                   }
                 />
               )}
@@ -156,8 +156,8 @@ const DialogExtendTime = () => {
       </DialogContent>
       <DialogActions
         sx={{
-          justifyContent: "center",
-          padding: "1rem",
+          justifyContent: 'center',
+          padding: '1rem',
         }}
       >
         <Button
@@ -165,7 +165,7 @@ const DialogExtendTime = () => {
           onClick={handleSubmit(onSubmit)}
           className="button-primary"
         >
-          {extendTimeMutation.isPending ? "Extending..." : "Extend Time"}
+          {extendTimeMutation.isPending ? 'Extending...' : 'Extend Time'}
         </Button>
       </DialogActions>
     </Dialog>

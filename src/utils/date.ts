@@ -13,8 +13,8 @@ export const formatDate = (date: string): string => {
   const month = d.getMonth() + 1;
   const day = d.getDate();
   const year = d.getFullYear();
-	const hour = d.getHours();
-	const minute = d.getMinutes();
+  const hour = d.getHours();
+  const minute = d.getMinutes();
 
   return `${formatNumberToTwoDigits(day)}/${formatNumberToTwoDigits(month)}/${year} ${formatNumberToTwoDigits(hour)}:${formatNumberToTwoDigits(minute)}`;
 };

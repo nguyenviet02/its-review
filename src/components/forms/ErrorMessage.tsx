@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 type ErrorMessageProps = {
   errorMessage?: string;
@@ -9,12 +9,8 @@ type ErrorMessageProps = {
  */
 const ErrorMessage = ({ errorMessage }: ErrorMessageProps) => {
   if (!errorMessage) return null;
-  
-  return (
-    <div className="text-xs font-normal text-red-500">
-      {errorMessage}
-    </div>
-  );
+
+  return <div className="text-xs font-normal text-red-500">{errorMessage}</div>;
 };
 
 export default ErrorMessage;

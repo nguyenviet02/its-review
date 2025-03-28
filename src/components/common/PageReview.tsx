@@ -1,19 +1,19 @@
-import { ICriterion, IField, IPlanData } from "@/types";
-import React, { useCallback, useEffect, useMemo } from "react";
-import FormField from "./FormField";
-import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
-import { useForm, FormProvider } from "react-hook-form";
-import { Button } from "@headlessui/react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { submitDataFormReview } from "@/services/api";
-import { useSession } from "next-auth/react";
-import { toast } from "react-toastify";
-import { randomId } from "@mui/x-data-grid-generator";
+import { ICriterion, IField, IPlanData } from '@/types';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import FormField from './FormField';
+import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
+import { useForm, FormProvider } from 'react-hook-form';
+import { Button } from '@headlessui/react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { submitDataFormReview } from '@/services/api';
+import { useSession } from 'next-auth/react';
+import { toast } from 'react-toastify';
+import { randomId } from '@mui/x-data-grid-generator';
 import {
   useReviewFormDialogStore,
   useDialogCongratulationStore,
-} from "@/store";
-import CustomTooltip from "../ui/CustomTooltip";
+} from '@/store';
+import CustomTooltip from '../ui/CustomTooltip';
 
 type Props = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -41,7 +41,7 @@ const PageReview = ({
             estimatedTime: new Date(plan.estimatedTime),
             id: randomId(),
           };
-        },
+        }
       );
       defaultValues.opinionAndSuggestions.plans = dataPlans;
     }
@@ -53,15 +53,15 @@ const PageReview = ({
     defaultValues: defaultValuesFormatted,
   });
   const handleCloseReviewFormDialog = useReviewFormDialogStore(
-    (store) => store.closeDialog,
+    (store) => store.closeDialog
   );
   const formType = useReviewFormDialogStore((store) => store.type);
   const assessmentPeriodId = useReviewFormDialogStore(
-    (store) => store.assessmentPeriodId,
+    (store) => store.assessmentPeriodId
   );
   const userId = useReviewFormDialogStore((store) => store.userId);
   const dialogCongratulationState = useDialogCongratulationStore(
-    (store) => store,
+    (store) => store
   );
   const resetForm = useCallback(() => {
     setIsSubmitting(false);
@@ -83,24 +83,24 @@ const PageReview = ({
     onSuccess: async () => {
       await Promise.all([
         queryClient.refetchQueries({
-          queryKey: ["getDataFormReview"],
-          type: "active",
+          queryKey: ['getDataFormReview'],
+          type: 'active',
         }),
         queryClient.refetchQueries({
-          queryKey: ["reviewEmployee-listEmployeeOfAssessmentPeriod"],
-          type: "active",
+          queryKey: ['reviewEmployee-listEmployeeOfAssessmentPeriod'],
+          type: 'active',
         }),
         queryClient.refetchQueries({
-          queryKey: ["myListAssessmentPeriod"],
-          type: "active",
+          queryKey: ['myListAssessmentPeriod'],
+          type: 'active',
         }),
       ]);
       toast.dismiss();
-      toast.success("Submit data successfully");
+      toast.success('Submit data successfully');
       resetForm();
-      dialogCongratulationState.setTitle("Congratulation");
+      dialogCongratulationState.setTitle('Congratulation');
       dialogCongratulationState.setContent(
-        "Thanks for your submission! Your review has been successfully submitted.",
+        'Thanks for your submission! Your review has been successfully submitted.'
       );
       dialogCongratulationState.openDialog();
     },
@@ -114,11 +114,11 @@ const PageReview = ({
               <div key={error.property} className="mb-2">
                 {error.code}: {error.message}
               </div>
-            ),
+            )
           ) ||
             error?.response?.data?.message ||
-            "Submit data failed"}
-        </div>,
+            'Submit data failed'}
+        </div>
       );
       setIsSubmitting(false);
     },
@@ -127,7 +127,7 @@ const PageReview = ({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (data: any) => {
       setIsSubmitting(true);
-      toast.loading("Submitting data...");
+      toast.loading('Submitting data...');
       const dataToSubmit = {
         ...data,
       };
@@ -140,7 +140,7 @@ const PageReview = ({
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
             const { id, ...rest } = plan;
             return rest;
-          },
+          }
         );
         dataToSubmit.opinionAndSuggestions.plans = dataPlans;
       }
@@ -157,7 +157,7 @@ const PageReview = ({
         data: payload,
       });
     },
-    [assessmentPeriodId, formType, submitDataFormReviewMutation, userId],
+    [assessmentPeriodId, formType, submitDataFormReviewMutation, userId]
   );
 
   const listFields = useMemo(() => {

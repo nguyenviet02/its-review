@@ -1,32 +1,32 @@
-import { getListManagerOfAssessmentPeriod } from "@/services/api";
-import { useDialogListManagerStore, useExtendTimeDialogStore } from "@/store";
-import { formatDate } from "@/utils";
-import { Button } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { getListManagerOfAssessmentPeriod } from '@/services/api';
+import { useDialogListManagerStore, useExtendTimeDialogStore } from '@/store';
+import { formatDate } from '@/utils';
+import { Button } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import {
   Dialog,
   DialogTitle,
   IconButton,
   DialogContent,
   DialogActions,
-} from "@mui/material";
+} from '@mui/material';
 import {
   DataGrid,
   gridClasses,
   GridColDef,
   GridRenderCellParams,
-} from "@mui/x-data-grid";
-import { useQuery } from "@tanstack/react-query";
-import React from "react";
+} from '@mui/x-data-grid';
+import { useQuery } from '@tanstack/react-query';
+import React from 'react';
 
 const DialogListManager = () => {
   const isOpen = useDialogListManagerStore((store) => store.isOpen);
   const handleClose = useDialogListManagerStore((store) => store.closeDialog);
   const assessmentPeriodId = useDialogListManagerStore(
-    (store) => store.assessmentPeriodId,
+    (store) => store.assessmentPeriodId
   );
   const assessmentPeriodName = useDialogListManagerStore(
-    (store) => store.assessmentPeriodName,
+    (store) => store.assessmentPeriodName
   );
 
   // Pagination DataGrid
@@ -37,7 +37,7 @@ const DialogListManager = () => {
 
   const listManagerOfAssessmentPeriodQuery = useQuery({
     queryKey: [
-      "organization-listManagerOfAssessmentPeriod",
+      'organization-listManagerOfAssessmentPeriod',
       assessmentPeriodId,
       isOpen,
     ],
@@ -45,7 +45,7 @@ const DialogListManager = () => {
       getListManagerOfAssessmentPeriod(
         assessmentPeriodId as number,
         paginationModel.pageSize,
-        paginationModel.page,
+        paginationModel.page
       ),
     refetchOnWindowFocus: false,
     enabled: !!assessmentPeriodId && isOpen,
@@ -54,7 +54,7 @@ const DialogListManager = () => {
 
   // Row count for DataGrid pagination
   const rowCountRef = React.useRef(
-    listManagerOfAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0,
+    listManagerOfAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0
   );
   const rowCount = React.useMemo(() => {
     if (
@@ -69,75 +69,75 @@ const DialogListManager = () => {
 
   // Handle open dialog extend time
   const openDialogExtendTime = useExtendTimeDialogStore(
-    (store) => store.openDialog,
+    (store) => store.openDialog
   );
   const handleOpenExtendTime = (managerId: string) => {
-    const employeeId = "";
+    const employeeId = '';
     openDialogExtendTime(employeeId, managerId, assessmentPeriodId as number);
   };
 
   // Define columns
   const columns: GridColDef[] = [
     {
-      field: "id",
-      headerName: "Manager ID",
-      headerAlign: "center",
-      align: "center",
+      field: 'id',
+      headerName: 'Manager ID',
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "username",
-      headerName: "Full Name",
+      field: 'username',
+      headerName: 'Full Name',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "block",
-      headerName: "Block",
+      field: 'block',
+      headerName: 'Block',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "department",
-      headerName: "Department",
+      field: 'department',
+      headerName: 'Department',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "team",
-      headerName: "Team",
+      field: 'team',
+      headerName: 'Team',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "jobPosition",
-      headerName: "Job Position",
+      field: 'jobPosition',
+      headerName: 'Job Position',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: 'email',
+      headerName: 'Email',
       flex: 1.5,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "extendTime",
-      headerName: "Extend Time",
-      headerAlign: "center",
-      align: "center",
-      valueGetter: (value) => (value ? formatDate(value) : ""),
+      field: 'extendTime',
+      headerName: 'Extend Time',
+      headerAlign: 'center',
+      align: 'center',
+      valueGetter: (value) => (value ? formatDate(value) : ''),
     },
     {
-      field: "action",
-      headerName: "Action",
-      headerAlign: "center",
-      align: "center",
+      field: 'action',
+      headerName: 'Action',
+      headerAlign: 'center',
+      align: 'center',
       flex: 1,
       renderCell: (params: GridRenderCellParams) => {
         return (
@@ -169,7 +169,7 @@ const DialogListManager = () => {
         aria-label="close"
         onClick={handleClose}
         sx={(theme) => ({
-          position: "absolute",
+          position: 'absolute',
           right: 8,
           top: 8,
           color: theme.palette.grey[500],
@@ -182,12 +182,12 @@ const DialogListManager = () => {
           rows={listManager}
           columns={columns}
           getRowId={(row) => row.id}
-          getRowHeight={() => "auto"}
+          getRowHeight={() => 'auto'}
           loading={listManagerOfAssessmentPeriodQuery?.isLoading}
           slotProps={{
             loadingOverlay: {
-              variant: "skeleton",
-              noRowsVariant: "skeleton",
+              variant: 'skeleton',
+              noRowsVariant: 'skeleton',
             },
           }}
           disableRowSelectionOnClick
@@ -205,8 +205,8 @@ const DialogListManager = () => {
       </DialogContent>
       <DialogActions
         sx={{
-          justifyContent: "center",
-          padding: "1rem",
+          justifyContent: 'center',
+          padding: '1rem',
         }}
       ></DialogActions>
     </Dialog>

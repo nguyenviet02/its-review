@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
 import {
   Dialog,
   DialogBackdrop,
   DialogPanel,
   TransitionChild,
-} from "@headlessui/react";
+} from '@headlessui/react';
 import {
   HomeIcon,
   XMarkIcon,
@@ -13,11 +13,11 @@ import {
   DocumentTextIcon,
   CalendarDaysIcon,
   RectangleGroupIcon,
-} from "@heroicons/react/24/outline";
-import { ROLES } from "@/types";
-import { useMemo } from "react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+} from '@heroicons/react/24/outline';
+import { ROLES } from '@/types';
+import { useMemo } from 'react';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 type SidebarProps = {
   role: ROLES;
@@ -36,60 +36,65 @@ export default function Sidebar({
     if (role === ROLES.SUPER_ADMIN) {
       return [
         {
-          name: "Dashboard",
-          href: "/admin",
+          name: 'Dashboard',
+          href: '/admin',
           icon: HomeIcon,
-          current: pathName === "/admin",
+          current: pathName === '/admin',
         },
         {
-          name: "Employee Management",
-          href: "/admin/employee-management",
+          name: 'Employee Management',
+          href: '/admin/employee-management',
           icon: UserGroupIcon,
-          current: pathName?.includes("/admin/employee-management"),
+          current: pathName?.includes('/admin/employee-management'),
         },
         {
-          name: "Assessment Period Management",
-          href: "/admin/assessment-period-management",
+          name: 'Assessment Period Management',
+          href: '/admin/assessment-period-management',
           icon: CalendarDaysIcon,
-          current: pathName?.includes("/admin/assessment-period-management"),
+          current: pathName?.includes('/admin/assessment-period-management'),
         },
       ];
     }
 
     if (role === ROLES.ADMIN) {
       return [
-        { name: "Dashboard", href: "/admin", icon: HomeIcon, current: true },
+        { name: 'Dashboard', href: '/admin', icon: HomeIcon, current: true },
         {
-          name: "Quản lý nhân sự",
-          href: "/admin/users-management",
+          name: 'Quản lý nhân sự',
+          href: '/admin/users-management',
           icon: UserGroupIcon,
         },
         {
-          name: "Quản lý đơn từ",
-          href: "/admin/documents-management",
+          name: 'Quản lý đơn từ',
+          href: '/admin/documents-management',
           icon: DocumentTextIcon,
-          current: pathName?.includes("/admin/documents-management"),
+          current: pathName?.includes('/admin/documents-management'),
         },
         {
-          name: "Quản lý kỳ đánh giá",
-          href: "/admin/assessment-period-management",
+          name: 'Quản lý kỳ đánh giá',
+          href: '/admin/assessment-period-management',
           icon: CalendarDaysIcon,
-          current: pathName?.includes("/admin/assessment-period-management"),
+          current: pathName?.includes('/admin/assessment-period-management'),
         },
         {
-          name: "Quản lý phòng ban",
-          href: "/admin/departments-management",
+          name: 'Quản lý phòng ban',
+          href: '/admin/departments-management',
           icon: RectangleGroupIcon,
-          current: pathName?.includes("/admin/departments-management"),
+          current: pathName?.includes('/admin/departments-management'),
         },
       ];
     }
 
     return [
-      { name: "Documents", href: "/employee", icon: DocumentTextIcon, current: true },
+      {
+        name: 'Documents',
+        href: '/employee',
+        icon: DocumentTextIcon,
+        current: true,
+      },
     ];
   }, [pathName, role]);
-  
+
   return (
     <>
       <Dialog
@@ -131,13 +136,13 @@ export default function Sidebar({
                             href={item.href}
                             className={`${
                               item.current
-                                ? "bg-gray-50 text-indigo-600"
-                                : "text-gray-700 hover:bg-gray-50 hover:text-indigo-600"
+                                ? 'bg-gray-50 text-indigo-600'
+                                : 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600'
                             } group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold`}
                           >
                             <item.icon
                               aria-hidden="true"
-                              className={`${item.current ? "text-indigo-600" : "text-gray-400 group-hover:text-indigo-600"} size-6 shrink-0`}
+                              className={`${item.current ? 'text-indigo-600' : 'text-gray-400 group-hover:text-indigo-600'} size-6 shrink-0`}
                             />
                             {item.name}
                           </Link>
@@ -165,11 +170,11 @@ export default function Sidebar({
                     <li key={item.name}>
                       <Link
                         href={item.href}
-                        className={`${item.current ? "bg-gray-50 text-indigo-600" : "text-gray-700 hover:bg-gray-50 hover:text-indigo-600"} group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold`}
+                        className={`${item.current ? 'bg-gray-50 text-indigo-600' : 'text-gray-700 hover:bg-gray-50 hover:text-indigo-600'} group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold`}
                       >
                         <item.icon
                           aria-hidden="true"
-                          className={`${item.current ? "text-indigo-600" : "text-gray-400 group-hover:text-indigo-600"} size-6 shrink-0`}
+                          className={`${item.current ? 'text-indigo-600' : 'text-gray-400 group-hover:text-indigo-600'} size-6 shrink-0`}
                         />
                         {item.name}
                       </Link>

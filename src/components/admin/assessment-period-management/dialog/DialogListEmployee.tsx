@@ -1,13 +1,13 @@
-import CurrentStatus from "@/components/common/CurrentStatus";
-import { getListEmployeeOfAssessmentPeriod } from "@/services/api";
+import CurrentStatus from '@/components/common/CurrentStatus';
+import { getListEmployeeOfAssessmentPeriod } from '@/services/api';
 import {
   useDataAssessmentPeriodDialogStore,
   useExtendTimeDialogStore,
-} from "@/store";
-import { formatDate } from "@/utils";
-import { getUsernameFromEmail } from "@/utils/format";
-import { Button } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+} from '@/store';
+import { formatDate } from '@/utils';
+import { getUsernameFromEmail } from '@/utils/format';
+import { Button } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import {
   Dialog,
   DialogTitle,
@@ -15,26 +15,26 @@ import {
   DialogContent,
   DialogActions,
   Tooltip,
-} from "@mui/material";
+} from '@mui/material';
 import {
   DataGrid,
   gridClasses,
   GridColDef,
   GridRenderCellParams,
-} from "@mui/x-data-grid";
-import { useQuery } from "@tanstack/react-query";
-import React from "react";
+} from '@mui/x-data-grid';
+import { useQuery } from '@tanstack/react-query';
+import React from 'react';
 
 const DialogDataAssessmentPeriod = () => {
   const isOpen = useDataAssessmentPeriodDialogStore((store) => store.isOpen);
   const handleClose = useDataAssessmentPeriodDialogStore(
-    (store) => store.closeDialog,
+    (store) => store.closeDialog
   );
   const assessmentPeriodId = useDataAssessmentPeriodDialogStore(
-    (store) => store.assessmentPeriodId,
+    (store) => store.assessmentPeriodId
   );
   const assessmentPeriodName = useDataAssessmentPeriodDialogStore(
-    (store) => store.assessmentPeriodName,
+    (store) => store.assessmentPeriodName
   );
 
   // Pagination DataGrid
@@ -45,7 +45,7 @@ const DialogDataAssessmentPeriod = () => {
 
   const listEmployeeOfAssessmentPeriodQuery = useQuery({
     queryKey: [
-      "organization-listEmployeeOfAssessmentPeriod",
+      'organization-listEmployeeOfAssessmentPeriod',
       assessmentPeriodId,
       isOpen,
     ],
@@ -53,7 +53,7 @@ const DialogDataAssessmentPeriod = () => {
       getListEmployeeOfAssessmentPeriod(
         assessmentPeriodId as number,
         paginationModel.pageSize,
-        paginationModel.page,
+        paginationModel.page
       ),
     refetchOnWindowFocus: false,
     enabled: !!assessmentPeriodId && isOpen,
@@ -62,7 +62,7 @@ const DialogDataAssessmentPeriod = () => {
 
   // Row count for DataGrid pagination
   const rowCountRef = React.useRef(
-    listEmployeeOfAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0,
+    listEmployeeOfAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0
   );
   const rowCount = React.useMemo(() => {
     if (
@@ -77,86 +77,86 @@ const DialogDataAssessmentPeriod = () => {
 
   // Handle open dialog extend time
   const openDialogExtendTime = useExtendTimeDialogStore(
-    (store) => store.openDialog,
+    (store) => store.openDialog
   );
   const handleOpenExtendTime = (employeeId: string) => {
-    const managerId = "";
+    const managerId = '';
     openDialogExtendTime(employeeId, managerId, assessmentPeriodId as number);
   };
 
   // Define columns
   const columns: GridColDef[] = [
     {
-      field: "id",
-      headerName: "Employee ID",
-      headerAlign: "center",
-      align: "center",
+      field: 'id',
+      headerName: 'Employee ID',
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "username",
-      headerName: "Full Name",
+      field: 'username',
+      headerName: 'Full Name',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "block",
-      headerName: "Block",
+      field: 'block',
+      headerName: 'Block',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "department",
-      headerName: "Department",
+      field: 'department',
+      headerName: 'Department',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "team",
-      headerName: "Team",
+      field: 'team',
+      headerName: 'Team',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "jobPosition",
-      headerName: "Job Position",
+      field: 'jobPosition',
+      headerName: 'Job Position',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "status",
-      headerName: "Status",
+      field: 'status',
+      headerName: 'Status',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
       renderCell: (params: GridRenderCellParams) => {
         return <CurrentStatus currentStatus={params.value} />;
       },
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: 'email',
+      headerName: 'Email',
       flex: 1.5,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "result",
-      headerName: "Result",
+      field: 'result',
+      headerName: 'Result',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "managerEmails",
-      headerName: "Managers",
+      field: 'managerEmails',
+      headerName: 'Managers',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
       renderCell: (params: GridRenderCellParams) => {
         return (
           <div className="flex flex-wrap justify-center gap-2">
@@ -170,17 +170,17 @@ const DialogDataAssessmentPeriod = () => {
       },
     },
     {
-      field: "extendTime",
-      headerName: "Extend Time",
-      headerAlign: "center",
-      align: "center",
-      valueGetter: (value) => (value ? formatDate(value) : ""),
+      field: 'extendTime',
+      headerName: 'Extend Time',
+      headerAlign: 'center',
+      align: 'center',
+      valueGetter: (value) => (value ? formatDate(value) : ''),
     },
     {
-      field: "action",
-      headerName: "Action",
-      headerAlign: "center",
-      align: "center",
+      field: 'action',
+      headerName: 'Action',
+      headerAlign: 'center',
+      align: 'center',
       flex: 1,
       renderCell: (params: GridRenderCellParams) => {
         return (
@@ -212,7 +212,7 @@ const DialogDataAssessmentPeriod = () => {
         aria-label="close"
         onClick={handleClose}
         sx={(theme) => ({
-          position: "absolute",
+          position: 'absolute',
           right: 8,
           top: 8,
           color: theme.palette.grey[500],
@@ -225,12 +225,12 @@ const DialogDataAssessmentPeriod = () => {
           rows={listEmployee}
           columns={columns}
           getRowId={(row) => row.id}
-          getRowHeight={() => "auto"}
+          getRowHeight={() => 'auto'}
           loading={listEmployeeOfAssessmentPeriodQuery?.isLoading}
           slotProps={{
             loadingOverlay: {
-              variant: "skeleton",
-              noRowsVariant: "skeleton",
+              variant: 'skeleton',
+              noRowsVariant: 'skeleton',
             },
           }}
           disableRowSelectionOnClick
@@ -248,8 +248,8 @@ const DialogDataAssessmentPeriod = () => {
       </DialogContent>
       <DialogActions
         sx={{
-          justifyContent: "center",
-          padding: "1rem",
+          justifyContent: 'center',
+          padding: '1rem',
         }}
       ></DialogActions>
     </Dialog>

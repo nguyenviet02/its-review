@@ -1,20 +1,20 @@
-import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
-import "./globals.css";
-import SessionProviderWrapper from "@/providers/SessionProvider";
-import QueryClientProviderWrapper from "@/providers/QueryClientProvider";
-import LocalizationProviderWrapper from "@/providers/LocalizationProvider";
-import { AppProvider } from "@/providers/AppProvider";
-import { ToastContainer } from "react-toastify";
+import type { Metadata } from 'next';
+import { Montserrat } from 'next/font/google';
+import './globals.css';
+import SessionProviderWrapper from '@/providers/SessionProvider';
+import QueryClientProviderWrapper from '@/providers/QueryClientProvider';
+import LocalizationProviderWrapper from '@/providers/LocalizationProvider';
+import { AppProvider } from '@/providers/AppProvider';
+import { ToastContainer } from 'react-toastify';
 
 const montserrat = Montserrat({
-  variable: "--font-montserrat",
-  subsets: ["latin", "vietnamese"],
+  variable: '--font-montserrat',
+  subsets: ['latin', 'vietnamese'],
 });
 
 export const metadata: Metadata = {
-  title: "ITS Review",
-  description: "ITS Review",
+  title: 'ITS Review',
+  description: 'ITS Review',
 };
 
 export default async function RootLayout({
@@ -28,9 +28,7 @@ export default async function RootLayout({
         <QueryClientProviderWrapper>
           <SessionProviderWrapper>
             <LocalizationProviderWrapper>
-              <AppProvider>
-                {children}
-              </AppProvider>
+              <AppProvider>{children}</AppProvider>
             </LocalizationProviderWrapper>
           </SessionProviderWrapper>
         </QueryClientProviderWrapper>

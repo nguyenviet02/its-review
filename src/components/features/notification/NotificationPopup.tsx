@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { getNotification } from "@/services/api/notification";
-import { useNotificationPopupStore } from "@/store/slices/notification";
-import { useReviewFormDialogStore } from "@/store/slices/assessment";
-import { useEmployeeDialogSummaryInfoStore } from "@/store/slices/dialog";
-import { INotificationResponseAPI } from "@/types";
-import { formatDate, getFormType } from "@/utils";
+import { getNotification } from '@/services/api/notification';
+import { useNotificationPopupStore } from '@/store/slices/notification';
+import { useReviewFormDialogStore } from '@/store/slices/assessment';
+import { useEmployeeDialogSummaryInfoStore } from '@/store/slices/dialog';
+import { INotificationResponseAPI } from '@/types';
+import { formatDate, getFormType } from '@/utils';
 
 import {
   Transition,
@@ -14,12 +14,12 @@ import {
   DialogTitle,
   DialogPanel,
   Button,
-} from "@headlessui/react";
-import { XMarkIcon, BellIcon } from "@heroicons/react/24/outline";
-import { useQuery } from "@tanstack/react-query";
-import { Fragment, useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
-import Loading from "@/components/ui/Loading";
+} from '@headlessui/react';
+import { XMarkIcon, BellIcon } from '@heroicons/react/24/outline';
+import { useQuery } from '@tanstack/react-query';
+import { Fragment, useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
+import Loading from '@/components/ui/Loading';
 
 /**
  * Notification popup component that displays notifications and allows actions
@@ -32,7 +32,7 @@ const NotificationPopup = () => {
 
   // Fetch notifications when popup is opened
   const getListNotificationQuery = useQuery({
-    queryKey: ["getListNotification", isOpen],
+    queryKey: ['getListNotification', isOpen],
     queryFn: getNotification,
     staleTime: 1000 * 60 * 5, // 5 minutes
     refetchInterval: 1000 * 60 * 5, // 5 minutes
@@ -49,8 +49,8 @@ const NotificationPopup = () => {
       // Set timestamp in localStorage to prevent auto-showing for 1 hour
       const expiryTime = Date.now() + 60 * 60 * 1000; // 1 hour
       localStorage.setItem(
-        "notification_dont_show_until",
-        expiryTime.toString(),
+        'notification_dont_show_until',
+        expiryTime.toString()
       );
     }
     closePopup();
@@ -58,14 +58,14 @@ const NotificationPopup = () => {
 
   // Store actions for opening forms
   const setSummaryInfoData = useEmployeeDialogSummaryInfoStore(
-    (store) => store.setDialogData,
+    (store) => store.setDialogData
   );
   const openDialogSummaryInfo = useEmployeeDialogSummaryInfoStore(
-    (store) => store.openDialog,
+    (store) => store.openDialog
   );
   const setUserId = useReviewFormDialogStore((store) => store.setUserId);
   const setAssessmentPeriodId = useReviewFormDialogStore(
-    (store) => store.setAssessmentPeriodId,
+    (store) => store.setAssessmentPeriodId
   );
   const setFormType = useReviewFormDialogStore((store) => store.setFormType);
   const setIsManager = useReviewFormDialogStore((store) => store.setIsManager);
@@ -168,17 +168,17 @@ const NotificationPopup = () => {
                                   </div>
                                   <p className="text-sm text-gray-950">
                                     {isSelfReview
-                                      ? "Please review yourself. Click here to open the review form."
+                                      ? 'Please review yourself. Click here to open the review form.'
                                       : `You need to review ${notification?.employee?.username}. Click here to open the review form.`}
                                   </p>
                                   <p className="text-sm text-gray-600">
-                                    This form will be available until{" "}
+                                    This form will be available until{' '}
                                     <span className="font-semibold text-gray-900">
                                       {formatDate(
                                         isSelfReview
                                           ? notification?.annualReview
                                               ?.selfReviewEnd
-                                          : notification?.annualReview?.end,
+                                          : notification?.annualReview?.end
                                       )}
                                     </span>
                                   </p>

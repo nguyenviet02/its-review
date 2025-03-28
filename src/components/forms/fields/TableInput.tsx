@@ -1,5 +1,5 @@
-import { PlusCircleIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { Box, Button, IconButton } from "@mui/material";
+import { PlusCircleIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { Box, Button, IconButton } from '@mui/material';
 import {
   GridSlotProps,
   GridToolbarContainer,
@@ -8,34 +8,34 @@ import {
   GridColDef,
   DataGrid,
   GridRowModel,
-} from "@mui/x-data-grid";
-import { randomId } from "@mui/x-data-grid-generator";
-import dayjs from "dayjs";
-import React, { useMemo } from "react";
-import { useFormContext } from "react-hook-form";
+} from '@mui/x-data-grid';
+import { randomId } from '@mui/x-data-grid-generator';
+import dayjs from 'dayjs';
+import React, { useMemo } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 type Props = {
   disabled?: boolean;
   name: string;
 };
 
-declare module "@mui/x-data-grid" {
+declare module '@mui/x-data-grid' {
   interface ToolbarPropsOverrides {
     setTableData: (newRows: (oldRows: GridRowsProp) => GridRowsProp) => void;
     setRowModesModel: (
-      newModel: (oldModel: GridRowModesModel) => GridRowModesModel,
+      newModel: (oldModel: GridRowModesModel) => GridRowModesModel
     ) => void;
   }
 }
 
-function EditToolbar(props: GridSlotProps["toolbar"]) {
+function EditToolbar(props: GridSlotProps['toolbar']) {
   const { setTableData } = props;
 
   const handleClick = () => {
     const id = randomId();
     setTableData((oldRows) => [
       ...oldRows,
-      { id, goal: "", propose: "", estimatedTime: "" },
+      { id, goal: '', propose: '', estimatedTime: '' },
     ]);
   };
 
@@ -63,9 +63,9 @@ const TableInput = ({ disabled, name }: Props) => {
     return [
       {
         id: randomId(),
-        goal: "",
-        propose: "",
-        estimatedTime: "",
+        goal: '',
+        propose: '',
+        estimatedTime: '',
       },
     ];
   }, [dataTable]);
@@ -75,7 +75,7 @@ const TableInput = ({ disabled, name }: Props) => {
   const processRowUpdate = (newRow: GridRowModel) => {
     const updatedRow = { ...newRow };
     const newTableData = tableData.map((row) =>
-      row.id === newRow.id ? updatedRow : row,
+      row.id === newRow.id ? updatedRow : row
     );
     setTableData(newTableData);
     formMethods.setValue(name, newTableData);
@@ -90,33 +90,33 @@ const TableInput = ({ disabled, name }: Props) => {
 
   const columns: GridColDef[] = [
     {
-      field: "goal",
-      headerName: "Mục tiêu phát triển",
-      headerAlign: "center",
+      field: 'goal',
+      headerName: 'Mục tiêu phát triển',
+      headerAlign: 'center',
       editable: true,
       flex: 1,
     },
     {
-      field: "propose",
-      headerName: "Đề xuất",
-      headerAlign: "center",
+      field: 'propose',
+      headerName: 'Đề xuất',
+      headerAlign: 'center',
       editable: true,
       flex: 1,
     },
     {
-      field: "estimatedTime",
-      headerName: "Thời gian dự kiến thực hiện",
-      headerAlign: "center",
-      type: "date",
-      valueFormatter: (value) => value && dayjs(value).format("DD/MM/YYYY"),
+      field: 'estimatedTime',
+      headerName: 'Thời gian dự kiến thực hiện',
+      headerAlign: 'center',
+      type: 'date',
+      valueFormatter: (value) => value && dayjs(value).format('DD/MM/YYYY'),
       editable: true,
       flex: 1,
     },
     {
-      field: "actions",
-      headerName: "Thao tác",
-      headerAlign: "center",
-      align: "center",
+      field: 'actions',
+      headerName: 'Thao tác',
+      headerAlign: 'center',
+      align: 'center',
       sortable: false,
       width: 100,
       renderCell: (params) => (
@@ -138,9 +138,9 @@ const TableInput = ({ disabled, name }: Props) => {
   return (
     <Box
       sx={{
-        width: "100%",
-        "& .textPrimary": {
-          color: "text.primary",
+        width: '100%',
+        '& .textPrimary': {
+          color: 'text.primary',
         },
       }}
     >

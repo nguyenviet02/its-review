@@ -1,26 +1,26 @@
-"use server";
+'use server';
 
-import { getServerSession } from "next-auth";
-import React from "react";
-import { redirect } from "next/navigation";
-import { ROLES } from "@/types";
-import { authConfig } from "./api/auth/[...nextauth]/authConfig";
+import { getServerSession } from 'next-auth';
+import React from 'react';
+import { redirect } from 'next/navigation';
+import { ROLES } from '@/types';
+import { authConfig } from './api/auth/[...nextauth]/authConfig';
 
 const CheckRole = async () => {
   const session = await getServerSession(authConfig);
 
   if (!session) {
-    redirect("/login");
+    redirect('/login');
   }
 
   if (
     session?.user?.roles?.includes(ROLES.ADMIN) ||
     session?.user?.roles?.includes(ROLES.SUPER_ADMIN)
   ) {
-    redirect("/admin");
+    redirect('/admin');
   }
 
-  redirect("/employee");
+  redirect('/employee');
 
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-[#1e1b1b] text-white">

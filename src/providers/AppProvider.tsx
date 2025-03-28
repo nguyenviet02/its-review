@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useAxiosInstance } from "@/hooks/useAuth";
-import { ReactNode, useEffect } from "react";
+import { useAxiosInstance } from '@/hooks/useAuth';
+import { ReactNode, useEffect } from 'react';
 
 interface AppProviderProps {
   children: ReactNode;

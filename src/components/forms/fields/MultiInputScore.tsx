@@ -1,6 +1,6 @@
-import { MinusCircleIcon } from "@heroicons/react/24/outline";
-import React, { useEffect } from "react";
-import { useFieldArray, useFormContext } from "react-hook-form";
+import { MinusCircleIcon } from '@heroicons/react/24/outline';
+import React, { useEffect } from 'react';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 
 type Props = {
   disabled?: boolean;
@@ -15,7 +15,7 @@ const MultiInputScore = ({ disabled, name }: Props) => {
   });
   useEffect(() => {
     if (fields.length === 0 && fields.length < 1) {
-      append({ title: "", score: 0 });
+      append({ title: '', score: 0 });
     }
   }, [append, fields.length]);
   return (
@@ -57,7 +57,7 @@ const MultiInputScore = ({ disabled, name }: Props) => {
         className="w-fit shrink-0 rounded border border-black px-4 py-1 disabled:cursor-not-allowed disabled:opacity-50"
         disabled={disabled}
         onClick={() => {
-          append({ title: "", score: 0 });
+          append({ title: '', score: 0 });
         }}
       >
         Thêm

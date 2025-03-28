@@ -1,31 +1,31 @@
-import { FORM_TYPES, TFormReview } from "@/types";
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import { DialogContent, Dialog, DialogTitle, IconButton } from "@mui/material";
-import React, { useCallback, useEffect, useState } from "react";
-import PageReview from "../common/PageReview";
-import { useForm } from "react-hook-form";
-import formReviewBA from "@/forms/form-review-ba";
-import formReviewDev from "@/forms/form-review-dev";
-import formReviewTester from "@/forms/form-review-tester";
-import { useQuery } from "@tanstack/react-query";
-import { getDataFormReview, getListManagerOfEmployee } from "@/services/api";
-import { toast } from "react-toastify";
-import formReviewITS from "@/forms/form-review-its";
-import Loading from "../ui/Loading";
-import { useReviewFormDialogStore } from "@/store";
+import { FORM_TYPES, TFormReview } from '@/types';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { DialogContent, Dialog, DialogTitle, IconButton } from '@mui/material';
+import React, { useCallback, useEffect, useState } from 'react';
+import PageReview from '../common/PageReview';
+import { useForm } from 'react-hook-form';
+import formReviewBA from '@/forms/form-review-ba';
+import formReviewDev from '@/forms/form-review-dev';
+import formReviewTester from '@/forms/form-review-tester';
+import { useQuery } from '@tanstack/react-query';
+import { getDataFormReview, getListManagerOfEmployee } from '@/services/api';
+import { toast } from 'react-toastify';
+import formReviewITS from '@/forms/form-review-its';
+import Loading from '../ui/Loading';
+import { useReviewFormDialogStore } from '@/store';
 
 const DialogFormReview = () => {
   const isOpenReviewFormDialog = useReviewFormDialogStore(
-    (store) => store.isOpen,
+    (store) => store.isOpen
   );
   const handleCloseReviewFormDialog = useReviewFormDialogStore(
-    (store) => store.closeDialog,
+    (store) => store.closeDialog
   );
 
   const userId = useReviewFormDialogStore((store) => store.userId);
   const assessmentPeriodId = useReviewFormDialogStore(
-    (store) => store.assessmentPeriodId,
+    (store) => store.assessmentPeriodId
   );
   const isManager = useReviewFormDialogStore((store) => store.isManager);
   const formType = useReviewFormDialogStore((store) => store.type);
@@ -40,7 +40,7 @@ const DialogFormReview = () => {
 
   const getDataFormReviewQuery = useQuery({
     queryKey: [
-      "getDataFormReview",
+      'getDataFormReview',
       userId,
       assessmentPeriodId,
       isOpenReviewFormDialog,
@@ -53,7 +53,7 @@ const DialogFormReview = () => {
 
   const getListManagerQuery = useQuery({
     queryKey: [
-      "getListManagerOfEmployee",
+      'getListManagerOfEmployee',
       userId,
       assessmentPeriodId,
       isManager,
@@ -82,7 +82,7 @@ const DialogFormReview = () => {
       // Type assertion for API error with response property
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const error = getDataFormReviewQuery.error as any;
-      toast.error(error?.response?.data?.message || "Something went wrong");
+      toast.error(error?.response?.data?.message || 'Something went wrong');
     }
   }, [getDataFormReviewQuery?.error]);
 
@@ -135,7 +135,7 @@ const DialogFormReview = () => {
       maxWidth="xl"
       closeAfterTransition={false}
       sx={{
-        "& .MuiDialogContent-root": {
+        '& .MuiDialogContent-root': {
           paddingBottom: 0,
         },
       }}
@@ -151,7 +151,7 @@ const DialogFormReview = () => {
           setSelectedTabIndex(0);
         }}
         sx={(theme) => ({
-          position: "absolute",
+          position: 'absolute',
           right: 8,
           top: 8,
           color: theme.palette.grey[500],
@@ -188,7 +188,7 @@ const DialogFormReview = () => {
               <TabPanel className="relative rounded-xl bg-white/5 p-3 pb-6">
                 {renderTotalPoint(
                   getDataFormReviewQuery?.data?.form?.selfReview?.point,
-                  getDataFormReviewQuery?.data?.form?.selfReview?.maxPoint,
+                  getDataFormReviewQuery?.data?.form?.selfReview?.maxPoint
                 )}
                 <PageReview
                   defaultValues={getDataFormReviewQuery?.data?.form?.selfReview}
@@ -199,7 +199,7 @@ const DialogFormReview = () => {
                 const defaultValues =
                   getDataFormReviewQuery?.data?.form?.managerReviews?.find(
                     (data: { managerId: string }) =>
-                      data?.managerId === manager?.id,
+                      data?.managerId === manager?.id
                   );
                 return (
                   <TabPanel
@@ -208,12 +208,14 @@ const DialogFormReview = () => {
                   >
                     {renderTotalPoint(
                       defaultValues?.point,
-                      defaultValues?.maxPoint,
+                      defaultValues?.maxPoint
                     )}
                     <PageReview
                       defaultValues={defaultValues || {}}
                       managerId={manager?.id}
-											isEmployeeSelfReview={!!getDataFormReviewQuery?.data?.form?.selfReview}
+                      isEmployeeSelfReview={
+                        !!getDataFormReviewQuery?.data?.form?.selfReview
+                      }
                       fields={selectedForm}
                     />
                   </TabPanel>

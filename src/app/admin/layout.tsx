@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import DialogDataAssessmentPeriod from "@/components/admin/assessment-period-management/dialog/DialogListEmployee";
-import DialogEmployeeInfo from "@/components/admin/employee-management/DialogEmployeeInfo";
-import DialogAssessmentPeriod from "@/components/admin/assessment-period-management/dialog/DialogAssessmentPeriod";
-import Header from "@/components/layout/Header";
-import Sidebar from "@/components/layout/Sidebar";
-import { ROLES } from "@/types";
-import { useState } from "react";
-import DialogListManager from "@/components/admin/assessment-period-management/dialog/DialogListManager";
-import DialogExtendTime from "@/components/admin/assessment-period-management/dialog/DialogExtendTime";
+import DialogDataAssessmentPeriod from '@/components/admin/assessment-period-management/dialog/DialogListEmployee';
+import DialogEmployeeInfo from '@/components/admin/employee-management/DialogEmployeeInfo';
+import DialogAssessmentPeriod from '@/components/admin/assessment-period-management/dialog/DialogAssessmentPeriod';
+import Header from '@/components/layout/Header';
+import Sidebar from '@/components/layout/Sidebar';
+import { ROLES } from '@/types';
+import { useState } from 'react';
+import DialogListManager from '@/components/admin/assessment-period-management/dialog/DialogListManager';
+import DialogExtendTime from '@/components/admin/assessment-period-management/dialog/DialogExtendTime';
 
 export default function SuperAdminLayout({
   children,

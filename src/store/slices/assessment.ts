@@ -1,5 +1,5 @@
-import { FORM_TYPES } from "@/types";
-import { create } from "zustand";
+import { FORM_TYPES } from '@/types';
+import { create } from 'zustand';
 
 interface IReviewFormDialogStore {
   isOpen: boolean;
@@ -29,7 +29,7 @@ export const useReviewFormDialogStore = create<IReviewFormDialogStore>(
     setFormType: (type: FORM_TYPES) => set({ type }),
     setUserId: (userId: string) => set({ userId }),
     setIsManager: (isManager: boolean) => set({ isManager }),
-  }),
+  })
 );
 
 interface ExtendTimeDialogState {
@@ -38,9 +38,9 @@ interface ExtendTimeDialogState {
   employeeId: string;
   managerId: string;
   openDialog: (
-		employeeId: string,
-		managerId: string,
-    assessmentPeriodId: number | null,
+    employeeId: string,
+    managerId: string,
+    assessmentPeriodId: number | null
   ) => void;
   closeDialog: () => void;
 }
@@ -49,19 +49,19 @@ export const useExtendTimeDialogStore = create<ExtendTimeDialogState>(
   (set) => ({
     isOpen: false,
     assessmentPeriodId: null,
-    managerId: "",
-    employeeId: "",
+    managerId: '',
+    employeeId: '',
     openDialog: (
       employeeId: string,
       managerId: string,
-      assessmentPeriodId: number | null,
+      assessmentPeriodId: number | null
     ) => set({ isOpen: true, employeeId, managerId, assessmentPeriodId }),
     closeDialog: () =>
       set({
         isOpen: false,
-        employeeId: "",
-        managerId: "",
+        employeeId: '',
+        managerId: '',
         assessmentPeriodId: null,
       }),
-  }),
+  })
 );

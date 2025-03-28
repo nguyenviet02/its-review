@@ -1,8 +1,8 @@
-import { DocumentTextIcon } from "@heroicons/react/24/outline";
-import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
-import React from "react";
-import CurrentStatus from "./CurrentStatus";
-import { IAssessmentMinifyData } from "@/types";
+import { DocumentTextIcon } from '@heroicons/react/24/outline';
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import React from 'react';
+import CurrentStatus from './CurrentStatus';
+import { IAssessmentMinifyData } from '@/types';
 
 type Props = {
   data: IAssessmentMinifyData[];
@@ -10,71 +10,71 @@ type Props = {
 
 const DataReviewTable = ({ data }: Props) => {
   const columns: GridColDef[] = [
-    { field: "id", headerName: "Employee ID" },
+    { field: 'id', headerName: 'Employee ID' },
     {
-      field: "username",
-      headerName: "Full Name",
+      field: 'username',
+      headerName: 'Full Name',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "block",
-      headerName: "Block",
+      field: 'block',
+      headerName: 'Block',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "department",
-      headerName: "Department",
+      field: 'department',
+      headerName: 'Department',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "team",
-      headerName: "Team",
+      field: 'team',
+      headerName: 'Team',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "jobPosition",
-      headerName: "Job Position",
+      field: 'jobPosition',
+      headerName: 'Job Position',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "currentStatus",
-      headerName: "Status",
+      field: 'currentStatus',
+      headerName: 'Status',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
       renderCell: (params: GridRenderCellParams) => {
-        return <CurrentStatus currentStatus={params.value} />
+        return <CurrentStatus currentStatus={params.value} />;
       },
     },
     {
-      field: "period",
-      headerName: "Assessment Period",
+      field: 'period',
+      headerName: 'Assessment Period',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "deadline",
-      headerName: "Deadline",
+      field: 'deadline',
+      headerName: 'Deadline',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "action",
-      headerName: "Actions",
-      headerAlign: "center",
-      align: "center",
+      field: 'action',
+      headerName: 'Actions',
+      headerAlign: 'center',
+      align: 'center',
       renderCell: () => {
         return (
           <div className="flex items-center justify-center gap-4">
@@ -87,14 +87,14 @@ const DataReviewTable = ({ data }: Props) => {
     },
   ];
   const dataGridStyle = {
-    "&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell": {
-      py: "8px",
+    '&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell': {
+      py: '8px',
     },
-    "&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell": {
-      py: "15px",
+    '&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell': {
+      py: '15px',
     },
-    "&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell": {
-      py: "22px",
+    '&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell': {
+      py: '22px',
     },
   };
   return (
@@ -103,13 +103,13 @@ const DataReviewTable = ({ data }: Props) => {
       loading={false}
       rows={data}
       columns={columns}
-      getRowHeight={() => "auto"}
+      getRowHeight={() => 'auto'}
       disableRowSelectionOnClick
       pageSizeOptions={[5, 10, 25]}
       slotProps={{
         loadingOverlay: {
-          variant: "skeleton",
-          noRowsVariant: "skeleton",
+          variant: 'skeleton',
+          noRowsVariant: 'skeleton',
         },
       }}
     />

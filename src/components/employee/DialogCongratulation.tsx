@@ -1,5 +1,5 @@
-import { useDialogCongratulationStore } from "@/store";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { useDialogCongratulationStore } from '@/store';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import {
   IconButton,
   DialogContent,
@@ -7,15 +7,15 @@ import {
   Dialog,
   DialogTitle,
   Button,
-} from "@mui/material";
-import React from "react";
+} from '@mui/material';
+import React from 'react';
 
 const DialogCongratulation = () => {
   const dialogState = useDialogCongratulationStore((store) => store.isOpen);
   const dialogTitle = useDialogCongratulationStore((store) => store.title);
   const dialogContent = useDialogCongratulationStore((store) => store.content);
   const handleClose = useDialogCongratulationStore(
-    (store) => store.closeDialog,
+    (store) => store.closeDialog
   );
   return (
     <Dialog
@@ -33,7 +33,7 @@ const DialogCongratulation = () => {
         aria-label="close"
         onClick={handleClose}
         sx={(theme) => ({
-          position: "absolute",
+          position: 'absolute',
           right: 8,
           top: 8,
           color: theme.palette.grey[500],
@@ -44,8 +44,8 @@ const DialogCongratulation = () => {
       <DialogContent>{dialogContent}</DialogContent>
       <DialogActions
         sx={{
-          justifyContent: "center",
-          padding: "1rem",
+          justifyContent: 'center',
+          padding: '1rem',
         }}
       >
         <Button onClick={handleClose} className="button-primary">

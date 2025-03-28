@@ -1,5 +1,5 @@
-import { INotificationResponseAPI } from "@/types";
-import { create } from "zustand";
+import { INotificationResponseAPI } from '@/types';
+import { create } from 'zustand';
 
 interface INotificationPopupStore {
   isOpen: boolean;
@@ -17,5 +17,5 @@ export const useNotificationPopupStore = create<INotificationPopupStore>(
     closePopup: () => set({ isOpen: false }),
     setNotifications: (notifications: INotificationResponseAPI[]) =>
       set({ notifications }),
-  }),
+  })
 );

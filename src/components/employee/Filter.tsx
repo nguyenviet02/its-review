@@ -1,6 +1,6 @@
-import React from "react";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import React from 'react';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 
 const Filter = () => {
   return (

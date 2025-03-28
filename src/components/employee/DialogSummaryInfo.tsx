@@ -1,6 +1,6 @@
-import { TSummaryInfoData } from "@/types";
-import { Button } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { TSummaryInfoData } from '@/types';
+import { Button } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import {
   DialogContent,
   DialogActions,
@@ -12,49 +12,49 @@ import {
   TableCell,
   TableContainer,
   TableRow,
-} from "@mui/material";
-import { useQuery } from "@tanstack/react-query";
-import React from "react";
+} from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
+import React from 'react';
 import {
   useEmployeeDialogSummaryInfoStore,
   useReviewFormDialogStore,
-} from "@/store";
-import Loading from "../ui/Loading";
-import { getListManagerOfEmployee } from "@/services/api";
+} from '@/store';
+import Loading from '../ui/Loading';
+import { getListManagerOfEmployee } from '@/services/api';
 
 const DialogSummaryInfo = () => {
   const dialogState = useEmployeeDialogSummaryInfoStore(
-    (store) => store.dialogState,
+    (store) => store.dialogState
   );
   const handleCloseDialogSummaryInfo = useEmployeeDialogSummaryInfoStore(
-    (store) => store.closeDialog,
+    (store) => store.closeDialog
   );
 
   const userId = useReviewFormDialogStore((store) => store.userId);
   const handleOpenReviewForm = useReviewFormDialogStore(
-    (store) => store.openDialog,
+    (store) => store.openDialog
   );
 
   const assessmentPeriodId = useReviewFormDialogStore(
-    (store) => store.assessmentPeriodId,
+    (store) => store.assessmentPeriodId
   );
 
   const rows = [
     {
-      title: "Employee ID:",
-      field: "id",
+      title: 'Employee ID:',
+      field: 'id',
     },
     {
-      title: "Full Name:",
-      field: "username",
+      title: 'Full Name:',
+      field: 'username',
     },
     {
-      title: "Department:",
-      field: "department",
+      title: 'Department:',
+      field: 'department',
     },
     {
-      title: "Job Position:",
-      field: "jobPosition",
+      title: 'Job Position:',
+      field: 'jobPosition',
     },
   ];
 
@@ -64,7 +64,7 @@ const DialogSummaryInfo = () => {
   };
 
   const getListManagerQuery = useQuery({
-    queryKey: ["getListManagerOfEmployee", userId, assessmentPeriodId],
+    queryKey: ['getListManagerOfEmployee', userId, assessmentPeriodId],
     queryFn: async () =>
       getListManagerOfEmployee(assessmentPeriodId as number, userId as string),
     refetchOnWindowFocus: false,
@@ -88,7 +88,7 @@ const DialogSummaryInfo = () => {
         aria-label="close"
         onClick={handleCloseDialogSummaryInfo}
         sx={(theme) => ({
-          position: "absolute",
+          position: 'absolute',
           right: 8,
           top: 8,
           color: theme.palette.grey[500],
@@ -104,7 +104,7 @@ const DialogSummaryInfo = () => {
                 {rows.map((row) => (
                   <TableRow
                     key={row.field}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
                       <span className="font-semibold">{row.title}</span>
@@ -117,11 +117,11 @@ const DialogSummaryInfo = () => {
                 {listManager?.map(
                   (
                     manager: { id: string; username: string },
-                    index: number,
+                    index: number
                   ) => (
                     <TableRow
                       key={manager.id}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                     >
                       <TableCell component="th" scope="row">
                         <span className="font-semibold">
@@ -130,7 +130,7 @@ const DialogSummaryInfo = () => {
                       </TableCell>
                       <TableCell>{`${manager.username}`}</TableCell>
                     </TableRow>
-                  ),
+                  )
                 )}
               </TableBody>
             </Table>
@@ -139,8 +139,8 @@ const DialogSummaryInfo = () => {
       </DialogContent>
       <DialogActions
         sx={{
-          justifyContent: "center",
-          padding: "1rem",
+          justifyContent: 'center',
+          padding: '1rem',
         }}
       >
         <Button onClick={handleStartReviewForm} className="button-primary">

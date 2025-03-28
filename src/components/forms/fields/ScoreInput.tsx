@@ -1,7 +1,7 @@
-import React from "react";
-import { FieldError, useFormContext } from "react-hook-form";
-import ErrorMessage from "../ErrorMessage";
-import { get } from "lodash";
+import React from 'react';
+import { FieldError, useFormContext } from 'react-hook-form';
+import ErrorMessage from '../ErrorMessage';
+import { get } from 'lodash';
 
 type Props = {
   disabled?: boolean;
@@ -25,9 +25,9 @@ const ScoreInput = ({ disabled, name, title, isRequired }: Props) => {
           {...formMethods.register(name, {
             required: {
               value: !!isRequired,
-              message: "This field is required",
+              message: 'This field is required',
             },
-						valueAsNumber: true,
+            valueAsNumber: true,
           })}
         />
       </div>

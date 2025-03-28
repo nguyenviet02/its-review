@@ -1,5 +1,5 @@
-import axiosInstance from "../api/axiosInstance";
-import { setAccessTokenToStorage } from "./tokenStorage";
+import axiosInstance from '../api/axiosInstance';
+import { setAccessTokenToStorage } from './tokenStorage';
 
 /**
  * Authenticate user with credentials
@@ -7,13 +7,13 @@ import { setAccessTokenToStorage } from "./tokenStorage";
 export const loginUser = async (email: string, password: string) => {
   const response = await axiosInstance.post('/auth/login', {
     email,
-    password
+    password,
   });
-  
+
   if (response.data?.accessToken) {
     setAccessTokenToStorage(response.data.accessToken);
   }
-  
+
   return response.data;
 };
 

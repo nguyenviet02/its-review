@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import SelectBox from "@/components/admin/dashboard/SelectBox";
-import { IAssessmentPeriodResponseAPI } from "@/types";
-import { useQuery } from "@tanstack/react-query";
-import React, { useEffect } from "react";
-import { PieChart, BarChart } from "@mui/x-charts";
-import { Card, CardContent, Typography, Box } from "@mui/material";
-import Grid from "@mui/material/Grid2"; // Updated import for Grid
-import Loading from "@/components/ui/Loading";
-import { getDataDashboard, getListAssessmentPeriod } from "@/services/api";
+import SelectBox from '@/components/admin/dashboard/SelectBox';
+import { IAssessmentPeriodResponseAPI } from '@/types';
+import { useQuery } from '@tanstack/react-query';
+import React, { useEffect } from 'react';
+import { PieChart, BarChart } from '@mui/x-charts';
+import { Card, CardContent, Typography, Box } from '@mui/material';
+import Grid from '@mui/material/Grid2'; // Updated import for Grid
+import Loading from '@/components/ui/Loading';
+import { getDataDashboard, getListAssessmentPeriod } from '@/services/api';
 
 const Admin = () => {
   const [listAssessmentPeriod, setListAssessmentPeriod] = React.useState<
@@ -18,13 +18,13 @@ const Admin = () => {
     React.useState<number | null>(null);
 
   const listAssessmentPeriodQuery = useQuery({
-    queryKey: ["organization-listAssessmentPeriod"],
+    queryKey: ['organization-listAssessmentPeriod'],
     queryFn: () => getListAssessmentPeriod(9999, 0),
     refetchOnWindowFocus: false,
   });
 
   const dataDashboardQuery = useQuery({
-    queryKey: ["dashboard", selectedAssessmentPeriodId],
+    queryKey: ['dashboard', selectedAssessmentPeriodId],
     queryFn: async () => await getDataDashboard(selectedAssessmentPeriodId!),
     enabled: !!selectedAssessmentPeriodId,
   });
@@ -122,48 +122,48 @@ const Admin = () => {
                                 value:
                                   dataDashboard?.reviewStatusRatio
                                     .waitingEmployee || 0,
-                                label: "Waiting Employee",
-                                color: "#ff9800",
+                                label: 'Waiting Employee',
+                                color: '#ff9800',
                               },
                               {
                                 id: 1,
                                 value:
                                   dataDashboard?.reviewStatusRatio
                                     .waitingManager || 0,
-                                label: "Waiting Manager",
-                                color: "#2196f3",
+                                label: 'Waiting Manager',
+                                color: '#2196f3',
                               },
                               {
                                 id: 2,
                                 value:
                                   dataDashboard?.reviewStatusRatio.completed ||
                                   0,
-                                label: "Completed",
-                                color: "#4caf50",
+                                label: 'Completed',
+                                color: '#4caf50',
                               },
                             ],
                             highlightScope: {
-                              faded: "global",
-                              highlighted: "item",
+                              faded: 'global',
+                              highlighted: 'item',
                             },
                             faded: {
                               innerRadius: 30,
                               additionalRadius: -30,
-                              color: "gray",
+                              color: 'gray',
                             },
                             arcLabel: (item) => `${item.value}`,
                             arcLabelMinAngle: 35,
-                            arcLabelRadius: "60%",
+                            arcLabelRadius: '60%',
                           },
                         ]}
                         height={300}
                         margin={{ top: 0, bottom: 0, left: 0, right: 160 }}
                         slotProps={{
                           legend: {
-                            direction: "column",
+                            direction: 'column',
                             position: {
-                              vertical: "middle",
-                              horizontal: "right",
+                              vertical: 'middle',
+                              horizontal: 'right',
                             },
                             padding: 0,
                           },
@@ -199,14 +199,14 @@ const Admin = () => {
                             (item) => ({
                               ...item,
                               [item.department]: item.count,
-                            }),
+                            })
                           )}
-                          xAxis={[{ scaleType: "band", dataKey: "department" }]}
+                          xAxis={[{ scaleType: 'band', dataKey: 'department' }]}
                           series={[
                             {
-                              dataKey: "count",
+                              dataKey: 'count',
                               valueFormatter: (v) => `${v} employees`,
-                              color: "#3f51b5",
+                              color: '#3f51b5',
                             },
                           ]}
                           layout="vertical"

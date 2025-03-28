@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useNotificationPopupStore } from "@/store/slices/notification";
-import { BellIcon, Bars3Icon } from "@heroicons/react/24/outline";
-import { useSession, signOut } from "next-auth/react";
+import { useNotificationPopupStore } from '@/store/slices/notification';
+import { BellIcon, Bars3Icon } from '@heroicons/react/24/outline';
+import { useSession, signOut } from 'next-auth/react';
 
 type HeaderProps = {
   setSidebarOpen: (open: boolean) => void;
@@ -49,14 +49,14 @@ export default function Header({ setSidebarOpen }: HeaderProps) {
             <div className="flex items-center gap-2">
               <div>
                 <p className="font-medium text-gray-900">
-                  {session?.data?.user?.username || "User"}
+                  {session?.data?.user?.username || 'User'}
                 </p>
                 <p className="text-sm text-gray-600">
                   {session?.data?.user?.email}
                 </p>
               </div>
               <button
-                onClick={() => signOut({ callbackUrl: "/login" })}
+                onClick={() => signOut({ callbackUrl: '/login' })}
                 className="ml-4 rounded border border-gray-400 px-2 py-1 text-xs text-gray-600 hover:bg-gray-100"
               >
                 Sign Out

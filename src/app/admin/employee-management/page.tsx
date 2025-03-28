@@ -1,9 +1,9 @@
-"use server";
+'use server';
 
-import ButtonImportEmployeesFromExcel from "@/components/admin/employee-management/ButtonImportEmployeesFromExcel";
-import DataTable from "@/components/admin/employee-management/DataTable";
-import Filter from "@/components/admin/employee-management/Filter";
-import React from "react";
+import ButtonImportEmployeesFromExcel from '@/components/admin/employee-management/ButtonImportEmployeesFromExcel';
+import DataTable from '@/components/admin/employee-management/DataTable';
+import Filter from '@/components/admin/employee-management/Filter';
+import React from 'react';
 
 const EmployeeManagement = () => {
   return (

@@ -1,10 +1,10 @@
-import { IEmployee } from "@/types";
-import axiosInstance from "./axiosInstance";
+import { IEmployee } from '@/types';
+import axiosInstance from './axiosInstance';
 
 export const getListUser = async (
   limit: number,
   page: number,
-  order: string = "ASC",
+  order: string = 'ASC'
 ) => {
   const { data } = await axiosInstance.get(`/api/v1/users`, {
     params: {
@@ -17,6 +17,6 @@ export const getListUser = async (
 };
 
 export const importListUser = async (listUser: IEmployee[]) => {
-  const res = await axiosInstance.post("/api/v1/users", listUser);
+  const res = await axiosInstance.post('/api/v1/users', listUser);
   return res;
 };

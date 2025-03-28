@@ -1,6 +1,6 @@
-import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/outline";
-import React, { useEffect } from "react";
-import { Controller, useFieldArray, useFormContext } from "react-hook-form";
+import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
+import React, { useEffect } from 'react';
+import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 
 type Props = {
   disabled?: boolean;
@@ -15,7 +15,7 @@ const MultiInput = ({ disabled, name }: Props) => {
   });
   useEffect(() => {
     if (fields.length === 0 && fields.length < 1) {
-      append("");
+      append('');
     }
   }, [append, fields.length]);
   return (
@@ -51,7 +51,7 @@ const MultiInput = ({ disabled, name }: Props) => {
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
-          append("");
+          append('');
         }}
       >
         <PlusCircleIcon className="size-6" />

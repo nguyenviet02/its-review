@@ -1,6 +1,6 @@
-import React from "react";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { Button } from "@headlessui/react";
+import React from 'react';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
+import { Button } from '@headlessui/react';
 
 const Filter = () => {
   return (

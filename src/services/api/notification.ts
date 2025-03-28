@@ -1,5 +1,5 @@
-import { INotificationResponseAPI } from "@/types";
-import axiosInstance from "./axiosInstance";
+import { INotificationResponseAPI } from '@/types';
+import axiosInstance from './axiosInstance';
 
 /**
  * Get notifications for the current user
@@ -9,7 +9,7 @@ export const getNotification = async (): Promise<
   INotificationResponseAPI[]
 > => {
   const res = await axiosInstance.get<INotificationResponseAPI[]>(
-    `/api/v1/notifications`,
+    `/api/v1/notifications`
   );
   if (res.status === 200) {
     return res.data;

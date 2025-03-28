@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { importListUser } from "@/services/api";
-import { IEmployee } from "@/types";
-import { formatDataImportListEmployee } from "@/utils";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import React from "react";
-import * as XLSX from "xlsx";
-import Image from "next/image";
-import { toast } from "react-toastify";
+import { importListUser } from '@/services/api';
+import { IEmployee } from '@/types';
+import { formatDataImportListEmployee } from '@/utils';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import React from 'react';
+import * as XLSX from 'xlsx';
+import Image from 'next/image';
+import { toast } from 'react-toastify';
 
 const ButtonImportEmployeesFromExcel = () => {
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -16,18 +16,18 @@ const ButtonImportEmployeesFromExcel = () => {
     mutationFn: (listUser: IEmployee[]) => importListUser(listUser),
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: ["users-listUser"],
-        refetchType: "active",
+        queryKey: ['users-listUser'],
+        refetchType: 'active',
       });
       toast.dismiss();
-      toast.success("Import data successfully");
-      if (inputRef.current) inputRef.current.value = ""; // Reset the input value
+      toast.success('Import data successfully');
+      if (inputRef.current) inputRef.current.value = ''; // Reset the input value
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (error: any) => {
       toast.dismiss();
-      toast.error(error?.response?.data?.message || "Import data failed");
-      if (inputRef.current) inputRef.current.value = ""; // Reset the input value
+      toast.error(error?.response?.data?.message || 'Import data failed');
+      if (inputRef.current) inputRef.current.value = ''; // Reset the input value
     },
   });
 
@@ -36,7 +36,7 @@ const ButtonImportEmployeesFromExcel = () => {
     const file = e.target.files?.[0];
     const reader = new FileReader();
     reader.onload = function (e) {
-      toast.loading("Importing data...");
+      toast.loading('Importing data...');
       const data = e.target?.result;
       const workbook = XLSX.read(data);
 

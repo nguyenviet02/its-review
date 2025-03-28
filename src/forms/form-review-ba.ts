@@ -1,25 +1,25 @@
-import { FORM_FIELDS, TFormReview } from "@/types";
+import { FORM_FIELDS, TFormReview } from '@/types';
 
 const formReviewBA: TFormReview = [
   // Tiêu chí 1
   {
-    number: "1",
-    title: "Đánh giá chung về kết quả công việc",
+    number: '1',
+    title: 'Đánh giá chung về kết quả công việc',
     criterions: [
       {
-        number: "1.1",
-        title: "Bằng cấp chuyên môn",
-        name: "performanceReview.professionalQualifications",
+        number: '1.1',
+        title: 'Bằng cấp chuyên môn',
+        name: 'performanceReview.professionalQualifications',
         type: FORM_FIELDS.SELECT,
         isRequired: true,
         scoreScale: [
           {
             score: 0.2,
-            description: "ECBA",
+            description: 'ECBA',
           },
           {
             score: 0.4,
-            description: "ECBA",
+            description: 'ECBA',
           },
           {
             score: 0.6,
@@ -27,18 +27,18 @@ const formReviewBA: TFormReview = [
           },
           {
             score: 0.8,
-            description: "CCBA",
+            description: 'CCBA',
           },
           {
             score: 1,
-            description: "CBAP",
+            description: 'CBAP',
           },
         ],
       },
       {
-        number: "1.2",
-        title: "Kinh nghiệm",
-        name: "performanceReview.experience",
+        number: '1.2',
+        title: 'Kinh nghiệm',
+        name: 'performanceReview.experience',
         type: FORM_FIELDS.SELECT,
         isRequired: true,
         scoreScale: [
@@ -50,58 +50,58 @@ const formReviewBA: TFormReview = [
           },
           {
             score: 0.6,
-            description: "~3 tháng",
+            description: '~3 tháng',
           },
           {
             score: 0.9,
-            description: "~1.5 năm",
+            description: '~1.5 năm',
           },
           {
             score: 1.2,
-            description: "~3 năm",
+            description: '~3 năm',
           },
           {
             score: 1.5,
-            description: ">5 năm",
+            description: '>5 năm',
           },
         ],
       },
       {
-        number: "1.3",
-        title: "Công nghệ, domain",
-        name: "performanceReview.technologyAndDomain",
+        number: '1.3',
+        title: 'Công nghệ, domain',
+        name: 'performanceReview.technologyAndDomain',
         type: FORM_FIELDS.SELECT,
         isRequired: true,
         scoreScale: [
           {
             score: 0.3,
-            description: "N/A",
+            description: 'N/A',
           },
           {
             score: 0.6,
-            description: "N/A",
+            description: 'N/A',
           },
           {
             score: 0.9,
             description:
-              "Hiểu cấu trúc hệ thống. Có kiến thức về ít nhất 1 domain",
+              'Hiểu cấu trúc hệ thống. Có kiến thức về ít nhất 1 domain',
           },
           {
             score: 1.2,
             description:
-              "Có kiến thức về công nghệ được sử dụng trong cấu trúc hệ thống (Các loại API, architechture,...) Có kiến thức về ít nhất 1 domain",
+              'Có kiến thức về công nghệ được sử dụng trong cấu trúc hệ thống (Các loại API, architechture,...) Có kiến thức về ít nhất 1 domain',
           },
           {
             score: 1.5,
             description:
-              "Có kiến thức sâu về công nghệ được sử dụng, biết về các loại công nghệ mới. Có kiến thức về nhiều domain, kiến thức chuyên sâu về ít nhất 1 domain (~2 năm kinh nghiệm)",
+              'Có kiến thức sâu về công nghệ được sử dụng, biết về các loại công nghệ mới. Có kiến thức về nhiều domain, kiến thức chuyên sâu về ít nhất 1 domain (~2 năm kinh nghiệm)',
           },
         ],
       },
       {
-        number: "1.4",
-        title: "Tài liệu, biểu đồ",
-        name: "performanceReview.documentsAndCharts",
+        number: '1.4',
+        title: 'Tài liệu, biểu đồ',
+        name: 'performanceReview.documentsAndCharts',
         type: FORM_FIELDS.SELECT,
         isRequired: true,
         scoreScale: [
@@ -121,7 +121,7 @@ Có kiến thức về ý nghĩa của tài liệu`,
           {
             score: 1,
             description:
-              "Đã từng viết và vẽ ít nhất một loại tài liệu kết hợp với 1 diagram tổng quan",
+              'Đã từng viết và vẽ ít nhất một loại tài liệu kết hợp với 1 diagram tổng quan',
           },
           {
             score: 1.5,
@@ -181,15 +181,15 @@ Có khả năng viết các tài liệu theo dự án:
         ],
       },
       {
-        number: "1.5",
-        title: "Tiếp cận, làm việc trong dự án và khai thác thông tin",
-        name: "performanceReview.approachAndWorkInProjectsAndExploitInformation",
+        number: '1.5',
+        title: 'Tiếp cận, làm việc trong dự án và khai thác thông tin',
+        name: 'performanceReview.approachAndWorkInProjectsAndExploitInformation',
         type: FORM_FIELDS.SELECT,
         isRequired: true,
         scoreScale: [
           {
             score: 1,
-            description: "N/A",
+            description: 'N/A',
           },
           {
             score: 2,
@@ -230,68 +230,68 @@ Business Analysis Planning`,
         ],
       },
       {
-        number: "1.6",
-        title: "Giao tiếp, xử lý tình huống",
-        name: "performanceReview.communicationAndSituationHandling",
+        number: '1.6',
+        title: 'Giao tiếp, xử lý tình huống',
+        name: 'performanceReview.communicationAndSituationHandling',
         type: FORM_FIELDS.SELECT,
         isRequired: true,
         scoreScale: [
           {
             score: 0.6,
             description:
-              "Giao tiếp cơ bản. Có thể gặp khó khăn khi diễn đạt ý tưởng một cách rõ ràng, mạch lạc. Chủ yếu xử lý các tình huống đơn giản, theo quy trình có sẵn",
+              'Giao tiếp cơ bản. Có thể gặp khó khăn khi diễn đạt ý tưởng một cách rõ ràng, mạch lạc. Chủ yếu xử lý các tình huống đơn giản, theo quy trình có sẵn',
           },
           {
             score: 1.2,
             description:
-              "Có thể trao đổi thông tin cơ bản. Tuy nhiên, vẫn còn hạn chế trong việc lắng nghe, hiểu rõ quan điểm của người khác và truyền đạt thông tin phức tạp. Có thể xử lý một số tình huống không nằm trong quy trình, nhưng cần sự hỗ trợ từ đồng nghiệp hoặc cấp trên.",
+              'Có thể trao đổi thông tin cơ bản. Tuy nhiên, vẫn còn hạn chế trong việc lắng nghe, hiểu rõ quan điểm của người khác và truyền đạt thông tin phức tạp. Có thể xử lý một số tình huống không nằm trong quy trình, nhưng cần sự hỗ trợ từ đồng nghiệp hoặc cấp trên.',
           },
           {
             score: 1.8,
             description:
-              "Giao tiếp hiệu quả, linh hoạt trong nhiều tình huống. Có khả năng lắng nghe tích cực, đặt câu hỏi để làm rõ thông tin, và truyền đạt ý tưởng một cách thuyết phục. Xử lý tốt các tình huống phức tạp. ",
+              'Giao tiếp hiệu quả, linh hoạt trong nhiều tình huống. Có khả năng lắng nghe tích cực, đặt câu hỏi để làm rõ thông tin, và truyền đạt ý tưởng một cách thuyết phục. Xử lý tốt các tình huống phức tạp. ',
           },
           {
             score: 2.4,
             description:
-              "Có khả năng xây dựng mối quan hệ tốt với đồng nghiệp, khách hàng. Sử dụng ngôn ngữ chuyên môn hiệu quả. Xử lý tốt các vấn đề phức tạp. Có khả năng tìm ra các giải pháp sáng tạo.",
+              'Có khả năng xây dựng mối quan hệ tốt với đồng nghiệp, khách hàng. Sử dụng ngôn ngữ chuyên môn hiệu quả. Xử lý tốt các vấn đề phức tạp. Có khả năng tìm ra các giải pháp sáng tạo.',
           },
           {
             score: 3,
             description:
-              "Có khả năng thuyết phục và dẫn dắt người khác. Có thể tư vấn và đưa ra những quyết định đột phá, mang lại lợi ích lớn cho tổ chức. Có khả năng dự đoán và phòng ngừa các rủi ro.",
+              'Có khả năng thuyết phục và dẫn dắt người khác. Có thể tư vấn và đưa ra những quyết định đột phá, mang lại lợi ích lớn cho tổ chức. Có khả năng dự đoán và phòng ngừa các rủi ro.',
           },
         ],
       },
       {
-        number: "1.7",
-        title: "Phân tích nghiệp vụ, phân tích hệ thống",
-        name: "performanceReview.businessAnalysisAndSystemAnalysis",
+        number: '1.7',
+        title: 'Phân tích nghiệp vụ, phân tích hệ thống',
+        name: 'performanceReview.businessAnalysisAndSystemAnalysis',
         type: FORM_FIELDS.SELECT,
         isRequired: true,
         scoreScale: [
           {
             score: 2.1,
-            description: "Có tư duy về phân tích nghiệp vụ, phân tích hệ thống",
+            description: 'Có tư duy về phân tích nghiệp vụ, phân tích hệ thống',
           },
           {
             score: 4.2,
-            description: "Có tư duy về phân tích nghiệp vụ, phân tích hệ thống",
+            description: 'Có tư duy về phân tích nghiệp vụ, phân tích hệ thống',
           },
           {
             score: 6.3,
             description:
-              "Thể hiện được các phân tích nghiệp vụ, hệ thống trong kinh nghiệm làm việc",
+              'Thể hiện được các phân tích nghiệp vụ, hệ thống trong kinh nghiệm làm việc',
           },
           {
             score: 8.4,
             description:
-              "Có khả năng phân tích nghiệp vụ, hệ thống sâu và chi tiết, không thiếu case và flow. Recommend được system solution cho các vấn đề của stakeholder",
+              'Có khả năng phân tích nghiệp vụ, hệ thống sâu và chi tiết, không thiếu case và flow. Recommend được system solution cho các vấn đề của stakeholder',
           },
           {
             score: 10.5,
             description:
-              "Phân tích nghiệp vụ và hệ thống đủ sâu, ở cả mức high level (ví dụ: business model) và low level (hỗ trợ solution architechture). Recommend được solution (bao gồm cả high level solution) cho các vấn đề của stakeholder",
+              'Phân tích nghiệp vụ và hệ thống đủ sâu, ở cả mức high level (ví dụ: business model) và low level (hỗ trợ solution architechture). Recommend được solution (bao gồm cả high level solution) cho các vấn đề của stakeholder',
           },
         ],
       },
@@ -299,35 +299,35 @@ Business Analysis Planning`,
   },
 
   {
-    number: "2",
-    title: "Ý kiến, đề xuất của nhân viên",
+    number: '2',
+    title: 'Ý kiến, đề xuất của nhân viên',
     notForManager: true,
     criterions: [
       {
-        number: "2.1",
-        title: "Thuận lợi/Điểm mạnh",
-        name: "opinionAndSuggestions.strongPoints",
+        number: '2.1',
+        title: 'Thuận lợi/Điểm mạnh',
+        name: 'opinionAndSuggestions.strongPoints',
         type: FORM_FIELDS.TEXTAREA,
         isRequired: true,
       },
       {
-        number: "2.2",
-        title: "Khó khăn/Điểm yếu",
-        name: "opinionAndSuggestions.weakness",
+        number: '2.2',
+        title: 'Khó khăn/Điểm yếu',
+        name: 'opinionAndSuggestions.weakness',
         type: FORM_FIELDS.TEXTAREA,
         isRequired: true,
       },
       {
-        number: "2.3",
-        title: "Kế hoạch cho sự phát triển nghề nghiệp của bản thân",
-        name: "opinionAndSuggestions.plans",
+        number: '2.3',
+        title: 'Kế hoạch cho sự phát triển nghề nghiệp của bản thân',
+        name: 'opinionAndSuggestions.plans',
         type: FORM_FIELDS.TABLE,
         isRequired: true,
       },
       {
-        number: "2.4",
-        title: "Đề xuất khác (nếu có)",
-        name: "opinionAndSuggestions.otherSuggestions",
+        number: '2.4',
+        title: 'Đề xuất khác (nếu có)',
+        name: 'opinionAndSuggestions.otherSuggestions',
         type: FORM_FIELDS.TEXTAREA,
       },
     ],
@@ -335,24 +335,24 @@ Business Analysis Planning`,
 
   // Tiêu chí 3
   {
-    number: "3",
-    title: "Bổ sung khác",
-    description: "chỉ QLTT đánh giá , điểm max 1,5",
+    number: '3',
+    title: 'Bổ sung khác',
+    description: 'chỉ QLTT đánh giá , điểm max 1,5',
     isForManager: true,
     criterions: [
       {
-        number: "3.1",
+        number: '3.1',
         title:
-          "Khen thưởng nội bộ hoặc giải thưởng từ đơn vị chuyên môn/khách hàng.",
-        name: "bonus.internalCommendationOrAwardFromCustomer",
+          'Khen thưởng nội bộ hoặc giải thưởng từ đơn vị chuyên môn/khách hàng.',
+        name: 'bonus.internalCommendationOrAwardFromCustomer',
         type: FORM_FIELDS.SCORE_INPUT,
         isRequired: true,
       },
       {
-        number: "3.2",
+        number: '3.2',
         title:
-          "Nỗ lực đáng kể cho những nhiệm vụ rất khó khăn so với level hiện tại, mặc dù thành tích chưa rõ ràng.",
-        name: "bonus.considerableEffort",
+          'Nỗ lực đáng kể cho những nhiệm vụ rất khó khăn so với level hiện tại, mặc dù thành tích chưa rõ ràng.',
+        name: 'bonus.considerableEffort',
         type: FORM_FIELDS.SCORE_INPUT,
         isRequired: true,
       },
@@ -361,14 +361,14 @@ Business Analysis Planning`,
 
   // Tiêu chí 4
   {
-    number: "4",
-    title: "Nhận xét, đánh giá của quản lý",
+    number: '4',
+    title: 'Nhận xét, đánh giá của quản lý',
     isForManager: true,
     criterions: [
       {
-        number: "4.1",
-        title: "Nhận xét, đánh giá thêm",
-        name: "comment",
+        number: '4.1',
+        title: 'Nhận xét, đánh giá thêm',
+        name: 'comment',
         type: FORM_FIELDS.TEXTAREA,
         isRequired: true,
       },

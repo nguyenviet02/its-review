@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { ROLES } from "@/types";
-import { useMemo, useState } from "react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
-import DialogSummaryInfo from "@/components/employee/DialogSummaryInfo";
-import DialogFormReview from "@/components/employee/DialogFormReview";
-import DialogCongratulation from "@/components/employee/DialogCongratulation";
-import DialogDataAssessmentPeriod from "@/components/employee/review-employee/DialogDataAssessmentPeriod";
-import Sidebar from "@/components/layout/Sidebar";
-import Header from "@/components/layout/Header";
-import NotificationPopup from "@/components/features/notification/NotificationPopup";
-import NotificationController from "@/components/features/notification/NotificationController";
+import { ROLES } from '@/types';
+import { useMemo, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import DialogSummaryInfo from '@/components/employee/DialogSummaryInfo';
+import DialogFormReview from '@/components/employee/DialogFormReview';
+import DialogCongratulation from '@/components/employee/DialogCongratulation';
+import DialogDataAssessmentPeriod from '@/components/employee/review-employee/DialogDataAssessmentPeriod';
+import Sidebar from '@/components/layout/Sidebar';
+import Header from '@/components/layout/Header';
+import NotificationPopup from '@/components/features/notification/NotificationPopup';
+import NotificationController from '@/components/features/notification/NotificationController';
 
 export default function SuperAdminLayout({
   children,
@@ -24,8 +24,8 @@ export default function SuperAdminLayout({
 
   const navigationBaseRole = useMemo(() => {
     return [
-      { name: "Self Assessment", href: "/employee" },
-      { name: "Employee Assessment", href: "/employee/review-employee" },
+      { name: 'Self Assessment', href: '/employee' },
+      { name: 'Employee Assessment', href: '/employee/review-employee' },
     ];
   }, []);
 
@@ -52,7 +52,7 @@ export default function SuperAdminLayout({
                   <Link
                     key={index}
                     href={item.href}
-                    className={`block pb-1 ${isCurrent(item.href) ? "border-b border-neutral-400" : ""}`}
+                    className={`block pb-1 ${isCurrent(item.href) ? 'border-b border-neutral-400' : ''}`}
                   >
                     <span className="block p-2 text-sm font-medium">
                       {item.name}

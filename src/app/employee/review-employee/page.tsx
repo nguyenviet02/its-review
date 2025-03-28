@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import { DataGrid, GridColDef, GridRenderCellParams } from "@mui/x-data-grid";
-import React from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getMyListAssessmentPeriod } from "@/services/api";
-import { formatDate } from "@/utils";
-import { useDataAssessmentPeriodDialogStore } from "@/store";
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { getMyListAssessmentPeriod } from '@/services/api';
+import { formatDate } from '@/utils';
+import { useDataAssessmentPeriodDialogStore } from '@/store';
 
 const dataGridStyle = {
-  "&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell": {
-    py: "8px",
+  '&.MuiDataGrid-root--densityCompact .MuiDataGrid-cell': {
+    py: '8px',
   },
-  "&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell": {
-    py: "15px",
+  '&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell': {
+    py: '15px',
   },
-  "&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell": {
-    py: "22px",
+  '&.MuiDataGrid-root--densityComfortable .MuiDataGrid-cell': {
+    py: '22px',
   },
 };
 
@@ -27,12 +27,12 @@ const ReviewEmployee = () => {
   });
 
   const myListAssessmentPeriodQuery = useQuery({
-    queryKey: ["myListAssessmentPeriod"],
+    queryKey: ['myListAssessmentPeriod'],
     queryFn: () =>
       getMyListAssessmentPeriod(
         true,
         paginationModel.pageSize,
-        paginationModel.page,
+        paginationModel.page
       ),
     refetchOnWindowFocus: false,
   });
@@ -40,7 +40,7 @@ const ReviewEmployee = () => {
 
   // Row count for DataGrid pagination
   const rowCountRef = React.useRef(
-    myListAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0,
+    myListAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0
   );
   const rowCount = React.useMemo(() => {
     if (
@@ -53,15 +53,15 @@ const ReviewEmployee = () => {
   }, [myListAssessmentPeriodQuery?.data?.pagination?.totalRecords]);
 
   const openDialogDataAssessmentPeriod = useDataAssessmentPeriodDialogStore(
-    (store) => store.openDialog,
+    (store) => store.openDialog
   );
 
   const setAssessmentPeriodId = useDataAssessmentPeriodDialogStore(
-    (store) => store.setAssessmentPeriodId,
+    (store) => store.setAssessmentPeriodId
   );
 
   const setAsessmentPeriodName = useDataAssessmentPeriodDialogStore(
-    (store) => store.setAssessmentPeriodName,
+    (store) => store.setAssessmentPeriodName
   );
 
   const handleOpenDialogShowData = (id: number, name: string) => [
@@ -72,48 +72,48 @@ const ReviewEmployee = () => {
 
   const columns: GridColDef[] = [
     {
-      field: "title",
-      headerName: "Title",
+      field: 'title',
+      headerName: 'Title',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "start",
-      headerName: "Start Time",
+      field: 'start',
+      headerName: 'Start Time',
       valueGetter: (value) => formatDate(value),
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "selfReviewEnd",
-      headerName: "Self Review End",
+      field: 'selfReviewEnd',
+      headerName: 'Self Review End',
       valueGetter: (value) => formatDate(value),
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "end",
-      headerName: "End Time",
+      field: 'end',
+      headerName: 'End Time',
       valueGetter: (value) => formatDate(value),
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "extendTime",
-      headerName: "Extend Time",
-      headerAlign: "center",
-      align: "center",
-      valueGetter: (value) => (value ? formatDate(value) : ""),
+      field: 'extendTime',
+      headerName: 'Extend Time',
+      headerAlign: 'center',
+      align: 'center',
+      valueGetter: (value) => (value ? formatDate(value) : ''),
     },
     {
-      field: "action",
-      headerName: "Actions",
-      headerAlign: "center",
-      align: "center",
+      field: 'action',
+      headerName: 'Actions',
+      headerAlign: 'center',
+      align: 'center',
       minWidth: 200,
       sortable: false,
       disableColumnMenu: true,
@@ -145,14 +145,14 @@ const ReviewEmployee = () => {
           rowCount={rowCount}
           paginationModel={paginationModel}
           onPaginationModelChange={setPaginationModel}
-          getRowHeight={() => "auto"}
+          getRowHeight={() => 'auto'}
           getRowId={(row) => row.id}
           disableRowSelectionOnClick
           pageSizeOptions={[5, 10, 25]}
           slotProps={{
             loadingOverlay: {
-              variant: "skeleton",
-              noRowsVariant: "skeleton",
+              variant: 'skeleton',
+              noRowsVariant: 'skeleton',
             },
           }}
           paginationMode="server"

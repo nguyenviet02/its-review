@@ -1,7 +1,7 @@
-import { get } from "lodash";
-import { memo } from "react";
-import { FieldError, useFormContext } from "react-hook-form";
-import ErrorMessage from "../ErrorMessage";
+import { get } from 'lodash';
+import { memo } from 'react';
+import { FieldError, useFormContext } from 'react-hook-form';
+import ErrorMessage from '../ErrorMessage';
 
 type TextAreaProps = {
   disabled?: boolean;
@@ -17,7 +17,7 @@ type TextAreaProps = {
 function TextAreaField({
   disabled = false,
   name,
-  placeholder = "Please enter details here",
+  placeholder = 'Please enter details here',
   rows = 4,
   isRequired,
 }: TextAreaProps) {
@@ -33,7 +33,7 @@ function TextAreaField({
         className="resize-none rounded border border-gray-300 p-2 outline-none disabled:cursor-not-allowed"
         rows={rows}
         {...formMethods.register(name, {
-          required: { value: !!isRequired, message: "This field is required" },
+          required: { value: !!isRequired, message: 'This field is required' },
         })}
       />
       <ErrorMessage errorMessage={errorMessage} />

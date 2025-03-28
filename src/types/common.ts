@@ -1,14 +1,14 @@
 export enum ROLES {
-  SUPER_ADMIN = "super-admin",
-  ADMIN = "admin",
-  STAFF = "employee",
-  MANAGEMENT = "management",
+  SUPER_ADMIN = 'super-admin',
+  ADMIN = 'admin',
+  STAFF = 'employee',
+  MANAGEMENT = 'management',
 }
 
 export enum FORM_STATUS {
-  WAITING_FILL_FORM = "waitingFillForm",
-  WAITING_MANAGER = "waitingManager",
-  WAITING_BO = "waitingBO",
+  WAITING_FILL_FORM = 'waitingFillForm',
+  WAITING_MANAGER = 'waitingManager',
+  WAITING_BO = 'waitingBO',
 }
 
 export type TSummaryInfoData = {

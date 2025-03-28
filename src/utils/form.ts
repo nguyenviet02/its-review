@@ -1,45 +1,45 @@
-import { FORM_TYPES } from "@/types";
+import { FORM_TYPES } from '@/types';
 
 // Developer positions for form type determination
 const developerPositions = [
-  "dev",
-  "developer",
-  "fullstack",
-  "frontend",
-  "backend",
-  "mobile",
-  "lậptrìnhbackend",
-  "lậptrìnhblockchain",
-  "lậptrìnhfrontend",
-  "lậptrìnhjava",
-  "lậptrìnhnodejs",
-  "lậptrìnhphp",
-  "lậptrìnhios",
-  "pháttriểnphầnmềm",
-  "lậptrìnhfullstack",
+  'dev',
+  'developer',
+  'fullstack',
+  'frontend',
+  'backend',
+  'mobile',
+  'lậptrìnhbackend',
+  'lậptrìnhblockchain',
+  'lậptrìnhfrontend',
+  'lậptrìnhjava',
+  'lậptrìnhnodejs',
+  'lậptrìnhphp',
+  'lậptrìnhios',
+  'pháttriểnphầnmềm',
+  'lậptrìnhfullstack',
 ];
 
-const baPositions = ["ba", "businessanalyst", "phântíchnghiệpvụ"];
+const baPositions = ['ba', 'businessanalyst', 'phântíchnghiệpvụ'];
 
-const testerPositions = ["tester", "test", "kiểmthử"];
+const testerPositions = ['tester', 'test', 'kiểmthử'];
 
 /**
  * Determine the appropriate form type based on job position and manager status
  */
 export const getFormType = (
   jobPosition: string,
-  isManager: boolean,
+  isManager: boolean
 ): FORM_TYPES => {
   let formType = FORM_TYPES.UNSET;
   const jobPositionFormatted = jobPosition
     ?.trim()
     ?.toLowerCase()
-    ?.replaceAll(/[\s\-_.,!@#$%^&*()]/g, "");
+    ?.replaceAll(/[\s\-_.,!@#$%^&*()]/g, '');
 
   if (isManager) {
     if (developerPositions.includes(jobPositionFormatted)) {
       formType = FORM_TYPES.FOR_DEV_MANAGER_V1;
-    } else if (jobPositionFormatted === "its") {
+    } else if (jobPositionFormatted === 'its') {
       formType = FORM_TYPES.FOR_ITS_MANAGER_V1;
     } else if (baPositions.includes(jobPositionFormatted)) {
       formType = FORM_TYPES.FOR_BA_MANAGER_V1;
@@ -53,7 +53,7 @@ export const getFormType = (
 
   if (developerPositions.includes(jobPositionFormatted)) {
     formType = FORM_TYPES.FOR_DEV_V1;
-  } else if (jobPositionFormatted === "its") {
+  } else if (jobPositionFormatted === 'its') {
     formType = FORM_TYPES.FOR_ITS_V1;
   } else if (testerPositions.includes(jobPositionFormatted)) {
     formType = FORM_TYPES.FOR_TESTER_V1;

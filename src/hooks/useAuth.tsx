@@ -1,7 +1,10 @@
-import { AxiosInstance } from "axios";
-import { getSession } from "next-auth/react";
-import axiosInstance from "@/services/api/axiosInstance";
-import { getAccessTokenFromStorage, setAccessTokenToStorage } from "@/services/auth/tokenStorage";
+import { AxiosInstance } from 'axios';
+import { getSession } from 'next-auth/react';
+import axiosInstance from '@/services/api/axiosInstance';
+import {
+  getAccessTokenFromStorage,
+  setAccessTokenToStorage,
+} from '@/services/auth/tokenStorage';
 
 // Module-level variables
 let refreshPromise: Promise<string | undefined> | null = null;
@@ -25,7 +28,7 @@ async function refreshAccessToken(): Promise<string | undefined> {
       return token;
     })
     .catch((error) => {
-      console.error("Failed to refresh token:", error);
+      console.error('Failed to refresh token:', error);
       refreshPromise = null;
       return undefined;
     });
@@ -43,7 +46,7 @@ axiosInstance.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error),
+  (error) => Promise.reject(error)
 );
 
 // Response interceptor - only calls getSession() on auth errors
@@ -70,7 +73,7 @@ axiosInstance.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  },
+  }
 );
 
 /**

@@ -1,39 +1,39 @@
-import { getFormType } from "@/utils";
-import { DocumentTextIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { getFormType } from '@/utils';
+import { DocumentTextIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import {
   Dialog,
   DialogTitle,
   IconButton,
   DialogContent,
   DialogActions,
-} from "@mui/material";
+} from '@mui/material';
 import {
   DataGrid,
   gridClasses,
   GridColDef,
   GridRenderCellParams,
-} from "@mui/x-data-grid";
-import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import CurrentStatus from "@/components/common/CurrentStatus";
+} from '@mui/x-data-grid';
+import { useQuery } from '@tanstack/react-query';
+import React from 'react';
+import CurrentStatus from '@/components/common/CurrentStatus';
 import {
   useDataAssessmentPeriodDialogStore,
   useEmployeeDialogSummaryInfoStore,
   useReviewFormDialogStore,
-} from "@/store";
-import { getListEmployeeAssignedToMe } from "@/services/api";
+} from '@/store';
+import { getListEmployeeAssignedToMe } from '@/services/api';
 
 const DialogDataAssessmentPeriod = () => {
   const dialogState = useDataAssessmentPeriodDialogStore(
-    (store) => store.isOpen,
+    (store) => store.isOpen
   );
   const handleCloseDataAssessmentPeriodDialog =
     useDataAssessmentPeriodDialogStore((store) => store.closeDialog);
   const assessmentPeriodId = useDataAssessmentPeriodDialogStore(
-    (store) => store.assessmentPeriodId,
+    (store) => store.assessmentPeriodId
   );
   const assessmentPeriodName = useDataAssessmentPeriodDialogStore(
-    (store) => store.assessmentPeriodName,
+    (store) => store.assessmentPeriodName
   );
 
   // Pagination DataGrid
@@ -44,14 +44,14 @@ const DialogDataAssessmentPeriod = () => {
 
   const listEmployeeOfAssessmentPeriodQuery = useQuery({
     queryKey: [
-      "reviewEmployee-listEmployeeOfAssessmentPeriod",
+      'reviewEmployee-listEmployeeOfAssessmentPeriod',
       assessmentPeriodId,
     ],
     queryFn: () =>
       getListEmployeeAssignedToMe(
         assessmentPeriodId as number,
         paginationModel.pageSize,
-        paginationModel.page,
+        paginationModel.page
       ),
     refetchOnWindowFocus: false,
     enabled: !!assessmentPeriodId,
@@ -60,7 +60,7 @@ const DialogDataAssessmentPeriod = () => {
 
   // Row count for DataGrid pagination
   const rowCountRef = React.useRef(
-    listEmployeeOfAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0,
+    listEmployeeOfAssessmentPeriodQuery?.data?.pagination?.totalRecords || 0
   );
   const rowCount = React.useMemo(() => {
     if (
@@ -75,15 +75,15 @@ const DialogDataAssessmentPeriod = () => {
 
   // Handle open summary dialog
   const openDialogSummaryInfo = useEmployeeDialogSummaryInfoStore(
-    (store) => store.openDialog,
+    (store) => store.openDialog
   );
   const setSummaryInfoData = useEmployeeDialogSummaryInfoStore(
-    (store) => store.setDialogData,
+    (store) => store.setDialogData
   );
 
   const setUserId = useReviewFormDialogStore((store) => store.setUserId);
   const setAssessmentPeriodId = useReviewFormDialogStore(
-    (store) => store.setAssessmentPeriodId,
+    (store) => store.setAssessmentPeriodId
   );
   const setFormType = useReviewFormDialogStore((store) => store.setFormType);
   const setIsManager = useReviewFormDialogStore((store) => store.setIsManager);
@@ -107,60 +107,60 @@ const DialogDataAssessmentPeriod = () => {
   // Define columns
   const columns: GridColDef[] = [
     {
-      field: "username",
-      headerName: "Full Name",
+      field: 'username',
+      headerName: 'Full Name',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "block",
-      headerName: "Block",
+      field: 'block',
+      headerName: 'Block',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "department",
-      headerName: "Department",
+      field: 'department',
+      headerName: 'Department',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "team",
-      headerName: "Team",
+      field: 'team',
+      headerName: 'Team',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "jobPosition",
-      headerName: "Job Position",
+      field: 'jobPosition',
+      headerName: 'Job Position',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: 'email',
+      headerName: 'Email',
       flex: 1.5,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "result",
-      headerName: "Result",
+      field: 'result',
+      headerName: 'Result',
       flex: 1.5,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
     },
     {
-      field: "status",
-      headerName: "Status",
+      field: 'status',
+      headerName: 'Status',
       flex: 1,
-      headerAlign: "center",
-      align: "center",
+      headerAlign: 'center',
+      align: 'center',
       renderCell: (params: GridRenderCellParams) => {
         const status = params.row.status;
         return (
@@ -171,10 +171,10 @@ const DialogDataAssessmentPeriod = () => {
       },
     },
     {
-      field: "",
-      headerName: "Actions",
+      field: '',
+      headerName: 'Actions',
       flex: 1,
-      headerAlign: "center",
+      headerAlign: 'center',
       sortable: false,
       disableColumnMenu: true,
       renderCell: (params) => {
@@ -209,7 +209,7 @@ const DialogDataAssessmentPeriod = () => {
         aria-label="close"
         onClick={handleCloseDataAssessmentPeriodDialog}
         sx={(theme) => ({
-          position: "absolute",
+          position: 'absolute',
           right: 8,
           top: 8,
           color: theme.palette.grey[500],
@@ -222,12 +222,12 @@ const DialogDataAssessmentPeriod = () => {
           rows={listEmployee}
           columns={columns}
           getRowId={(row) => row.id}
-          getRowHeight={() => "auto"}
+          getRowHeight={() => 'auto'}
           loading={listEmployeeOfAssessmentPeriodQuery?.isLoading}
           slotProps={{
             loadingOverlay: {
-              variant: "skeleton",
-              noRowsVariant: "skeleton",
+              variant: 'skeleton',
+              noRowsVariant: 'skeleton',
             },
           }}
           disableRowSelectionOnClick
@@ -245,8 +245,8 @@ const DialogDataAssessmentPeriod = () => {
       </DialogContent>
       <DialogActions
         sx={{
-          justifyContent: "center",
-          padding: "1rem",
+          justifyContent: 'center',
+          padding: '1rem',
         }}
       ></DialogActions>
     </Dialog>

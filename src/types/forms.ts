@@ -1,24 +1,24 @@
 export enum FORM_FIELDS {
-  INPUT = "input",
-  MULTI_INPUT = "multi-input",
-  MULTI_INPUT_SCORE = "multi-input-score",
-  TEXTAREA = "textarea",
-  SELECT = "select",
-  SCORE_INPUT = "score-input",
-  TABLE = "table",
+  INPUT = 'input',
+  MULTI_INPUT = 'multi-input',
+  MULTI_INPUT_SCORE = 'multi-input-score',
+  TEXTAREA = 'textarea',
+  SELECT = 'select',
+  SCORE_INPUT = 'score-input',
+  TABLE = 'table',
 }
 
 export enum FORM_TYPES {
-  UNSET = "unset",
-  GENERAL = "general",
-  FOR_BA_V1 = "self_review_ba_v1",
-  FOR_BA_MANAGER_V1 = "manager_review_ba_v1",
-  FOR_DEV_V1 = "self_review_dev_v1",
-  FOR_DEV_MANAGER_V1 = "manager_review_dev_v1",
-  FOR_ITS_V1 = "self_review_its_v1",
-  FOR_ITS_MANAGER_V1 = "manager_review_its_v1",
-  FOR_TESTER_V1 = "self_review_tester_v1",
-  FOR_TESTER_MANAGER_V1 = "manager_review_tester_v1",
+  UNSET = 'unset',
+  GENERAL = 'general',
+  FOR_BA_V1 = 'self_review_ba_v1',
+  FOR_BA_MANAGER_V1 = 'manager_review_ba_v1',
+  FOR_DEV_V1 = 'self_review_dev_v1',
+  FOR_DEV_MANAGER_V1 = 'manager_review_dev_v1',
+  FOR_ITS_V1 = 'self_review_its_v1',
+  FOR_ITS_MANAGER_V1 = 'manager_review_its_v1',
+  FOR_TESTER_V1 = 'self_review_tester_v1',
+  FOR_TESTER_MANAGER_V1 = 'manager_review_tester_v1',
 }
 
 export interface IScoreScale {

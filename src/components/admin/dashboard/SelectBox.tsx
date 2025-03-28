@@ -1,6 +1,6 @@
-import { IAssessmentPeriodResponseAPI } from "@/types";
-import { Select } from "@headlessui/react";
-import React from "react";
+import { IAssessmentPeriodResponseAPI } from '@/types';
+import { Select } from '@headlessui/react';
+import React from 'react';
 
 type Props = {
   listAssessmentPeriod?: IAssessmentPeriodResponseAPI[];
@@ -16,7 +16,7 @@ const SelectBox = ({
   setSelectedAssessmentPeriodId,
 }: Props) => {
   const handleChangeAssessmentPeriodId = (
-    event: React.ChangeEvent<HTMLSelectElement>,
+    event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const selectedId = Number(event.target.value);
     setSelectedAssessmentPeriodId(selectedId);
@@ -24,7 +24,7 @@ const SelectBox = ({
   return (
     <div className="mt-2 w-full">
       <Select
-        defaultValue={selectedAssessmentPeriodId || ""}
+        defaultValue={selectedAssessmentPeriodId || ''}
         name="status"
         aria-label="Project status"
         className="rounded-md border border-gray-500 p-2 text-lg font-semibold"
@@ -35,7 +35,7 @@ const SelectBox = ({
             <option key={assessmentPeriod.id} value={assessmentPeriod.id}>
               {assessmentPeriod.title}
             </option>
-          ),
+          )
         )}
       </Select>
     </div>

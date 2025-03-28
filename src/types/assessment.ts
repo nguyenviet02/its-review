@@ -1,4 +1,4 @@
-import { IEmployee } from "./user";
+import { IEmployee } from './user';
 
 export interface IAssessmentMinifyData {
   id: string;

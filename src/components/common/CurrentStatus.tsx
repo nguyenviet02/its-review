@@ -1,31 +1,31 @@
-import React, { useMemo } from "react";
+import React, { useMemo } from 'react';
 
 type Props = {
-  currentStatus: "waiting_employee" | "waiting_manager" | "completed";
+  currentStatus: 'waiting_employee' | 'waiting_manager' | 'completed';
 };
 
 const CurrentStatus = ({ currentStatus }: Props) => {
   const status = useMemo(() => {
-    if (currentStatus === "waiting_employee") {
-      return "Waiting Employee";
+    if (currentStatus === 'waiting_employee') {
+      return 'Waiting Employee';
     }
-    if (currentStatus === "waiting_manager") {
-      return "Waiting Manager";
+    if (currentStatus === 'waiting_manager') {
+      return 'Waiting Manager';
     }
-    if (currentStatus === "completed") {
-      return "Completed";
+    if (currentStatus === 'completed') {
+      return 'Completed';
     }
   }, [currentStatus]);
 
   const bgColor = useMemo(() => {
-    if (currentStatus === "waiting_employee") {
-      return "bg-[#FFE874]";
+    if (currentStatus === 'waiting_employee') {
+      return 'bg-[#FFE874]';
     }
-    if (currentStatus === "waiting_manager") {
-      return "bg-[#78C0FF]";
+    if (currentStatus === 'waiting_manager') {
+      return 'bg-[#78C0FF]';
     }
-    if (currentStatus === "completed") {
-      return "bg-[#5AFF8B]";
+    if (currentStatus === 'completed') {
+      return 'bg-[#5AFF8B]';
     }
   }, [currentStatus]);
 

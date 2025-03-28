@@ -1,9 +1,9 @@
-"use server";
+'use server';
 
-import { getServerSession } from "next-auth";
-import SignInButton from "@/components/auth/SignInButton";
-import SignOutButton from "@/components/auth/SignOutButton";
-import { authConfig } from "../api/auth/[...nextauth]/authConfig";
+import { getServerSession } from 'next-auth';
+import SignInButton from '@/components/auth/SignInButton';
+import SignOutButton from '@/components/auth/SignOutButton';
+import { authConfig } from '../api/auth/[...nextauth]/authConfig';
 
 export default async function LoginPage() {
   const session = await getServerSession(authConfig);

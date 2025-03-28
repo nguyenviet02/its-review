@@ -1,25 +1,25 @@
-"use client";
+'use client';
 
-import { IAssessmentPeriod, IUpdateAssessmentPeriodPayload } from "@/types";
-import { Button, Field, Input, Label } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import { IAssessmentPeriod, IUpdateAssessmentPeriodPayload } from '@/types';
+import { Button, Field, Input, Label } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import {
   Dialog,
   DialogTitle,
   IconButton,
   DialogContent,
   DialogActions,
-} from "@mui/material";
-import React, { useEffect } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { Controller } from "react-hook-form";
-import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
-import dayjs from "dayjs";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createAssessmentPeriod, updateAssessmentPeriod } from "@/services/api";
-import { toast } from "react-toastify";
-import { useAssessmentPeriodDialogStore } from "@/store";
-import ErrorMessage from "@/components/forms/ErrorMessage";
+} from '@mui/material';
+import React, { useEffect } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import dayjs from 'dayjs';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { createAssessmentPeriod, updateAssessmentPeriod } from '@/services/api';
+import { toast } from 'react-toastify';
+import { useAssessmentPeriodDialogStore } from '@/store';
+import ErrorMessage from '@/components/forms/ErrorMessage';
 
 /**
  * Dialog component for creating and editing assessment periods
@@ -37,23 +37,23 @@ const DialogAssessmentPeriod = () => {
   } = useAssessmentPeriodDialogStore();
 
   // Determine if dialog is in edit mode
-  const isEditMode = mode === "edit";
+  const isEditMode = mode === 'edit';
 
   // Mutations
   const createAssessmentPeriodMutation = useMutation({
     mutationFn: createAssessmentPeriod,
     onSuccess: async () => {
       toast.dismiss();
-      toast.success("Create new assessment period successfully");
+      toast.success('Create new assessment period successfully');
       queryClient.invalidateQueries({
-        queryKey: ["organization-listAssessmentPeriod"],
-        refetchType: "active",
+        queryKey: ['organization-listAssessmentPeriod'],
+        refetchType: 'active',
       });
       closeDialog();
     },
     onError: (error) => {
       toast.dismiss();
-      toast.error("Create new assessment period failed: " + error.message);
+      toast.error('Create new assessment period failed: ' + error.message);
     },
   });
 
@@ -62,16 +62,16 @@ const DialogAssessmentPeriod = () => {
       updateAssessmentPeriod(payload),
     onSuccess: async () => {
       toast.dismiss();
-      toast.success("Update assessment period successfully");
+      toast.success('Update assessment period successfully');
       queryClient.invalidateQueries({
-        queryKey: ["organization-listAssessmentPeriod"],
-        refetchType: "active",
+        queryKey: ['organization-listAssessmentPeriod'],
+        refetchType: 'active',
       });
       closeDialog();
     },
     onError: (error) => {
       toast.dismiss();
-      toast.error("Update assessment period failed: " + error.message);
+      toast.error('Update assessment period failed: ' + error.message);
     },
   });
 
@@ -84,7 +84,7 @@ const DialogAssessmentPeriod = () => {
     formState: { errors },
   } = useForm<IAssessmentPeriod>({
     defaultValues: {
-      title: "",
+      title: '',
       start: null as Date | null,
       end: null as Date | null,
       selfReviewEnd: null as Date | null,
@@ -105,7 +105,7 @@ const DialogAssessmentPeriod = () => {
     } else if (!isEditMode) {
       // Reset form when in create mode
       reset({
-        title: "",
+        title: '',
         start: null as Date | null,
         end: null as Date | null,
         selfReviewEnd: null as Date | null,
@@ -114,16 +114,16 @@ const DialogAssessmentPeriod = () => {
   }, [assessmentPeriod, isEditMode, reset]);
 
   // Watch all date fields for validation
-  const startDate = watch("start");
-  const selfReviewEndDate = watch("selfReviewEnd");
-  const endDate = watch("end");
+  const startDate = watch('start');
+  const selfReviewEndDate = watch('selfReviewEnd');
+  const endDate = watch('end');
 
   const onSubmit: SubmitHandler<IAssessmentPeriod> = (data) => {
     if (isEditMode) {
       // Update existing assessment period
       if (!assessmentPeriod?.id) return;
 
-      toast.loading("Updating assessment period...");
+      toast.loading('Updating assessment period...');
       const payload: IUpdateAssessmentPeriodPayload = {
         id: assessmentPeriod.id,
         ...data,
@@ -135,7 +135,7 @@ const DialogAssessmentPeriod = () => {
       updateAssessmentPeriodMutation.mutate(payload);
     } else {
       // Create new assessment period
-      toast.loading("Creating new assessment period...");
+      toast.loading('Creating new assessment period...');
       const payload = {
         ...data,
         start: dayjs(data.start).toDate(),
@@ -158,13 +158,13 @@ const DialogAssessmentPeriod = () => {
       closeAfterTransition={false}
     >
       <DialogTitle id="alert-dialog-title" className="text-3xl font-bold">
-        {isEditMode ? "Edit Assessment Period" : "Create New Assessment Period"}
+        {isEditMode ? 'Edit Assessment Period' : 'Create New Assessment Period'}
       </DialogTitle>
       <IconButton
         aria-label="close"
         onClick={closeDialog}
         sx={(theme) => ({
-          position: "absolute",
+          position: 'absolute',
           right: 8,
           top: 8,
           color: theme.palette.grey[500],
@@ -179,8 +179,8 @@ const DialogAssessmentPeriod = () => {
             <Label className="label-form">Title</Label>
             <Input
               className="input-form"
-              {...register("title", {
-                required: "This field is required",
+              {...register('title', {
+                required: 'This field is required',
               })}
             />
             <ErrorMessage errorMessage={errors.title?.message} />
@@ -193,25 +193,25 @@ const DialogAssessmentPeriod = () => {
               control={control}
               name="start"
               rules={{
-                required: "This field is required",
+                required: 'This field is required',
                 validate: isEditMode
                   ? {
                       notBeforeSelfReview: (value) =>
                         !value ||
                         !selfReviewEndDate ||
                         dayjs(value).isBefore(dayjs(selfReviewEndDate)) ||
-                        "Start time must be before self review end time",
+                        'Start time must be before self review end time',
                     }
                   : {
                       notBeforeSelfReview: (value) =>
                         !value ||
                         !selfReviewEndDate ||
                         dayjs(value).isBefore(dayjs(selfReviewEndDate)) ||
-                        "Start time must be before self review end time",
+                        'Start time must be before self review end time',
                       notBeforeToday: (value) =>
                         !value ||
-                        dayjs(value).isAfter(dayjs().subtract(1, "day")) ||
-                        "Start time must be today or later",
+                        dayjs(value).isAfter(dayjs().subtract(1, 'day')) ||
+                        'Start time must be today or later',
                     },
               }}
               render={({ field }) => {
@@ -224,7 +224,7 @@ const DialogAssessmentPeriod = () => {
                     }}
                     slotProps={{ textField: { fullWidth: true } }}
                     shouldDisableDate={(date) =>
-                      dayjs(date).isBefore(dayjs(), "day")
+                      dayjs(date).isBefore(dayjs(), 'day')
                     }
                   />
                 );
@@ -240,18 +240,18 @@ const DialogAssessmentPeriod = () => {
               control={control}
               name="selfReviewEnd"
               rules={{
-                required: "This field is required",
+                required: 'This field is required',
                 validate: {
                   afterStart: (value) =>
                     !value ||
                     !startDate ||
                     dayjs(value).isAfter(dayjs(startDate)) ||
-                    "Self review end must be after start time",
+                    'Self review end must be after start time',
                   beforeEnd: (value) =>
                     !value ||
                     !endDate ||
                     dayjs(value).isBefore(dayjs(endDate)) ||
-                    "Self review end must be before end time",
+                    'Self review end must be before end time',
                 },
               }}
               render={({ field }) => {
@@ -265,11 +265,11 @@ const DialogAssessmentPeriod = () => {
                     slotProps={{ textField: { fullWidth: true } }}
                     shouldDisableDate={(date) =>
                       startDate
-                        ? dayjs(date).isBefore(dayjs(), "day") ||
-                          dayjs(date).isBefore(dayjs(startDate), "day") ||
-                          dayjs(date).isSame(dayjs(startDate), "day") ||
-                          dayjs(date).isAfter(dayjs(endDate), "day")
-                        : dayjs(date).isBefore(dayjs(), "day")
+                        ? dayjs(date).isBefore(dayjs(), 'day') ||
+                          dayjs(date).isBefore(dayjs(startDate), 'day') ||
+                          dayjs(date).isSame(dayjs(startDate), 'day') ||
+                          dayjs(date).isAfter(dayjs(endDate), 'day')
+                        : dayjs(date).isBefore(dayjs(), 'day')
                     }
                   />
                 );
@@ -285,13 +285,13 @@ const DialogAssessmentPeriod = () => {
               control={control}
               name="end"
               rules={{
-                required: "This field is required",
+                required: 'This field is required',
                 validate: {
                   afterSelfReview: (value) =>
                     !value ||
                     !selfReviewEndDate ||
                     dayjs(value).isAfter(dayjs(selfReviewEndDate)) ||
-                    "End time must be after self review end",
+                    'End time must be after self review end',
                 },
               }}
               render={({ field }) => {
@@ -305,13 +305,13 @@ const DialogAssessmentPeriod = () => {
                     slotProps={{ textField: { fullWidth: true } }}
                     shouldDisableDate={(date) =>
                       selfReviewEndDate
-                        ? dayjs(date).isBefore(dayjs(), "day") ||
+                        ? dayjs(date).isBefore(dayjs(), 'day') ||
                           dayjs(date).isBefore(
                             dayjs(selfReviewEndDate),
-                            "day",
+                            'day'
                           ) ||
-                          dayjs(date).isSame(dayjs(selfReviewEndDate), "day")
-                        : dayjs(date).isBefore(dayjs(), "day")
+                          dayjs(date).isSame(dayjs(selfReviewEndDate), 'day')
+                        : dayjs(date).isBefore(dayjs(), 'day')
                     }
                   />
                 );
@@ -323,8 +323,8 @@ const DialogAssessmentPeriod = () => {
       </DialogContent>
       <DialogActions
         sx={{
-          justifyContent: "center",
-          padding: "1rem",
+          justifyContent: 'center',
+          padding: '1rem',
         }}
       >
         <Button
@@ -338,11 +338,11 @@ const DialogAssessmentPeriod = () => {
         >
           {isEditMode
             ? updateAssessmentPeriodMutation.isPending
-              ? "Updating..."
-              : "Update"
+              ? 'Updating...'
+              : 'Update'
             : createAssessmentPeriodMutation.isPending
-              ? "Creating..."
-              : "Create"}
+              ? 'Creating...'
+              : 'Create'}
         </Button>
       </DialogActions>
     </Dialog>
