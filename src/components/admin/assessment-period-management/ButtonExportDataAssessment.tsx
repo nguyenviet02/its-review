@@ -3,6 +3,7 @@ import { Button } from "@headlessui/react";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import { useMutation } from "@tanstack/react-query";
 import React from "react";
+import { toast } from "react-toastify";
 
 type Props = {
   assessmentPeriodId: number;
@@ -22,6 +23,9 @@ const ButtonExportDataAssessment = ({
       link.setAttribute("download", `${assessmentPeriodTitle}.xlsx`);
       document.body.appendChild(link);
       link.click();
+    },
+    onError: (error: any) => {
+      toast.error(error?.response?.data?.message || "Export data failed");
     },
   });
   const handleExport = async () => {
