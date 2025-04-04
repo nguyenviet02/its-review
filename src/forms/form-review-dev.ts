@@ -578,7 +578,7 @@ For FE:
   {
     number: '5',
     title: 'Additional Review',
-    description: 'Only for Manager. Max Point: 5',
+    description: 'Only for Manager. Max Total Point: 5',
     isForManager: true,
     criterions: [
       {

@@ -383,7 +383,7 @@ const formReviewITS: TFormReview = [
   {
     number: '5',
     title: 'Bổ sung khác',
-    description: 'chỉ QLTT đánh giá , điểm max 1,5',
+    description: 'chỉ QLTT đánh giá , tổng điểm tối đa 1,5',
     isForManager: true,
     criterions: [
       {
