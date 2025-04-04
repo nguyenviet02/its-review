@@ -40,6 +40,7 @@ const DialogListManager = () => {
       'organization-listManagerOfAssessmentPeriod',
       assessmentPeriodId,
       isOpen,
+      paginationModel,
     ],
     queryFn: () =>
       getListManagerOfAssessmentPeriod(

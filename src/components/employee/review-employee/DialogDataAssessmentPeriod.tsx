@@ -46,6 +46,7 @@ const DialogDataAssessmentPeriod = () => {
     queryKey: [
       'reviewEmployee-listEmployeeOfAssessmentPeriod',
       assessmentPeriodId,
+      paginationModel,
     ],
     queryFn: () =>
       getListEmployeeAssignedToMe(

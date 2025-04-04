@@ -36,7 +36,7 @@ const Employee = () => {
   });
 
   const myListAssessmentPeriodQuery = useQuery({
-    queryKey: ['myListAssessmentPeriod'],
+    queryKey: ['myListAssessmentPeriod', paginationModel],
     queryFn: () =>
       getMyListAssessmentPeriod(
         false,

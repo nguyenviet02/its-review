@@ -48,6 +48,7 @@ const DialogDataAssessmentPeriod = () => {
       'organization-listEmployeeOfAssessmentPeriod',
       assessmentPeriodId,
       isOpen,
+      paginationModel,
     ],
     queryFn: () =>
       getListEmployeeOfAssessmentPeriod(
